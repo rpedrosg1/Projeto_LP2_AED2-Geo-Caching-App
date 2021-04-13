@@ -8,5 +8,6 @@ public class Main {
         System.out.println("anda");
         System.out.println("la");
         System.out.println("meu");
+        System.out.println();
     }
 }
