@@ -12,8 +12,6 @@ import static edu.ufp.inf.lp2.project.Admin_User.userST;
 
 public class Basic_User implements GestaoUtilizadores {
 
-  public int nr_caches_escondidas;
-
   public int nr_caches_visitadas;
 
   public String id;
@@ -24,8 +22,6 @@ public class Basic_User implements GestaoUtilizadores {
 
   //public ArrayList<TravelBug> myTravelBug;
 
-  public ArrayList<Logs>  myLogs;
-
   public List  historico;
 
   public List  myCache;
@@ -35,7 +31,7 @@ public class Basic_User implements GestaoUtilizadores {
     this.id = id;
     this.nome = nome;
     this.idade = idade;
-    this.nr_caches_escondidas=0;
+
     this.nr_caches_visitadas=0;
   }
 
@@ -48,7 +44,6 @@ public class Basic_User implements GestaoUtilizadores {
             "Name='" + nome + '\'' +
             ", Age=" + idade +
             ", ID='" + id + '\'' +
-            ",nr_caches_escondidas=" + nr_caches_escondidas +
             ", nr_caches_visitadas=" + nr_caches_visitadas +
             '}';
   }
@@ -56,7 +51,6 @@ public class Basic_User implements GestaoUtilizadores {
   @Override
   public void InserirUtilizador() {
     userST.put(this.id,this);
-
   }
 
   @Override
@@ -80,6 +74,14 @@ public class Basic_User implements GestaoUtilizadores {
   @Override
   public void RemoverUtilizador() {
     userST.remove(this.id);
+
+  }
+
+  public void VisitarCache_deixarObj(Cache c,Logs log,Objeto o){
+     this.nr_caches_visitadas++;
+     c.addLog(log);
+     c.addObjeto(o);
+
 
   }
 }

@@ -25,12 +25,12 @@ public class Cache extends Localizacao implements GestaoCaches {
    public Tipo myTipo;
 
 
-  public Cache(Premium_User mycreator_user, String nome, String descrisao, Localizacao myCoordenadas, Dificuldade myDificuldade, Tipo myTipo) {
+  public Cache(Premium_User mycreator_user, String nome, String descrisao, Localizacao myLocalizacao, Dificuldade myDificuldade, Tipo myTipo) {
     this.mycreator_user = mycreator_user;
     mycreator_user.nr_caches_escondidas++;
     this.nome = nome;
     this.descrisao = descrisao;
-    this.myLocalizacao = myCoordenadas;
+    this.myLocalizacao = myLocalizacao;
     this.myDificuldade = myDificuldade;
     this.myTipo = myTipo;
 
@@ -70,6 +70,16 @@ public class Cache extends Localizacao implements GestaoCaches {
 
   public Localizacao getMyLocalizacao() {
     return myLocalizacao;
+  }
+
+  public void addLog(Logs l) {
+  this.myLogs.add(l);
+  }
+
+  public void editLog() {
+  }
+
+  public void removeLog() {
   }
 
   @Override

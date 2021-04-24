@@ -1,13 +1,17 @@
 package edu.ufp.inf.lp2.project;
 
 public class Objeto {
-
+    public String id;
     public String nome;
+    public Cache myCache;
 
-    public Cache Cache;
 
-  public Objeto CriarNovo() {
-  return null;
+
+
+
+
+    public Objeto CriarNovo() {
+    return null;
   }
 
 }

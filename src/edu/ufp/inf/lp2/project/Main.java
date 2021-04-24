@@ -19,7 +19,7 @@ public class Main {
         Premium_User puser1 = new Premium_User("3","KINITO",100);
         //Admin
         Admin_User auser1 = new Admin_User("a","FAbiorei",0);
-        TravelBug tb = new TravelBug();
+
 
 
         //Coordenadas
@@ -33,7 +33,7 @@ public class Main {
         Admin_User.cacheST.put(c1.nome,c1);
 
         puser1.InserirUtilizador();
-        puser1.CriarTB(tb);
+
         auser1.InserirUtilizador();
         user1.InserirUtilizador();
         user2.InserirUtilizador();
