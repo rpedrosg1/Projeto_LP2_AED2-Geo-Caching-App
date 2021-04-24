@@ -5,7 +5,4 @@ enum Tipo {
   BASIC,
 
   PREMIUM;
-
-    public Cache myCache;
-
 }

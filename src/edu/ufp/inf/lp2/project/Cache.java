@@ -1,5 +1,7 @@
 package edu.ufp.inf.lp2.project;
 
+import edu.princeton.cs.algs4.BST;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -16,7 +18,7 @@ public class Cache extends Localizacao implements GestaoCaches {
    public Localizacao  myLocalizacao;
 
    public ArrayList<Objeto> objCache;
-   public List<TravelBug>  myTravelBug;
+   public ArrayList<TravelBug> myTravelBug;
 
    public List<Basic_User>  H_User;
    public Dificuldade myDificuldade;

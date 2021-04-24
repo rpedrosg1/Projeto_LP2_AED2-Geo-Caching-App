@@ -1,6 +1,8 @@
 package edu.ufp.inf.lp2.project;
 
 
+import edu.princeton.cs.algs4.BST;
+
 import java.util.Vector;
 
 public class LogsTB {
@@ -9,22 +11,28 @@ public class LogsTB {
 
   public Cache mypremCache;
 
-  public Vector  myDate;
 
-  public TravelBug myTravelBug;
+  public BST<Date,TravelBug> myLogsTB;
 
-  public void setPremUser() {
+
+  public void setPremUser(Premium_User u) {
+    this.mypremUser=u;
   }
 
   public Premium_User getPremUser() {
-  return null;
+  return this.mypremUser;
   }
 
-  public void setPremCache() {
+  public void setPremCache(Cache c) {
+  if (c.myTipo==Tipo.PREMIUM){
+    this.mypremCache=c;
+  }else{
+    System.out.println("This is not an premium cache ERROR");
+  }
   }
 
-  public Premium_User getPremCacher() {
-  return null;
+  public Cache getPremCache() {
+  return this.mypremCache;
   }
 
 }

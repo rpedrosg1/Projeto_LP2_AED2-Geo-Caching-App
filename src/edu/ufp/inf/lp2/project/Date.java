@@ -11,8 +11,6 @@ public class Date implements Comparable<Date>{
 
   public int year;
 
-  //public Logs myLogs;
-
   public LogsTB myLogsTB;
 
 
