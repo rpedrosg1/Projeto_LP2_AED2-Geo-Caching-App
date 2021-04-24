@@ -7,6 +7,10 @@ public class Premium_User extends Basic_User {
 
   public Vector  myTravelBugs;
 
+  public Premium_User(String id, String nome, int idade) {
+    super(id, nome, idade);
+  }
+
   public TravelBug CriarTB() {
   return null;
   }

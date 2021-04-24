@@ -1,6 +1,6 @@
 package edu.ufp.inf.lp2.project;
 
-public class Coordenadas extends Localização {
+public class Coordenadas extends Localizacao {
 
   public float longitude;
 

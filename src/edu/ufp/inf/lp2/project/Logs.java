@@ -10,6 +10,7 @@ public class Logs<Arraylist> {
 
 
   public void addLog() {
+
   }
 
   public void editLog() {
