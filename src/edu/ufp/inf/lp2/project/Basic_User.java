@@ -1,5 +1,8 @@
 package edu.ufp.inf.lp2.project;
 
+import edu.princeton.cs.algs4.LinearProbingHashST;
+import edu.princeton.cs.algs4.ST;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -12,6 +15,7 @@ public class Basic_User implements GestaoUtilizadores {
   public int nr_caches_escondidas;
 
   public int nr_caches_visitadas;
+
   public String id;
 
   public String nome;
@@ -36,7 +40,6 @@ public class Basic_User implements GestaoUtilizadores {
   }
 
   public Basic_User() {
-
   }
 
   @Override

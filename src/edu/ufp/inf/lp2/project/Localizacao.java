@@ -9,9 +9,20 @@ public class Localizacao {
 
     public String regiao;
 
-    public TravelBug myTravelBug;
+    //public TravelBug myTravelBug;
 
-    public Vector myCoordenadas;
+    public Coordenadas myCoordenadas;
+
+    public Localizacao(float raio, String regiao, Coordenadas myCoordenadas) {
+        this.raio = raio;
+        this.regiao = regiao;
+        //this.myTravelBug = myTravelBug;
+        this.myCoordenadas = myCoordenadas;
+    }
+
+    public Localizacao() {
+
+    }
 
     public String getRegiao() {
         return this.regiao;
@@ -29,4 +40,12 @@ public class Localizacao {
         return this.raio;
     }
 
+    @Override
+    public String toString() {
+        return "Localizacao{" +
+                "raio=" + raio +
+                ", regiao='" + regiao + '\'' +
+                ", myCoordenadas=" + myCoordenadas.toString() +
+                '}';
+    }
 }
