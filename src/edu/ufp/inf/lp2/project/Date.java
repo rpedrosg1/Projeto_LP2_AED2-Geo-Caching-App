@@ -1,6 +1,6 @@
 package edu.ufp.inf.lp2.project;
 
-public class Date {
+public class Date{
 
   public int day;
 

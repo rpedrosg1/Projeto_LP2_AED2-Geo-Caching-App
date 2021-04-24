@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.Vector;
 
 
-public class Cache extends Localização implements GestaoCaches {
+public class Cache extends Localizacao implements GestaoCaches {
 
   public String nome;
 
-  public String descrisão;
+  public String descrisao;
 
     public Logs myLogs;
     public Vector  myCoordenadas;
