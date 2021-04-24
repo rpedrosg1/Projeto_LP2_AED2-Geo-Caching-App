@@ -4,6 +4,8 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import static edu.ufp.inf.lp2.project.Main.userST;
+
 
 public class Basic_User implements GestaoUtilizadores {
 
@@ -50,7 +52,7 @@ public class Basic_User implements GestaoUtilizadores {
 
   @Override
   public void InserirUtilizador() {
-
+    userST.put(this.id,this);
 
   }
 
