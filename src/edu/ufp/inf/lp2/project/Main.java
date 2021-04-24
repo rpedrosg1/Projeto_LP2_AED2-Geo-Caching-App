@@ -20,8 +20,14 @@ public class Main {
         //Admin
         Admin_User auser1 = new Admin_User("a","FAbiorei",0);
         TravelBug tb = new TravelBug();
+
+
+        //Coordenadas
+        Coordenadas coordenadas1 = new Coordenadas(5.2f,9.2f);
+        //Localizacao
+        Localizacao localizacao1 = new Localizacao(50.2f,"Porto",coordenadas1);
         //Cache
-        Cache c1 = new Cache(puser1,"Caixa Misterio","El Misterio",new Localizacao(50.2f,"Porto",new Coordenadas(5.2f,9.2f)),Dificuldade.DIFICL,Tipo.BASIC);
+        Cache c1 = new Cache(puser1,"Caixa Misterio","El Misterio",localizacao1,Dificuldade.DIFICL,Tipo.BASIC);
 
 
         Admin_User.cacheST.put(c1.nome,c1);
@@ -38,6 +44,8 @@ public class Main {
         Admin_User.print_users();
         System.out.println("\n Caches:");
         Admin_User.print_caches();
+
+        System.out.println("Localizacao:" + c1.getMyLocalizacao());
     }
 
 

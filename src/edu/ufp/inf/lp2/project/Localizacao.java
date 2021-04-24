@@ -11,7 +11,7 @@ public class Localizacao {
 
     //public TravelBug myTravelBug;
 
-    public Coordenadas myCoordenadas;
+    private Coordenadas myCoordenadas;
 
     public Localizacao(float raio, String regiao, Coordenadas myCoordenadas) {
         this.raio = raio;
@@ -38,6 +38,10 @@ public class Localizacao {
 
     public float getRaio() {
         return this.raio;
+    }
+
+    public Coordenadas getMyCoordenadas() {
+        return myCoordenadas;
     }
 
     @Override

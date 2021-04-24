@@ -66,6 +66,10 @@ public class Cache extends Localizacao implements GestaoCaches {
   cacheST.remove(this.nome);
   }
 
+  public Localizacao getMyLocalizacao() {
+    return myLocalizacao;
+  }
+
   @Override
   public String toString() {
     return "Cache{" +

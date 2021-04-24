@@ -13,10 +13,12 @@ public class Coordenadas extends Localizacao {
   }
 
   public Coordenadas GetCoordenadas() {
-  return null;
+  return this;
   }
 
-  public void SetCoordenadas() {
+  public void SetCoordenadas(float longitude,float latitude) {
+    this.longitude=longitude;
+    this.latitude=latitude;
   }
 
   @Override
