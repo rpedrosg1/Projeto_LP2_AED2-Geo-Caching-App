@@ -3,7 +3,7 @@ package edu.ufp.inf.lp2.project;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
-import static edu.ufp.inf.lp2.project.Main.cacheST;
+import static edu.ufp.inf.lp2.project.Admin_User.cacheST;
 
 public class Cache extends Localizacao implements GestaoCaches {
 

@@ -14,7 +14,8 @@ public class TravelBug extends Objeto {
   public Vector  myLogsTB;
 
 
-  public void setCoordenadasTB() {
+  public void setCoordenadasTB( Coordenadas c) {
+    //this.myCache.myCoordenadas.
   }
 
   public Coordenadas getCoordenadasTB() {

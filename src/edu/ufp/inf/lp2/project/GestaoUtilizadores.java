@@ -4,7 +4,7 @@ public interface GestaoUtilizadores {
 
   public void InserirUtilizador();
 
-  public void EditarUtilizador();
+  public void EditarUtilizador(String new_name,int new_age);
 
   public void RemoverUtilizador();
 

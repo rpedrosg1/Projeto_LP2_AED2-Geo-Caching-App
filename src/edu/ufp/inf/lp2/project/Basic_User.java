@@ -4,7 +4,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Vector;
 
-import static edu.ufp.inf.lp2.project.Main.userST;
+import static edu.ufp.inf.lp2.project.Admin_User.userST;
 
 
 public class Basic_User implements GestaoUtilizadores {
@@ -18,7 +18,7 @@ public class Basic_User implements GestaoUtilizadores {
 
   public int idade;
 
-  public ArrayList<TravelBug> myTravelBug;
+  //public ArrayList<TravelBug> myTravelBug;
 
   public ArrayList<Logs>  myLogs;
 
@@ -57,12 +57,26 @@ public class Basic_User implements GestaoUtilizadores {
   }
 
   @Override
-  public void EditarUtilizador() {
+  public void EditarUtilizador(String new_name,int new_age) {
+    //atualiza na userST
+    /*Basic_User edit= userST.get(this.id);
+    edit.nome=new_name;
+    edit.idade=new_age;
+
+    //atualiza neste user
+    this.idade=new_age;
+    this.nome = new_name;
+    */
+    this.nome=new_name;
+    this.idade=new_age;
+    this.nr_caches_visitadas =10;
+    userST.put(this.id,this);
 
   }
 
   @Override
   public void RemoverUtilizador() {
+    userST.remove(this.id);
 
   }
 }
