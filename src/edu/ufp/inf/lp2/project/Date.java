@@ -5,6 +5,8 @@ import java.util.GregorianCalendar;
 
 public class Date implements Comparable<Date>{
 
+  public int hour;
+
   public int day;
 
   public int month;
@@ -14,7 +16,8 @@ public class Date implements Comparable<Date>{
   public LogsTB myLogsTB;
 
 
-  public Date(int day, int month, int year) {
+  public Date(int hour,int day, int month, int year) {
+    this.hour=hour;
     this.day = day;
     this.month = month;
     this.year = year;
@@ -22,15 +25,25 @@ public class Date implements Comparable<Date>{
 
   public Date() {
     GregorianCalendar c = new GregorianCalendar();
+    this.hour=24;
     this.day = c.get(Calendar.DAY_OF_MONTH);
     this.month = c.get(Calendar.MONTH) + 1;
     this.year = c.get(Calendar.YEAR);
   }
 
   public Date(Date d) {
+    this.hour=d.hour;
     this.day = d.day;
     this.month = d.month;
     this.year = d.year;
+  }
+  public int getHour() {
+    return hour;
+  }
+
+  public void setHour(int hour) {
+    if (hour < 0 || hour > 24) return;//caso seja erro
+    this.hour = hour;
   }
 
   public int getDay() {
@@ -75,11 +88,15 @@ public class Date implements Comparable<Date>{
 
 
   public int compareTo(Date d) {
-    if (this.year == d.year && this.month == d.month && this.day == d.day) {
+    if (this.year == d.year && this.month == d.month && this.day == d.day && this.hour==d.hour) {
       return 0;
     } else if (this.year == d.year) {
       if (this.month == d.month) {
-        return (this.day - d.day) / Math.abs(this.day - d.day);
+        if(this.day==d.day){
+          return (this.hour - d.hour) / Math.abs(this.hour - d.hour);
+        }else {
+          return (this.day - d.day) / Math.abs(this.day - d.day);
+        }
       } else {
         return (this.month - d.month) / Math.abs(this.month - d.month);
       }
@@ -92,7 +109,7 @@ public class Date implements Comparable<Date>{
     if(this.year == d.year){
       return differenceMonths(this,d);
     }
-    int ndias = differenceMonths(this,new Date(31,12,this.year));
+    int ndias = differenceMonths(this,new Date(0,31,12,this.year));
     while(this.year <d.year){
       if(isLeapYear(this.year)){
         ndias+=366;
@@ -102,7 +119,7 @@ public class Date implements Comparable<Date>{
       this.year+=1;
 
     }
-    ndias+=differenceMonths(new Date(1,1,this.year),d);
+    ndias+=differenceMonths(new Date(0,1,1,this.year),d);
     return ndias;
   }
 
@@ -140,7 +157,7 @@ public class Date implements Comparable<Date>{
 
 
   public String print() {
-    return  "(" + day + "," + month + "," + year + ")";
+    return  "("+ hour +"h)(" + day + "," + month + "," + year + ")";
   }
 
   @Override
@@ -149,6 +166,7 @@ public class Date implements Comparable<Date>{
             "day=" + day +
             ", month=" + month +
             ", year=" + year +
+            ", hours=" + hour +
             '}';
   }
 }

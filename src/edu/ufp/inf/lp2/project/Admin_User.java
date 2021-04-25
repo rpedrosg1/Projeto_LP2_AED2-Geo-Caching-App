@@ -1,5 +1,7 @@
 package edu.ufp.inf.lp2.project;
 
+import edu.princeton.cs.algs4.BST;
+import edu.princeton.cs.algs4.RedBlackBST;
 import edu.princeton.cs.algs4.ST;
 
 public class Admin_User extends Premium_User {
@@ -8,6 +10,8 @@ public class Admin_User extends Premium_User {
 
   public static ST<String,Basic_User> userST =new ST<>();
   public static ST<String,Cache> cacheST =new ST<>();
+  public RedBlackBST<Date,TravelBug> myLogsTB=new RedBlackBST<>();
+
   public Admin_User(String id, String nome, int idade) {
     super(id, nome, idade);
   }

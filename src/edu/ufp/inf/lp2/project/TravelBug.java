@@ -17,6 +17,8 @@ public class TravelBug extends Objeto {
     this.missao = missao;
   }
 
+
+
   @Override
   public String toString() {
     return "TravelBug{" +
@@ -31,6 +33,9 @@ public class TravelBug extends Objeto {
   public Localizacao getCoordenadasTB() {
     return this.myCache.myLocalizacao;
   }
+
+
+
 
   public void now() {
 

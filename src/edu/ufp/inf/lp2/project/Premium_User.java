@@ -7,15 +7,14 @@ import java.util.Vector;
 public class Premium_User extends Basic_User {
 
   public int nr_caches_criadas;
-  public LinearProbingHashST<String,TravelBug> myTravelBugs;
+  public LinearProbingHashST<String,TravelBug> myTravelBugs= new LinearProbingHashST<>();
 
   public Premium_User(String id, String nome, int idade) {
     super(id, nome, idade);
-    this.myTravelBugs = new LinearProbingHashST<>();
     nr_caches_criadas=0;
   }
-
-  public void AddTB(TravelBug tb) {
+  public void CriarTb(String id,String nome,Cache c,Cache missao){
+    TravelBug tb = new TravelBug(id,nome,c,this,missao);
     myTravelBugs.put(tb.id,tb);
     tb.h_user.add(this);
   }
@@ -24,10 +23,14 @@ public class Premium_User extends Basic_User {
     if(c.myTipo==Tipo.PREMIUM) {
       TravelBug tb= myTravelBugs.get(postb);
       myTravelBugs.delete(postb);
-      this.nr_caches_visitadas++;
+      c.myTravelBug.add(tb);
+
+
+
       c.addLog(log);
-      c.addObjeto(tb);
       this.Hcaches.add(c);
+      this.nr_caches_visitadas++;
+      c.H_User.add(this);
     }else{
       System.out.println("Esta cache n é premium logo n pode ter travel bugs\n");
     }
@@ -37,14 +40,36 @@ public class Premium_User extends Basic_User {
       //vamos buscar o tb e adcionamos na cache
       TravelBug tb= myTravelBugs.get(postb);
       myTravelBugs.delete(postb);
-
-
-
+      c.myTravelBug.add(tb);
+      //
+      tb.h_caches.add(c);
+      tb.myCache=c;
+      //retiramos da cache e adicionamos ao "bolso" do User
       myObj.put(old_o.id,old_o);
+      c.remObjeto(old_o);
 
       c.addLog(log);
       this.Hcaches.add(c);
       this.nr_caches_visitadas++;
+      c.H_User.add(this);
+    }else{
+      System.out.println("Esta cache n é premium logo n pode ter travel bugs\n");
+    }
+  }
+  public void VisitarCache_trocarTB_por_TB(Cache c,Logs log,String postb,TravelBug old_tb){
+    if(c.myTipo==Tipo.PREMIUM) {
+      //vamos buscar o tb e adcionamos na cache
+      TravelBug tb= this.myTravelBugs.get(postb);
+      this.myTravelBugs.delete(postb);
+      c.myTravelBug.add(tb);
+      //retiramos da cache e adicionamos ao "bolso" do User
+      this.myTravelBugs.put(old_tb.id,old_tb);
+      c.myTravelBug.remove(old_tb);
+      old_tb.h_user.add(this);
+      c.addLog(log);
+      this.Hcaches.add(c);
+      this.nr_caches_visitadas++;
+      c.H_User.add(this);
     }else{
       System.out.println("Esta cache n é premium logo n pode ter travel bugs\n");
     }

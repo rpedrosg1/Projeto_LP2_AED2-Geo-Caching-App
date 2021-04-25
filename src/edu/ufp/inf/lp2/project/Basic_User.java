@@ -24,7 +24,7 @@ public class Basic_User implements GestaoUtilizadores {
 
   //public ArrayList<TravelBug> myTravelBug;
 
-  public ArrayList<Cache> Hcaches=new ArrayList<>();;
+  public ArrayList<Cache> Hcaches=new ArrayList<>();
 
   public List  myCache;
 
@@ -114,7 +114,7 @@ public class Basic_User implements GestaoUtilizadores {
     for (String key :myObj.keys()) {
       System.out.println(myObj.get(key).toString());
     }
-    }
+  }
   public void printHcaches(){
     System.out.println("O user com o nome "+this.nome+" já visistou estas caches:");
     for (Cache c: Hcaches) {
