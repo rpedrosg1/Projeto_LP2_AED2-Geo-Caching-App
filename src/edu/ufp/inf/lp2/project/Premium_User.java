@@ -20,7 +20,34 @@ public class Premium_User extends Basic_User {
     tb.h_user.add(this);
   }
 
-  public void newOperation() {
+  public void VisitarCache_deixarTB(Cache c,Logs log, String postb){
+    if(c.myTipo==Tipo.PREMIUM) {
+      TravelBug tb= myTravelBugs.get(postb);
+      myTravelBugs.delete(postb);
+      this.nr_caches_visitadas++;
+      c.addLog(log);
+      c.addObjeto(tb);
+      this.Hcaches.add(c);
+    }else{
+      System.out.println("Esta cache n é premium logo n pode ter travel bugs\n");
+    }
+  }
+  public void VisitarCache_trocarTB_por_Obj(Cache c,Logs log,String postb,Objeto old_o){
+    if(c.myTipo==Tipo.PREMIUM) {
+      //vamos buscar o tb e adcionamos na cache
+      TravelBug tb= myTravelBugs.get(postb);
+      myTravelBugs.delete(postb);
+
+
+
+      myObj.put(old_o.id,old_o);
+
+      c.addLog(log);
+      this.Hcaches.add(c);
+      this.nr_caches_visitadas++;
+    }else{
+      System.out.println("Esta cache n é premium logo n pode ter travel bugs\n");
+    }
   }
 
 

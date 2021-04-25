@@ -14,20 +14,20 @@ public class Cache extends Localizacao implements GestaoCaches {
 
   public String descrisao;
 
-  public List<Logs> myLogs;
+  public ArrayList<Logs> myLogs=new ArrayList<>();
    public Localizacao  myLocalizacao;
 
-   public ArrayList<Objeto> objCache;
-   public ArrayList<TravelBug> myTravelBug;
+   public ArrayList<Objeto> objCache=new ArrayList<>();
+   public ArrayList<TravelBug> myTravelBug=new ArrayList<>();;
 
-   public List<Basic_User>  H_User;
+   public ArrayList<Basic_User>  H_User=new ArrayList<>();;
    public Dificuldade myDificuldade;
    public Tipo myTipo;
 
 
   public Cache(Premium_User mycreator_user, String nome, String descrisao, Localizacao myLocalizacao, Dificuldade myDificuldade, Tipo myTipo) {
     this.mycreator_user = mycreator_user;
-    mycreator_user.nr_caches_escondidas++;
+    mycreator_user.nr_caches_criadas++;
     this.nome = nome;
     this.descrisao = descrisao;
     this.myLocalizacao = myLocalizacao;

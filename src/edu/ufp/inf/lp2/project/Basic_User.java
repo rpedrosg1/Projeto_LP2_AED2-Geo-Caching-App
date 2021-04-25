@@ -12,6 +12,8 @@ import static edu.ufp.inf.lp2.project.Admin_User.userST;
 
 public class Basic_User implements GestaoUtilizadores {
 
+  public LinearProbingHashST<String,Objeto> myObj=new LinearProbingHashST<>();
+
   public int nr_caches_visitadas;
 
   public String id;
@@ -22,7 +24,7 @@ public class Basic_User implements GestaoUtilizadores {
 
   //public ArrayList<TravelBug> myTravelBug;
 
-  public List  historico;
+  public ArrayList<Cache> Hcaches=new ArrayList<>();;
 
   public List  myCache;
 
@@ -77,11 +79,43 @@ public class Basic_User implements GestaoUtilizadores {
 
   }
 
-  public void VisitarCache_deixarObj(Cache c,Logs log,Objeto o){
-     this.nr_caches_visitadas++;
+  public void VisitarCache_deixarObj(Cache c,Logs log,String posO){
+    Objeto o=myObj.get(posO);
+    o.setMyCache(c);
+    myObj.delete(posO);
+    this.nr_caches_visitadas++;
      c.addLog(log);
      c.addObjeto(o);
-
-
+     this.Hcaches.add(c);
   }
+  public void VisitarCache_trocarObj(Cache c,Logs log,String posO,Objeto old_o){
+    Objeto new_o=myObj.get(posO);
+    old_o.setMyCache(c);
+    myObj.delete(posO);
+    myObj.put(old_o.id,old_o);
+
+    c.tradeObjeto(old_o,new_o);
+    this.Hcaches.add(c);
+    this.nr_caches_visitadas++;
+    c.addLog(log);
+  }
+  public void CriarObj(String id,String nome,Cache c){
+    Objeto o = new Objeto(id, nome, c);
+    myObj.put(o.id,o);
+  }
+
+
+  public void printObj(){
+    System.out.println("O user com o nome "+this.nome+" tem estes objetos:");
+    for (String key :myObj.keys()) {
+      System.out.println(myObj.get(key).toString());
+    }
+    }
+
+
+
+
+
+
 }
+

@@ -11,8 +11,8 @@ public class TravelBug extends Objeto {
   public List<Cache> h_caches;
   public List<Basic_User> h_user;
 
-  public TravelBug(Cache myCache, Premium_User myPremium_User, Cache missao) {
-    this.myCache = myCache;
+  public TravelBug(String id,String nome,Cache myCache, Premium_User myPremium_User, Cache missao) {
+    super(id,nome,myCache);
     this.myPremium_User = myPremium_User;
     this.missao = missao;
   }

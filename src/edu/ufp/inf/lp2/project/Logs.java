@@ -6,7 +6,7 @@ public class Logs {
 
   public String messagem;
 
-
-
-
+  public Logs(String messagem) {
+    this.messagem = messagem;
+  }
 }

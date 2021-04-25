@@ -44,8 +44,12 @@ public class Main {
         Admin_User.print_users();
         System.out.println("\n Caches:");
         Admin_User.print_caches();
+        user1.CriarObj("2","Barbie",null);
+        user1.printObj();
+        Logs logs=new Logs("Eu estive aqui");
+        user1.VisitarCache_deixarObj(c1,logs,"2");
 
-        System.out.println("Localizacao:" + c1.getMyLocalizacao());
+        //System.out.println("Localizacao:" + c1.getMyLocalizacao());
     }
 
 
