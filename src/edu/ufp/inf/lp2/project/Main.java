@@ -48,7 +48,11 @@ public class Main {
         user1.printObj();
         Logs logs=new Logs("Eu estive aqui");
         user1.VisitarCache_deixarObj(c1,logs,"2");
-
+        user1.printHcaches();
+        user2.CriarObj("69","Actionman",null);
+        Objeto o=c1.FindObjeto("2");
+        user2.VisitarCache_trocarObj(c1,logs,"69",o);
+        user2.printObj();
         //System.out.println("Localizacao:" + c1.getMyLocalizacao());
     }
 

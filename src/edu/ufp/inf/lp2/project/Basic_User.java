@@ -76,18 +76,21 @@ public class Basic_User implements GestaoUtilizadores {
   @Override
   public void RemoverUtilizador() {
     userST.remove(this.id);
-
   }
 
   public void VisitarCache_deixarObj(Cache c,Logs log,String posO){
     Objeto o=myObj.get(posO);
     o.setMyCache(c);
     myObj.delete(posO);
-    this.nr_caches_visitadas++;
+
+
+     this.nr_caches_visitadas++;
      c.addLog(log);
      c.addObjeto(o);
      this.Hcaches.add(c);
+      c.H_User.add(this);
   }
+
   public void VisitarCache_trocarObj(Cache c,Logs log,String posO,Objeto old_o){
     Objeto new_o=myObj.get(posO);
     old_o.setMyCache(c);
@@ -96,6 +99,7 @@ public class Basic_User implements GestaoUtilizadores {
 
     c.tradeObjeto(old_o,new_o);
     this.Hcaches.add(c);
+    c.H_User.add(this);
     this.nr_caches_visitadas++;
     c.addLog(log);
   }
@@ -111,7 +115,12 @@ public class Basic_User implements GestaoUtilizadores {
       System.out.println(myObj.get(key).toString());
     }
     }
-
+  public void printHcaches(){
+    System.out.println("O user com o nome "+this.nome+" já visistou estas caches:");
+    for (Cache c: Hcaches) {
+      System.out.println(c.toString());
+    }
+  }
 
 
 

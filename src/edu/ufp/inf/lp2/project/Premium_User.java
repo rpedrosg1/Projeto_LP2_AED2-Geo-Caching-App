@@ -57,7 +57,7 @@ public class Premium_User extends Basic_User {
             "Name='" + nome + '\'' +
             ", Age=" + idade +
             ", ID='" + id + '\'' +
-            ",nr_caches_escondidas=" + nr_caches_criadas +
+            ",nr_caches_criadas=" + nr_caches_criadas +
             ", nr_caches_visitadas=" + nr_caches_visitadas +
             '}';
   }

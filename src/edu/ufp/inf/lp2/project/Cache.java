@@ -39,6 +39,14 @@ public class Cache extends Localizacao implements GestaoCaches {
   public void addObjeto(Objeto o) {
     objCache.add(o);
   }
+  public Objeto FindObjeto(String id) {
+    for (Objeto o: objCache){
+      if(o.id.equals(id)){
+        return o;
+      }
+    }
+    return null;
+  }
 
   public void tradeObjeto(Objeto old_o,Objeto new_o) {
     if(objCache.contains(old_o)) {
