@@ -9,7 +9,6 @@ import java.util.Vector;
 
 import static edu.ufp.inf.lp2.project.Admin_User.userST;
 
-
 public class Basic_User implements GestaoUtilizadores {
 
   public LinearProbingHashST<String,Objeto> myObj=new LinearProbingHashST<>();
@@ -77,40 +76,39 @@ public class Basic_User implements GestaoUtilizadores {
   }
 
   public void VisitarCache_deixarObj(Date d,Cache c,Logs log,String posO){
-    //vamos buscar o obj ao inventario e apagamos do inventario
+    ////////////////////////////////////////////////////////////////////////vamos buscar o obj ao inventario e apagamos do inventario
     Objeto o=myObj.get(posO);
     myObj.delete(posO);
-    //adicionamos aos logs da cache
-    Logs_Cache l=new Logs_Cache(d,c.nome,this.id,o.id);
+    ////////////////////////////////////////////////////////////////////////////adicionamos aos logs da cache
+    Logs_Cache l=new Logs_Cache(d,this.id,o.id,null);
     c.myLogs_cache.add(l);
-    //pomos o objeto a pertecer a cache
+    ///////////////////////////////////////////////////////////////////////////pomos o objeto a pertecer a cache
     c.objCache.add(o);
     o.setMyCache(c);
-    //incrementamos as caches visistadas pelo user
+    /////////////////////////////////////////////////////////////////////////incrementamos as caches visistadas pelo user
     this.nr_caches_visitadas++;
-    //adcionamos o log random q o utilizador escolheu
+    /////////////////////////////////////////////////////////////////////////adcionamos o log random q o utilizador escolheu
      c.addLog(log);
-     //adcionamos ao historico de cada um
+     /////////////////////////////////////////////////////////////////////////adcionamos ao historico de cada um
      this.Hcaches.add(c);
       c.H_User.add(this);
   }
 
   public void VisitarCache_trocarObj(Date d,Cache c,Logs log,String posO,Objeto old_o){
-    //vamos buscar o obj ao inventario e apagamos do inventario
+    ////////////////////////////////////////////////////////////////vamos buscar o obj ao inventario e apagamos do inventario
     Objeto new_o=myObj.get(posO);
     myObj.delete(posO);
-    //adicionamos aos logs da cache
-    Logs_Cache l=new Logs_Cache(d,c.nome,this.id,new_o.id);
+    ////////////////////////////////////////////////////////////////adicionamos aos logs da cache
+    Logs_Cache l=new Logs_Cache(d,this.id,new_o.id,old_o.id);
     c.myLogs_cache.add(l);
-    //pomos o objeto a pertecer a cache e adiconamos o outro ao inventario do user
+    //////////////////////////////////////////////////////////////////pomos o objeto a pertecer a cache e adiconamos o outro ao inventario do user
     new_o.setMyCache(c);
     myObj.put(old_o.id,old_o);
     c.tradeObjeto(old_o,new_o);
-    //incrementamos as caches visistadas pelo user
-    this.nr_caches_visitadas++;
-    //adcionamos o log random q o utilizador escolheu
+    //////////////////////////////////////////////////////////////////////adcionamos o log random q o utilizador escolheu
     c.addLog(log);
-    //adcionamos ao historico de cada um
+    //////////////////////////////////////////////////////////////////////adcionamos ao historico de cada um e increme
+    this.nr_caches_visitadas++;
     this.Hcaches.add(c);
     c.H_User.add(this);
   }
@@ -132,6 +130,7 @@ public class Basic_User implements GestaoUtilizadores {
       System.out.println(c.toString());
     }
   }
+
 
 
 

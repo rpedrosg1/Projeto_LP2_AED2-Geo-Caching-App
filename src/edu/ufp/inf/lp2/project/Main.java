@@ -28,10 +28,14 @@ public class Main {
         Localizacao localizacao1 = new Localizacao(50.2f,"Porto",coordenadas1);
         //Cache
         Cache c1 = new Cache(puser1,"Caixa Misterio","El Misterio",localizacao1,Dificuldade.DIFICL,Tipo.BASIC);
+        Cache c2 = new Cache(puser1,"Caixa yoyo","yoyyo",localizacao1,Dificuldade.DIFICL,Tipo.BASIC);
+        Cache c3 = new Cache(puser1,"Caixa idk","idk bro",localizacao1,Dificuldade.DIFICL,Tipo.BASIC);
         Date d1 =new Date();
         Date d2=new Date();
 
         Admin_User.cacheST.put(c1.nome,c1);
+        Admin_User.cacheST.put(c2.nome,c2);
+        Admin_User.cacheST.put(c3.nome,c3);
 
         puser1.InserirUtilizador();
 
@@ -54,6 +58,8 @@ public class Main {
         Objeto o=c1.FindObjeto("2");
         user2.VisitarCache_trocarObj(d2,c1,logs,"69",o);
         user2.printObj();
+        /////////////////////////////
+        Admin_User.r8_b(user1);
         //System.out.println("Localizacao:" + c1.getMyLocalizacao());
     }
 

@@ -4,13 +4,15 @@ import edu.princeton.cs.algs4.BST;
 import edu.princeton.cs.algs4.RedBlackBST;
 import edu.princeton.cs.algs4.ST;
 
+import java.util.ArrayList;
+
 public class Admin_User extends Premium_User {
 
 
 
   public static ST<String,Basic_User> userST =new ST<>();//usar red black
   public static ST<String,Cache> cacheST =new ST<>();
-  public ST <String,TravelBug> allLogsTB=new ST<>();
+
 
   public Admin_User(String id, String nome, int idade) {
     super(id, nome, idade);
@@ -18,7 +20,6 @@ public class Admin_User extends Premium_User {
 
   public void now() {
   }
-
 
   @Override
   public String toString() {
@@ -44,12 +45,45 @@ public class Admin_User extends Premium_User {
       System.out.println(cacheST.get(u).toString());
     }
   }
+  public static void r8_a(){
 
-  public void  printTb(){//isto deve tar mal
-    for (String t : myTravelBugs.keys()){
+}
 
-      System.out.println(myTravelBugs.get(t).toString());
+  public static void r8_b(Basic_User user){
+    int i;
+    System.out.println("Falta ao user "+user.nome+" visitar as seguintes caches:");
+    String nomecache;
+    for (String u : cacheST){
+      i=0;
+      nomecache=cacheST.get(u).nome;
+      for (Cache c:user.Hcaches){
+        if (c.nome.equals(nomecache)) {
+          i = 1;
+          break;
+        }
+      }
+      if(i==0) System.out.println(nomecache);
     }
   }
+
+
+  public static void r8_c(){
+
+  }
+  public static void r8_d(){
+
+  }
+  public static void r8_e(){
+
+  }
+  public static void r8_f(){
+
+  }
+
+
+
+
+
+
 
 }
