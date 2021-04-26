@@ -15,7 +15,8 @@ public class Cache extends Localizacao implements GestaoCaches {
   public String descrisao;
 
   public ArrayList<Logs> myLogs=new ArrayList<>();
-   public Localizacao  myLocalizacao;
+  public ArrayList<Logs_Cache> myLogs_cache = new ArrayList<>();
+  public Localizacao  myLocalizacao;
 
    public ArrayList<Objeto> objCache=new ArrayList<>();
    public ArrayList<TravelBug> myTravelBug=new ArrayList<>();;

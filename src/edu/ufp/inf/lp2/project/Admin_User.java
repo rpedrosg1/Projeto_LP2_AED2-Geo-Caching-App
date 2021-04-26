@@ -8,9 +8,9 @@ public class Admin_User extends Premium_User {
 
 
 
-  public static ST<String,Basic_User> userST =new ST<>();
+  public static ST<String,Basic_User> userST =new ST<>();//usar red black
   public static ST<String,Cache> cacheST =new ST<>();
-  public RedBlackBST<Date,TravelBug> myLogsTB=new RedBlackBST<>();
+  public ST <String,TravelBug> allLogsTB=new ST<>();
 
   public Admin_User(String id, String nome, int idade) {
     super(id, nome, idade);
@@ -47,6 +47,7 @@ public class Admin_User extends Premium_User {
 
   public void  printTb(){//isto deve tar mal
     for (String t : myTravelBugs.keys()){
+
       System.out.println(myTravelBugs.get(t).toString());
     }
   }

@@ -28,7 +28,8 @@ public class Main {
         Localizacao localizacao1 = new Localizacao(50.2f,"Porto",coordenadas1);
         //Cache
         Cache c1 = new Cache(puser1,"Caixa Misterio","El Misterio",localizacao1,Dificuldade.DIFICL,Tipo.BASIC);
-
+        Date d1 =new Date();
+        Date d2=new Date();
 
         Admin_User.cacheST.put(c1.nome,c1);
 
@@ -47,11 +48,11 @@ public class Main {
         user1.CriarObj("2","Barbie",null);
         user1.printObj();
         Logs logs=new Logs("Eu estive aqui");
-        user1.VisitarCache_deixarObj(c1,logs,"2");
+        user1.VisitarCache_deixarObj(d1,c1,logs,"2");
         user1.printHcaches();
         user2.CriarObj("69","Actionman",null);
         Objeto o=c1.FindObjeto("2");
-        user2.VisitarCache_trocarObj(c1,logs,"69",o);
+        user2.VisitarCache_trocarObj(d2,c1,logs,"69",o);
         user2.printObj();
         //System.out.println("Localizacao:" + c1.getMyLocalizacao());
     }

@@ -21,15 +21,17 @@ public class Premium_User extends Basic_User {
 
   public void VisitarCache_deixarTB(Cache c,Logs log, String postb){
     if(c.myTipo==Tipo.PREMIUM) {
+      //vamos buscar o TB ao inventario
       TravelBug tb= myTravelBugs.get(postb);
       myTravelBugs.delete(postb);
+      //adcionamos o tb a cache
       c.myTravelBug.add(tb);
 
-
-
-      c.addLog(log);
-      this.Hcaches.add(c);
       this.nr_caches_visitadas++;
+      //adcionamos o log random a cache
+      c.addLog(log);
+      //adicionamos ao histirico de cada um
+      this.Hcaches.add(c);
       c.H_User.add(this);
     }else{
       System.out.println("Esta cache n é premium logo n pode ter travel bugs\n");
