@@ -2,17 +2,18 @@ package edu.ufp.inf.lp2.project;
 import edu.ufp.inf.lp2.project.Cache;
 import edu.princeton.cs.algs4.BST;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class TravelBug extends Objeto {
   public Premium_User myPremium_User;
   public Cache missao;
-  public List<Cache> h_caches;
-  public List<Basic_User> h_user;
+  public ArrayList<Cache> h_caches=new ArrayList<>();
+  public ArrayList<Basic_User> h_user=new ArrayList<>();
 
-  public TravelBug(String id,String nome,Cache myCache, Premium_User myPremium_User, Cache missao) {
-    super(id,nome,myCache);
+  public TravelBug(String id,String nome,Premium_User myCreator,Premium_User myPremium_User, Cache missao) {
+    super(id,nome,myCreator);
     this.myPremium_User = myPremium_User;
     this.missao = missao;
   }

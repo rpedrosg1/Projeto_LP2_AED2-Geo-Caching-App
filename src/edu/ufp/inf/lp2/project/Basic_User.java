@@ -22,8 +22,6 @@ public class Basic_User implements GestaoUtilizadores {
 
   public int idade;
 
-  //public ArrayList<TravelBug> myTravelBug;
-
   public ArrayList<Cache> Hcaches=new ArrayList<>();
 
   public List  myCache;
@@ -116,8 +114,8 @@ public class Basic_User implements GestaoUtilizadores {
     this.Hcaches.add(c);
     c.H_User.add(this);
   }
-  public void CriarObj(String id,String nome,Cache c){
-    Objeto o = new Objeto(id, nome, c);
+  public void CriarObj(String id,String nome){
+    Objeto o = new Objeto(id, nome, this);
     myObj.put(o.id,o);
   }
 

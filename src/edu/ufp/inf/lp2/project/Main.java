@@ -45,12 +45,12 @@ public class Main {
         Admin_User.print_users();
         System.out.println("\n Caches:");
         Admin_User.print_caches();
-        user1.CriarObj("2","Barbie",null);
+        user1.CriarObj("2","Barbie");
         user1.printObj();
         Logs logs=new Logs("Eu estive aqui");
         user1.VisitarCache_deixarObj(d1,c1,logs,"2");
         user1.printHcaches();
-        user2.CriarObj("69","Actionman",null);
+        user2.CriarObj("69","Actionman");
         Objeto o=c1.FindObjeto("2");
         user2.VisitarCache_trocarObj(d2,c1,logs,"69",o);
         user2.printObj();

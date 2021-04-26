@@ -4,11 +4,11 @@ public class Objeto {
     public String id;
     public String nome;
     public Cache myCache;
-
-    public Objeto(String id, String nome, Cache myCache) {
+    public Basic_User myCreator;
+    public Objeto(String id, String nome, Basic_User myCreator) {
         this.id = id;
         this.nome = nome;
-        this.myCache = myCache;
+        this.myCreator = myCreator;
     }
 
 
