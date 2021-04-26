@@ -9,4 +9,11 @@ public class Logs {
   public Logs(String messagem) {
     this.messagem = messagem;
   }
+
+  @Override
+  public String toString() {
+    return "Logs{" +
+            "messagem='" + messagem + '\'' +
+            '}';
+  }
 }

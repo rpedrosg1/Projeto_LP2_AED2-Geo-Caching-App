@@ -74,6 +74,18 @@ public class Basic_User implements GestaoUtilizadores {
   public void RemoverUtilizador() {
     userST.remove(this.id);
   }
+  public void VisitarCache(Date d,Cache c,Logs log){
+    ////////////////////////////////////////////////////////////////////////////adicionamos aos logs da cache
+    Logs_Cache l=new Logs_Cache(d,this.id,null,null);
+    c.myLogs_cache.add(l);
+    /////////////////////////////////////////////////////////////////////////incrementamos as caches visistadas pelo user
+    this.nr_caches_visitadas++;
+    /////////////////////////////////////////////////////////////////////////adcionamos o log random q o utilizador escolheu
+    c.addLog(log);
+    /////////////////////////////////////////////////////////////////////////adcionamos ao historico de cada um
+    this.Hcaches.add(c);
+    c.H_User.add(this);
+  }
 
   public void VisitarCache_deixarObj(Date d,Cache c,Logs log,String posO){
     ////////////////////////////////////////////////////////////////////////vamos buscar o obj ao inventario e apagamos do inventario

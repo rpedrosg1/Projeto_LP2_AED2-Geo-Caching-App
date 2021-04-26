@@ -45,8 +45,12 @@ public class Admin_User extends Premium_User {
       System.out.println(cacheST.get(u).toString());
     }
   }
-  public static void r8_a(){
-
+  public static void r8_a(Basic_User user,String regiao){
+    user.printHcaches();
+    System.out.println("O user "+user.nome+" visitou estas caches na regiao:"+regiao+" -");
+    for (Cache c: user.Hcaches){
+      if(c.myLocalizacao.regiao.equals(regiao)) System.out.println(c.toString());
+    }
 }
 
   public static void r8_b(Basic_User user){
@@ -68,6 +72,8 @@ public class Admin_User extends Premium_User {
 
 
   public static void r8_c(){
+
+
 
   }
   public static void r8_d(){
