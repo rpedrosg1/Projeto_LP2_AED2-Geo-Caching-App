@@ -46,8 +46,8 @@ public class Premium_User extends Basic_User {
       tb.setMyCache(c);
       c.myTravelBug.add(tb);
       ///////////////////////////////////////////////////////////////////adicionamos ao historico de cada e incre
-      this.Hcaches.add(c);
-      c.H_User.add(this);
+      this.Hcaches.put(c.nome,c);
+      c.H_User.put(this.id,this);
       this.nr_caches_visitadas++;
     }else{
       System.out.println("Esta cache n é premium logo n pode ter travel bugs\n");
@@ -82,8 +82,8 @@ public class Premium_User extends Basic_User {
       tb.setMyCache(c);
       c.myTravelBug.add(tb);
       ///////////////////////////////////////////////////////////////////adicionamos ao historico de cada e incre
-      this.Hcaches.add(c);
-      c.H_User.add(this);
+      this.Hcaches.put(c.nome,c);
+      c.H_User.put(this.id,this);
       this.nr_caches_visitadas++;
     }else{
       System.out.println("Esta cache n é premium logo n pode ter travel bugs\n");
@@ -118,8 +118,8 @@ public class Premium_User extends Basic_User {
       myLogsTB.add(logtb);
       this.myTravelBugs.put(old_tb.id, old_tb);
       ////////////////////////////////////////////////////////////////////////////////////////adicionamos ao historico de cada e incre
-      this.Hcaches.add(c);
-      c.H_User.add(this);
+      this.Hcaches.put(c.nome,c);
+      c.H_User.put(this.id,this);
       this.nr_caches_visitadas++;
     }else{
       System.out.println("Esta cache n é premium logo n pode ter travel bugs\n");

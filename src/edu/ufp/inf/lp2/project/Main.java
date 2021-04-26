@@ -53,6 +53,8 @@ public class Main {
         user1.printObj();
         Logs logs=new Logs("Eu estive aqui");
         user1.VisitarCache_deixarObj(d1,c1,logs,"2");
+        user1.VisitarCache(d1,c1,logs);
+        puser1.VisitarCache(d2,c1,logs);
         user1.VisitarCache(d1,c2,logs);
         user1.printHcaches();
         user2.CriarObj("69","Actionman");
@@ -60,8 +62,9 @@ public class Main {
         user2.VisitarCache_trocarObj(d2,c1,logs,"69",o);
         user2.printObj();
         /////////////////////////////
-        Admin_User.r8_b(user1);
+        //Admin_User.r8_b(user1);
         Admin_User.r8_a(user1,"Porto");
+        //Admin_User.r8_c(c1);
         //System.out.println("Localizacao:" + c1.getMyLocalizacao());
     }
 

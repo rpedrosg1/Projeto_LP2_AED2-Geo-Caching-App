@@ -5,6 +5,8 @@ import edu.princeton.cs.algs4.ST;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Vector;
 
 import static edu.ufp.inf.lp2.project.Admin_User.userST;
@@ -21,7 +23,7 @@ public class Basic_User implements GestaoUtilizadores {
 
   public int idade;
 
-  public ArrayList<Cache> Hcaches=new ArrayList<>();
+  public HashMap<String,Cache> Hcaches=new HashMap<String,Cache>();
 
   public List  myCache;
 
@@ -83,8 +85,8 @@ public class Basic_User implements GestaoUtilizadores {
     /////////////////////////////////////////////////////////////////////////adcionamos o log random q o utilizador escolheu
     c.addLog(log);
     /////////////////////////////////////////////////////////////////////////adcionamos ao historico de cada um
-    this.Hcaches.add(c);
-    c.H_User.add(this);
+    this.Hcaches.put(c.nome,c);
+    c.H_User.put(this.id,this);
   }
 
   public void VisitarCache_deixarObj(Date d,Cache c,Logs log,String posO){
@@ -102,8 +104,8 @@ public class Basic_User implements GestaoUtilizadores {
     /////////////////////////////////////////////////////////////////////////adcionamos o log random q o utilizador escolheu
      c.addLog(log);
      /////////////////////////////////////////////////////////////////////////adcionamos ao historico de cada um
-     this.Hcaches.add(c);
-      c.H_User.add(this);
+    this.Hcaches.put(c.nome,c);
+    c.H_User.put(this.id,this);
   }
 
   public void VisitarCache_trocarObj(Date d,Cache c,Logs log,String posO,Objeto old_o){
@@ -121,8 +123,8 @@ public class Basic_User implements GestaoUtilizadores {
     c.addLog(log);
     //////////////////////////////////////////////////////////////////////adcionamos ao historico de cada um e increme
     this.nr_caches_visitadas++;
-    this.Hcaches.add(c);
-    c.H_User.add(this);
+    this.Hcaches.put(c.nome,c);
+    c.H_User.put(this.id,this);
   }
   public void CriarObj(String id,String nome){
     Objeto o = new Objeto(id, nome, this);
@@ -137,9 +139,10 @@ public class Basic_User implements GestaoUtilizadores {
     }
   }
   public void printHcaches(){
+    Iterator<Cache> itr = this.Hcaches.values().iterator();
     System.out.println("O user com o nome "+this.nome+" já visistou estas caches:");
-    for (Cache c: Hcaches) {
-      System.out.println(c.toString());
+    while(itr.hasNext()){
+      System.out.println(itr.next().toString());
     }
   }
 

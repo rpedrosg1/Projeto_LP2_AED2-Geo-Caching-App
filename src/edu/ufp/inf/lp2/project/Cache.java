@@ -3,6 +3,7 @@ package edu.ufp.inf.lp2.project;
 import edu.princeton.cs.algs4.BST;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
 import static edu.ufp.inf.lp2.project.Admin_User.cacheST;
@@ -20,10 +21,9 @@ public class Cache extends Localizacao implements GestaoCaches {
 
    public ArrayList<Objeto> objCache=new ArrayList<>();
    public ArrayList<TravelBug> myTravelBug=new ArrayList<>();;
-
-   public ArrayList<Basic_User>  H_User=new ArrayList<>();;
-   public Dificuldade myDificuldade;
-   public Tipo myTipo;
+  public HashMap<String,Basic_User> H_User = new HashMap<String,Basic_User>();
+  public Dificuldade myDificuldade;
+  public Tipo myTipo;
 
 
   public Cache(Premium_User mycreator_user, String nome, String descrisao, Localizacao myLocalizacao, Dificuldade myDificuldade, Tipo myTipo) {
