@@ -17,6 +17,7 @@ public class Main {
         Basic_User user2 = new Basic_User("2","Diogo",20);
         Basic_User user3 = new Basic_User("232","Tomas",20);
         Basic_User user4 = new Basic_User("3223","Jorge",20);
+        Basic_User user5 = new Basic_User("9999","Jorge Pereirex",25);
         //Premium
         Premium_User puser1 = new Premium_User("3","KINITO",100);
         Premium_User puser2 = new Premium_User("33232","gonçalo",100);
@@ -45,6 +46,11 @@ public class Main {
         user1.InserirUtilizador();
         user2.InserirUtilizador();
         puser1.InserirUtilizador();
+
+        user3.InserirUtilizador();
+        user4.InserirUtilizador();
+        user5.InserirUtilizador();
+        puser2.InserirUtilizador();
         //user2.EditarUtilizador("Antonio",32);
         //print_users();
         //user2.RemoverUtilizador();
@@ -89,6 +95,18 @@ public class Main {
 
 
 
+        user3.VisitarCache(d1,c1,logs);///so visitar
+        user3.VisitarCache(d1,c1,logs);///so visitar
+        user3.VisitarCache(d1,c1,logs);///so visitar
+        user3.VisitarCache(d1,c1,logs);///so visitar
+        puser2.VisitarCache(d2,c1,logs);///so visitar
+        user4.VisitarCache(d1,c1,logs);///so visitar
+        user4.VisitarCache(d1,c1,logs);///so visitar
+        user5.VisitarCache(d1,c1,logs);///so visitar
+        //user5.VisitarCache(d1,c1,logs);///so visitar
+
+
+
         //System.out.println("Localizacao:" + c1.getMyLocalizacao());
 
 
@@ -98,8 +116,8 @@ public class Main {
         //Admin_User.r8_b(user1);
         //Admin_User.r8_c(c1);
         //Admin_User.r8_d();
-        Admin_User.r8_e(d1,d2);
-        //Admin_User.r8_f();
+        //Admin_User.r8_e(d1,d2);
+        Admin_User.r8_f();
     }
 
 

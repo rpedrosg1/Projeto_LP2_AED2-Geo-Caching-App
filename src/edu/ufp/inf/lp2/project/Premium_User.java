@@ -9,7 +9,9 @@ import java.util.Vector;
 public class Premium_User extends Basic_User {
 
   public int nr_caches_criadas;
+
   public LinearProbingHashST<String,TravelBug> myTravelBugs= new LinearProbingHashST<>();
+  
   public Premium_User(String id, String nome, int idade) {
     super(id, nome, idade);
     nr_caches_criadas=0;

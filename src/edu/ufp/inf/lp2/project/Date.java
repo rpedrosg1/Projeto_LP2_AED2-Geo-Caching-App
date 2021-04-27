@@ -13,7 +13,7 @@ public class Date implements Comparable<Date>{
 
   public int year;
 
-  public LogsTB myLogsTB;
+
 
 
   public Date(int hour,int day, int month, int year) {

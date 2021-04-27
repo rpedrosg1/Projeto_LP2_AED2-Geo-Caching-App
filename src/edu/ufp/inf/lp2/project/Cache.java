@@ -26,6 +26,9 @@ public class Cache extends Localizacao implements GestaoCaches {
   public Tipo myTipo;
 
 
+
+
+
   public Cache(Premium_User mycreator_user, String nome, String descrisao, Localizacao myLocalizacao, Dificuldade myDificuldade, Tipo myTipo) {
     this.mycreator_user = mycreator_user;
     mycreator_user.nr_caches_criadas++;
@@ -77,9 +80,12 @@ public class Cache extends Localizacao implements GestaoCaches {
   }
 
   @Override
-  public void EditarCache() {
-
+  public void EditarCache(String descrisao, String nome) {
+    this.descrisao=descrisao;
+    this.nome=nome;
   }
+
+
 
   @Override
   public void RemoverCache() {

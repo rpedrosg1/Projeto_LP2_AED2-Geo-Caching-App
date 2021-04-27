@@ -99,7 +99,8 @@ public class Admin_User extends Premium_User {
   public static void r8_e( Date i, Date f){
       ST<String,Integer> nr_visitas=new ST<>();
       for (String pos : cacheST){
-          for(Logs_Cache log:cacheST.get(pos).myLogs_cache){
+          Cache c = cacheST.get(pos);
+          for(Logs_Cache log : c.myLogs_cache){
               if(log.d.afterDate(i) && log.d.beforeDate(f) || log.d.compareTo(i)==0 || log.d.compareTo(f)==0){
               String id= log.id_user;
                   if(nr_visitas.contains(id)){
@@ -110,24 +111,39 @@ public class Admin_User extends Premium_User {
              }
           }
       }
-int top1=0,top2=0,top3=0,top4=0,top5=0;
-String id_top1="",id_top2="",id_top3="",id_top4="",id_top5="";
-   for (String id : nr_visitas){
-       if(nr_visitas.get(id)>=top1){id_top1=id;return;}
-       else if(nr_visitas.get(id)>=top2){id_top2=id;return;}
-       else if(nr_visitas.get(id)>=top3){id_top3=id;return;}
-       else if(nr_visitas.get(id)>=top4){id_top4=id;return;}
-       else if(nr_visitas.get(id)>=top5){id_top5=id;return;}
-   }
-      System.out.println("(Por Ordem)Top 5:");
-      System.out.println(userST.get(id_top1).toString());
-      System.out.println(userST.get(id_top2).toString());
-      System.out.println(userST.get(id_top3).toString());
-      System.out.println(userST.get(id_top4).toString());
-      System.out.println(userST.get(id_top5).toString());
+    int size=0,top_visited=0,below_top=0;
+    String top_id="",name="";
+
+    while(size<5 && nr_visitas.size()>size) {
+        for (String id : nr_visitas) {
+
+            if (nr_visitas.get(id) >= top_visited && size == 0) {
+                top_visited = nr_visitas.get(id);
+                top_id = id;
+            }
+
+
+
+            if (size > 0) {
+                if (nr_visitas.get(id) <= below_top && nr_visitas.get(id)>top_visited && !id.equals(name)) {
+                    top_visited = nr_visitas.get(id);
+                    top_id = id;
+                }
+            }
+        }
+
+        if (size == 0) System.out.println("Top 5:");
+        System.out.println(size + 1 + " : " + userST.get(top_id).toString());
+        name=top_id;
+        size++;
+        below_top = top_visited;
+        top_visited=0;
+    }
+
   }
   public static void r8_f(){
-      int max_size=0;
+      ArrayList <TravelBug> tB = new ArrayList<>();
+      int max_size=0,top_size;
       String max_key_u="";
       String max_key="";
       System.out.println("O Travel Bug com o maior nr de localizações é:");
@@ -136,7 +152,7 @@ String id_top1="",id_top2="",id_top3="",id_top4="",id_top5="";
           if(user.getClass().equals(Premium_User.class)){
           Premium_User puser=(Premium_User)userST.get(u);
              for (String key : puser.myTravelBugs.keys()) {
-                 System.out.println(puser.myTravelBugs.get(key).h_caches.size());
+                 System.out.println(puser.myTravelBugs.get(key).h_caches.size() + "\t" + puser.myTravelBugs.get(key).id );
                  if(puser.myTravelBugs.get(key).h_caches.size()>max_size){
                      max_size=puser.myTravelBugs.get(key).h_caches.size();
                      max_key=key;
@@ -145,15 +161,26 @@ String id_top1="",id_top2="",id_top3="",id_top4="",id_top5="";
              }
          }
       }
+      top_size=max_size;
       Premium_User userp=(Premium_User)userST.get(max_key_u);
-      System.out.println("O travel bug que percorreu um maior nr de localizações foi:");
-      System.out.println(userp.myTravelBugs.get(max_key).toString());
+      tB.add(userp.myTravelBugs.get(max_key));
+
+      for (String u : userST){
+          Basic_User user=userST.get(u);
+          if(user.getClass().equals(Premium_User.class)){
+              Premium_User puser=(Premium_User)userST.get(u);
+              for (String key : puser.myTravelBugs.keys()) {
+                  if(puser.myTravelBugs.get(key).h_caches.size()==top_size && !puser.myTravelBugs.get(key).equals(tB.get(0))){
+                      Premium_User userp2=(Premium_User)userST.get(u);
+                      tB.add(userp.myTravelBugs.get(key));
+                  }
+              }
+          }
+      }
+
+
+      for (TravelBug t : tB){
+          System.out.println(t.toString());
+      }
   }
-
-
-
-
-
-
-
 }
