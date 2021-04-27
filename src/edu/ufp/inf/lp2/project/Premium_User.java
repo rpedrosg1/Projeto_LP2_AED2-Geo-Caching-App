@@ -44,6 +44,7 @@ public class Premium_User extends Basic_User {
       c.addLog(log);
       ///////////////////////////////////////////////////////////////////adicionamos o Tb a Cache
       tb.setMyCache(c);
+      tb.h_caches.add(c);
       c.myTravelBug.add(tb);
       ///////////////////////////////////////////////////////////////////adicionamos ao historico de cada e incre
       this.Hcaches.put(c.nome,c);
@@ -78,7 +79,7 @@ public class Premium_User extends Basic_User {
       c.myLogs_cache.add(log_cache);
       c.addLog(log);
       ///////////////////////////////////////////////////////////////////adicionamos o tb a cache
-
+      tb.h_caches.add(c);
       tb.setMyCache(c);
       c.myTravelBug.add(tb);
       ///////////////////////////////////////////////////////////////////adicionamos ao historico de cada e incre
@@ -112,6 +113,8 @@ public class Premium_User extends Basic_User {
       c.addLog(log);
       ////////////////////////////////////////////////////////////////////////removemos da cache o antigo e adicionamos o novo
       c.myTravelBug.remove(old_tb);
+      tb.h_caches.add(c);
+      tb.setMyCache(c);
       c.myTravelBug.add(tb);
       /////////////////////////////////////////////////////////////////////adicionamos o tb da cache ao user com o respetivo log do tb
       LogsTB logtb=new LogsTB(c.nome,this.id,tb.id,i,null,null,this);

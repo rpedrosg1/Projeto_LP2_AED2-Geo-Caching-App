@@ -3,6 +3,7 @@ package edu.ufp.inf.lp2.project;
 import edu.princeton.cs.algs4.BST;
 import edu.princeton.cs.algs4.RedBlackBST;
 import edu.princeton.cs.algs4.ST;
+import edu.princeton.cs.algs4.StdOut;
 
 import java.util.ArrayList;
 
@@ -86,13 +87,40 @@ public class Admin_User extends Premium_User {
     }
   }
   public static void r8_d(){
+      System.out.println("Caixas Premium com pelo menos um Objeto:");
+      for (String pos : cacheST){
+          if(cacheST.get(pos).myTipo==Tipo.PREMIUM && (!cacheST.get(pos).objCache.isEmpty()||!cacheST.get(pos).myTravelBug.isEmpty()))
+          {
+              System.out.println(cacheST.get(pos).toString());
+          }
+          }
+      }
 
-  }
   public static void r8_e(){
 
   }
   public static void r8_f(){
-
+      int max_size=0;
+      String max_key_u="";
+      String max_key="";
+      System.out.println("O Travel Bug com o maior nr de localizações é:");
+      for (String u : userST){
+          Basic_User user=userST.get(u);
+          if(user.getClass().equals(Premium_User.class)){
+          Premium_User puser=(Premium_User)userST.get(u);
+             for (String key : puser.myTravelBugs.keys()) {
+                 System.out.println(puser.myTravelBugs.get(key).h_caches.size());
+                 if(puser.myTravelBugs.get(key).h_caches.size()>max_size){
+                     max_size=puser.myTravelBugs.get(key).h_caches.size();
+                     max_key=key;
+                     max_key_u=u;
+                 }
+             }
+         }
+      }
+      Premium_User userp=(Premium_User)userST.get(max_key_u);
+      System.out.println("O travel bug que percorreu um maior nr de localizações foi:");
+      System.out.println(userp.myTravelBugs.get(max_key).toString());
   }
 
 
