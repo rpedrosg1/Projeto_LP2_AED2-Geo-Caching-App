@@ -4,7 +4,7 @@ import edu.princeton.cs.algs4.BST;
 import edu.princeton.cs.algs4.RedBlackBST;
 import edu.princeton.cs.algs4.ST;
 import edu.princeton.cs.algs4.StdOut;
-
+import edu.ufp.inf.lp2.project.Date;
 import java.util.ArrayList;
 
 import java.util.Iterator;
@@ -93,11 +93,38 @@ public class Admin_User extends Premium_User {
           {
               System.out.println(cacheST.get(pos).toString());
           }
+                               }
+  }
+
+  public static void r8_e( Date i, Date f){
+      ST<String,Integer> nr_visitas=new ST<>();
+      for (String pos : cacheST){
+          for(Logs_Cache log:cacheST.get(pos).myLogs_cache){
+              if(log.d.afterDate(i) && log.d.beforeDate(f) || log.d.compareTo(i)==0 || log.d.compareTo(f)==0){
+              String id= log.id_user;
+                  if(nr_visitas.contains(id)){
+                      nr_visitas.put(id,nr_visitas.get(id)+1);
+                  }else {
+                      nr_visitas.put(id,1);
+                  }
+             }
           }
       }
-
-  public static void r8_e(){
-
+int top1=0,top2=0,top3=0,top4=0,top5=0;
+String id_top1="",id_top2="",id_top3="",id_top4="",id_top5="";
+   for (String id : nr_visitas){
+       if(nr_visitas.get(id)>=top1){id_top1=id;return;}
+       else if(nr_visitas.get(id)>=top2){id_top2=id;return;}
+       else if(nr_visitas.get(id)>=top3){id_top3=id;return;}
+       else if(nr_visitas.get(id)>=top4){id_top4=id;return;}
+       else if(nr_visitas.get(id)>=top5){id_top5=id;return;}
+   }
+      System.out.println("(Por Ordem)Top 5:");
+      System.out.println(userST.get(id_top1).toString());
+      System.out.println(userST.get(id_top2).toString());
+      System.out.println(userST.get(id_top3).toString());
+      System.out.println(userST.get(id_top4).toString());
+      System.out.println(userST.get(id_top5).toString());
   }
   public static void r8_f(){
       int max_size=0;

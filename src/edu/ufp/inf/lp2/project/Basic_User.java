@@ -25,7 +25,7 @@ public class Basic_User implements GestaoUtilizadores {
 
   public HashMap<String,Cache> Hcaches=new HashMap<String,Cache>();
 
-  public List  myCache;
+
 
 
   public Basic_User(String id, String nome, int idade) {

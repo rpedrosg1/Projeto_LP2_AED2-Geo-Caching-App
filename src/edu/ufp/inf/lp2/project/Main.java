@@ -15,8 +15,11 @@ public class Main {
         //User
         Basic_User user1 = new Basic_User("1","Rui",21);
         Basic_User user2 = new Basic_User("2","Diogo",20);
+        Basic_User user3 = new Basic_User("232","Tomas",20);
+        Basic_User user4 = new Basic_User("3223","Jorge",20);
         //Premium
         Premium_User puser1 = new Premium_User("3","KINITO",100);
+        Premium_User puser2 = new Premium_User("33232","gonçalo",100);
         //Admin
         Admin_User auser1 = new Admin_User("a","FAbiorei",0);
 
@@ -34,8 +37,8 @@ public class Main {
         Admin_User.cacheST.put(c2.nome,c2);
         Admin_User.cacheST.put(c3.nome,c3);
         //datas
-        Date d1 =new Date();
-        Date d2=new Date();
+        Date d1 =new Date(12,3,5,2021);
+        Date d2=new Date(17,25,8,2021);
         //users
 
         auser1.InserirUtilizador();
@@ -95,7 +98,7 @@ public class Main {
         //Admin_User.r8_b(user1);
         //Admin_User.r8_c(c1);
         //Admin_User.r8_d();
-        Admin_User.r8_e();
+        Admin_User.r8_e(d1,d2);
         //Admin_User.r8_f();
     }
 
