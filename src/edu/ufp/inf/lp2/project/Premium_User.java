@@ -10,7 +10,6 @@ public class Premium_User extends Basic_User {
 
   public int nr_caches_criadas;
   public LinearProbingHashST<String,TravelBug> myTravelBugs= new LinearProbingHashST<>();
-  public ArrayList<LogsTB> myLogsTB =new ArrayList<>();
   public Premium_User(String id, String nome, int idade) {
     super(id, nome, idade);
     nr_caches_criadas=0;
@@ -18,25 +17,26 @@ public class Premium_User extends Basic_User {
   public void CriarTb(String id,String nome,Cache missao){
     TravelBug tb = new TravelBug(id,nome,this,missao);
     myTravelBugs.put(tb.id,tb);
+    myObj.put(tb.id,tb);
     tb.h_user.add(this);
   }
 
   public void VisitarCache_deixarTB(Date i,Cache c,Logs log, String postb){
     if(c.myTipo==Tipo.PREMIUM) {
       ///////////////////////////////////////////////////////////////////vamos buscar o TB ao inventario do user e apagamos
-      TravelBug tb= myTravelBugs.get(postb);
-      myTravelBugs.delete(postb);
+      TravelBug tb= (TravelBug) myObj.get(postb);
+      myObj.delete(postb);
       ///////////////////////////////////////////////////////////////////adicionamos o tb a cache se a cache for igual a missao ent esta encontra se concluida adcionamos uma data final
       if (tb.missao==c){
         ///////////////////////////////////////////////////////////////////adicionamos os logs do tb
-        System.out.println("Travel Bug chegou ao Destino missao concluída!\n");
-        LogsTB log_tb=new LogsTB(c.nome,this.id,tb.id,null,i,c,null);//cria mos um log onde o user é null e a cache é c
+        System.out.println("Travel Bug com o id:"+tb.id+" chegou ao Destino missao concluída!\n");
+        LogsTB log_tb=new LogsTB(c.nome,this.id,null,i,c,null);//cria mos um log onde o user é null e a cache é c
         log_tb.missao_concluida=true;
-        myLogsTB.add(log_tb);
+        tb.myLogsTB.add(log_tb);
       }else {
         ///////////////////////////////////////////////////////////////////adicionamos os logs do tb
-        LogsTB log_tb=new LogsTB(c.nome,this.id,tb.id,i,null,c,null);
-        myLogsTB.add(log_tb);
+        LogsTB log_tb=new LogsTB(c.nome,this.id,i,null,c,null);
+        tb.myLogsTB.add(log_tb);
       }
       ///////////////////////////////////////////////////////////////////adicionamos os logs da Cache
       Logs_Cache log_cache=new Logs_Cache(i,this.id,null,null);
@@ -57,19 +57,19 @@ public class Premium_User extends Basic_User {
   public void VisitarCache_trocarTB_por_Obj(Date i,Cache c,Logs log,String postb,Objeto old_o){
     if(c.myTipo==Tipo.PREMIUM) {
       ///////////////////////////////////////////////////////////////////vamos buscar o TB ao inventario do user e apagamos
-      TravelBug tb= myTravelBugs.get(postb);
-      myTravelBugs.delete(postb);
+      TravelBug tb= (TravelBug) myObj.get(postb);
+      myObj.delete(postb);
       ///////////////////////////////////////////////////////////////////adicionamos o tb a cache se a cache for igual a missao ent esta encontra se concluida adcionamos uma data final
       if (tb.missao==c){
         ///////////////////////////////////////////////////////////////////adicionamos os logs do tb
-        System.out.println("Travel Bug chegou ao Destino missao concluída!\n");
-        LogsTB log_tb=new LogsTB(c.nome,this.id,tb.id,null,i,c,null);//cria mos um log onde o user é null e a cache é c
+        System.out.println("Travel Bug com o id:"+tb.id+" chegou ao Destino missao concluída!\n");
+        LogsTB log_tb=new LogsTB(c.nome,this.id,null,i,c,null);//cria mos um log onde o user é null e a cache é c
         log_tb.missao_concluida=true;
-        myLogsTB.add(log_tb);
+        tb.myLogsTB.add(log_tb);
       }else {
         ///////////////////////////////////////////////////////////////////adicionamos os logs do tb
-        LogsTB log_tb=new LogsTB(c.nome,this.id,tb.id,i,null,c,null);
-        myLogsTB.add(log_tb);
+        LogsTB log_tb=new LogsTB(c.nome,this.id,i,null,c,null);
+        tb.myLogsTB.add(log_tb);
       }
       ///////////////////////////////////////////////////////////////////removemos da cache e adicionamos ao user
       c.objCache.remove(old_o);
@@ -93,19 +93,19 @@ public class Premium_User extends Basic_User {
   public void VisitarCache_trocarTB_por_TB(Date i,Cache c,Logs log,String postb,TravelBug old_tb){
     if(c.myTipo==Tipo.PREMIUM) {
       /////////////////////////////////////////////////////////////////vamos buscar o TB ao inventario do user e apagamos
-      TravelBug tb= myTravelBugs.get(postb);
-      myTravelBugs.delete(postb);
+      TravelBug tb= (TravelBug) myObj.get(postb);
+      myObj.delete(postb);
       ////////////////////////////////////////////////////////adicionamos o tb a cache se a cache for igual a missao ent esta encontra se concluida adcionamos uma data final
       if (tb.missao==c){
         ////////////////////////////////////////////////////////////////////////adicionamos os logs do TB
-        System.out.println("Travel Bug chegou ao Destino missao concluída!\n");
-        LogsTB log_tb=new LogsTB(c.nome,this.id,tb.id,null,i,c,null);//cria mos um log onde o user é null e a cache é c
+        System.out.println("Travel Bug com o id:"+tb.id+" chegou ao Destino missao concluída!\n");
+        LogsTB log_tb=new LogsTB(c.nome,this.id,null,i,c,null);//cria mos um log onde o user é null e a cache é c
         log_tb.missao_concluida=true;
-        myLogsTB.add(log_tb);
+        tb.myLogsTB.add(log_tb);
       }else {
         /////////////////////////////////////////////////////////////////////////////adicionamos os logs do TB
-        LogsTB log_tb=new LogsTB(c.nome,this.id,tb.id,i,null,c,null);
-        myLogsTB.add(log_tb);
+        LogsTB log_tb=new LogsTB(c.nome,this.id,i,null,c,null);
+        tb.myLogsTB.add(log_tb);
       }
       ///////////////////////////////////////////////////////////////////////////adicionamos os logs da cache
       Logs_Cache log_cache=new Logs_Cache(i,this.id,null,null);
@@ -117,9 +117,9 @@ public class Premium_User extends Basic_User {
       tb.setMyCache(c);
       c.myTravelBug.add(tb);
       /////////////////////////////////////////////////////////////////////adicionamos o tb da cache ao user com o respetivo log do tb
-      LogsTB logtb=new LogsTB(c.nome,this.id,tb.id,i,null,null,this);
-      myLogsTB.add(logtb);
-      this.myTravelBugs.put(old_tb.id, old_tb);
+      LogsTB logtb=new LogsTB(c.nome,this.id,i,null,null,this);
+      tb.myLogsTB.add(logtb);
+      this.myObj.put(old_tb.id, old_tb);
       ////////////////////////////////////////////////////////////////////////////////////////adicionamos ao historico de cada e incre
       this.Hcaches.put(c.nome,c);
       c.H_User.put(this.id,this);

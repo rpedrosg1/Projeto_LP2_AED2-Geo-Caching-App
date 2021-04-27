@@ -20,7 +20,7 @@ public class Main {
         //Admin
         Admin_User auser1 = new Admin_User("a","FAbiorei",0);
 
-
+        Logs logs=new Logs("Eu estive aqui");
 
         //Coordenadas
         Coordenadas coordenadas1 = new Coordenadas(5.2f,9.2f);
@@ -30,49 +30,73 @@ public class Main {
         Cache c1 = new Cache(puser1,"Caixa Misterio","El Misterio",localizacao1,Dificuldade.DIFICL,Tipo.PREMIUM);
         Cache c2 = new Cache(puser1,"Caixa yoyo","yoyyo",localizacao1,Dificuldade.DIFICL,Tipo.PREMIUM);
         Cache c3 = new Cache(puser1,"Caixa idk","idk bro",localizacao1,Dificuldade.DIFICL,Tipo.BASIC);
-        Date d1 =new Date();
-        Date d2=new Date();
-
         Admin_User.cacheST.put(c1.nome,c1);
         Admin_User.cacheST.put(c2.nome,c2);
         Admin_User.cacheST.put(c3.nome,c3);
-
-        puser1.InserirUtilizador();
+        //datas
+        Date d1 =new Date();
+        Date d2=new Date();
+        //users
 
         auser1.InserirUtilizador();
         user1.InserirUtilizador();
         user2.InserirUtilizador();
+        puser1.InserirUtilizador();
         //user2.EditarUtilizador("Antonio",32);
         //print_users();
         //user2.RemoverUtilizador();
-        System.out.println("\n Users:");
-        Admin_User.print_users();
-        System.out.println("\n Caches:");
-        Admin_User.print_caches();
-        user1.CriarObj("2","Barbie");
-        user1.printObj();
-        Logs logs=new Logs("Eu estive aqui");
+
+        //travel bugs
         puser1.CriarTb("6","TB1",c2);
-        puser1.CriarTb("7","TB2",c3);
+        puser1.CriarTb("7","TB2",c2);
         puser1.CriarTb("8","TB3",c2);
-        user1.VisitarCache_deixarObj(d1,c1,logs,"2");
-        user1.VisitarCache(d1,c1,logs);
-        puser1.VisitarCache(d2,c1,logs);
-        puser1.VisitarCache_deixarTB(d1,c1,logs,"6");
-        //puser1.VisitarCache_trocarTB_por_TB(d1,c1,logs,"7); tenho q mudar isto
-        user1.VisitarCache(d1,c2,logs);
-        user1.printHcaches();
+       //objetos
         user2.CriarObj("69","Actionman");
-        Objeto o=c1.FindObjeto("2");
-        user2.VisitarCache_trocarObj(d2,c1,logs,"69",o);
-        user2.printObj();
+        user1.CriarObj("2","Barbie");
+
+
+        //user2.printObj();
+
+        //algi«umas cenas
+        //System.out.println("\n Users:");
+        //Admin_User.print_users();
+        //System.out.println("\n Caches:");
+        //Admin_User.print_caches();
+
+        //user1.printObj();
+
+        //visitas caches
+        user1.VisitarCache_deixarObj(d1,c1,logs,"2");///deixamos o OBJ ID2 na CACHE C1
+        user1.VisitarCache(d1,c1,logs);///so visitar
+        puser1.VisitarCache(d2,c1,logs);///so visitar
+        puser1.VisitarCache_deixarTB(d1,c1,logs,"7");///deixamos o TB ID7 na CACHE C1
+        TravelBug tb=c1.FindTB("7");///Encontramos o TB ID7 na CACHE1
+        puser1.VisitarCache_trocarTB_por_TB(d1,c1,logs,"8",tb);///Trocamos o TB ID8 pelo TB ID7 logo TB ID8 pertence agora CACHE C1 e o TB ID7 pertence ao KINITO
+        user1.VisitarCache(d1,c2,logs);///so visitar
+        Objeto o=c1.FindObjeto("2");///Encontramos o OBJ ID2 na CACHE1
+        user2.VisitarCache_trocarObj(d2,c1,logs,"69",o);/////Trocamos o OBJ ID69 pelo OBJ ID2 logo TB ID69 pertence agora CACHE C1 e o OBJ ID2 pertence ao DIOGO
+
+        tb=c1.FindTB("8");
+        puser1.VisitarCache_trocarTB_por_TB(d1,c1,logs,"7",tb);
+        puser1.VisitarCache_deixarTB(d2,c2,logs,"8");
+        tb=c2.FindTB("8");
+        puser1.VisitarCache_trocarTB_por_TB(d2,c2,logs,"6",tb);
+
+
+
+
+
         //System.out.println("Localizacao:" + c1.getMyLocalizacao());
-        ///////////////////////////// R8
+
+
+
+        //R8
         //Admin_User.r8_a(user1,"Porto");
         //Admin_User.r8_b(user1);
         //Admin_User.r8_c(c1);
         //Admin_User.r8_d();
-        Admin_User.r8_f();
+        Admin_User.r8_e();
+        //Admin_User.r8_f();
     }
 
 

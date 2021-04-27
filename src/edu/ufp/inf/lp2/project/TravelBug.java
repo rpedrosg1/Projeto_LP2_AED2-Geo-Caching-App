@@ -10,7 +10,7 @@ public class TravelBug extends Objeto {
   public Cache missao;
   public ArrayList<Cache> h_caches=new ArrayList<>();
   public ArrayList<Basic_User> h_user=new ArrayList<>();
-
+  public ArrayList<LogsTB> myLogsTB =new ArrayList<>();
   public TravelBug(String id,String nome,Premium_User myCreator, Cache missao) {
     super(id,nome,myCreator);
     this.missao = missao;

@@ -48,6 +48,15 @@ public class Cache extends Localizacao implements GestaoCaches {
     }
     return null;
   }
+  public TravelBug FindTB(String id) {
+    for (TravelBug tb : myTravelBug){
+      if(tb.id.equals(id)){
+        return tb;
+      }
+    }
+    return null;
+  }
+
 
   public void tradeObjeto(Objeto old_o,Objeto new_o) {
     if(objCache.contains(old_o)) {
@@ -108,4 +117,6 @@ public class Cache extends Localizacao implements GestaoCaches {
             ", regiao='" + regiao + '\'' +
             ", myTravelBug=" + myTravelBug + + '}';
   }
+
+
 }
