@@ -47,13 +47,14 @@ public class Admin_User extends Premium_User {
       System.out.println(cacheST.get(u).toString());
     }
   }
-  public static void r8_a(Basic_User user,String regiao){//esta a dar mal
+  public static void r8_a(Basic_User user,String regiao){
     user.printHcaches();
     Iterator<Cache> itr = user.Hcaches.values().iterator();
     System.out.println("O user "+user.nome+" visitou estas caches na regiao:"+regiao+" -");
     while(itr.hasNext()){
-      if(regiao.equals(itr.next().myLocalizacao.regiao)) {
-        System.out.println(itr.next().toString());
+        Cache c=itr.next();
+      if(c.myLocalizacao.regiao.equals(regiao)) {
+        System.out.println(c.toString());
        }
     }
 }
