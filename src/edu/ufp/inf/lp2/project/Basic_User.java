@@ -99,6 +99,7 @@ public class Basic_User implements GestaoUtilizadores {
     ///////////////////////////////////////////////////////////////////////////pomos o objeto a pertecer a cache
     c.objCache.add(o);
     o.setMyCache(c);
+    o.myuser=null;
     /////////////////////////////////////////////////////////////////////////incrementamos as caches visistadas pelo user
     this.nr_caches_visitadas++;
     /////////////////////////////////////////////////////////////////////////adcionamos o log random q o utilizador escolheu
@@ -117,8 +118,11 @@ public class Basic_User implements GestaoUtilizadores {
     c.myLogs_cache.add(l);
     //////////////////////////////////////////////////////////////////pomos o objeto a pertecer a cache e adiconamos o outro ao inventario do user
     new_o.setMyCache(c);
+    new_o.myuser=null;
     myObj.put(old_o.id,old_o);
     c.tradeObjeto(old_o,new_o);
+    old_o.setMyuser(this);
+    old_o.myCache=null;
     //////////////////////////////////////////////////////////////////////adcionamos o log random q o utilizador escolheu
     c.addLog(log);
     //////////////////////////////////////////////////////////////////////adcionamos ao historico de cada um e increme
@@ -129,6 +133,8 @@ public class Basic_User implements GestaoUtilizadores {
   public void CriarObj(String id,String nome){
     Objeto o = new Objeto(id, nome, this);
     myObj.put(o.id,o);
+    o.setMyuser(this);
+    o.myCache=null;
   }
 
 

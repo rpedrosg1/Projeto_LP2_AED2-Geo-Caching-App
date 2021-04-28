@@ -4,6 +4,7 @@ public class Objeto {
     public String id;
     public String nome;
     public Cache myCache;
+    public Basic_User myuser;
     public Basic_User myCreator;
     public Objeto(String id, String nome, Basic_User myCreator) {
         this.id = id;
@@ -32,6 +33,17 @@ public class Objeto {
         return myCache;
     }
 
+    public Basic_User getMyuser() {
+        return myuser;
+    }
+
+    public void setMyuser(Basic_User myuser) {
+        this.myuser = myuser;
+    }
+
+    public Basic_User getMyCreator() {
+        return myCreator;
+    }
     public void setMyCache(Cache myCache) {
         this.myCache = myCache;
     }
@@ -41,6 +53,7 @@ public class Objeto {
         if(myCache==null) {
             return "Objeto{" +
                     "id='" + id + '\'' +
+                    "myUser='" + myuser + '\'' +
                     ", nome='" + nome + '\'' +
                     '}';
         }
