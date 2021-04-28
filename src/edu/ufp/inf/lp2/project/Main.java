@@ -113,11 +113,11 @@ public class Main {
 
         //R8
         //Admin_User.r8_a(user1,"Porto");
-        //Admin_User.r8_b(user1);
+        //Admin_User.r8_b(user1,"Lisboa");
         //Admin_User.r8_c(c1);
         //Admin_User.r8_d();
         //Admin_User.r8_e(d1,d2);
-        Admin_User.r8_f();
+        //Admin_User.r8_f();
     }
 
 

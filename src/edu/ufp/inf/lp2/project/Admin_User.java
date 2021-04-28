@@ -60,10 +60,10 @@ public class Admin_User extends Premium_User {
     }
 }
 
-  public static void r8_b(Basic_User user){
+  public static void r8_b(Basic_User user,String Regiao){
     int i;
-    System.out.println("Falta ao user "+user.nome+" visitar as seguintes caches:");
     String nomecache;
+      System.out.println("Falta ao user "+user.nome+" visitar as seguintes caches:");
     for (String u : cacheST){
       i=0;
       nomecache=cacheST.get(u).nome;
@@ -76,6 +76,19 @@ public class Admin_User extends Premium_User {
       }
       if(i==0) System.out.println(nomecache);
     }
+      System.out.println("Falta ao user "+user.nome+" visitar as seguintes caches nesta Regiao-"+Regiao+":");
+        for (String u : cacheST){
+          i=0;
+          nomecache=cacheST.get(u).nome;
+          Iterator<Cache> itr = user.Hcaches.values().iterator();
+          while(itr.hasNext()){
+              if(nomecache.equals(itr.next().nome) || !(Regiao.equals(cacheST.get(u).myLocalizacao.regiao))) {
+                  i = 1;
+                  break;
+              }
+          }
+          if(i==0) System.out.println(nomecache);
+      }
   }
 
 
