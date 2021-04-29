@@ -3,7 +3,7 @@ package edu.ufp.inf.lp2.project;
 import java.util.Vector;
 
 
-public class Localizacao {
+public class Localizacao extends Coordenadas{
 
     public float raio;
 
@@ -11,18 +11,18 @@ public class Localizacao {
 
     //public TravelBug myTravelBug;
 
-    private Coordenadas myCoordenadas;
+    //private Coordenadas myCoordenadas;
 
     public Localizacao(float raio, String regiao, Coordenadas myCoordenadas) {
+        super(myCoordenadas.longitude, myCoordenadas.latitude);
         this.raio = raio;
         this.regiao = regiao;
         //this.myTravelBug = myTravelBug;
-        this.myCoordenadas = myCoordenadas;
+        //this.myCoordenadas = myCoordenadas;
     }
 
-    public Localizacao() {
 
-    }
+
 
     public String getRegiao() {
         return this.regiao;
@@ -41,15 +41,12 @@ public class Localizacao {
     }
 
     public Coordenadas getMyCoordenadas() {
-        return myCoordenadas;
+        return super.GetCoordenadas();
     }
 
     @Override
     public String toString() {
-        return "Localizacao{" +
-                "raio=" + raio +
-                ", regiao='" + regiao + '\'' +
-                ", myCoordenadas=" + myCoordenadas.toString() +
-                '}';
+        return "Localização: " + regiao + " ,Raio=" + raio + "\n"+
+                "     "+super.toString();
     }
 }

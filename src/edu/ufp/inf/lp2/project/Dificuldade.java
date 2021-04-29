@@ -6,7 +6,7 @@ enum Dificuldade {
 
   MEDIO,
 
-  DIFICL;
+  DIFICIL;
 
     public Cache myCache;
 

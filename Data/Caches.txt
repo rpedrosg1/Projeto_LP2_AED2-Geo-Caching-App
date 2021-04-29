@@ -1,0 +1,3 @@
+6|Caixa Misterio|El Misterio|PREMIUM|DIFICIL|50.2|Porto|5.2|9.2|
+7|Caixa idk|idk bro|BASIC|DIFICIL|50.2|Porto|5.2|9.2|
+6|Caixa yoyo|yoyyo|PREMIUM|DIFICIL|50.2|Porto|5.2|9.2|

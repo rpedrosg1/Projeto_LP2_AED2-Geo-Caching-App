@@ -16,6 +16,11 @@ public class Premium_User extends Basic_User {
     super(id, nome, idade);
     nr_caches_criadas=0;
   }
+  public Premium_User() {
+    super();
+
+  }
+
   public void CriarTb(String id,String nome,Cache missao){
     TravelBug tb = new TravelBug(id,nome,this,missao);
     myTravelBugs.put(tb.id,tb);

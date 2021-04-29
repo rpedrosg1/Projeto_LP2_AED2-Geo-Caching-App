@@ -58,10 +58,7 @@ public class Objeto {
                     '}';
         }
         return "Objeto{" +
-                "id='" + id + '\'' +
-                ", nome='" + nome + '\'' +
-                ", myCache=" + myCache.nome +
-                '}';
+                "Nome:'" + nome;
     }
 
 

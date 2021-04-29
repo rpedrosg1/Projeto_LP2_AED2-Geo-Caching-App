@@ -8,28 +8,27 @@ import java.util.List;
 import java.util.Vector;
 import static edu.ufp.inf.lp2.project.Admin_User.cacheST;
 
-public class Cache extends Localizacao implements GestaoCaches {
+public class Cache implements GestaoCaches {
 
   public Premium_User mycreator_user;
   public String nome;
-
   public String descrisao;
+  public Dificuldade myDificuldade;
+  public Tipo myTipo;
+  public Localizacao  myLocalizacao;
 
   public ArrayList<Logs> myLogs=new ArrayList<>();
   public ArrayList<Logs_Cache> myLogs_cache = new ArrayList<>();
-  public Localizacao  myLocalizacao;
-
    public ArrayList<Objeto> objCache=new ArrayList<>();
    public ArrayList<TravelBug> myTravelBug=new ArrayList<>();;
   public HashMap<String,Basic_User> H_User = new HashMap<String,Basic_User>();
-  public Dificuldade myDificuldade;
-  public Tipo myTipo;
 
 
 
 
 
   public Cache(Premium_User mycreator_user, String nome, String descrisao, Localizacao myLocalizacao, Dificuldade myDificuldade, Tipo myTipo) {
+    //super(myLocalizacao.raio,myLocalizacao.regiao,myLocalizacao.getMyCoordenadas());
     this.mycreator_user = mycreator_user;
     mycreator_user.nr_caches_criadas++;
     this.nome = nome;
@@ -38,6 +37,11 @@ public class Cache extends Localizacao implements GestaoCaches {
     this.myDificuldade = myDificuldade;
     this.myTipo = myTipo;
 
+  }
+
+  public Cache() {
+  this.nome="";
+  this.descrisao="";
   }
 
   public void addObjeto(Objeto o) {
@@ -108,20 +112,10 @@ public class Cache extends Localizacao implements GestaoCaches {
 
   @Override
   public String toString() {
-    return "Cache{" +
-            "Creator=" + mycreator_user.nome +
-            ", nome='" + nome + '\'' +
-            ", descrisao='" + descrisao + '\'' +
-            ", myLogs=" + myLogs +
-            ", myLocalizacao=" + myLocalizacao.toString() +
-            ", objCache=" + objCache +
-            ", myTravelBug=" + myTravelBug +
-            ", H_User=" + H_User +
-            ", myDificuldade=" + myDificuldade +
-            ", myTipo=" + myTipo +
-            ", raio=" + raio +
-            ", regiao='" + regiao + '\'' +
-            ", myTravelBug=" + myTravelBug + + '}';
+    return  "\n" +"Cache " + nome + " ("+ descrisao + "):" + "\n"+
+            "     " + "Creator=" + mycreator_user.nome +
+            "     " +"Dificulty:" + myDificuldade + " || " + " Type: "+  myTipo + "\n"+
+            "     " + myLocalizacao.toString() +"\n";
   }
 
 
