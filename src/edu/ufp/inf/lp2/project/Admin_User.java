@@ -17,8 +17,8 @@ public class Admin_User extends Premium_User {
     public static ST<String, Cache> cacheST = new ST<>();
 
 
-    public Admin_User(String id, String nome, int idade) {
-        super(id, nome, idade);
+    public Admin_User(String id, String nome, int idade,int nr_caches_visitadas) {
+        super(id, nome, idade,nr_caches_visitadas);
     }
 
     public void now() {
@@ -39,7 +39,7 @@ public class Admin_User extends Premium_User {
                 "Name='" + nome + '\'' +
                 ", Age=" + idade +
                 ", ID='" + id + '\'' +
-                ",nr_caches_escondidas=" + nr_caches_criadas +
+                ",nr_caches_criadas=" + nr_caches_criadas +
                 ", nr_caches_visitadas=" + nr_caches_visitadas +
                 '}';
     }
@@ -210,57 +210,79 @@ public class Admin_User extends Premium_User {
         //tB.clear();
     }
 
+    //Users Files
+
     public static void save_Users() {
         Out out = new Out(".//data//Users.txt");
         for (String user : userST) {
             if (userST.get(user).getClass().equals(Basic_User.class)) {
                 Basic_User u = userST.get(user);
-                out.print("BASIC " + u.nome + " " + u.id + " " + u.idade + " " + u.nr_caches_visitadas + "\n");
+                out.print("BASIC|" + u.nome + "|" + u.id + "|" + u.idade + "|" + u.nr_caches_visitadas + "|\n");
             } else if (userST.get(user).getClass().equals(Premium_User.class)) {
                 Basic_User u = userST.get(user);
-                out.print("PREMIUM " + u.nome + " " + u.id + " " + u.idade + " " + u.nr_caches_visitadas + "\n");
+                out.print("PREMIUM|" + u.nome + "|" + u.id + "|" + u.idade + "|" + u.nr_caches_visitadas + "|\n");
             } else if (userST.get(user).getClass().equals(Admin_User.class)) {
                 Basic_User u = userST.get(user);
-                out.print("ADMIN " + u.nome + " " + u.id + " " + u.idade + " " + u.nr_caches_visitadas + "\n");
+                out.print("ADMIN|" + u.nome + "|" + u.id + "|" + u.idade + "|" + u.nr_caches_visitadas + "|\n");
             }
         }
     }
 
 
     public static void read_Users() {
-        String file_name = ".//data//Users.txt";
-        In in = new In(file_name);
-        if (!in.exists()) {
-            System.out.println("File " + file_name + "does not exist");
+        Scanner myFile = null;
+        try {
+            myFile = new Scanner(new File(".//data//Users.txt"));
+        } catch (FileNotFoundException e) {
+            System.out.println("File does not exist.");
         }
-        while (!in.isEmpty()) {
-            String type, name, id;
-            int age, nr_cache;
-            type = in.readString();
-            name = in.readString();
-            id = in.readString();
-            age = in.readInt();
-            nr_cache = in.readInt();
-            if (type.equals("BASIC")) {
-                Basic_User basic = new Basic_User(id, name, age);
-                basic.nr_caches_visitadas = nr_cache;
-                basic.InserirUtilizador();
-            } else if (type.equals("PREMIUM")) {
-                Premium_User premiumUser = new Premium_User(id, name, age);
-                premiumUser.nr_caches_visitadas = nr_cache;
-                premiumUser.InserirUtilizador();
-            } else {
-                Admin_User adminUser = new Admin_User(id, name, age);
-                adminUser.nr_caches_visitadas = nr_cache;
-                adminUser.InserirUtilizador();
+        while (myFile.hasNextLine()) {
+            String curLine = myFile.nextLine();
+            int size = curLine.length();
+            String word = "";
+            int lastword = 0,currword=0;
+            String tipo="",nome="",id="";
+            int mytype=0;
+            int idade=0,nr_caches_visitadas=0;
+            for (int i = 0; i < size; i++) {
+
+                if (curLine.charAt(i) == '|') {
+                    word = curLine.substring(lastword, i);
+                    currword++;
+                    lastword = i + 1;
+
+                    if (currword == 1) {//Tipo
+                       if(word.equals("BASIC"))mytype=1;
+                       else if(word.equals("PREMIUM"))mytype=2;
+                       else if(word.equals("ADMIN"))mytype=3;
+                    }
+                    //nome
+                    else if (currword == 2)nome=word;
+                    //id
+                    else if (currword == 3)id=word;
+                    //idade
+                    else if (currword == 4)idade=Integer.parseInt(word);
+                    //caches visitadas
+                    else if (currword == 5)nr_caches_visitadas=Integer.parseInt(word);
+                }
 
             }
-            //System.out.println("Type: " + type + ",Name: " + name + ",ID: " + id + ",Age: " + age);
+            currword=0;
+            lastword=0;
+            if(mytype==1){
+                Basic_User buser=new Basic_User(id,nome,idade,nr_caches_visitadas);
+            }else if(mytype==2){
+                Premium_User puser=new Premium_User(id,nome,idade,nr_caches_visitadas);
+            }else if(mytype==3){
+                Admin_User auser=new Admin_User(id,nome,idade,nr_caches_visitadas);
+            }
 
         }
+        myFile.close();
 
     }
 
+    //Caches Files
     public static void save_Caches() {
         Out out = new Out(".//data//Caches.txt");
         for (String cache : cacheST) {
@@ -343,4 +365,22 @@ public class Admin_User extends Premium_User {
         }
         myFile.close();
     }
+
+    //Logs Cache Files
+
+
+    //Logs normais Files
+
+
+    //Objetos Files
+
+
+    //Logs Tb Files
+
+    
+
+
+
+
+
 }

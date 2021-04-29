@@ -28,7 +28,7 @@ public class Basic_User implements GestaoUtilizadores {
 
 
 
-  public Basic_User(String id, String nome, int idade){
+  public Basic_User(String id, String nome, int idade,int nr_caches_visitadas){
     if (!Admin_User.check_id(id)){
       System.out.println("Erro ao criar Utilizador, id ja esta a ser utilizado");
       return;
@@ -36,10 +36,8 @@ public class Basic_User implements GestaoUtilizadores {
     this.id = id;
     this.nome = nome;
     this.idade = idade;
-    this.nr_caches_visitadas=0;
+    this.nr_caches_visitadas=nr_caches_visitadas;
     this.InserirUtilizador();
-
-
   }
 
   public Basic_User() {

@@ -16,16 +16,16 @@ public class Main {
 
     public static void teste() {
         //User
-        Basic_User user1 = new Basic_User("1", "Rui", 21);
-        Basic_User user2 = new Basic_User("2", "Diogo", 20);
-        Basic_User user3 = new Basic_User("3", "Tomas", 20);
-        Basic_User user4 = new Basic_User("4", "Antonio", 20);
-        Basic_User user5 = new Basic_User("5", "Jorge", 25);
+        Basic_User user1 = new Basic_User("1", "Rui", 21,0);
+        Basic_User user2 = new Basic_User("2", "Diogo", 20,0);
+        Basic_User user3 = new Basic_User("3", "Tomas", 20,0);
+        Basic_User user4 = new Basic_User("4", "Antonio", 20,0);
+        Basic_User user5 = new Basic_User("5", "Jorge", 25,0);
         //Premium
-        Premium_User puser1 = new Premium_User("6", "KINITO", 100);
-        Premium_User puser2 = new Premium_User("7", "gonçalo", 88);
+        Premium_User puser1 = new Premium_User("6", "KINITO", 100,0);
+        Premium_User puser2 = new Premium_User("7", "gonçalo", 88,0);
         //Admin
-        Admin_User auser1 = new Admin_User("8", "FAbiorei", 30);
+        Admin_User auser1 = new Admin_User("8", "FAbiorei", 30,0);
 
         Logs logs = new Logs("Eu estive aqui");
 
@@ -116,7 +116,7 @@ public class Main {
         //Admin_User.r8_b(user1);
         //Admin_User.r8_c(c1);
         //Admin_User.r8_d();
-        Admin_User.r8_e(d1, d2);
+        //Admin_User.r8_e(d1, d2);
         //Admin_User.r8_f();
         System.out.println("\n\n/////////////////////////////////////\n\n");
         //Admin_User.print_caches();
@@ -227,7 +227,7 @@ public class Main {
 
 
 
-        //Admin_User.save_Users();
+        Admin_User.save_Users();
         //Admin_User.save_Caches();
 
     */
