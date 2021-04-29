@@ -2,6 +2,7 @@ package edu.ufp.inf.lp2.project;
 
 import edu.princeton.cs.algs4.LinearProbingHashST;
 import edu.princeton.cs.algs4.ST;
+import edu.princeton.cs.algs4.SeparateChainingHashST;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class Basic_User implements GestaoUtilizadores {
 
   public int idade;
 
-  public HashMap<String,Cache> Hcaches=new HashMap<String,Cache>();
+  public HashMap<String,Cache> Hcaches=new HashMap<>();
 
 
 
@@ -44,6 +45,13 @@ public class Basic_User implements GestaoUtilizadores {
   }
 
 
+
+  public void CriarObjeto(String id, String nome) {
+    Objeto obj = new Objeto(id,nome,this);
+    myObj.put(obj.id,obj);
+    obj.setMyuser(this);
+    obj.setMyCache(null);
+  }
 
 
   @Override
@@ -79,6 +87,7 @@ public class Basic_User implements GestaoUtilizadores {
   public void RemoverUtilizador() {
     userST.remove(this.id);
   }
+
   public void VisitarCache(Date d,Cache c,Logs log){
     ////////////////////////////////////////////////////////////////////////////adicionamos aos logs da cache
     Logs_Cache l=new Logs_Cache(d,this.id,null,null);

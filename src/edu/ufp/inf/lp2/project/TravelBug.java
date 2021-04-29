@@ -8,7 +8,7 @@ import java.util.List;
 
 public class TravelBug extends Objeto {
   public Cache missao;
-  public Premium_User myUser;
+ // public Premium_User myUser;
   public ArrayList<Cache> h_caches=new ArrayList<>();
 
   public ArrayList<Basic_User> h_user=new ArrayList<>();
@@ -27,7 +27,7 @@ public class TravelBug extends Objeto {
       return "TravelBug{" +
               "id='" + id + '\'' +
               ", nome='" + nome + '\'' +
-              ", User Atual=" +  myUser.nome +
+              ", User Atual=" +  super.myuser.nome +
               ", myCreator=" + myCreator.nome +
               ", missao=Levar para a Cache " + missao.nome +
               '}';

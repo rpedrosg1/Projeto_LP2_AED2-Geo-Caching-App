@@ -117,6 +117,42 @@ public class Admin_User extends Premium_User  {
         }
     }
 
+    public static void printCacheObjetos() {
+        System.out.println("\n\nPrint Objetos de Caches:\n");
+
+        for (String pos : cacheST) {
+            Cache c = cacheST.get(pos);
+            if(c.objCache.size()>0){
+                for (Objeto obj : c.objCache){
+                    System.out.println(obj.toString());
+                }
+            }
+            if(c.myTravelBug.size()>0){
+                for (TravelBug tb : c.myTravelBug){
+                    System.out.println(tb.toString());
+                }
+            }
+        }
+    }
+
+    public static void printUsersObjetos() {
+        System.out.println("\n\nPrint Objetos de Users:\n");
+        for (String id : userST){
+            Basic_User user = userST.get(id);
+            if(user.myObj.size()>0){
+                for (String key : user.myObj.keys()){
+                    if(user.myObj.get(key).getClass().equals(TravelBug.class)){//Se for Travel Bug
+                        TravelBug tb = (TravelBug) user.myObj.get(key);
+                        System.out.println(tb.toString());
+                    }else if (user.myObj.get(key).getClass().equals(Objeto.class)){
+                        Objeto obj = user.myObj.get(key);
+                        System.out.println(obj.toString());
+                    }
+                }
+            }
+        }
+    }
+
     public static void printTop5_visitarCaches_r8_e(Date i, Date f) {
         ST<String, Integer> nr_visitas = new ST<>();
         for (String pos : cacheST) {
@@ -209,7 +245,36 @@ public class Admin_User extends Premium_User  {
         //tB.clear();
     }
 
+    public static void printLogs_Caches(){
+        System.out.println("Printing Logs from very Cache:");
+        for (String cache : cacheST){
+            Cache c = cacheST.get(cache);
 
+            if(c.myLogs_cache.size()>0){
+                System.out.println("\nCache: " + c.nome + " tem as seguintes Logs:\n");
+                for (Logs_Cache lc : c.myLogs_cache){
+                    System.out.print("     " +lc.toString());
+                }
+            }else System.out.println("\nA Cache: " + c.nome + " infelizmente com muita pena minha nao tem Logs.\n" +
+                        "Caso queira peça a um admin para criar.\n");
+            System.out.println("------------------------------");
+        }
+    }
 
+    public static void printLogs_Caches(String name){
+        try{
+            Cache c = cacheST.get(name);
+            if(c.myLogs_cache.size()>0){
+                System.out.println("\nCache: " + c.nome + " tem as seguintes Logs:\n");
+                for (Logs_Cache lc : c.myLogs_cache){
+                    System.out.print("     " +lc.toString());
+                }
+            }else System.out.println("\nA Cache: " + c.nome + " infelizmente com muita pena minha nao tem Logs.\n" +
+                    "Caso queira peça a um admin para criar.\n");
+        }catch (Exception e){
+            System.out.println("Erro nao existe nenhuma Cache com nome : " + name);
+        }
+
+    }
 
 }

@@ -1,10 +1,7 @@
 package edu.ufp.inf.lp2.project;
 
-import edu.princeton.cs.algs4.ST;
-import edu.princeton.cs.algs4.StdOut;
-
-import java.io.File;
-import java.util.ArrayList;
+import static edu.ufp.inf.lp2.project.Admin_User.cacheST;
+import static edu.ufp.inf.lp2.project.Admin_User.userST;
 
 public class Main {
 
@@ -130,54 +127,9 @@ public class Main {
     public static void teste_files() {
 
 
-    /*//Users
-        Basic_User user1 = new Basic_User("1", "Rui", 21);
-        Basic_User user2 = new Basic_User("2", "Diogo", 20);
-        Basic_User user3 = new Basic_User("3", "Tomas", 20);
-        Basic_User user4 = new Basic_User("4", "Antonio", 20);
-        Basic_User user5 = new Basic_User("5", "Jorge", 25);
-    //Premium
-        Premium_User puser1 = new Premium_User("6", "KINITO", 100);
-        Premium_User puser2 = new Premium_User("7", "gonçalo", 88);
-    //Admin
-        Admin_User auser1 = new Admin_User("8", "FAbiorei", 30);
 
 
-        user1.InserirUtilizador();
-        user2.InserirUtilizador();
-        user3.InserirUtilizador();
-        user4.InserirUtilizador();
-        user5.InserirUtilizador();
-
-        puser1.InserirUtilizador();
-        puser2.InserirUtilizador();
-
-        auser1.InserirUtilizador();
-
-
-
-
-        Logs logs = new Logs("Eu estive aqui");
-
-
-        //Coordenadas
-        Coordenadas coordenadas1 = new Coordenadas(5.2f, 9.2f);
-        //Localizacao
-        Localizacao localizacao1 = new Localizacao(50.2f, "Porto", coordenadas1);
-        //Cache
-        Cache c1 = new Cache(puser1, "Caixa Misterio", "El Misterio", localizacao1, Dificuldade.DIFICIL, Tipo.PREMIUM);
-        Cache c2 = new Cache(puser1, "Caixa yoyo", "yoyyo", localizacao1, Dificuldade.DIFICIL, Tipo.PREMIUM);
-        Cache c3 = new Cache(puser2, "Caixa idk", "idk bro", localizacao1, Dificuldade.DIFICIL, Tipo.BASIC);
-        Admin_User.cacheST.put(c1.nome, c1);
-        Admin_User.cacheST.put(c2.nome, c2);
-        Admin_User.cacheST.put(c3.nome, c3);
-        //datas
-        Date d1 = new Date(12, 3, 5, 2021);
-        Date d2 = new Date(17, 25, 8, 2021);
-
-        */
-
-        Files_rw.read_Users();
+       /* Files_rw.read_Users();
         Files_rw.read_Caches();
 
     //BASIC USERS
@@ -216,15 +168,20 @@ public class Main {
 
         //travel bugs
         Cache c = Admin_User.cacheST.get("Caixa yoyo");
-        puser1.CriarTb("6", "TB1", c);
+        puser1.CriarTb("5", "TB1", c);
         puser1.CriarTb("7", "TB2", c);
-        puser2.CriarTb("8", "TB3", c);
+        puser1.CriarTb("8", "TB3", c);
     //objetos
-        user2.CriarObj("69", "Actionman");
+        user1.CriarObj("4", "Batman");
         user1.CriarObj("2", "Barbie");
+        user2.CriarObj("1", "Actionman");
+        user2.CriarObj("3", "Homem aranha");
+
 
     //visitas caches
         user1.VisitarCache_deixarObj(d1, c1, logs1, "2");///deixamos o OBJ ID2 na CACHE C1
+        user1.VisitarCache_deixarObj(d1, c1, logs1, "4");///deixamos o OBJ ID2 na CACHE C1
+        user2.VisitarCache_deixarObj(d1, c2, logs1, "3");///deixamos o OBJ ID2 na CACHE C1
         user1.VisitarCache(d1, c1, logs2);///so visitar
         puser1.VisitarCache(d2, c1, logs1);///so visitar
         puser1.VisitarCache_deixarTB(d1, c1, logs1, "7");///deixamos o TB ID7 na CACHE C1
@@ -232,16 +189,16 @@ public class Main {
         puser1.VisitarCache_trocarTB_por_TB(d1, c1, logs1, "8", tb);///Trocamos o TB ID8 pelo TB ID7 logo TB ID8 pertence agora CACHE C1 e o TB ID7 pertence ao KINITO
         user1.VisitarCache(d1, c, logs1);///so visitar
         Objeto o = c1.FindObjeto("2");///Encontramos o OBJ ID2 na CACHE1
-        user2.VisitarCache_trocarObj(d2, c1, logs1, "69", o);/////Trocamos o OBJ ID69 pelo OBJ ID2 logo TB ID69 pertence agora CACHE C1 e o OBJ ID2 pertence ao DIOGO
+        user2.VisitarCache_trocarObj(d2, c1, logs1, "1", o);/////Trocamos o OBJ ID69 pelo OBJ ID2 logo TB ID69 pertence agora CACHE C1 e o OBJ ID2 pertence ao DIOGO
 
         tb = c1.FindTB("8");
         puser1.VisitarCache_trocarTB_por_TB(d1, c1, logs1, "7", tb);
         puser1.VisitarCache_deixarTB(d2, c, logs1, "8");
         tb = c.FindTB("8");
-        puser1.VisitarCache_trocarTB_por_TB(d2, c, logs1, "6", tb);
+        puser1.VisitarCache_trocarTB_por_TB(d2, c, logs1, "5", tb);
 
 
-        /*user3.VisitarCache(d1, c1, logs1);///so visitar
+        user3.VisitarCache(d1, c1, logs1);///so visitar
         user3.VisitarCache(d1, c1, logs1);///so visitar
         user3.VisitarCache(d1, c1, logs1);///so visitar
         user3.VisitarCache(d1, c1, logs1);///so visitar
@@ -251,20 +208,33 @@ public class Main {
         user5.VisitarCache(d1, c1, logs1);///so visitar
         //user5.VisitarCache(d1,c1,logs);///so visitar
 
-         */
+
+*/
 
 
 
+        Files_rw.read_Users();
+        Files_rw.read_Caches();
+        Files_rw.read_Logs_Cache();
+        Files_rw.read_Logs();
+        Files_rw.read_Objetos();
 
-        //Files_rw.read_Users();
-        //Files_rw.read_Caches();
 
-        //Files_rw.save_Logs_Cache();
-        //Admin_User.read_Caches();
-        // Admin_User.read_Users();
+
 
         Admin_User.print_users();
         Admin_User.print_caches();
+        //Admin_User.printLogs_Caches("Caixa Misterio");
+        Admin_User.printLogs_Caches();
+        Admin_User.printCacheObjetos();
+        Admin_User.printUsersObjetos();
+
+       /* Files_rw.save_Objetos();
+        Files_rw.save_Users();
+        Files_rw.save_Caches();
+        Files_rw.save_Logs_Cache();
+        Files_rw.save_Logs();
+*/
 
     }
 

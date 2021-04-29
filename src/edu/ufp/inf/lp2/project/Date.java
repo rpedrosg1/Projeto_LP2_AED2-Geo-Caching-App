@@ -162,11 +162,6 @@ public class Date implements Comparable<Date>{
 
   @Override
   public String toString() {
-    return "Date{" +
-            "day=" + day +
-            ", month=" + month +
-            ", year=" + year +
-            ", hours=" + hour +
-            '}';
+    return "Date:"+ day +"/"+ month + "/" + year + " , at : " + hour + "h.\n";
   }
 }

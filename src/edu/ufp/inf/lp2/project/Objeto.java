@@ -6,6 +6,7 @@ public class Objeto {
     public Cache myCache;
     public Basic_User myuser;
     public Basic_User myCreator;
+
     public Objeto(String id, String nome, Basic_User myCreator) {
         this.id = id;
         this.nome = nome;
@@ -50,17 +51,19 @@ public class Objeto {
 
     @Override
     public String toString() {
-        if(myCache==null) {
+        if (myCache == null) {
             return "Objeto{" +
                     "id='" + id + '\'' +
-                    "myUser='" + myuser + '\'' +
                     ", nome='" + nome + '\'' +
+                    "myUser='" + myuser.nome + '\'' +
                     '}';
         }
         return "Objeto{" +
-                "Nome:'" + nome;
+                "id='" + id + '\'' +
+                ", nome='" + nome + '\'' +
+                "myCach='" + myCache.nome + '\'' +
+                '}';
+
     }
-
-
 
 }

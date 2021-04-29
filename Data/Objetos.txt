@@ -1,0 +1,7 @@
+Cache|Objeto|4|Batman|Caixa Misterio|NULL|1|
+Cache|Objeto|1|Actionman|Caixa Misterio|NULL|2|
+Cache|TravelBug|7|TB2|Caixa Misterio|Caixa yoyo|6|
+Cache|Objeto|3|Homem aranha|Caixa yoyo|NULL|2|
+Cache|TravelBug|5|TB1|Caixa yoyo|Caixa yoyo|6|
+User|Objeto|2|Barbie|NULL|2|1|
+User|TravelBug|8|TB3|Caixa yoyo|6|6|

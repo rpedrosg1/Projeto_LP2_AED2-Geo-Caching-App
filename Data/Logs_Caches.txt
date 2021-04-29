@@ -1,0 +1,10 @@
+Caixa Misterio|1|2|null|3|5|2021|12|
+Caixa Misterio|1|null|null|3|5|2021|12|
+Caixa Misterio|6|null|null|25|8|2021|17|
+Caixa Misterio|6|null|null|3|5|2021|12|
+Caixa Misterio|6|null|null|3|5|2021|12|
+Caixa Misterio|2|69|2|25|8|2021|17|
+Caixa Misterio|6|null|null|3|5|2021|12|
+Caixa yoyo|1|null|null|3|5|2021|12|
+Caixa yoyo|6|null|null|25|8|2021|17|
+Caixa yoyo|6|null|null|25|8|2021|17|
