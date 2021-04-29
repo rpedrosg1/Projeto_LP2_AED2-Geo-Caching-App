@@ -48,12 +48,8 @@ public class Basic_User implements GestaoUtilizadores {
 
   @Override
   public String toString() {
-    return "Basic_User{" +
-            "Name='" + nome + '\'' +
-            ", Age=" + idade +
-            ", ID='" + id + '\'' +
-            ", nr_caches_visitadas=" + nr_caches_visitadas +
-            '}';
+    return  "[" + id + "]BASIC ->" +" Name: " + nome + ", Age=" + idade + "\n"+
+            "   Cache visitadas: " + nr_caches_visitadas + "\n";
   }
 
   @Override

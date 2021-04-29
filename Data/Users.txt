@@ -2,7 +2,7 @@ BASIC|Rui|1|21|3|
 BASIC|Diogo|2|20|1|
 BASIC|Tomas|3|20|4|
 BASIC|Antonio|4|20|2|
-BASIC|Jorge|5|25|1|
-PREMIUM|KINITO|6|100|6|
+BASIC|Jorge Pereira|5|25|1|
+PREMIUM|KINITO paneleiro|6|100|6|
 PREMIUM|gonçalo|7|88|1|
-ADMIN|FAbiorei|8|30|0|
+ADMIN|FAbiorei o troller|8|30|0|
