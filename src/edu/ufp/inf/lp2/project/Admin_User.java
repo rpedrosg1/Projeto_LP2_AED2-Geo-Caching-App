@@ -1,9 +1,6 @@
 package edu.ufp.inf.lp2.project;
 
-import edu.princeton.cs.algs4.BST;
-import edu.princeton.cs.algs4.RedBlackBST;
-import edu.princeton.cs.algs4.ST;
-import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.algs4.*;
 import edu.ufp.inf.lp2.project.Date;
 import java.util.ArrayList;
 
@@ -154,46 +151,121 @@ public class Admin_User extends Premium_User {
     }
 
   }
-  public static void r8_f(){
-      ArrayList <TravelBug> tB = new ArrayList<>();
-      int max_size=0,top_size;
-      String max_key_u="";
-      String max_key="";
-      System.out.println("O Travel Bug com o maior nr de localizações é:");
-      for (String u : userST){
-          Basic_User user=userST.get(u);
-          if(user.getClass().equals(Premium_User.class)){
-          Premium_User puser=(Premium_User)userST.get(u);
-             for (String key : puser.myTravelBugs.keys()) {
-                 System.out.println(puser.myTravelBugs.get(key).h_caches.size() + "\t" + puser.myTravelBugs.get(key).id );
-                 if(puser.myTravelBugs.get(key).h_caches.size()>max_size){
-                     max_size=puser.myTravelBugs.get(key).h_caches.size();
-                     max_key=key;
-                     max_key_u=u;
-                 }
-             }
-         }
-      }
-      top_size=max_size;
-      Premium_User userp=(Premium_User)userST.get(max_key_u);
-      tB.add(userp.myTravelBugs.get(max_key));
+    public static void r8_f(){
+        ArrayList <TravelBug> tB = new ArrayList<>();
+        int max_size=0,top_size;
+        String max_key_u="";
+        String max_key="";
 
-      for (String u : userST){
-          Basic_User user=userST.get(u);
-          if(user.getClass().equals(Premium_User.class)){
-              Premium_User puser=(Premium_User)userST.get(u);
-              for (String key : puser.myTravelBugs.keys()) {
-                  if(puser.myTravelBugs.get(key).h_caches.size()==top_size && !puser.myTravelBugs.get(key).equals(tB.get(0))){
-                      Premium_User userp2=(Premium_User)userST.get(u);
-                      tB.add(userp.myTravelBugs.get(key));
-                  }
-              }
-          }
-      }
+        for (String u : userST){
+            Basic_User user=userST.get(u);
+            if(user.getClass().equals(Premium_User.class)){
+                Premium_User puser=(Premium_User)userST.get(u);
+                for (String key : puser.myTravelBugs.keys()) {
+                    System.out.println(puser.myTravelBugs.get(key).h_caches.size() + "\t" + puser.myTravelBugs.get(key).id );
+                    if(puser.myTravelBugs.get(key).h_caches.size()>max_size){
+                        max_size=puser.myTravelBugs.get(key).h_caches.size();
+                        max_key=key;
+                        max_key_u=u;
+                    }
+                }
+            }
+        }
+        top_size=max_size;
+        Premium_User userp=(Premium_User)userST.get(max_key_u);
+        tB.add(userp.myTravelBugs.get(max_key));
+
+        for (String u : userST){
+            Basic_User user=userST.get(u);
+            if(user.getClass().equals(Premium_User.class)){
+                Premium_User puser=(Premium_User)userST.get(u);
+                for (String key : puser.myTravelBugs.keys()) {
+                    if(puser.myTravelBugs.get(key).h_caches.size()==top_size && !puser.myTravelBugs.get(key).equals(tB.get(0))){
+                        Premium_User userp2=(Premium_User)userST.get(u);
+                        tB.add(userp.myTravelBugs.get(key));
+                    }
+                }
+            }
+        }
+
+        if(tB.size()==1) System.out.println("O Travel Bug com o maior nr de localizações é:");
+        else{
+            System.out.println("Os Travel Bugs com o maior nr de licalizações são:");
+        }
+        for (TravelBug t : tB){
+            System.out.println(t.toString());
+        }
+        //tB.clear();
+    }
+    public static void save_Users(){
+        Out out = new Out(".//data//Users.txt");
+        for (String user : userST){
+            //userST.get(user).getClass().equals(Basic_User.class
+            if(userST.get(user).getClass().equals(Basic_User.class)){
+                Basic_User u = userST.get(user);
+                out.print("BASIC:" + u.nome + " " + u.id + " " + u.idade + " " + u.nr_caches_visitadas + "\n");
+                //System.out.print("É basic user:\t");
+                //System.out.println(userST.get(user).toString());
+            }
+            else if(userST.get(user).getClass().equals(Premium_User.class)){
+                Basic_User u = userST.get(user);
+                out.print("PREMIUM:" + u.nome + " " + u.id + " " + u.idade + "\n");
+                //System.out.print("É Premium user:\t");
+                //System.out.println(userST.get(user).toString());
+            }
+            else if(userST.get(user).getClass().equals(Admin_User.class)){
+                Basic_User u = userST.get(user);
+                out.print("ADMIN:" + u.nome + " " + u.id + " " + u.idade + "\n");
+                //System.out.print("É Admin user:\t");
+                //System.out.println(userST.get(user).toString());
+            }
+        }
+    }
 
 
-      for (TravelBug t : tB){
-          System.out.println(t.toString());
-      }
-  }
+    public static void read_Users() {
+        String file_name=".//data//Users.txt";
+        In in = new In(file_name);
+        if(!in.exists()){
+            System.out.println("File " + file_name + "does not exist");
+        }
+        while(!in.isEmpty()){
+            String type,name,id;
+            int age;
+            type=in.readString();
+            name=in.readString();
+            id = in.readString();
+            age = in.readInt();
+            if(type.equals("BASIC")){
+                Basic_User basic = new Basic_User(id,name,age);
+                basic.InserirUtilizador();
+            }else if (type.equals("PREMIUM")){
+                Premium_User premiumUser = new Premium_User(id,name,age);
+                premiumUser.InserirUtilizador();
+            }else{
+                Admin_User adminUser = new Admin_User(id,name,age);
+                adminUser.InserirUtilizador();
+
+            }
+            //System.out.println("Type: " + type + ",Name: " + name + ",ID: " + id + ",Age: " + age);
+
+        }
+
+    }
+
+    public static void save_Caches(){
+        Out out = new Out(".//data//Caches.txt");
+        for (String cache : cacheST){
+            //userST.get(user).getClass().equals(Basic_User.class
+            //if(cacheST.get(cache).myTipo.equals(Tipo.BASIC)){
+            Cache c = cacheST.get(cache);
+            out.print(c.mycreator_user.nome+ " " +c.nome + " " + c.descrisao + " "  + c.myTipo.toString()+ " " + c.myDificuldade.toString()+ " " + c.raio+ " "+ c.regiao );
+            //}
+            //else{
+            //Basic_User u = userST.get(cache);
+            //  out.print("PREMIUM:" + u.nome + " " + u.id + " " + u.idade + "\n");
+            //}
+
+        }
+    }
 }
