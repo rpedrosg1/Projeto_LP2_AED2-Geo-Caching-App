@@ -340,6 +340,8 @@ public class Files_rw {
                         TravelBug tb = new TravelBug(objID,objName, (Premium_User) userST.get(userCreatorID),cacheST.get(objUserID));
                         tb.myCache=c;
                         c.myTravelBug.add(tb);
+                        Premium_User puser= (Premium_User) userST.get(tb.myCreator.id);
+                        puser.myTravelBugs.put(tb.id,tb);
                     }
                 }else{
                     if(objType.equals("Objeto")){
@@ -348,10 +350,11 @@ public class Files_rw {
                         o.myuser=user;
                         user.myObj.put(o.id,o);
                     }else{//TravelBug
-                        Basic_User user = userST.get(objUserID);
+                        Premium_User puser = (Premium_User) userST.get(objUserID);
                         TravelBug tb = new TravelBug(objID,objName, (Premium_User) userST.get(userCreatorID),cacheST.get(objCacheName));
-                        tb.myuser= user;
-                        user.myObj.put(tb.id,tb);
+                        tb.myuser= puser;
+                        puser.myObj.put(tb.id,tb);
+                        puser.myTravelBugs.put(tb.id,tb);
                     }
                 }
             //System.out.println(l.toString());
@@ -408,6 +411,8 @@ public class Files_rw {
     //Basic_User hCaches
 
     //Logs Tb Files
+
+
 
     //TB hCaches
 
