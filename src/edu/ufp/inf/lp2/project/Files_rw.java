@@ -363,6 +363,48 @@ public class Files_rw {
 
     //Caches H_users
 
+    public static void save_Cache_Users_Husers_Hcaches(){
+        Out out = new Out(".//data//Cache_Husers.txt");
+        for (String c : cacheST) {
+            Cache cache = cacheST.get(c);
+           if(cache.H_User.size()>0){
+               for (Basic_User huser : cache.H_User.values()){
+                   out.print(cache.nome + "|" + huser.id + "|\n");
+               }
+           }
+        }
+        out.close();
+    }
+
+    public static void read_Cache_Users_Husers_Hcaches(){
+        In myFile = new In(".//data//Cache_Husers.txt");
+        while (myFile.hasNextLine()) {
+
+            String curLine = myFile.readLine();//Current Line
+
+            int size = curLine.length(), currword = 0, lastword = 0;
+            String word = "", cacheName="",userID="";
+            for (int i = 0; i < size; i++) {
+
+                if (curLine.charAt(i) == '|') {
+                    word = curLine.substring(lastword, i);
+                    currword++;
+                    lastword = i + 1;
+                    if (currword == 1) cacheName = word;
+                    else if (currword == 2) userID = word;
+                }
+            }
+            Cache c = cacheST.get(cacheName);
+            Basic_User user = userST.get(userID);
+            c.H_User.put(user.id,user);
+            user.Hcaches.put(c.nome,c);
+            //System.out.println(l.toString());
+        }
+        myFile.close();
+    }
+
+
+
     //Basic_User hCaches
 
     //Logs Tb Files

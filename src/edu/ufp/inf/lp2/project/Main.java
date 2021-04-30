@@ -1,8 +1,5 @@
 package edu.ufp.inf.lp2.project;
 
-import static edu.ufp.inf.lp2.project.Admin_User.cacheST;
-import static edu.ufp.inf.lp2.project.Admin_User.userST;
-
 public class Main {
 
 
@@ -128,8 +125,8 @@ public class Main {
 
 
 
-
-       /* Files_rw.read_Users();
+/*
+        Files_rw.read_Users();
         Files_rw.read_Caches();
 
     //BASIC USERS
@@ -209,25 +206,33 @@ public class Main {
         //user5.VisitarCache(d1,c1,logs);///so visitar
 
 
-*/
 
 
+
+
+ */
 
         Files_rw.read_Users();
         Files_rw.read_Caches();
         Files_rw.read_Logs_Cache();
         Files_rw.read_Logs();
         Files_rw.read_Objetos();
+        Files_rw.read_Cache_Users_Husers_Hcaches();
 
 
 
 
-        Admin_User.print_users();
-        Admin_User.print_caches();
+        //Admin_User.print_users();
+        //Admin_User.print_caches();
         //Admin_User.printLogs_Caches("Caixa Misterio");
-        Admin_User.printLogs_Caches();
-        Admin_User.printCacheObjetos();
-        Admin_User.printUsersObjetos();
+
+
+        //Admin_User.printLogs_Caches();
+        //Admin_User.printCacheObjetos();
+        //Admin_User.printUsersObjetos();
+        Admin_User.printUsers_Hcaches();
+        Admin_User.printCache_Husers();
+
 
        /* Files_rw.save_Objetos();
         Files_rw.save_Users();
@@ -235,6 +240,7 @@ public class Main {
         Files_rw.save_Logs_Cache();
         Files_rw.save_Logs();
 */
+        Files_rw.save_Cache_Users_Husers_Hcaches();
 
     }
 

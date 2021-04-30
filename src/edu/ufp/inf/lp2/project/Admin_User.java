@@ -153,6 +153,38 @@ public class Admin_User extends Premium_User  {
         }
     }
 
+    public static void printUsers_Hcaches(){
+        System.out.println("\n\nUtilizadores -> Historico de caches visitadas:\n");
+        for (String id : userST){
+            Basic_User user = userST.get(id);
+
+            if(user.Hcaches.size()>0){
+                    System.out.println("\n  O utilizador " + user.nome + " com ID: "+ user.id + "ja visitou as seguinstes Caches:");
+                for (Cache hcache : user.Hcaches.values()){
+                    System.out.println("\t["+hcache.myTipo+"] " + hcache.nome + " | " + hcache.myLocalizacao.regiao +
+                            " | Dificuldade:" + hcache.myDificuldade + "\n");
+                }
+            }
+        }
+    }
+
+    public static void printCache_Husers(){
+        System.out.println("\n\nCaches -> Historico de utilizadores que visitaram esta cache:\n");
+        for (String c : cacheST){
+            Cache cache = cacheST.get(c);
+
+            if(cache.H_User.size()>0){
+                System.out.println("\nA cache " + cache.nome + " ja foi visitada pelos seguintes Utilizadores:\n");
+                String classe = "BASIC";
+                for (Basic_User huser : cache.H_User.values()){
+                    if(huser.getClass().equals(Premium_User.class))classe="PREMIUM";
+                    else if(huser.getClass().equals(Admin_User.class))classe="ADMIN";
+                    System.out.println("\t["+classe+"] " + huser.nome + " | ID: " + huser.id +"\n");
+                }
+            }
+        }
+    }
+
     public static void printTop5_visitarCaches_r8_e(Date i, Date f) {
         ST<String, Integer> nr_visitas = new ST<>();
         for (String pos : cacheST) {
