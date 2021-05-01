@@ -414,10 +414,10 @@ public class Files_rw {
                                 if (ltb.c == null) {
                                     //TB id , User que criou TB,
                                     out.print(tb.id + "|" + tb.myCreator.id + "|USER|" + ltb.id_user + "|" + ltb.nome_cache + "|" + ltb.data.day + "|" +
-                                            ltb.data.month + "|" + ltb.data.year + "|" + ltb.data.hour + "|" + ltb.missao_concluida+"|\n");
+                                            ltb.data.month + "|" + ltb.data.year + "|" + ltb.data.hour + "|"+ltb.u.id+"|" + ltb.missao_concluida+"|\n");
                                 } else {
-                                    out.print(tb.id + "|" + tb.myCreator.id + "|CACHE|" + ltb.c.nome + "|" + ltb.nome_cache + "|" + ltb.data.day + "|" +
-                                            ltb.data.month + "|" + ltb.data.year + "|" + ltb.data.hour + "|" + ltb.missao_concluida+"|\n");
+                                    out.print(tb.id + "|" + tb.myCreator.id + "|CACHE|" + ltb.id_user + "|" + ltb.nome_cache + "|" + ltb.data.day + "|" +
+                                            ltb.data.month + "|" + ltb.data.year + "|" + ltb.data.hour + "|"+ltb.c.nome+"|" + ltb.missao_concluida+"|\n");
                                 }
 
                             }
@@ -432,10 +432,47 @@ public class Files_rw {
 
     public static void read_TravelBugs_Logs(){
        In myFile = new In(".//data//TravelBugs_Logs.txt");
-
-
+        while (myFile.hasNextLine()) {
+            String curLine = myFile.readLine();//Current Line
+            int day=0,month=0,year=0,hour=0;
+            String missao="false";
+            boolean itsCache=false,missao_concluida=true;
+            String user="USER";
+            int size = curLine.length(), currword = 0, lastword = 0;
+            String word = "",cacheName="",userID="",cache_user_atual="",tbID="",CreatorID="";
+            for (int i = 0; i < size; i++) {
+                if (curLine.charAt(i) == '|') {
+                    word = curLine.substring(lastword, i);
+                    currword++;
+                    lastword = i + 1;
+                    if (currword == 1) tbID = word;
+                    else if (currword == 2) CreatorID = word;
+                    else if (currword == 3){ if (!user.equals(word)){itsCache=true;}}
+                    else if (currword == 4) userID = word;
+                    else if (currword == 5) cacheName = word;
+                    else if (currword == 6) day = Integer.parseInt(word);
+                    else if (currword == 7) month = Integer.parseInt(word);
+                    else if (currword == 8) year = Integer.parseInt(word);
+                    else if (currword == 9) hour = Integer.parseInt(word);
+                    else if (currword == 10) cache_user_atual = word;
+                    else if (currword == 11) {if (missao.equals(word)){missao_concluida=false;}}
+                    }
+                }
+            Premium_User puser= (Premium_User) userST.get(CreatorID);
+            TravelBug tb=puser.myTravelBugs.get(tbID);
+            Date data=new Date(hour,day,month,year);
+            if (itsCache) {
+                Cache c= cacheST.get(cache_user_atual);
+                LogsTB lgtb=new LogsTB(cacheName,userID,data,c,null,missao_concluida);
+            }else {
+                Premium_User puser1=(Premium_User) userST.get(cache_user_atual);
+                LogsTB lgtb=new LogsTB(cacheName,userID,data,null,puser1,missao_concluida);
+            }
+            }
         myFile.close();
     }
+
+
 
 
     //TB hCaches

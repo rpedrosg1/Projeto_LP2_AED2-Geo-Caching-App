@@ -1,5 +1,7 @@
 package edu.ufp.inf.lp2.project;
 
+import java.io.File;
+
 public class Main {
 
 
@@ -209,8 +211,7 @@ public class Main {
 
     puser1.now();
     puser1.printLogsTB("8");
-
-
+    Files_rw.save_TravelBugs_Logs();
 
 
 /*

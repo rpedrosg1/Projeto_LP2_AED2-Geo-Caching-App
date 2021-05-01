@@ -25,6 +25,14 @@ public class LogsTB {
     this.u = u;
     missao_concluida = false;
   }
+  public LogsTB(String nome_cache, String id_user, Date data, Cache c, Premium_User u,boolean missao_concluida) {
+    this.nome_cache = nome_cache;
+    this.id_user = id_user;
+    this.data = data;
+    this.c = c;
+    this.u = u;
+    this.missao_concluida= missao_concluida;
+  }
 
   @Override
   public String toString() {
