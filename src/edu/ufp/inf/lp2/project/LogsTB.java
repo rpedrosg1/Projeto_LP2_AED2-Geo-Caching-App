@@ -7,11 +7,12 @@ import edu.princeton.cs.algs4.RedBlackBST;
 import java.util.Vector;
 import static edu.ufp.inf.lp2.project.Admin_User.userST;
 public class LogsTB {
-  String nome_cache;//cache onde ele ta atualmente se for null n ta numa cache
-  String id_user;//user onde ele ta atualmente se for null n ta num user
+
+  String nome_cache;//Se c==null(ESTA NUM UESR) e nome_cache vai ser nome de ultima cache que foi retirado
+  String id_user;//Se u==null(ESTA NUMA CACHE) e id_user vai ser o id do user que o deixou numa cache
   Date data;
-  Cache c;
-  Premium_User u;
+  Cache c;//cache onde ele ta atualmente se for null n ta numa cache
+  Premium_User u;//user onde ele ta atualmente se for null n ta num user
 
   boolean missao_concluida;
 

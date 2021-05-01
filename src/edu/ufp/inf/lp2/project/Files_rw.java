@@ -411,7 +411,34 @@ public class Files_rw {
     //Basic_User hCaches
 
     //Logs Tb Files
+    public static void save_TravelBugs_Logs() {
+        Out out = new Out(".//data//TravelBugs_Logs.txt");
+        for (String id : userST) {
+            if (userST.get(id).getClass().equals(Premium_User.class)) {
+                Premium_User user = (Premium_User) userST.get(id);
+                if (user.myTravelBugs.size() > 0) {
+                    for (String key : user.myTravelBugs.keys()) {
+                        TravelBug tb = user.myTravelBugs.get(key);
+                        if (tb.myLogsTB.size() > 0) {
+                            for (LogsTB ltb : tb.myLogsTB) {
+                                if (ltb.c == null) {
+                                    //TB id , User que criou TB,
+                                    out.print(tb.id + "|" + tb.myCreator.id + "|USER|" + ltb.id_user + "|" + ltb.nome_cache + "|" + ltb.data.day + "|" +
+                                            ltb.data.month + "|" + ltb.data.year + "|" + ltb.data.hour + "|" + ltb.missao_concluida+"|\n");
+                                } else {
+                                    out.print(tb.id + "|" + tb.myCreator.id + "|CACHE|" + ltb.c.nome + "|" + ltb.nome_cache + "|" + ltb.data.day + "|" +
+                                            ltb.data.month + "|" + ltb.data.year + "|" + ltb.data.hour + "|" + ltb.missao_concluida+"|\n");
+                                }
 
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        out.close();
+    }
 
 
     //TB hCaches

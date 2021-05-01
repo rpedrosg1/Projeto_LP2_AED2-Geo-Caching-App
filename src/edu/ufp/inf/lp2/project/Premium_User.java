@@ -107,6 +107,9 @@ public class Premium_User extends Basic_User {
     }
 
     public void VisitarCache_trocarTB_por_TB(Date i, Cache c, Logs log, String postb, TravelBug old_tb) {
+        //String postb -> posicao travel Bug que tenho no bolso(USER)
+        //old_tb -> travel Bug que esta na chace c
+
         if (c.myTipo == Tipo.PREMIUM) {
             /////////////////////////////////////////////////////////////////vamos buscar o TB ao inventario do user e apagamos
             TravelBug tb = (TravelBug) myObj.get(postb);

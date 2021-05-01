@@ -208,7 +208,9 @@ public class Main {
 
 
 puser1.now();
-puser1.printLogsTB("5");
+puser1.printLogsTB("8");
+
+Files_rw.save_TravelBugs_Logs();
 
 
 /*
@@ -239,8 +241,9 @@ puser1.printLogsTB("5");
         Files_rw.save_Caches();
         Files_rw.save_Logs_Cache();
         Files_rw.save_Logs();
-*/
         Files_rw.save_Cache_Users_Husers_Hcaches();
+*/
+
 
     }
 

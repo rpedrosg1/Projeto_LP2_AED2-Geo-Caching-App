@@ -15,7 +15,7 @@ public class TravelBug extends Objeto {
   public HashMap<String,Cache> h_caches=new HashMap<>();
   public HashMap<String, Basic_User> h_user=new HashMap<>();
 
-  public ArrayList<LogsTB> myLogsTB =new ArrayList<>();
+  public ArrayList<LogsTB> myLogsTB =new ArrayList<>();//historico do TB
 
   public TravelBug(String id,String nome,Premium_User myCreator, Cache missao) {
     super(id,nome,myCreator);
@@ -36,12 +36,21 @@ public class TravelBug extends Objeto {
               "\n Com a missão de chegar a Cache " + missao.nome;
     }
     if(missao.nome.equals(myCache.nome)){
+        if(size>1){
+            return "Creator["+myCreator.nome+"]...TravelBug[" +
+                    id + "]" +
+                    nome +"\n"+
+                    "Encontra se neste momento com a cache " +  myCache.nome +
+                    "\n O ultimo user que o transportou foi:"+ userST.get(myLogsTB.get(size-1).id_user).nome+
+                    "\n A ultima cache onde esteve foi:"+ cacheST.get(myLogsTB.get(size-2).nome_cache).nome+
+                    "\n Encontra se na Cache Missão ou seja a sua missão está concluida!";
+        }
         return "Creator["+myCreator.nome+"]...TravelBug[" +
                 id + "]" +
                 nome +"\n"+
-                "Encontra se neste momento com a cache " +  super.myCache.nome +
+                "Encontra se neste momento com a cache " +  myCache.nome +
                 "\n O ultimo user que o transportou foi:"+ userST.get(myLogsTB.get(size-1).id_user).nome+
-                "\n A ultima cache onde esteve foi:"+ cacheST.get(myLogsTB.get(size-2).nome_cache).nome+
+                "\n A ultima cache onde esteve foi:"+ cacheST.get(myLogsTB.get(size-1).nome_cache).nome+
                 "\n Encontra se na Cache Missão ou seja a sua missão está concluida!";
     }
 
