@@ -240,12 +240,14 @@ public class Admin_User extends Premium_User  {
             Basic_User user = userST.get(u);
             if (user.getClass().equals(Premium_User.class)) {
                 Premium_User puser = (Premium_User) userST.get(u);
-                for (String key : puser.myTravelBugs.keys()) {
-                    System.out.println(puser.myTravelBugs.get(key).h_caches.size() + "\t" + puser.myTravelBugs.get(key).id);
-                    if (puser.myTravelBugs.get(key).h_caches.size() > max_size) {
-                        max_size = puser.myTravelBugs.get(key).h_caches.size();
-                        max_key = key;
-                        max_key_u = u;
+                if(puser.myTravelBugs.size()>0){
+                    for (String key : puser.myTravelBugs.keys()) {
+                        System.out.println(puser.myTravelBugs.get(key).h_caches.size() + "\t" + puser.myTravelBugs.get(key).id);
+                        if (puser.myTravelBugs.get(key).h_caches.size() > max_size) {
+                            max_size = puser.myTravelBugs.get(key).h_caches.size();
+                            max_key = key;
+                            max_key_u = u;
+                        }
                     }
                 }
             }
