@@ -28,15 +28,24 @@ public class LogsTB {
   @Override
   public String toString() {
     if (u == null) {
-      return "O user " + userST.get(id_user).nome + " deixou este Travel Bug na Cache "+
-               nome_cache + "\n" +
-              "Na data: " + data.toString() +
-              ", missao_concluida=" + missao_concluida;
-    }
+      if(missao_concluida) {
+        return "O user " + userST.get(id_user).nome + " deixou este Travel Bug na Cache " +
+                nome_cache + "\n" +
+                data.toString() +"Ao chegar a esta cache a missão fica concluida parabéns!!";
+
+      }else {
+        return "O user " + userST.get(id_user).nome + " deixou este Travel Bug na Cache " +
+                nome_cache + "\n" +
+                data.toString()+ "Ainda não é desta que a missão fica concluida é preciso continuar a tentar!";
+
+         }
+    }else {
+
     return "O user " + userST.get(id_user).nome + " retirou este Travel Bug da Cache "+
             nome_cache + "\n" +
-            "Na data: " + data.toString() +
-            ", missao_concluida=" + missao_concluida;
+            data.toString() + "A missão passa a estar de volta a ação!";
+  }
+
   }
 
 

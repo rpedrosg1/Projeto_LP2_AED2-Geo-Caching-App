@@ -125,7 +125,7 @@ public class Main {
 
 
 
-/*
+
         Files_rw.read_Users();
         Files_rw.read_Caches();
 
@@ -207,18 +207,18 @@ public class Main {
 
 
 
+puser1.now();
+puser1.printLogsTB("5");
 
 
-
- */
-
+/*
         Files_rw.read_Users();
         Files_rw.read_Caches();
         Files_rw.read_Logs_Cache();
         Files_rw.read_Logs();
         Files_rw.read_Objetos();
         Files_rw.read_Cache_Users_Husers_Hcaches();
-
+ */
 
 
 
@@ -230,8 +230,8 @@ public class Main {
         //Admin_User.printLogs_Caches();
         //Admin_User.printCacheObjetos();
         //Admin_User.printUsersObjetos();
-        Admin_User.printUsers_Hcaches();
-        Admin_User.printCache_Husers();
+        //Admin_User.printUsers_Hcaches();
+        //Admin_User.printCache_Husers();
 
 
        /* Files_rw.save_Objetos();

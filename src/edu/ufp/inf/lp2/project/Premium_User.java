@@ -28,7 +28,7 @@ public class Premium_User extends Basic_User {
         myObj.put(tb.id, tb);
         tb.setMyuser(this);
         tb.myCache = null;
-        tb.h_user.add(this);
+        tb.h_user.put(this.id,this);
     }
 
     public void VisitarCache_deixarTB(Date i, Cache c, Logs log, String postb) {
@@ -55,7 +55,7 @@ public class Premium_User extends Basic_User {
             ///////////////////////////////////////////////////////////////////adicionamos o Tb a Cache
             tb.setMyCache(c);
             tb.myuser = null;
-            tb.h_caches.add(c);
+            tb.h_caches.put(c.nome,c);
             c.myTravelBug.add(tb);
             ///////////////////////////////////////////////////////////////////adicionamos ao historico de cada e incre
             this.Hcaches.put(c.nome, c);
@@ -93,7 +93,7 @@ public class Premium_User extends Basic_User {
             c.myLogs_cache.add(log_cache);
             c.addLog(log);
             ///////////////////////////////////////////////////////////////////adicionamos o tb a cache
-            tb.h_caches.add(c);
+            tb.h_caches.put(c.nome,c);
             tb.setMyCache(c);
             tb.myuser = null;
             c.myTravelBug.add(tb);
@@ -129,15 +129,16 @@ public class Premium_User extends Basic_User {
             c.addLog(log);
             ////////////////////////////////////////////////////////////////////////removemos da cache o antigo e adicionamos o novo
             c.myTravelBug.remove(old_tb);
-            tb.h_caches.add(c);
+            tb.h_caches.put(c.nome,c);
             tb.setMyCache(c);
             tb.myuser = null;
             c.myTravelBug.add(tb);
             /////////////////////////////////////////////////////////////////////adicionamos o tb da cache ao user com o respetivo log do tb
             LogsTB logtb = new LogsTB(c.nome, this.id, i, null, this);
-            tb.myLogsTB.add(logtb);
+            old_tb.myLogsTB.add(logtb);
             this.myObj.put(old_tb.id, old_tb);
             old_tb.setMyuser(this);
+            tb.h_user.put(this.id,this);
             old_tb.myCache = null;
             ////////////////////////////////////////////////////////////////////////////////////////adicionamos ao historico de cada e incre
             this.Hcaches.put(c.nome, c);
@@ -148,10 +149,19 @@ public class Premium_User extends Basic_User {
         }
     }
 
-    public void printTB() {
+    public void now() {
         System.out.println("O user com o nome " + this.nome + " tem estes travel bugs:");
         for (String key : myTravelBugs.keys()) {
-            System.out.println(myTravelBugs.get(key).toString());
+            System.out.println("\n"+myTravelBugs.get(key).toString());
+        }
+    }
+    public void printLogsTB(String id_tb){
+        int i=1;
+        TravelBug tb =myTravelBugs.get(id_tb);
+        System.out.println("\nO Travel Bug["+tb.id+"]"+tb.nome+" do Criador " + tb.myCreator.nome +" tem os seguintes logs:");
+        for (LogsTB ltb : tb.myLogsTB){
+            System.out.println("("+i+")"+ltb.toString());
+            i++;
         }
     }
 
