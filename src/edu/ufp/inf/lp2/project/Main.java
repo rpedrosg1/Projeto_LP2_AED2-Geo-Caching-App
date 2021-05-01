@@ -79,16 +79,16 @@ public class Main {
         user1.VisitarCache(d1, c1, logs);///so visitar
         puser1.VisitarCache(d2, c1, logs);///so visitar
         puser1.VisitarCache_deixarTB(d1, c1, logs, "7");///deixamos o TB ID7 na CACHE C1
-        TravelBug tb = c1.FindTB("7");///Encontramos o TB ID7 na CACHE1
+        TravelBug tb = c1.FindTB_inCache("7");///Encontramos o TB ID7 na CACHE1
         puser1.VisitarCache_trocarTB_por_TB(d1, c1, logs, "8", tb);///Trocamos o TB ID8 pelo TB ID7 logo TB ID8 pertence agora CACHE C1 e o TB ID7 pertence ao KINITO
         user1.VisitarCache(d1, c2, logs);///so visitar
         Objeto o = c1.FindObjeto("2");///Encontramos o OBJ ID2 na CACHE1
         user2.VisitarCache_trocarObj(d2, c1, logs, "69", o);/////Trocamos o OBJ ID69 pelo OBJ ID2 logo TB ID69 pertence agora CACHE C1 e o OBJ ID2 pertence ao DIOGO
 
-        tb = c1.FindTB("8");
+        tb = c1.FindTB_inCache("8");
         puser1.VisitarCache_trocarTB_por_TB(d1, c1, logs, "7", tb);
         puser1.VisitarCache_deixarTB(d2, c2, logs, "8");
-        tb = c2.FindTB("8");
+        tb = c2.FindTB_inCache("8");
         puser1.VisitarCache_trocarTB_por_TB(d2, c2, logs, "6", tb);
 
 
@@ -182,16 +182,16 @@ public class Main {
         user1.VisitarCache(d1, c1, logs2);///so visitar
         puser1.VisitarCache(d2, c1, logs1);///so visitar
         puser1.VisitarCache_deixarTB(d1, c1, logs1, "7");///deixamos o TB ID7 na CACHE C1
-        TravelBug tb = c1.FindTB("7");///Encontramos o TB ID7 na CACHE1
+        TravelBug tb = c1.FindTB_inCache("7");///Encontramos o TB ID7 na CACHE1
         puser1.VisitarCache_trocarTB_por_TB(d1, c1, logs1, "8", tb);///Trocamos o TB ID8 pelo TB ID7 logo TB ID8 pertence agora CACHE C1 e o TB ID7 pertence ao KINITO
         user1.VisitarCache(d1, c, logs1);///so visitar
         Objeto o = c1.FindObjeto("2");///Encontramos o OBJ ID2 na CACHE1
         user2.VisitarCache_trocarObj(d2, c1, logs1, "1", o);/////Trocamos o OBJ ID69 pelo OBJ ID2 logo TB ID69 pertence agora CACHE C1 e o OBJ ID2 pertence ao DIOGO
 
-        tb = c1.FindTB("8");
+        tb = c1.FindTB_inCache("8");
         puser1.VisitarCache_trocarTB_por_TB(d1, c1, logs1, "7", tb);
         puser1.VisitarCache_deixarTB(d2, c, logs1, "8");
-        tb = c.FindTB("8");
+        tb = c.FindTB_inCache("8");
         puser1.VisitarCache_trocarTB_por_TB(d2, c, logs1, "5", tb);
 
 
@@ -207,10 +207,10 @@ public class Main {
 
 
 
-puser1.now();
-puser1.printLogsTB("8");
+    puser1.now();
+    puser1.printLogsTB("8");
 
-Files_rw.save_TravelBugs_Logs();
+
 
 
 /*
@@ -220,8 +220,10 @@ Files_rw.save_TravelBugs_Logs();
         Files_rw.read_Logs();
         Files_rw.read_Objetos();
         Files_rw.read_Cache_Users_Husers_Hcaches();
- */
+        Files_rw.read_TravelBugs_HCaches();
+        Files_rw.read_TravelBugs_HUsers();
 
+*/
 
 
         //Admin_User.print_users();
@@ -242,7 +244,11 @@ Files_rw.save_TravelBugs_Logs();
         Files_rw.save_Logs_Cache();
         Files_rw.save_Logs();
         Files_rw.save_Cache_Users_Husers_Hcaches();
-*/
+        Files_rw.save_TravelBugs_Logs();
+        Files_rw.save_TravelBugs_HCaches();
+        Files_rw.save_TravelBugs_HUsers();
+
+        */
 
 
     }

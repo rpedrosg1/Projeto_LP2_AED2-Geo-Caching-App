@@ -55,7 +55,7 @@ public class Cache implements GestaoCaches {
         return null;
     }
 
-    public TravelBug FindTB(String id) {
+    public TravelBug FindTB_inCache(String id) {
         for (TravelBug tb : myTravelBug) {
             if (tb.id.equals(id)) {
                 return tb;

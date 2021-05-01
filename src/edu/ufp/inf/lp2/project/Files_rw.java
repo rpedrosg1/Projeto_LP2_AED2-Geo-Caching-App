@@ -33,14 +33,10 @@ public class Files_rw {
     }
 
     public static void read_Users() {
-        Scanner myFile = null;
-        try {
-            myFile = new Scanner(new File(".//data//Users.txt"));
-        } catch (FileNotFoundException e) {
-            System.out.println("File does not exist.");
-        }
+
+       In myFile = new In(".//data//Users.txt");
         while (myFile.hasNextLine()) {
-            String curLine = myFile.nextLine();
+            String curLine = myFile.readLine();
             int size = curLine.length();
             String word = "";
             int lastword = 0, currword = 0;
@@ -99,17 +95,11 @@ public class Files_rw {
     }
 
     public static void read_Caches() {
-        Scanner myFile = null;
-        ;
-        try {
-            myFile = new Scanner(new File(".//data//Caches.txt"));
-        } catch (FileNotFoundException e) {
-            System.out.println("File does not exist.");
-        }
 
+        In myFile = new In(".//data//Caches.txt");
         while (myFile.hasNextLine()) {
 
-            String curLine = myFile.nextLine();//Current Line
+            String curLine = myFile.readLine();//Current Line
 
             int size = curLine.length(),//Current Line
                     lastword = 0, currword = 0;
@@ -364,7 +354,7 @@ public class Files_rw {
     }
 
 
-    //Caches H_users
+    //Caches H_users  &&   //Basic_User hCaches
 
     public static void save_Cache_Users_Husers_Hcaches(){
         Out out = new Out(".//data//Cache_Husers.txt");
@@ -408,7 +398,7 @@ public class Files_rw {
 
 
 
-    //Basic_User hCaches
+
 
     //Logs Tb Files
     public static void save_TravelBugs_Logs() {
@@ -440,9 +430,111 @@ public class Files_rw {
         out.close();
     }
 
+    public static void read_TravelBugs_Logs(){
+       In myFile = new In(".//data//TravelBugs_Logs.txt");
+
+
+        myFile.close();
+    }
+
 
     //TB hCaches
 
+    public static void save_TravelBugs_HCaches(){
+        Out out = new Out(".//data//TravelBugs_HCaches.txt");
+        for (String id : userST) {
+            if (userST.get(id).getClass().equals(Premium_User.class)) {
+                Premium_User user = (Premium_User) userST.get(id);
+                if (user.myTravelBugs.size() > 0) {
+                    for (String key: user.myTravelBugs.keys()){
+                        TravelBug tb = user.myTravelBugs.get(key);
+                        if(tb.h_caches.size()>0){
+                            for (Cache cache:tb.h_caches.values()){
+                                //ID user/Dono do TB , ID do TB , nome Cache
+                                out.print(user.id+"|"+tb.id+"|"+cache.nome+"|\n");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        out.close();
+    }
+
+    public static void read_TravelBugs_HCaches(){
+        In myFile = new In(".//data//TravelBugs_HCaches.txt");
+        while (myFile.hasNextLine()) {
+
+            String curLine = myFile.readLine();//Current Line
+            //ID user/Dono do TB , ID do TB , nome Cache
+            int size = curLine.length(), currword = 0, lastword = 0;
+            String word = "", userID="",travelBug_ID="",cache_name="";
+            for (int i = 0; i < size; i++) {
+
+                if (curLine.charAt(i) == '|') {
+                    word = curLine.substring(lastword, i);
+                    currword++;
+                    lastword = i + 1;
+                    if (currword == 1) userID = word;
+                    else if (currword == 2) travelBug_ID = word;
+                    else if (currword == 3) cache_name = word;
+                }
+            }
+            Cache c = cacheST.get(cache_name);
+            Premium_User puser = (Premium_User) userST.get(userID);
+            puser.myTravelBugs.get(travelBug_ID).h_caches.put(c.nome,c);
+        }
+        myFile.close();
+    }
+
+
+
     //TB hUsers
 
+    public static void save_TravelBugs_HUsers(){
+        Out out = new Out(".//data//TravelBugs_HUsers.txt");
+        for (String id : userST) {
+            if (userST.get(id).getClass().equals(Premium_User.class)) {
+                Premium_User user = (Premium_User) userST.get(id);
+                if (user.myTravelBugs.size() > 0) {
+                    for (String key: user.myTravelBugs.keys()){
+                        TravelBug tb = user.myTravelBugs.get(key);
+                        if(tb.h_user.size()>0){
+                            for (Basic_User buser:tb.h_user.values()){
+                                //ID do criador do tb,ID do Tb + id do utilizador que ja o teve no bolso
+                                out.print(user.id+"|"+tb.id+"|"+buser.id+"|\n");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        out.close();
+    }
+
+    public static void read_TravelBugs_HUsers(){
+        In myFile = new In(".//data//TravelBugs_HUsers.txt");
+        while (myFile.hasNextLine()) {
+
+            String curLine = myFile.readLine();//Current Line
+            //ID do criador do tb,ID do Tb + id do utilizador que ja o teve no bolso
+            int size = curLine.length(), currword = 0, lastword = 0;
+            String word = "", userOwnerID="",travelBug_ID="",idUser="";
+            for (int i = 0; i < size; i++) {
+
+                if (curLine.charAt(i) == '|') {
+                    word = curLine.substring(lastword, i);
+                    currword++;
+                    lastword = i + 1;
+                    if (currword == 1) userOwnerID = word;
+                    else if (currword == 2) travelBug_ID = word;
+                    else if (currword == 3) idUser = word;
+                }
+            }
+            Premium_User puserOwner = (Premium_User) userST.get(userOwnerID);
+            Premium_User puser = (Premium_User) userST.get(idUser);
+            puserOwner.myTravelBugs.get(travelBug_ID).h_user.put(puser.id,puser);
+        }
+        myFile.close();
+    }
 }
