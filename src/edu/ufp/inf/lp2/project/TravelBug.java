@@ -27,11 +27,20 @@ public class TravelBug extends Objeto {
   public String toString() {
       int size=this.myLogsTB.size();
       if(myCache==null) {
+          if(size>1){
+              return "Creator["+myCreator.nome+"]...TravelBug[" +
+                      id + "]" +
+                      nome +"\n"+
+                      "Encontra se neste momento com o user " +  super.myuser.nome +
+                      ", o ultimo user que o transportou foi:"+ userST.get(myLogsTB.get(size-2).id_user).nome+
+                      "\n A ultima cache onde esteve foi:"+ cacheST.get(myLogsTB.get(size-1).nome_cache).nome+
+                      "\n Com a missão de chegar a Cache " + missao.nome;
+          }
       return "Creator["+myCreator.nome+"]...TravelBug[" +
               id + "]" +
               nome +"\n"+
               "Encontra se neste momento com o user " +  super.myuser.nome +
-              ", o ultimo user que o transportou foi:"+ userST.get(myLogsTB.get(size-2).id_user).nome+
+              ", o ultimo user que o transportou foi:"+ userST.get(myLogsTB.get(size-1).id_user).nome+
               "\n A ultima cache onde esteve foi:"+ cacheST.get(myLogsTB.get(size-1).nome_cache).nome+
               "\n Com a missão de chegar a Cache " + missao.nome;
     }
@@ -53,14 +62,22 @@ public class TravelBug extends Objeto {
                 "\n A ultima cache onde esteve foi:"+ cacheST.get(myLogsTB.get(size-1).nome_cache).nome+
                 "\n Encontra se na Cache Missão ou seja a sua missão está concluida!";
     }
-
-    return "Creator["+myCreator.nome+"]...TravelBug[" +
-            id + "]" +
-            nome +"\n"+
-            "Encontra se neste momento com a cache " +  super.myCache.nome +
-            "\n O ultimo user que o transportou foi:"+ userST.get(myLogsTB.get(size-1).id_user).nome+
-            "\n A ultima cache onde esteve foi:"+ cacheST.get(myLogsTB.get(size-2).nome_cache).nome+
-            "\n Com a missão de chegar a Cache " + missao.nome;
+      if(size>1){
+          return "Creator["+myCreator.nome+"]...TravelBug[" +
+                  id + "]" +
+                  nome +"\n"+
+                  "Encontra se neste momento com a cache " +  super.myCache.nome +
+                  "\n O ultimo user que o transportou foi:"+ userST.get(myLogsTB.get(size-1).id_user).nome+
+                  "\n A ultima cache onde esteve foi:"+ cacheST.get(myLogsTB.get(size-2).nome_cache).nome+
+                  "\n Com a missão de chegar a Cache " + missao.nome;
+      }
+      return "Creator["+myCreator.nome+"]...TravelBug[" +
+              id + "]" +
+              nome +"\n"+
+              "Encontra se neste momento com a cache " +  super.myCache.nome +
+              "\n O ultimo user que o transportou foi:"+ userST.get(myLogsTB.get(size-1).id_user).nome+
+              "\n A ultima cache onde esteve foi:"+ cacheST.get(myLogsTB.get(size-1).nome_cache).nome+
+              "\n Com a missão de chegar a Cache " + missao.nome;
 
   }
 
