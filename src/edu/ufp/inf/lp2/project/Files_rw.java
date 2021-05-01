@@ -464,9 +464,11 @@ public class Files_rw {
             if (itsCache) {
                 Cache c= cacheST.get(cache_user_atual);
                 LogsTB lgtb=new LogsTB(cacheName,userID,data,c,null,missao_concluida);
+                tb.myLogsTB.add(lgtb);
             }else {
                 Premium_User puser1=(Premium_User) userST.get(cache_user_atual);
                 LogsTB lgtb=new LogsTB(cacheName,userID,data,null,puser1,missao_concluida);
+                tb.myLogsTB.add(lgtb);
             }
             }
         myFile.close();
