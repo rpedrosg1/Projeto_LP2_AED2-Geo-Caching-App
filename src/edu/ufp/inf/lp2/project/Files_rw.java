@@ -17,7 +17,7 @@ public class Files_rw {
 
     public static void save_Users() {
         Out out = new Out(".//data//Users.txt");
-        for (String user : userST) {
+        for (String user : userST.keys()) {
             if (userST.get(user).getClass().equals(Basic_User.class)) {
                 Basic_User u = userST.get(user);
                 out.print("BASIC|" + u.nome + "|" + u.id + "|" + u.idade + "|" + u.nr_caches_visitadas + "|\n");
@@ -269,7 +269,7 @@ public class Files_rw {
                         + tb.myCache.nome + "|" + tb.missao.nome + "|" + tb.myCreator.id + "|\n");
             }
         }
-        for (String id : userST) {
+        for (String id : userST.keys()) {
             Basic_User user = userST.get(id);
             if (user.myObj.size() > 0) {
                 for (String key : user.myObj.keys()) {
@@ -403,7 +403,7 @@ public class Files_rw {
     //Logs Tb Files
     public static void save_TravelBugs_Logs() {
         Out out = new Out(".//data//TravelBugs_Logs.txt");
-        for (String id : userST) {
+        for (String id : userST.keys()) {
             if (userST.get(id).getClass().equals(Premium_User.class)) {
                 Premium_User user = (Premium_User) userST.get(id);
                 if (user.myTravelBugs.size() > 0) {
@@ -483,7 +483,7 @@ public class Files_rw {
 
     public static void save_TravelBugs_HCaches(){
         Out out = new Out(".//data//TravelBugs_HCaches.txt");
-        for (String id : userST) {
+        for (String id : userST.keys()) {
             if (userST.get(id).getClass().equals(Premium_User.class)) {
                 Premium_User user = (Premium_User) userST.get(id);
                 if (user.myTravelBugs.size() > 0) {
@@ -534,7 +534,7 @@ public class Files_rw {
 
     public static void save_TravelBugs_HUsers(){
         Out out = new Out(".//data//TravelBugs_HUsers.txt");
-        for (String id : userST) {
+        for (String id : userST.keys()) {
             if (userST.get(id).getClass().equals(Premium_User.class)) {
                 Premium_User user = (Premium_User) userST.get(id);
                 if (user.myTravelBugs.size() > 0) {

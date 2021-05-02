@@ -9,7 +9,7 @@ import java.util.Iterator;
 public class Admin_User extends Premium_User  {
 
 
-    public static ST<String, Basic_User> userST = new ST<>();//usar red black
+    public static RedBlackBST<String, Basic_User> userST = new RedBlackBST<>();//usar red black
     public static ST<String, Cache> cacheST = new ST<>();
 
 
@@ -23,7 +23,7 @@ public class Admin_User extends Premium_User  {
 
     public static boolean check_id(String id) {
 
-        for (String s : userST) {
+        for (String s : userST.keys()) {
             if (userST.get(s).id.equals(id)) return false;
         }
         return true;
@@ -37,7 +37,7 @@ public class Admin_User extends Premium_User  {
 
 
     public static void print_users() {
-        for (String u : userST) {
+        for (String u : userST.keys()) {
             System.out.println(userST.get(u).toString());
         }
     }
@@ -137,7 +137,7 @@ public class Admin_User extends Premium_User  {
 
     public static void printUsersObjetos() {
         System.out.println("\n\nPrint Objetos de Users:\n");
-        for (String id : userST){
+        for (String id : userST.keys()){
             Basic_User user = userST.get(id);
             if(user.myObj.size()>0){
                 for (String key : user.myObj.keys()){
@@ -155,7 +155,7 @@ public class Admin_User extends Premium_User  {
 
     public static void printUsers_Hcaches(){
         System.out.println("\n\nUtilizadores -> Historico de caches visitadas:\n");
-        for (String id : userST){
+        for (String id : userST.keys()){
             Basic_User user = userST.get(id);
 
             if(user.Hcaches.size()>0){
@@ -236,7 +236,7 @@ public class Admin_User extends Premium_User  {
         String max_key_u = "";
         String max_key = "";
 
-        for (String u : userST) {
+        for (String u : userST.keys()) {
             Basic_User user = userST.get(u);
             if (user.getClass().equals(Premium_User.class)) {
                 Premium_User puser = (Premium_User) userST.get(u);
@@ -256,7 +256,7 @@ public class Admin_User extends Premium_User  {
         Premium_User userp = (Premium_User) userST.get(max_key_u);
         tB.add(userp.myTravelBugs.get(max_key));
 
-        for (String u : userST) {
+        for (String u : userST.keys()) {
             Basic_User user = userST.get(u);
             if (user.getClass().equals(Premium_User.class)) {
                 Premium_User puser = (Premium_User) userST.get(u);

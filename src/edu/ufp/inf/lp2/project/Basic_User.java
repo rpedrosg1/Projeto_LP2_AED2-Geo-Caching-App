@@ -85,7 +85,7 @@ public class Basic_User implements GestaoUtilizadores {
 
   @Override
   public void RemoverUtilizador() {
-    userST.remove(this.id);
+    userST.delete(this.id);
   }
 
   public void VisitarCache(Date d,Cache c,Logs log){

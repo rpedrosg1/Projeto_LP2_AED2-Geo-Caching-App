@@ -1,8 +1,8 @@
-BASIC|Rui|1|21|46|
-BASIC|Diogo|2|20|22|
-BASIC|Tomas|3|20|48|
-BASIC|Antonio|4|20|24|
-BASIC|Jorge Pereira|5|25|12|
-PREMIUM|KINITO paneleiro|6|100|78|
-PREMIUM|gonçalo|7|88|22|
+BASIC|Rui|1|21|50|
+BASIC|Diogo|2|20|24|
+BASIC|Tomas|3|20|52|
+BASIC|Antonio|4|20|26|
+BASIC|Jorge Pereira|5|25|13|
+PREMIUM|KINITO paneleiro|6|100|85|
+PREMIUM|gonçalo|7|88|24|
 ADMIN|FAbiorei o troller|8|30|0|
