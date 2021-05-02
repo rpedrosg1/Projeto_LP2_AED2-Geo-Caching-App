@@ -200,7 +200,6 @@ public class Main {
         tb= c2.FindTB_inCache("9");
         puser1.VisitarCache_trocarTB_por_TB(d1,c2,new Logs("O ruben tbm n faz um crl"),"8",tb);
 
-
         user3.VisitarCache(d1, c1, logs1);///so visitar
         user3.VisitarCache(d1, c1, logs1);///so visitar
         user3.VisitarCache(d1, c1, logs1);///so visitar

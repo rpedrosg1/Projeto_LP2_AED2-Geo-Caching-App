@@ -490,9 +490,10 @@ public class Files_rw {
                     for (String key: user.myTravelBugs.keys()){
                         TravelBug tb = user.myTravelBugs.get(key);
                         if(tb.h_caches.size()>0){
-                            for (Cache cache:tb.h_caches.values()){
+                            for (String ckey:tb.h_caches.keys()){
+                                Cache c = tb.h_caches.get(ckey);
                                 //ID user/Dono do TB , ID do TB , nome Cache
-                                out.print(user.id+"|"+tb.id+"|"+cache.nome+"|\n");
+                                out.print(user.id+"|"+tb.id+"|"+c.nome+"|\n");
                             }
                         }
                     }
@@ -541,7 +542,8 @@ public class Files_rw {
                     for (String key: user.myTravelBugs.keys()){
                         TravelBug tb = user.myTravelBugs.get(key);
                         if(tb.h_user.size()>0){
-                            for (Premium_User puser:tb.h_user.values()){
+                            for (String pkey:tb.h_user.keys()){
+                                Premium_User puser = tb.h_user.get(pkey);
                                 //ID do criador do tb,ID do Tb + id do utilizador que ja o teve no bolso
                                 out.print(user.id+"|"+tb.id+"|"+puser.id+"|\n");
                             }

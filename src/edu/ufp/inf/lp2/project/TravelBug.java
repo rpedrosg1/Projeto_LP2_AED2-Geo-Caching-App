@@ -1,4 +1,5 @@
 package edu.ufp.inf.lp2.project;
+import edu.princeton.cs.algs4.SeparateChainingHashST;
 import edu.ufp.inf.lp2.project.Cache;
 import edu.princeton.cs.algs4.BST;
 
@@ -12,8 +13,8 @@ import java.util.List;
 public class TravelBug extends Objeto {
   public Cache missao;
  // public Premium_User myUser;
-  public HashMap<String,Cache> h_caches=new HashMap<>();
-  public HashMap<String, Premium_User> h_user=new HashMap<>();
+  public SeparateChainingHashST<String,Cache> h_caches=new SeparateChainingHashST<>();
+  public SeparateChainingHashST<String, Premium_User> h_user=new SeparateChainingHashST<>();
 
   public ArrayList<LogsTB> myLogsTB =new ArrayList<>();//historico do TB
 

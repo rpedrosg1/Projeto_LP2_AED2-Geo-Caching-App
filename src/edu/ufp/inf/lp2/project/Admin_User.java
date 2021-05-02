@@ -9,7 +9,7 @@ import java.util.Iterator;
 public class Admin_User extends Premium_User  {
 
 
-    public static RedBlackBST<String, Basic_User> userST = new RedBlackBST<>();//usar red black
+    public static RedBlackBST<String, Basic_User> userST = new RedBlackBST<>();
     public static ST<String, Cache> cacheST = new ST<>();
 
 
