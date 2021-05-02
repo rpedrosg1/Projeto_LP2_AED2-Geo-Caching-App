@@ -462,12 +462,14 @@ public class Files_rw {
             TravelBug tb=puser.myTravelBugs.get(tbID);
             Date data=new Date(hour,day,month,year);
             if (itsCache) {
-                Cache c= cacheST.get(cache_user_atual);
-                LogsTB lgtb=new LogsTB(cacheName,userID,data,c,null,missao_concluida);
-                tb.myLogsTB.add(lgtb);
+                if(missao_concluida){
+                    Cache c= cacheST.get(cache_user_atual);
+                    LogsTB lgtb=new LogsTB(cacheName,userID,data,c,null,true);
+                    tb.myLogsTB.add(lgtb);
+                }
             }else {
                 Premium_User puser1=(Premium_User) userST.get(cache_user_atual);
-                LogsTB lgtb=new LogsTB(cacheName,userID,data,null,puser1,missao_concluida);
+                LogsTB lgtb=new LogsTB(cacheName,userID,data,null,puser1,false);
                 tb.myLogsTB.add(lgtb);
             }
             }
@@ -539,9 +541,9 @@ public class Files_rw {
                     for (String key: user.myTravelBugs.keys()){
                         TravelBug tb = user.myTravelBugs.get(key);
                         if(tb.h_user.size()>0){
-                            for (Basic_User buser:tb.h_user.values()){
+                            for (Premium_User puser:tb.h_user.values()){
                                 //ID do criador do tb,ID do Tb + id do utilizador que ja o teve no bolso
-                                out.print(user.id+"|"+tb.id+"|"+buser.id+"|\n");
+                                out.print(user.id+"|"+tb.id+"|"+puser.id+"|\n");
                             }
                         }
                     }
@@ -575,5 +577,18 @@ public class Files_rw {
             puserOwner.myTravelBugs.get(travelBug_ID).h_user.put(puser.id,puser);
         }
         myFile.close();
+    }
+
+
+    public static void salvar_tudo(){
+        save_Users();
+        save_Caches();
+        save_Cache_Users_Husers_Hcaches();
+        save_TravelBugs_Logs();
+        save_Logs();
+        save_Logs_Cache();
+        save_Objetos();
+        save_TravelBugs_HCaches();
+        save_TravelBugs_HUsers();
     }
 }

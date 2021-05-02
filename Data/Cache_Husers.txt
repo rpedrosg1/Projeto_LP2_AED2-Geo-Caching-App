@@ -8,3 +8,4 @@ Caixa Misterio|7|
 Caixa yoyo|1|
 Caixa yoyo|2|
 Caixa yoyo|6|
+Caixa yoyo|7|

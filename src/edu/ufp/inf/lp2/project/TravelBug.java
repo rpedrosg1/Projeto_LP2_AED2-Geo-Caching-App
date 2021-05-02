@@ -13,7 +13,7 @@ public class TravelBug extends Objeto {
   public Cache missao;
  // public Premium_User myUser;
   public HashMap<String,Cache> h_caches=new HashMap<>();
-  public HashMap<String, Basic_User> h_user=new HashMap<>();
+  public HashMap<String, Premium_User> h_user=new HashMap<>();
 
   public ArrayList<LogsTB> myLogsTB =new ArrayList<>();//historico do TB
 

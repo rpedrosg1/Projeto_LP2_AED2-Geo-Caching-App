@@ -31,7 +31,12 @@ public class LogsTB {
     this.data = data;
     this.c = c;
     this.u = u;
-    this.missao_concluida= missao_concluida;
+    if (missao_concluida){
+      this.missao_concluida=true;
+    }else {
+      this.missao_concluida=false;
+    }
+
   }
 
   @Override

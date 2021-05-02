@@ -2,7 +2,10 @@
 8|6|USER|6|Caixa Misterio|3|5|2021|12|6|false|
 8|6|CACHE|6|Caixa yoyo|25|8|2021|17|Caixa yoyo|true|
 8|6|USER|6|Caixa yoyo|25|8|2021|17|6|false|
+8|6|CACHE|6|Caixa yoyo|3|5|2021|12|Caixa yoyo|true|
 7|6|CACHE|6|Caixa Misterio|3|5|2021|12|Caixa Misterio|false|
 7|6|USER|6|Caixa Misterio|3|5|2021|12|6|false|
 7|6|CACHE|6|Caixa Misterio|3|5|2021|12|Caixa Misterio|false|
 5|6|CACHE|6|Caixa yoyo|25|8|2021|17|Caixa yoyo|true|
+9|7|CACHE|7|Caixa yoyo|3|5|2021|12|Caixa yoyo|true|
+9|7|USER|6|Caixa yoyo|3|5|2021|12|6|false|

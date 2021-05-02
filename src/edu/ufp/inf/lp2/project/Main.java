@@ -170,6 +170,7 @@ public class Main {
         puser1.CriarTb("5", "TB1", c);
         puser1.CriarTb("7", "TB2", c);
         puser1.CriarTb("8", "TB3", c);
+        puser2.CriarTb("9","TB4",c2);
     //objetos
         user1.CriarObj("4", "Batman");
         user1.CriarObj("2", "Barbie");
@@ -178,6 +179,7 @@ public class Main {
 
 
     //visitas caches
+        puser2.VisitarCache_deixarTB(d1,c2,new Logs("O sanguedo n faz um crl"),"9");
         user1.VisitarCache_deixarObj(d1, c1, logs1, "2");///deixamos o OBJ ID2 na CACHE C1
         user1.VisitarCache_deixarObj(d1, c1, logs1, "4");///deixamos o OBJ ID2 na CACHE C1
         user2.VisitarCache_deixarObj(d1, c2, logs1, "3");///deixamos o OBJ ID2 na CACHE C1
@@ -195,6 +197,8 @@ public class Main {
         puser1.VisitarCache_deixarTB(d2, c, logs1, "8");
         tb = c.FindTB_inCache("8");
         puser1.VisitarCache_trocarTB_por_TB(d2, c, logs1, "5", tb);
+        tb= c2.FindTB_inCache("9");
+        puser1.VisitarCache_trocarTB_por_TB(d1,c2,new Logs("O ruben tbm n faz um crl"),"8",tb);
 
 
         user3.VisitarCache(d1, c1, logs1);///so visitar
@@ -209,9 +213,12 @@ public class Main {
 
 
 
-    puser1.now();
-    puser1.printLogsTB("8");
-    Files_rw.save_TravelBugs_Logs();
+    puser2.now();
+    puser2.printLogsTB("9");
+    Files_rw.salvar_tudo();
+   // Files_rw.save_TravelBugs_Logs();
+
+
 
 
 /*

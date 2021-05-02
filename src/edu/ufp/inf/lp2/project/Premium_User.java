@@ -141,7 +141,7 @@ public class Premium_User extends Basic_User {
             old_tb.myLogsTB.add(logtb);
             this.myObj.put(old_tb.id, old_tb);
             old_tb.setMyuser(this);
-            tb.h_user.put(this.id,this);
+            old_tb.h_user.put(this.id,this);
             old_tb.myCache = null;
             ////////////////////////////////////////////////////////////////////////////////////////adicionamos ao historico de cada e incre
             this.Hcaches.put(c.nome, c);
