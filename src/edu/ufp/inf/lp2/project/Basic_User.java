@@ -109,7 +109,9 @@ public class Basic_User implements GestaoUtilizadores {
     Objeto o=myObj.get(posO);
     myObj.delete(posO);
     ////////////////////////////////////////////////////////////////////////////adicionamos aos logs da cache
+    Logs_User u=new Logs_User(d,c.nome,o.id,null);
     Logs_Cache l=new Logs_Cache(d,this.id,o.id,null);
+    this.myLogs_user.add(u);
     c.myLogs_cache.add(l);
     ///////////////////////////////////////////////////////////////////////////pomos o objeto a pertecer a cache
     c.objCache.add(o);
@@ -130,6 +132,8 @@ public class Basic_User implements GestaoUtilizadores {
     myObj.delete(posO);
     ////////////////////////////////////////////////////////////////adicionamos aos logs da cache
     Logs_Cache l=new Logs_Cache(d,this.id,new_o.id,old_o.id);
+    Logs_User u=new Logs_User(d,c.nome,new_o.id, old_o.id);
+    this.myLogs_user.add(u);
     c.myLogs_cache.add(l);
     //////////////////////////////////////////////////////////////////pomos o objeto a pertecer a cache e adiconamos o outro ao inventario do user
     new_o.setMyCache(c);

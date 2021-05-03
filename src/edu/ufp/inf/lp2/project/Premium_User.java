@@ -49,7 +49,9 @@ public class Premium_User extends Basic_User {
                 tb.myLogsTB.add(log_tb);
             }
             ///////////////////////////////////////////////////////////////////adicionamos os logs da Cache
-            Logs_Cache log_cache = new Logs_Cache(i, this.id, null, null);
+            Logs_Cache log_cache = new Logs_Cache(i, this.id, tb.id, null);
+            Logs_User u=new Logs_User(i,c.nome,tb.id,null);
+            this.myLogs_user.add(u);
             c.myLogs_cache.add(log_cache);
             c.addLog(log);
             ///////////////////////////////////////////////////////////////////adicionamos o Tb a Cache
@@ -89,7 +91,9 @@ public class Premium_User extends Basic_User {
             old_o.setMyuser(this);
             old_o.myCache = null;
             ///////////////////////////////////////////////////////////////////adicionamos os logs da Cache
-            Logs_Cache log_cache = new Logs_Cache(i, this.id, null, old_o.id);
+            Logs_Cache log_cache = new Logs_Cache(i, this.id, tb.id, old_o.id);
+            Logs_User u=new Logs_User(i,c.nome,tb.id, old_o.id);
+            this.myLogs_user.add(u);
             c.myLogs_cache.add(log_cache);
             c.addLog(log);
             ///////////////////////////////////////////////////////////////////adicionamos o tb a cache
@@ -127,7 +131,9 @@ public class Premium_User extends Basic_User {
                 tb.myLogsTB.add(log_tb);
             }
             ///////////////////////////////////////////////////////////////////////////adicionamos os logs da cache
-            Logs_Cache log_cache = new Logs_Cache(i, this.id, null, null);
+            Logs_Cache log_cache = new Logs_Cache(i, this.id, tb.id, old_tb.id);
+            Logs_User u=new Logs_User(i,c.nome,tb.id, old_tb.id);
+            this.myLogs_user.add(u);
             c.myLogs_cache.add(log_cache);
             c.addLog(log);
             ////////////////////////////////////////////////////////////////////////removemos da cache o antigo e adicionamos o novo
