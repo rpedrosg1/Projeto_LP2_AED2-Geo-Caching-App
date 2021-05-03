@@ -15,6 +15,7 @@ import static edu.ufp.inf.lp2.project.Admin_User.userST;
 public class Basic_User implements GestaoUtilizadores {
 
   public LinearProbingHashST<String,Objeto> myObj=new LinearProbingHashST<>();
+  public ArrayList<Logs_User> myLogs_user = new ArrayList<>();
 
   public int nr_caches_visitadas;
 
@@ -90,8 +91,10 @@ public class Basic_User implements GestaoUtilizadores {
 
   public void VisitarCache(Date d,Cache c,Logs log){
     ////////////////////////////////////////////////////////////////////////////adicionamos aos logs da cache
+    Logs_User u=new Logs_User(d,c.nome,null,null);
     Logs_Cache l=new Logs_Cache(d,this.id,null,null);
     c.myLogs_cache.add(l);
+    this.myLogs_user.add(u);
     /////////////////////////////////////////////////////////////////////////incrementamos as caches visistadas pelo user
     this.nr_caches_visitadas++;
     /////////////////////////////////////////////////////////////////////////adcionamos o log random q o utilizador escolheu
