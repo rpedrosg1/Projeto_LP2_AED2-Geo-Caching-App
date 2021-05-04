@@ -1,11 +1,37 @@
-Caixa Misterio|1|
-Caixa Misterio|2|
-Caixa Misterio|3|
-Caixa Misterio|4|
-Caixa Misterio|5|
-Caixa Misterio|6|
-Caixa Misterio|7|
-Caixa yoyo|1|
-Caixa yoyo|2|
-Caixa yoyo|6|
-Caixa yoyo|7|
+geocache1|1|
+geocache1|3|
+geocache1|6|
+geocache10|3|
+geocache10|5|
+geocache11|3|
+geocache11|5|
+geocache12|3|
+geocache12|5|
+geocache13|1|
+geocache13|2|
+geocache13|3|
+geocache13|4|
+geocache13|6|
+geocache14|4|
+geocache15|3|
+geocache15|4|
+geocache16|1|
+geocache16|5|
+geocache17|1|
+geocache17|3|
+geocache17|4|
+geocache2|1|
+geocache2|3|
+geocache2|6|
+geocache3|3|
+geocache3|5|
+geocache3|6|
+geocache5|3|
+geocache5|6|
+geocache6|1|
+geocache6|3|
+geocache6|6|
+geocache7|3|
+geocache7|6|
+geocache9|3|
+geocache9|5|

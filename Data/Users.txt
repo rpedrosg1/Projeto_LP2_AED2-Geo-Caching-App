@@ -1,6 +1,5 @@
-PREMIUM|Manuel|1|27|0
-PREMIUM|Pedro|2|25|0
-ADMIN|Fernando|3|30|0
-ADMIN|Joana|4|27|0
-PREMIUM|Maria|5|21|0
-ADMIN|Filomena|6|70|0
+PREMIUM|Manuel|1|27|7|
+ADMIN|Fernando|3|30|16|
+ADMIN|Joana|4|27|5|
+PREMIUM|Maria|5|21|7|
+ADMIN|Filomena|6|70|8|

@@ -1,0 +1,14 @@
+Users removidos:
+
+[PREMIUM] User -> Pedro, ID -> 2, Idade -> 25, Caches visitadas -> 3, Caches criadas -> 0
+	Meus Objetos:
+		Objeto[o13]: capa,Criador objeto: [1]PREMIUM -> Name: Manuel, Age=27
+   Cache criadas: 0 || Cache visitadas: 7
+
+	Meus Logs:
+		Este User visitou a Cache:[geocache18] Date:1/1/2021 , at : 14h.
+
+		Este User visitou a Cache:[geocache13] Date:1/1/2021 , at : 14h.
+
+		Este User visitou a Cache:[geocache8] Date:5/1/2021 , at : 18h.
+    		Retirou objetoID -> o13.

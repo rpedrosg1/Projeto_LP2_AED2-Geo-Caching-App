@@ -452,8 +452,10 @@ public class Files_rw {
             }
             Cache c = cacheST.get(cacheName);
             Basic_User user = userST.get(userID);
-            c.H_User.put(user.id,user);
-            user.Hcaches.put(c.nome,c);
+            if(c!=null && user !=null){
+                c.H_User.put(user.id,user);
+                user.Hcaches.put(c.nome,c);
+            }
             //System.out.println(l.toString());
         }
         myFile.close();
@@ -661,12 +663,13 @@ public class Files_rw {
     public static void read_all(){
         read_Users();
         read_Caches();
+        read_Objetos();
         read_Cache_Users_Husers_Hcaches();
         read_TravelBugs_Logs();
         read_Logs();
         read_Logs_Cache();
         read_Logs_User();
-        read_Objetos();
+
         read_TravelBugs_HCaches();
         read_TravelBugs_HUsers();
     }
