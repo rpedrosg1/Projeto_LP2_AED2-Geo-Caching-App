@@ -213,14 +213,16 @@ public class Main {
         //Admin_User.printLogs_Users();
         //Files_rw.save_Logs_User();
         //Admin_User.printLogs_Users("3");
-       //Admin_User.printLogs_Caches();
-    //puser2.now();
-    //puser2.printLogsTB("9");
-    Files_rw.salvar_tudo();
-   // Files_rw.save_TravelBugs_Logs();
+        //Admin_User.printLogs_Caches();
+        //puser2.now();
+        //    //puser2.printLogsTB("9");
+        //    //Files_rw.save_all();
+        //   // Files_rw.save_TravelBugs_Logs();
 
-
-
+        //user1.RemoverUtilizador();
+        //user2.RemoverUtilizador();
+        //puser1.RemoverUtilizador();
+        c1.RemoverCache();
 
 /*
         Files_rw.read_Users();

@@ -92,6 +92,7 @@ public class Cache implements GestaoCaches {
 
     @Override
     public void RemoverCache() {
+        Files_rw.arquivoCaches(this);
         cacheST.remove(this.nome);
     }
 

@@ -3,8 +3,10 @@ package edu.ufp.inf.lp2.project;
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.Out;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.util.Scanner;
 
 import static edu.ufp.inf.lp2.project.Admin_User.cacheST;
@@ -632,7 +634,7 @@ public class Files_rw {
     }
 
 
-    public static void salvar_tudo(){
+    public static void save_all(){
         save_Users();
         save_Caches();
         save_Cache_Users_Husers_Hcaches();
@@ -643,5 +645,185 @@ public class Files_rw {
         save_Objetos();
         save_TravelBugs_HCaches();
         save_TravelBugs_HUsers();
+    }
+
+    public static void read_all(){
+        read_Users();
+        read_Caches();
+        read_Cache_Users_Husers_Hcaches();
+        read_TravelBugs_Logs();
+        read_Logs();
+        read_Logs_Cache();
+        read_Logs_User();
+        read_Objetos();
+        read_TravelBugs_HCaches();
+        read_TravelBugs_HUsers();
+    }
+
+
+    public static void arquivoUsers(Basic_User u) {
+
+        boolean isEmpty=false;
+        In aux = new In(".//data//ArquivoUsers.txt");
+        if(aux.isEmpty())isEmpty=true;
+        aux.close();
+        StringBuilder tabs= new StringBuilder("\t");
+        try{
+            FileWriter fstream = new FileWriter(".//data//ArquivoUsers.txt",true);
+            BufferedWriter out = new BufferedWriter(fstream);
+            if(isEmpty)out.write("Users removidos:\n\n");
+            if(!isEmpty)out.write("\n-----------------------------------------------------------------------------------------\n");
+
+            if(u.getClass().equals(Basic_User.class)){//BASIC
+                out.write("[BASIC] User -> " + u.nome + ", ID -> " + u.id + ", Idade -> " + u.idade +
+                        ", Caches visitadas -> " + u.nr_caches_visitadas + "\n");
+
+                if(u.myObj.size()>0){
+                    out.write(tabs + "Meus Objetos:\n");
+                    tabs.append("\t");
+                    for (String key : u.myObj.keys()){
+                        Objeto obj = u.myObj.get(key);
+                        out.write(tabs+ "Objeto[" + obj.id + "]: " + obj.nome + ",Criador objeto: " + obj.myCreator + "\n");
+                    }
+                }
+                tabs = new StringBuilder("\t");
+                if(u.myLogs_user.size()>0){
+                    out.write(tabs + "Meus Logs:\n");
+                    tabs.append("\t");
+                    for (Logs_User luser : u.myLogs_user){
+                        out.write(tabs+luser.toString());
+                    }
+                }
+
+
+            }else if(u.getClass().equals(Premium_User.class)){//PREMIUM
+                Premium_User user = (Premium_User) u;
+                out.write("[PREMIUM] User -> " + user.nome + ", ID -> " + user.id + ", Idade -> " + user.idade +
+                        ", Caches visitadas -> " + user.nr_caches_visitadas + ", Caches criadas -> " + user.nr_caches_criadas +"\n");
+                if(u.myObj.size()>0){
+                    out.write(tabs + "Meus Objetos:\n");
+                    tabs.append("\t");
+                    for (String key : u.myObj.keys()){
+                        Objeto obj = u.myObj.get(key);
+                        if(obj.getClass().equals(TravelBug.class)){
+                            TravelBug tb = (TravelBug) obj;
+                            out.write(tabs+ "TravelBUG[" + tb.id + "]: " + tb.nome + ",Criador objeto: " + tb.myCreator + "\n");
+                            if(tb.myLogsTB.size()>0){
+                                out.write(tabs + "Logs do TravelBug:\n");
+                                tabs.append("\n");
+                                for (LogsTB ltb : tb.myLogsTB){
+                                    out.write("\t\t O user " + userST.get(ltb.id_user).nome + " retirou este TravelBug"+tb.nome +"da Cache "+
+                                            ltb.nome_cache + "."+tabs + ltb.data.toString() + "A missão passa a estar de volta a ação!\n");
+                                }
+                            }
+                        }
+                            else{
+                            out.write(tabs+ "Objeto[" + obj.id + "]: " + obj.nome + ",Criador objeto: " + obj.myCreator + "\n");
+                        }
+
+                    }
+                }
+                tabs = new StringBuilder("\t");
+                if(u.myLogs_user.size()>0){
+                    out.write(tabs + "Meus Logs:\n");
+                    tabs.append("\t");
+                    for (Logs_User luser : u.myLogs_user){
+                        out.write(tabs+luser.toString());
+                    }
+                }
+
+            }else {//ADMIN
+                Admin_User user = (Admin_User) u;
+                out.write("[ADMIN] User -> " + user.nome + ", ID -> " + user.id + ", Idade -> " + user.idade +
+                        ", Caches visitadas -> " + user.nr_caches_visitadas + ", Caches criadas -> " + user.nr_caches_criadas +"\n");
+
+                if(u.myObj.size()>0){
+                    out.write(tabs + "Meus Objetos:\n");
+                    tabs.append("\t");
+                    for (String key : u.myObj.keys()){
+                        Objeto obj = u.myObj.get(key);
+                        if(obj.getClass().equals(TravelBug.class)){
+                            TravelBug tb = (TravelBug) obj;
+                            out.write(tabs+ "TravelBUG[" + tb.id + "]: " + tb.nome + ",Criador objeto: " + tb.myCreator + "\n");
+                            if(tb.myLogsTB.size()>0){
+                                out.write(tabs + "Logs do TravelBug:\n");
+                                tabs.append("\n");
+                                for (LogsTB ltb : tb.myLogsTB){
+                                    out.write("\t\t O user " + userST.get(ltb.id_user).nome + " retirou este TravelBug"+tb.nome +"da Cache "+
+                                            ltb.nome_cache + "."+tabs + ltb.data.toString() + "A missão passa a estar de volta a ação!\n");
+                                }
+                            }
+                        }
+                        else{
+                            out.write(tabs+ "Objeto[" + obj.id + "]: " + obj.nome + ",Criador objeto: " + obj.myCreator + "\n");
+                        }
+
+                    }
+                }
+                tabs = new StringBuilder("\t");
+                if(u.myLogs_user.size()>0){
+                    out.write(tabs + "Meus Logs:\n");
+                    tabs.append("\t");
+                    for (Logs_User luser : u.myLogs_user){
+                        out.write(tabs+luser.toString());
+                    }
+                }
+            }
+            out.close();
+        }catch (Exception e){
+            System.err.println("Error while writing to file: " +
+                    e.getMessage());
+        }
+
+    }
+
+
+    public static void arquivoCaches(Cache c){
+        boolean isEmpty=false;
+        In aux = new In(".//data//ArquivoCaches.txt");
+        if(aux.isEmpty())isEmpty=true;
+        aux.close();
+        try{
+            FileWriter fstream = new FileWriter(".//data//ArquivoCaches.txt",true);
+            BufferedWriter out = new BufferedWriter(fstream);
+            if(isEmpty)out.write("Caches removidos:\n\n");
+            if(!isEmpty)out.write("\n-----------------------------------------------------------------------------------------\n");
+            out.write("[" +c.myTipo + "] Cache ->" + c.nome + "Desc. -> " + c.descrisao + "Dif. -> " + c.myDificuldade +
+                    "\n\tLocalização -> " + c.myLocalizacao.toString() + "\n");
+
+            if(c.myTravelBug.size()>0 || c.objCache.size()>0){
+                out.write("\tObjetos da Cache:\n");
+                for (Objeto obj : c.objCache){
+                    out.write("\t\tObjeto[" + obj.id + "]: " + obj.nome + ",Criador objeto: " + obj.myCreator + "\n");
+                }
+                for (TravelBug tb : c.myTravelBug){
+                    out.write("\t\tTravelBUG[" + tb.id + "]: " + tb.nome + ",Criador objeto: " + tb.myCreator + "\n");
+                    if(tb.myLogsTB.size()>0){
+                        out.write("\t\tLogs do TravelBug:\n");
+                        for (LogsTB ltb : tb.myLogsTB){
+                            out.write("\t\t\t" + ltb.toString() + "\n");
+                        }
+                    }
+                }
+
+            }
+            if(c.myLogs.size()>0){
+                out.write("\tMensagens da Cache:\n");
+                for (Logs l : c.myLogs){
+                    out.write("\t\t" + l.toString()+"\n");
+                }
+            }
+          if(c.myLogs_cache.size()>0){
+              out.write("\nLogs da Cache:\n");
+              for (Logs_Cache lc : c.myLogs_cache){
+                  out.write("\t\t" + lc.toString());
+              }
+          }
+
+          out.close();
+        }catch (Exception e){
+            System.err.println("Error while writing to file: " +
+                    e.getMessage());
+        }
     }
 }

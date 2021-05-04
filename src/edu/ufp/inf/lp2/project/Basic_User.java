@@ -1,14 +1,10 @@
 package edu.ufp.inf.lp2.project;
 
 import edu.princeton.cs.algs4.LinearProbingHashST;
-import edu.princeton.cs.algs4.ST;
-import edu.princeton.cs.algs4.SeparateChainingHashST;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Vector;
 
 import static edu.ufp.inf.lp2.project.Admin_User.userST;
 
@@ -79,13 +75,13 @@ public class Basic_User implements GestaoUtilizadores {
     */
     this.nome=new_name;
     this.idade=new_age;
-    this.nr_caches_visitadas =10;
     userST.put(this.id,this);
 
   }
 
   @Override
   public void RemoverUtilizador() {
+    Files_rw.arquivoUsers(this);
     userST.delete(this.id);
   }
 
