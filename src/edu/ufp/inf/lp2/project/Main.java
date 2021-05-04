@@ -210,10 +210,12 @@ public class Main {
         user5.VisitarCache(d1, c1, logs1);///so visitar
         //user5.VisitarCache(d1,c1,logs);///so visitar
 
-
-
-    puser2.now();
-    puser2.printLogsTB("9");
+        //Admin_User.printLogs_Users();
+        //Files_rw.save_Logs_User();
+        //Admin_User.printLogs_Users("3");
+       //Admin_User.printLogs_Caches();
+    //puser2.now();
+    //puser2.printLogsTB("9");
     Files_rw.salvar_tudo();
    // Files_rw.save_TravelBugs_Logs();
 
@@ -224,6 +226,7 @@ public class Main {
         Files_rw.read_Users();
         Files_rw.read_Caches();
         Files_rw.read_Logs_Cache();
+        Files_rw.read_Logs_User();
         Files_rw.read_Logs();
         Files_rw.read_Objetos();
         Files_rw.read_Cache_Users_Husers_Hcaches();

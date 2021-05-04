@@ -280,7 +280,7 @@ public class Admin_User extends Premium_User  {
     }
 
     public static void printLogs_Caches(){
-        System.out.println("Printing Logs from very Cache:");
+        System.out.println("Printing Logs from every Cache:");
         for (String cache : cacheST){
             Cache c = cacheST.get(cache);
 
@@ -307,6 +307,38 @@ public class Admin_User extends Premium_User  {
                     "Caso queira peça a um admin para criar.\n");
         }catch (Exception e){
             System.out.println("Erro nao existe nenhuma Cache com nome : " + name);
+        }
+
+    }
+
+    public static void printLogs_Users(){
+        System.out.println("Printing Logs from every User:");
+        for (String key : userST.keys()){
+            Basic_User u = userST.get(key);
+
+            if(u.myLogs_user.size()>0){
+                System.out.println("\nUser: " + u.nome + " tem os seguintes Logs:\n");
+                for (Logs_User lu : u.myLogs_user){
+                    System.out.print("     " +lu.toString());
+                }
+            }else System.out.println("\nO User: " + u.nome + " infelizmente com muita pena minha nao tem Logs.\n" +
+                    "Caso queira peça a um admin para criar.\n");
+            System.out.println("------------------------------");
+        }
+    }
+
+    public static void printLogs_Users(String id_user){
+        try{
+            Basic_User u = userST.get(id_user);
+            if(u.myLogs_user.size()>0){
+                System.out.println("\nUser: " + u.nome + " tem os seguintes Logs:\n");
+                for (Logs_User lu : u.myLogs_user){
+                    System.out.print("     " +lu.toString());
+                }
+            }else System.out.println("\nO user: " + u.nome + " infelizmente com muita pena minha nao tem Logs.\n" +
+                    "Caso queira peça a um admin para criar.\n");
+        }catch (Exception e){
+            System.out.println("Erro nao existe nenhum User com o id : " + id_user);
         }
 
     }

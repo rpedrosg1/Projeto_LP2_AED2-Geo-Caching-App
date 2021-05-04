@@ -207,8 +207,58 @@ public class Files_rw {
         }
         myFile.close();
     }
+//Logs User Files
+    public static void save_Logs_User() {
+    Out out = new Out(".//data//Logs_User.txt");
+    for (String key : userST.keys()) {
+        Basic_User user = userST.get(key);
+        if (user.myLogs_user.size() > 0) {
+            for (Logs_User lu : user.myLogs_user) {
+                out.print(user.id + "|" + lu.nome_cache + "|" + lu.id_objdeixado + "|" +
+                        lu.id_objretirado + "|" + lu.d.day + "|" + lu.d.month + "|" + lu.d.year + "|" + lu.d.hour + "|\n");
+            }
+        }
+    }
+    out.close();
+}
+
+    public static void read_Logs_User() {
+        In myFile = new In(".//data//Logs_User.txt");
+
+        while (myFile.hasNextLine()) {
+            String curLine = myFile.readLine();//Current Line
+            int size = curLine.length(),//Current Line
+                    lastword = 0, currword = 0, hora = 0, dia = 0, mes = 0, ano = 0;
+            String word = "", id_user = "", id_objetodeixado = "", id_objetoretiado = "", nome_cache = "";
+
+            for (int i = 0; i < size; i++) {
+
+                if (curLine.charAt(i) == '|') {
+                    word = curLine.substring(lastword, i);
+                    currword++;
+                    lastword = i + 1;
+
+                    if (currword == 1) id_user = word;
+                    else if (currword == 2) nome_cache = word;
+                    else if (currword == 3) id_objetodeixado = word;
+                    else if (currword == 4) id_objetoretiado = word;
+                    else if (currword == 5) dia = Integer.parseInt(word);
+                    else if (currword == 6) mes = Integer.parseInt(word);
+                    else if (currword == 7) ano = Integer.parseInt(word);
+                    else if (currword == 8) hora = Integer.parseInt(word);
+                }
 
 
+            }
+            currword = 0;
+            lastword = 0;
+
+            Date d = new Date(hora, dia, mes, ano);
+            Logs_User lu = new Logs_User(d, nome_cache, id_objetodeixado, id_objetoretiado);
+            userST.get(id_user).myLogs_user.add(lu);
+        }
+        myFile.close();
+    }
     //Logs normais Files
 
     public static void save_Logs() {
@@ -589,6 +639,7 @@ public class Files_rw {
         save_TravelBugs_Logs();
         save_Logs();
         save_Logs_Cache();
+        save_Logs_User();
         save_Objetos();
         save_TravelBugs_HCaches();
         save_TravelBugs_HUsers();

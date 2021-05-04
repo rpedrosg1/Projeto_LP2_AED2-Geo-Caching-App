@@ -16,17 +16,17 @@ public class Logs_Cache {
     @Override
     public String toString() {
 
-        if ((id_objretirado.equals("null") || id_objretirado.isEmpty()) && !id_objdeixado.equals("null")) {
+        if (id_objretirado == null && id_objdeixado!=null) {
             return "User: " + "[" + id_user + "] " + Admin_User.userST.get(id_user).nome +
                     " Visitou esta Cache  ||  "+ d.toString() + "    " +
                     "\t\tDeixou objetoID -> " + id_objdeixado + ".\n" ;
-        } else if (!id_objretirado.equals("null") && id_objdeixado.equals("null") || id_objdeixado.isEmpty()) {
+        } else if (id_objretirado!=null && id_objdeixado == null) {
             return "User: " + "[" + id_user + "] " + Admin_User.userST.get(id_user).nome +
                     " Visitou esta Cache  ||  "+ d.toString()  + "    " +
                     "\t\tRetirou objetoID -> " + id_objdeixado + ".\n" ;
 
         }
-        else if  (id_objretirado.equals("null")){
+        else if  (id_objretirado == null){
             return "User: " + "[" + id_user + "] " + Admin_User.userST.get(id_user).nome +
                     " Visitou esta Cache  ||  " + d.toString() + "\n";
         }
