@@ -15,23 +15,31 @@ public class Logs_Cache {
 
     @Override
     public String toString() {
-
+        String nome="",id="";
+        Basic_User aux = Admin_User.userST.get(id_user);
+        if(aux==null){
+            id = "-1";
+            nome="NULL";
+        }else{
+            id=aux.id;
+            nome=aux.nome;
+        }
         if (id_objretirado == null && id_objdeixado!=null) {
-            return "User: " + "[" + id_user + "] " + Admin_User.userST.get(id_user).nome +
+            return "User: " + "[" + id + "] " + nome +
                     " Visitou esta Cache  ||  "+ d.toString() + "    " +
                     "\t\tDeixou objetoID -> " + id_objdeixado + ".\n" ;
         } else if (id_objretirado!=null && id_objdeixado == null) {
-            return "User: " + "[" + id_user + "] " + Admin_User.userST.get(id_user).nome +
+            return "User: " + "[" + id + "] " + nome +
                     " Visitou esta Cache  ||  "+ d.toString()  + "    " +
-                    "\t\tRetirou objetoID -> " + id_objdeixado + ".\n" ;
+                    "\t\tRetirou objetoID -> " + id_objretirado + ".\n" ;
 
         }
         else if  (id_objretirado == null){
-            return "User: " + "[" + id_user + "] " + Admin_User.userST.get(id_user).nome +
+            return "User: " + "[" + id + "] " + nome +
                     " Visitou esta Cache  ||  " + d.toString() + "\n";
         }
         else {
-            return "User: " + "[" + id_user + "] " + Admin_User.userST.get(id_user).nome +
+            return "User: " + "[" + id + "] " + nome +
                     " Visitou esta Cache  ||  " + d.toString()+
                     "\t\tDeixou objetoID -> " + id_objdeixado +"  ||   Retirou objetoID -> " + id_objretirado + ".\n" ;
         }

@@ -13,6 +13,10 @@ public class Objeto {
         this.myCreator = myCreator;
     }
 
+    public Objeto() {
+
+    }
+
 
     public String getId() {
         return id;

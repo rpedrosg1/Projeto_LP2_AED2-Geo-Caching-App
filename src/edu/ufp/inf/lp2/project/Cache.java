@@ -93,6 +93,7 @@ public class Cache implements GestaoCaches {
     @Override
     public void RemoverCache() {
         Files_rw.arquivoCaches(this);
+        System.out.println("Cache " + nome +" foi removida.");
         cacheST.remove(this.nome);
     }
 
@@ -100,6 +101,35 @@ public class Cache implements GestaoCaches {
         return myLocalizacao;
     }
 
+
+    public void printObjetos(){
+        if(myTravelBug.size()>0 || objCache.size()>0){
+            System.out.println("Objetos da Cache " + nome + ":\n");
+            for (TravelBug tb : myTravelBug){
+                System.out.println("\t" + tb.nome + "\n");
+            }
+
+            for (Objeto obj : objCache){
+                System.out.println("\t" + obj.nome + "\n");
+            }
+        }else{
+            System.out.println("A caixa " + this.nome + " nao tem objetos!\n");
+        }
+    }
+
+    public  void printCache_Husers(){
+
+            if(H_User.size()>0){
+                System.out.println("\nA cache " + nome + " ja foi visitada pelos seguintes Utilizadores:\n");
+                String classe = "BASIC";
+                for (Basic_User huser :H_User.values()){
+                    if(huser.getClass().equals(Premium_User.class))classe="PREMIUM";
+                    else if(huser.getClass().equals(Admin_User.class))classe="ADMIN";
+                    System.out.println("\t["+classe+"] " + huser.nome + " | ID: " + huser.id +"\n");
+                }
+            }
+
+    }
     public void addLog(Logs l) {
         this.myLogs.add(l);
     }
@@ -109,6 +139,8 @@ public class Cache implements GestaoCaches {
 
     public void removeLog() {
     }
+
+
 
     @Override
     public String toString() {

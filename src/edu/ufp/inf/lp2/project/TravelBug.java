@@ -23,8 +23,12 @@ public class TravelBug extends Objeto {
     this.missao = missao;
   }
 
+    public TravelBug() {
+        super();
+    }
 
-  @Override
+
+    @Override
   public String toString() {
       int size=this.myLogsTB.size();
       if(myCache==null) {

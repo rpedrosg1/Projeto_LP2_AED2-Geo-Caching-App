@@ -82,6 +82,7 @@ public class Basic_User implements GestaoUtilizadores {
   @Override
   public void RemoverUtilizador() {
     Files_rw.arquivoUsers(this);
+    System.out.println("User " + nome +" foi removido.");
     userST.delete(this.id);
   }
 
@@ -122,6 +123,28 @@ public class Basic_User implements GestaoUtilizadores {
     c.H_User.put(this.id,this);
   }
 
+  public void VisitarCache_tirarObj(Date d,Cache c,Logs log,String posO){
+    ////////////////////////////////////////////////////////////////////////vamos buscar o obj a cache e removemos da cache
+    Objeto o=c.FindObjeto(posO);
+    myObj.put(o.id,o);
+    c.remObjeto(o);
+    ////////////////////////////////////////////////////////////////////////////adicionamos aos logs da cache
+    Logs_User u=new Logs_User(d,c.nome,null,o.id);
+    Logs_Cache l=new Logs_Cache(d,this.id,null,o.id);
+    this.myLogs_user.add(u);
+    c.myLogs_cache.add(l);
+    ///////////////////////////////////////////////////////////////////////////pomos o objeto a pertecer a cache
+    o.myCache=null;
+    o.myuser=this;
+    /////////////////////////////////////////////////////////////////////////incrementamos as caches visistadas pelo user
+    this.nr_caches_visitadas++;
+    /////////////////////////////////////////////////////////////////////////adcionamos o log random q o utilizador escolheu
+    c.addLog(log);
+    /////////////////////////////////////////////////////////////////////////adcionamos ao historico de cada um
+    this.Hcaches.put(c.nome,c);
+    c.H_User.put(this.id,this);
+  }
+
   public void VisitarCache_trocarObj(Date d,Cache c,Logs log,String posO,Objeto old_o){
     ////////////////////////////////////////////////////////////////vamos buscar o obj ao inventario e apagamos do inventario
     Objeto new_o=myObj.get(posO);
@@ -145,6 +168,9 @@ public class Basic_User implements GestaoUtilizadores {
     this.Hcaches.put(c.nome,c);
     c.H_User.put(this.id,this);
   }
+
+
+
   public void CriarObj(String id,String nome){
     Objeto o = new Objeto(id, nome, this);
     myObj.put(o.id,o);

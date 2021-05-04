@@ -68,6 +68,34 @@ public class Premium_User extends Basic_User {
         }
     }
 
+    public void VisitarCache_tirarTB(Date i, Cache c, Logs log, TravelBug tb) {
+        if (c.myTipo == Tipo.PREMIUM) {
+            ///////////////////////////////////////////////////////////////////vamos buscar o TB ao inventario do user e apagamos
+            myObj.put(tb.id,tb);
+            ///////////////////////////////////////////////////////////////////adicionamos o tb a cache se a cache for igual a missao ent esta encontra se concluida adcionamos uma data final
+            LogsTB log_tb = new LogsTB(c.nome, this.id, i, null, this);//cria mos um log onde o user é null e a cache é c
+            log_tb.missao_concluida = false;
+            tb.myLogsTB.add(log_tb);
+            ///////////////////////////////////////////////////////////////////adicionamos os logs da Cache
+            Logs_Cache log_cache = new Logs_Cache(i, this.id, null, tb.id);
+            Logs_User u=new Logs_User(i,c.nome,null,tb.id);
+            this.myLogs_user.add(u);
+            c.myLogs_cache.add(log_cache);
+            c.addLog(log);
+            ///////////////////////////////////////////////////////////////////adicionamos o Tb a Cache
+            tb.myCache=null;
+            tb.myuser = this;
+
+            c.myTravelBug.remove(tb);
+            ///////////////////////////////////////////////////////////////////adicionamos ao historico de cada e incre
+            this.Hcaches.put(c.nome, c);
+            c.H_User.put(this.id, this);
+            this.nr_caches_visitadas++;
+        } else {
+            System.out.println("Esta cache n é premium logo n pode ter travel bugs\n");
+        }
+    }
+
     public void VisitarCache_trocarTB_por_Obj(Date i, Cache c, Logs log, String postb, Objeto old_o) {
         if (c.myTipo == Tipo.PREMIUM) {
             ///////////////////////////////////////////////////////////////////vamos buscar o TB ao inventario do user e apagamos
@@ -179,7 +207,7 @@ public class Premium_User extends Basic_User {
     public String toString() {
 
         return "[" + id + "]PREMIUM ->" + " Name: " + nome + ", Age=" + idade + "\n" +
-                "   Cache criadas: " + nr_caches_criadas + " || Cache visitadas" + nr_caches_visitadas + "\n";
+                "   Cache criadas: " + nr_caches_criadas + " || Cache visitadas: " + nr_caches_visitadas + "\n";
     }
 
 }

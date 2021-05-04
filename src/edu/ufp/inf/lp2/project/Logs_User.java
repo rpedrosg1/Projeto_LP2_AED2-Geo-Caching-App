@@ -22,7 +22,7 @@ public class Logs_User {
         } else if (id_objretirado!=null && id_objdeixado == null) {
             return  "Este User visitou a Cache:" + "[" + this.nome_cache + "] "
                     + d.toString()  + "    " +
-                    "\t\tRetirou objetoID -> " + id_objdeixado + ".\n" ;
+                    "\t\tRetirou objetoID -> " + id_objretirado + ".\n" ;
 
         }
         else if  (id_objretirado == null){

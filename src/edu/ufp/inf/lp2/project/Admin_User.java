@@ -32,9 +32,18 @@ public class Admin_User extends Premium_User  {
     @Override
     public String toString() {
         return  "[" + id + "]ADMIN ->" +" Name: " + nome + ", Age=" + idade + "\n"+
-                "    Cache criadas: " + nr_caches_criadas + " || Cache visitadas" + nr_caches_visitadas +"\n";
+                "    Cache criadas: " + nr_caches_criadas + " || Cache visitadas: " + nr_caches_visitadas +"\n";
     }
 
+
+    public static void print_Objetos_todasCaches(){
+        if(cacheST.size()>0){
+            for (String key : cacheST.keys()){
+                Cache c = cacheST.get(key);
+                c.printObjetos();
+            }
+        }
+    }
 
     public static void print_users() {
         for (String u : userST.keys()) {
@@ -66,38 +75,40 @@ public class Admin_User extends Premium_User  {
         if(!have1) System.out.println("O user " + user.nome + " nao tem nenhuma cache visitada na regiao_" + regiao);
     }
 
-    public static void printCachesNaoVisitadas_r8_b(Basic_User user, String Regiao) {
-        boolean visited = false;
+    public static void printCachesNaoVisitadas_r8_b(Basic_User user) {
+
         String nomecache;
-        System.out.println("Falta ao user " + user.nome + " visitar as seguintes caches:");
+        System.out.println("\nFalta ao user " + user.nome + " visitar as seguintes caches:");
         for (String u : cacheST) {
+            boolean visited = false;
             nomecache = cacheST.get(u).nome;
-            Iterator<Cache> itr = user.Hcaches.values().iterator();
-            while (itr.hasNext()) {
-                if (nomecache.equals(itr.next().nome)) {
+            for (Cache cachevisitada : user.Hcaches.values()){
+                if (nomecache.equals(cachevisitada.nome)) {
                     visited=true;
                     break;
                 }
             }
-            if (!visited) System.out.println(nomecache);
+            if (!visited) System.out.print(nomecache + " || ");
         }
+        System.out.println();
     }
 
     public static void printCachesNaoVisitadasRegiao_r8_b(Basic_User user, String Regiao) {
-        boolean visited_regiao = false;
+
         String nomecache;
-        System.out.println("Falta ao user " + user.nome + " visitar as seguintes caches nesta Regiao-" + Regiao + ":");
+        System.out.println("\nFalta ao user " + user.nome + " visitar as seguintes caches nesta Regiao-" + Regiao + ":");
         for (String u : cacheST) {
+            boolean visited_regiao = false;
             nomecache = cacheST.get(u).nome;
-            Iterator<Cache> itr = user.Hcaches.values().iterator();
-            while (itr.hasNext()) {
-                if (nomecache.equals(itr.next().nome) || !(Regiao.equals(cacheST.get(u).myLocalizacao.regiao))) {
+            for (Cache cachevisitada : user.Hcaches.values()){
+                if (nomecache.equals(cachevisitada.nome) || !(Regiao.equals(cacheST.get(u).myLocalizacao.regiao))) {
                     visited_regiao=true;
                     break;
                 }
             }
-            if (!visited_regiao) System.out.println(nomecache);
+            if (!visited_regiao) System.out.print(nomecache + " || ");
         }
+        System.out.println();
     }
 
     public static void printUsers_ComVisitas_r8_c(Cache c) {
@@ -203,7 +214,7 @@ public class Admin_User extends Premium_User  {
         int size = 0, top_visited = 0, below_top = 0;
         String top_id = "", name = "";
 
-        while (size < 5 && nr_visitas.size() > size) {
+        while (size < 5 || nr_visitas.size() > size) {
             for (String id : nr_visitas) {
 
                 if (nr_visitas.get(id) >= top_visited && size == 0) {
@@ -226,57 +237,42 @@ public class Admin_User extends Premium_User  {
             size++;
             below_top = top_visited;
             top_visited = 0;
+            nr_visitas.remove(top_id);
         }
 
     }
 
     public static void printTop_TravelBug_r8_f() {
-        ArrayList<TravelBug> tB = new ArrayList<>();
-        int max_size = 0, top_size;
-        String max_key_u = "";
-        String max_key = "";
+        ArrayList<TravelBug> travelBugs = new ArrayList<>();
 
         for (String u : userST.keys()) {
             Basic_User user = userST.get(u);
-            if (user.getClass().equals(Premium_User.class)) {
+            if (!user.getClass().equals(Basic_User.class)) {
                 Premium_User puser = (Premium_User) userST.get(u);
                 if(puser.myTravelBugs.size()>0){
-                    for (String key : puser.myTravelBugs.keys()) {
-                        System.out.println(puser.myTravelBugs.get(key).h_caches.size() + "\t" + puser.myTravelBugs.get(key).id);
-                        if (puser.myTravelBugs.get(key).h_caches.size() > max_size) {
-                            max_size = puser.myTravelBugs.get(key).h_caches.size();
-                            max_key = key;
-                            max_key_u = u;
-                        }
+                    for (String key : puser.myTravelBugs.keys()){
+                        TravelBug tb = puser.myTravelBugs.get(key);
+                        travelBugs.add(tb);
                     }
+
                 }
             }
         }
-        top_size = max_size;
-        Premium_User userp = (Premium_User) userST.get(max_key_u);
-        tB.add(userp.myTravelBugs.get(max_key));
+        int max =0,top=1;
+        TravelBug aux = new TravelBug();
+        while(travelBugs.size()>0 && top<=5){
 
-        for (String u : userST.keys()) {
-            Basic_User user = userST.get(u);
-            if (user.getClass().equals(Premium_User.class)) {
-                Premium_User puser = (Premium_User) userST.get(u);
-                for (String key : puser.myTravelBugs.keys()) {
-                    if (puser.myTravelBugs.get(key).h_caches.size() == top_size && !puser.myTravelBugs.get(key).equals(tB.get(0))) {
-                        Premium_User userp2 = (Premium_User) userST.get(u);
-                        tB.add(userp.myTravelBugs.get(key));
-                    }
+            for (TravelBug tb : travelBugs){
+                if (tb.h_caches.size()>max  ){
+                    aux=tb;
+                    max=tb.h_caches.size();
                 }
             }
+            max=0;
+            System.out.println("Top[" +top+"]: " +aux.nome +", ID: " + aux.id + " tem um total de localizacoes percorridas de :" + aux.h_caches.size() );
+            travelBugs.remove(aux);
+            top++;
         }
-
-        if (tB.size() == 1) System.out.println("O Travel Bug com o maior nr de localizações é:");
-        else {
-            System.out.println("Os Travel Bugs com o maior nr de licalizações são:");
-        }
-        for (TravelBug t : tB) {
-            System.out.println(t.toString());
-        }
-        //tB.clear();
     }
 
     public static void printLogs_Caches(){

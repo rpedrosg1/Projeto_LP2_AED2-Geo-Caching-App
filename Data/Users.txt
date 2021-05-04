@@ -1,8 +1,6 @@
-BASIC|Rui|1|21|28|
-BASIC|Diogo|2|37|14|
-BASIC|Tomas|3|60|28|
-BASIC|Antonio|4|15|14|
-BASIC|Jorge Pereira|5|25|7|
-PREMIUM|KINITO paneleiro|6|100|49|
-PREMIUM|gonçalo|7|88|14|
-ADMIN|FAbiorei o troller|8|30|0|
+PREMIUM|Manuel|1|27|0
+PREMIUM|Pedro|2|25|0
+ADMIN|Fernando|3|30|0
+ADMIN|Joana|4|27|0
+PREMIUM|Maria|5|21|0
+ADMIN|Filomena|6|70|0
