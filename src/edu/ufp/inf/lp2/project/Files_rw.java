@@ -379,17 +379,24 @@ public class Files_rw {
                         c.objCache.add(o);
                     }else{//TravelBug
                         Cache c = cacheST.get(objCacheName);
-                        TravelBug tb = new TravelBug(objID,objName, (Premium_User) userST.get(userCreatorID),cacheST.get(objUserID));
-                        tb.myCache=c;
-                        tb.myuser=null;
-                        tb.h_caches.put(c.nome,c);
-                        c.myTravelBug.add(tb);
+                        Premium_User puser= (Premium_User) userST.get(userCreatorID);
+                        if(puser!=null){
+                            TravelBug tb = new TravelBug(objID,objName, puser,cacheST.get(objUserID));
+                            tb.myCache=c;
+                            tb.myuser=null;
+                            tb.h_caches.put(c.nome,c);
+                            c.myTravelBug.add(tb);
 
 
-                        Premium_User puser= (Premium_User) userST.get(tb.myCreator.id);
-                        tb.myCreator=puser;
-                        tb.h_user.put(puser.id,puser);
-                        puser.myTravelBugs.put(tb.id,tb);
+                            Date aux = new Date();
+                            LogsTB ltb = new LogsTB(c.nome,objUserID,aux,c,puser);
+                            tb.myLogsTB.add(ltb);
+
+                            tb.myCreator=puser;
+                            tb.h_user.put(puser.id,puser);
+                            puser.myTravelBugs.put(tb.id,tb);
+                        }
+
                     }
                 }else{
                     if(objType.equals("Objeto")){
@@ -400,14 +407,17 @@ public class Files_rw {
                         user.myObj.put(o.id,o);
                     }else{//TravelBug
                         Premium_User puser = (Premium_User) userST.get(objUserID);
-                        TravelBug tb = new TravelBug(objID,objName, (Premium_User) userST.get(userCreatorID),cacheST.get(objCacheName));
-                        tb.h_user.put(puser.id,puser);
-                        tb.myCache=null;
-                        Premium_User paux = (Premium_User) userST.get(tb.myCreator.id);
-                        tb.h_user.put(paux.id,paux);
-                        tb.myuser= puser;
-                        paux.myTravelBugs.put(tb.id,tb);
-                        puser.myObj.put(tb.id,tb);
+                        if(puser!=null){
+                            TravelBug tb = new TravelBug(objID,objName, (Premium_User) userST.get(userCreatorID),cacheST.get(objCacheName));
+                            tb.h_user.put(puser.id,puser);
+                            tb.myCache=null;
+                            Premium_User paux = (Premium_User) userST.get(tb.myCreator.id);
+                            tb.h_user.put(paux.id,paux);
+                            tb.myuser= puser;
+                            paux.myTravelBugs.put(tb.id,tb);
+                            puser.myObj.put(tb.id,tb);
+                        }
+
                     }
                 }
             //System.out.println(l.toString());
@@ -589,6 +599,7 @@ public class Files_rw {
             }
             Cache c = cacheST.get(cache_name);
             Premium_User puser = (Premium_User) userST.get(userID);
+            if(c==null || puser==null)return;
             puser.myTravelBugs.get(travelBug_ID).h_caches.put(c.nome,c);
         }
         myFile.close();
@@ -641,6 +652,7 @@ public class Files_rw {
             }
             Premium_User puserOwner = (Premium_User) userST.get(userOwnerID);
             Premium_User puser = (Premium_User) userST.get(idUser);
+            if(puserOwner==null || puser==null)return;
             puserOwner.myTravelBugs.get(travelBug_ID).h_user.put(puser.id,puser);
         }
         myFile.close();

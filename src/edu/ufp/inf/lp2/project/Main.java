@@ -269,7 +269,6 @@ public class Main {
     public static void teste_projeto(){
         Files_rw.read_all();
 
-
         Premium_User manuel = (Premium_User) Admin_User.userST.get("1");
         Premium_User pedro = (Premium_User) Admin_User.userST.get("2");
         Admin_User fernando = (Admin_User) Admin_User.userST.get("3");
@@ -283,9 +282,6 @@ public class Main {
         Logs logJoana = new Logs("A Joana Passou por aqui");
         Logs logMaria = new Logs("A Maria  Passou por aqui");
         Logs logFilomena = new Logs("A Filomena Passou por aqui");
-
-
-
 
         Cache geocache1 =Admin_User.cacheST.get("geocache1");
         Cache geocache2 =Admin_User.cacheST.get("geocache2");
@@ -496,6 +492,10 @@ public class Main {
 
 
 
+
+
+        /*
+
         System.out.println("\n\t\t\t\t-------------------------FUNCÕES TESTE 2 -------------------------------\n");
 
         System.out.println("............Listagem Global..........\n");
@@ -538,9 +538,16 @@ public class Main {
 
         Admin_User.printTop_TravelBug_r8_f();
 
+*/
 
 
-        Files_rw.save_all();
+        //Files_rw.save_all();
+        
+        //Files_rw.save_Users();
+        //Files_rw.save_Caches();
+        //Files_rw.save_Objetos();
+
+
 
     }
 

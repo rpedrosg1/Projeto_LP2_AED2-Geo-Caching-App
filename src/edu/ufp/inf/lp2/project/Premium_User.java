@@ -33,8 +33,10 @@ public class Premium_User extends Basic_User {
 
     public void VisitarCache_deixarTB(Date i, Cache c, Logs log, String postb) {
         if (c.myTipo == Tipo.PREMIUM) {
+
             ///////////////////////////////////////////////////////////////////vamos buscar o TB ao inventario do user e apagamos
             TravelBug tb = (TravelBug) myObj.get(postb);
+            if(tb==null)return;
             myObj.delete(postb);
             ///////////////////////////////////////////////////////////////////adicionamos o tb a cache se a cache for igual a missao ent esta encontra se concluida adcionamos uma data final
             if (tb.missao == c) {
@@ -70,6 +72,7 @@ public class Premium_User extends Basic_User {
 
     public void VisitarCache_tirarTB(Date i, Cache c, Logs log, TravelBug tb) {
         if (c.myTipo == Tipo.PREMIUM) {
+            if(tb==null)return;
             ///////////////////////////////////////////////////////////////////vamos buscar o TB ao inventario do user e apagamos
             myObj.put(tb.id,tb);
             ///////////////////////////////////////////////////////////////////adicionamos o tb a cache se a cache for igual a missao ent esta encontra se concluida adcionamos uma data final

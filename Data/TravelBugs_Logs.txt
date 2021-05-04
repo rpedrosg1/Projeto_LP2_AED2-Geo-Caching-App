@@ -1,2 +1,0 @@
-tb1|5|USER|3|geocache1|5|1|2021|18|3|false|
-tb1|5|CACHE|3|geocache15|10|12|2022|20|geocache15|true|

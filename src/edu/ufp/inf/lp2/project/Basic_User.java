@@ -87,6 +87,7 @@ public class Basic_User implements GestaoUtilizadores {
   }
 
   public void VisitarCache(Date d,Cache c,Logs log){
+    if(c==null)return;
     ////////////////////////////////////////////////////////////////////////////adicionamos aos logs da cache
     Logs_User u=new Logs_User(d,c.nome,null,null);
     Logs_Cache l=new Logs_Cache(d,this.id,null,null);
