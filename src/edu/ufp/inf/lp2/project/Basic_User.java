@@ -88,7 +88,7 @@ public class Basic_User implements GestaoUtilizadores {
 
   public void VisitarCache(Date d,Cache c,Logs log){
     if(c==null)return;
-    ////////////////////////////////////////////////////////////////////////////adicionamos aos logs da cache
+    ////////////////////////////////////////////////////////////////////////////Criar logs user e cache / adciona las
     Logs_User u=new Logs_User(d,c.nome,null,null);
     Logs_Cache l=new Logs_Cache(d,this.id,null,null);
     c.myLogs_cache.add(l);
@@ -106,15 +106,15 @@ public class Basic_User implements GestaoUtilizadores {
     ////////////////////////////////////////////////////////////////////////vamos buscar o obj ao inventario e apagamos do inventario
     Objeto o=myObj.get(posO);
     myObj.delete(posO);
-    ////////////////////////////////////////////////////////////////////////////adicionamos aos logs da cache
+    ///////////////////////////////////////////////////////////////////////////pomos o objeto a pertencer a cache/atulizar objeto
+    o.setMyCache(c);
+    o.myuser=null;
+    c.objCache.add(o);
+    ////////////////////////////////////////////////////////////////////////////adicionamos aos logs da cache/user
     Logs_User u=new Logs_User(d,c.nome,o.id,null);
     Logs_Cache l=new Logs_Cache(d,this.id,o.id,null);
     this.myLogs_user.add(u);
     c.myLogs_cache.add(l);
-    ///////////////////////////////////////////////////////////////////////////pomos o objeto a pertecer a cache
-    c.objCache.add(o);
-    o.setMyCache(c);
-    o.myuser=null;
     /////////////////////////////////////////////////////////////////////////incrementamos as caches visistadas pelo user
     this.nr_caches_visitadas++;
     /////////////////////////////////////////////////////////////////////////adcionamos o log random q o utilizador escolheu
@@ -125,8 +125,10 @@ public class Basic_User implements GestaoUtilizadores {
   }
 
   public void VisitarCache_tirarObj(Date d,Cache c,Logs log,String posO){
-    ////////////////////////////////////////////////////////////////////////vamos buscar o obj a cache e removemos da cache
+    ///////////////////////////////////////////////////////////////////buscar o obj a cache ,remover da cache,colocar user,atualizar objeto
     Objeto o=c.FindObjeto(posO);
+    o.myCache=null;
+    o.myuser=this;
     myObj.put(o.id,o);
     c.remObjeto(o);
     ////////////////////////////////////////////////////////////////////////////adicionamos aos logs da cache
@@ -134,9 +136,6 @@ public class Basic_User implements GestaoUtilizadores {
     Logs_Cache l=new Logs_Cache(d,this.id,null,o.id);
     this.myLogs_user.add(u);
     c.myLogs_cache.add(l);
-    ///////////////////////////////////////////////////////////////////////////pomos o objeto a pertecer a cache
-    o.myCache=null;
-    o.myuser=this;
     /////////////////////////////////////////////////////////////////////////incrementamos as caches visistadas pelo user
     this.nr_caches_visitadas++;
     /////////////////////////////////////////////////////////////////////////adcionamos o log random q o utilizador escolheu
@@ -146,22 +145,23 @@ public class Basic_User implements GestaoUtilizadores {
     c.H_User.put(this.id,this);
   }
 
-  public void VisitarCache_trocarObj(Date d,Cache c,Logs log,String posO,Objeto old_o){
-    ////////////////////////////////////////////////////////////////vamos buscar o obj ao inventario e apagamos do inventario
-    Objeto new_o=myObj.get(posO);
-    myObj.delete(posO);
+  public void VisitarCache_trocarObj(Date d,Cache c,Logs log,String objBolso,Objeto objCache){
+    ////////////////////////////////////////////////////////////////buscar o obj ao inventarioe cache, trocar, atualizar objetos
+    Objeto objbolso=myObj.get(objBolso);
+
+    objCache.myuser=this;
+    objCache.myCache=null;
+    objbolso.myCache=c;
+    objbolso.myuser=null;
+
+    myObj.put(objCache.id,objCache);
+    myObj.delete(objBolso);
+    c.tradeObjeto(objCache,objbolso);
     ////////////////////////////////////////////////////////////////adicionamos aos logs da cache
-    Logs_Cache l=new Logs_Cache(d,this.id,new_o.id,old_o.id);
-    Logs_User u=new Logs_User(d,c.nome,new_o.id, old_o.id);
-    this.myLogs_user.add(u);
-    c.myLogs_cache.add(l);
-    //////////////////////////////////////////////////////////////////pomos o objeto a pertecer a cache e adiconamos o outro ao inventario do user
-    new_o.setMyCache(c);
-    new_o.myuser=null;
-    myObj.put(old_o.id,old_o);
-    c.tradeObjeto(old_o,new_o);
-    old_o.setMyuser(this);
-    old_o.myCache=null;
+    Logs_Cache lc=new Logs_Cache(d,this.id,objbolso.id,objCache.id);
+    Logs_User lu=new Logs_User(d,c.nome,objbolso.id, objCache.id);
+    this.myLogs_user.add(lu);
+    c.myLogs_cache.add(lc);
     //////////////////////////////////////////////////////////////////////adcionamos o log random q o utilizador escolheu
     c.addLog(log);
     //////////////////////////////////////////////////////////////////////adcionamos ao historico de cada um e increme

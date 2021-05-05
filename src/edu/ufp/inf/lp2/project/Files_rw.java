@@ -479,7 +479,7 @@ public class Files_rw {
     public static void save_TravelBugs_Logs() {
         Out out = new Out(".//data//TravelBugs_Logs.txt");
         for (String id : userST.keys()) {
-            if (userST.get(id).getClass().equals(Premium_User.class)) {
+            if (!userST.get(id).getClass().equals(Basic_User.class)) {
                 Premium_User user = (Premium_User) userST.get(id);
                 if (user.myTravelBugs.size() > 0) {
                     for (String key : user.myTravelBugs.keys()) {
@@ -559,7 +559,7 @@ public class Files_rw {
     public static void save_TravelBugs_HCaches(){
         Out out = new Out(".//data//TravelBugs_HCaches.txt");
         for (String id : userST.keys()) {
-            if (userST.get(id).getClass().equals(Premium_User.class)) {
+            if (!userST.get(id).getClass().equals(Basic_User.class)) {
                 Premium_User user = (Premium_User) userST.get(id);
                 if (user.myTravelBugs.size() > 0) {
                     for (String key: user.myTravelBugs.keys()){
@@ -612,7 +612,7 @@ public class Files_rw {
     public static void save_TravelBugs_HUsers(){
         Out out = new Out(".//data//TravelBugs_HUsers.txt");
         for (String id : userST.keys()) {
-            if (userST.get(id).getClass().equals(Premium_User.class)) {
+            if (!userST.get(id).getClass().equals(Basic_User.class)) {
                 Premium_User user = (Premium_User) userST.get(id);
                 if (user.myTravelBugs.size() > 0) {
                     for (String key: user.myTravelBugs.keys()){

@@ -276,6 +276,8 @@ public class Main {
         Premium_User maria = (Premium_User) Admin_User.userST.get("5");
         Admin_User filomena = (Admin_User) Admin_User.userST.get("6");
 
+
+
         Logs logManuel = new Logs("O Manuel Passou por aqui");
         Logs logPedro = new Logs("O Pedro Passou por aqui");
         Logs logFernando = new Logs("O Fernando Passou por aqui");
