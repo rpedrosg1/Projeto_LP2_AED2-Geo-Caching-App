@@ -5,14 +5,14 @@ import java.io.File;
 public class Main {
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws General_Exception {
         //teste();
         //teste_files();
         teste_projeto();
     }
 
 
-    public static void teste() {
+    public static void teste() throws General_Exception {
         //User
         Basic_User user1 = new Basic_User("1", "Rui", 21,0);
         Basic_User user2 = new Basic_User("2", "Diogo", 20,0);
@@ -124,7 +124,7 @@ public class Main {
     }
 
 
-    public static void teste_files() {
+    public static void teste_files() throws General_Exception {
 
 
 
@@ -266,7 +266,7 @@ public class Main {
 
     }
 
-    public static void teste_projeto(){
+    public static void teste_projeto() throws General_Exception {
         Files_rw.read_all();
 
         Premium_User manuel = (Premium_User) Admin_User.userST.get("1");
@@ -275,6 +275,7 @@ public class Main {
         Admin_User joana = (Admin_User) Admin_User.userST.get("4");
         Premium_User maria = (Premium_User) Admin_User.userST.get("5");
         Admin_User filomena = (Admin_User) Admin_User.userST.get("6");
+
 
 
 
@@ -311,12 +312,25 @@ public class Main {
 
 
 
+        Basic_User brunoElProfessor = Admin_User.userST.get("7");
+
+        brunoElProfessor.VisitarCache(d1,geocache3,logFernando);
+
+   ;
+
         System.out.println("Manuel:");
 
         //Visitas Manuel
         manuel.VisitarCache(d1,geocache1,logManuel);
         TravelBug tbManuel = geocache2.FindTB_inCache("tb2");
         manuel.VisitarCache_tirarTB(d1,geocache2,logManuel,tbManuel);
+   /*     try{
+            manuel.VisitarCache_deixarTB(d1,geocache4,logManuel,"tb2");
+        }catch (General_Exception general_exception){
+            general_exception.printStackTrace();
+        }
+    */
+
         manuel.VisitarCache(d1,geocache6,logManuel);
         manuel.VisitarCache(d2,geocache8,logManuel);
         manuel.VisitarCache(d2,geocache13,logManuel);
@@ -483,14 +497,14 @@ public class Main {
 
         System.out.println("............Remover User Pedro..........\n");
 
-        pedro.RemoverUtilizador();
+        //pedro.RemoverUtilizador();
 
 
         System.out.println("............Remover Caches..........\n");
 
-        geocache4.RemoverCache();
-        geocache8.RemoverCache();
-        geocache18.RemoverCache();
+        //geocache4.RemoverCache();
+        //geocache8.RemoverCache();
+        //geocache18.RemoverCache();
 
 
 

@@ -2,10 +2,6 @@ package edu.ufp.inf.lp2.project;
 
 import edu.princeton.cs.algs4.LinearProbingHashST;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Vector;
-
 public class Premium_User extends Basic_User {
 
     public int nr_caches_criadas;
@@ -31,7 +27,7 @@ public class Premium_User extends Basic_User {
         tb.h_user.put(this.id, this);
     }
 
-    public void VisitarCache_deixarTB(Date i, Cache c, Logs log, String postb) {
+    public void VisitarCache_deixarTB(Date i, Cache c, Logs log, String postb) throws General_Exception {
         if (c.myTipo == Tipo.PREMIUM) {
             ///////////////////////////////////////////////////////////////////vamos buscar o TB ao inventario do user e apagamos
             TravelBug tb = (TravelBug) myObj.get(postb);
@@ -65,11 +61,12 @@ public class Premium_User extends Basic_User {
             c.H_User.put(this.id, this);
             this.nr_caches_visitadas++;
         } else {
-            System.out.println("Esta cache n é premium logo n pode ter travel bugs\n");
+            throw new General_Exception("Esta cache n é premium nao existem TravelBugs || VisitarCache_deixarTB");
+
         }
     }
 
-    public void VisitarCache_tirarTB(Date i, Cache c, Logs log, TravelBug tb) {
+    public void VisitarCache_tirarTB(Date i, Cache c, Logs log, TravelBug tb) throws General_Exception {
         if (c.myTipo == Tipo.PREMIUM) {
             if (tb == null) return;
             ///////////////////////////////////////////////////////////////////buscar o TB na cache , coloca lo no bolso,atualizar travelBug
@@ -93,11 +90,12 @@ public class Premium_User extends Basic_User {
             c.H_User.put(this.id, this);
             this.nr_caches_visitadas++;
         } else {
-            System.out.println("Esta cache n é premium logo n pode ter travel bugs\n");
+            throw new General_Exception("Esta cache n é premium nao existem TravelBugs || VisitarCache_tirarTB");
+            //System.out.println("Esta cache n é premium logo n pode ter travel bugs\n");
         }
     }
 
-    public void VisitarCache_trocarTB_por_Obj(Date i, Cache c, Logs log, String tbBolso, Objeto objCache) {
+    public void VisitarCache_trocarTB_por_Obj(Date i, Cache c, Logs log, String tbBolso, Objeto objCache) throws General_Exception {
         if (c.myTipo == Tipo.PREMIUM) {
             ///////////////////////////////////////////////////////////////////vamos buscar o TB ao inventario do user e apagamos
             TravelBug tb = (TravelBug) myObj.get(tbBolso);
@@ -135,11 +133,12 @@ public class Premium_User extends Basic_User {
             c.H_User.put(this.id, this);
             this.nr_caches_visitadas++;
         } else {
-            System.out.println("Esta cache n é premium logo n pode ter travel bugs\n");
+            throw new General_Exception("Esta cache n é premium nao existem TravelBugs || VisitarCache_trocarTB_por_Obj");
+            //System.out.println("Esta cache n é premium logo n pode ter travel bugs\n");
         }
     }
 
-    public void VisitarCache_trocarTB_por_TB(Date i, Cache c, Logs log, String tbBolso, TravelBug tbCache) {
+    public void VisitarCache_trocarTB_por_TB(Date i, Cache c, Logs log, String tbBolso, TravelBug tbCache) throws General_Exception {
         if (c.myTipo == Tipo.PREMIUM) {
             /////////////////////////////////////////////////////////////////buscar o TB ao user/cache , atulizar
             TravelBug tbolso = (TravelBug) myObj.get(tbBolso);
@@ -186,7 +185,8 @@ public class Premium_User extends Basic_User {
             c.H_User.put(this.id, this);
             this.nr_caches_visitadas++;
         } else {
-            System.out.println("Esta cache n é premium logo n pode ter travel bugs\n");
+            throw new General_Exception("Esta cache n é premium nao existem TravelBugs || VisitarCache_trocarTB_por_TB");
+            //System.out.println("Esta cache n é premium logo n pode ter travel bugs\n");
         }
     }
 

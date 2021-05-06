@@ -5,6 +5,7 @@ import edu.princeton.cs.algs4.LinearProbingHashST;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.logging.Logger;
 
 import static edu.ufp.inf.lp2.project.Admin_User.userST;
 
@@ -87,6 +88,10 @@ public class Basic_User implements GestaoUtilizadores {
   }
 
   public void VisitarCache(Date d,Cache c,Logs log){
+    if(this.getClass().equals(Basic_User.class) && c.myTipo==Tipo.PREMIUM ) {
+      System.out.println(this.nome + " nao conseguiu visitar cache pois a cache é PREMIUM e o grande " + this.nome + " é BASIC\n");
+      return;
+    }
     if(c==null)return;
     ////////////////////////////////////////////////////////////////////////////Criar logs user e cache / adciona las
     Logs_User u=new Logs_User(d,c.nome,null,null);
