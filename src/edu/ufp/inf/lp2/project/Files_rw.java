@@ -170,6 +170,7 @@ public class Files_rw {
         out.close();
     }
 
+
     public static void read_Logs_Cache() {
         In myFile = new In(".//data//Logs_Caches.txt");
 
@@ -540,6 +541,10 @@ public class Files_rw {
                 if(missao_concluida){
                     Cache c= cacheST.get(cache_user_atual);
                     LogsTB lgtb=new LogsTB(cacheName,userID,data,c,null,true);
+                    tb.myLogsTB.add(lgtb);
+                }else{
+                    Cache c= cacheST.get(cache_user_atual);
+                    LogsTB lgtb=new LogsTB(cacheName,userID,data,c,null,false);
                     tb.myLogsTB.add(lgtb);
                 }
             }else {

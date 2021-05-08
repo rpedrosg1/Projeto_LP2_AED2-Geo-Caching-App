@@ -95,18 +95,18 @@ public class Admin_User extends Premium_User  {
 
     public static void printCachesNaoVisitadasRegiao_r8_b(Basic_User user, String Regiao) {
 
-        String nomecache;
+
         System.out.println("\nFalta ao user " + user.nome + " visitar as seguintes caches nesta Regiao-" + Regiao + ":");
         for (String u : cacheST) {
             boolean visited_regiao = false;
-            nomecache = cacheST.get(u).nome;
+            Cache c= cacheST.get(u);
             for (Cache cachevisitada : user.Hcaches.values()){
-                if (nomecache.equals(cachevisitada.nome) || !(Regiao.equals(cacheST.get(u).myLocalizacao.regiao))) {
+                if (c.nome.equals(cachevisitada.nome) || !(Regiao.equals(c.myLocalizacao.regiao))) {
                     visited_regiao=true;
                     break;
                 }
             }
-            if (!visited_regiao) System.out.print(nomecache + " || ");
+            if (!visited_regiao) System.out.print(c.nome + " || ");
         }
         System.out.println();
     }

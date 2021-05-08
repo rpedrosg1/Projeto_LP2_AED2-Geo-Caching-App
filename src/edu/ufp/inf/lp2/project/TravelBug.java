@@ -1,13 +1,11 @@
 package edu.ufp.inf.lp2.project;
 import edu.princeton.cs.algs4.SeparateChainingHashST;
-import edu.ufp.inf.lp2.project.Cache;
-import edu.princeton.cs.algs4.BST;
+
 
 import static edu.ufp.inf.lp2.project.Admin_User.cacheST;
 import static edu.ufp.inf.lp2.project.Admin_User.userST;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+
 
 
 public class TravelBug extends Objeto {
