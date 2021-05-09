@@ -8,16 +8,32 @@ public class Premium_User extends Basic_User {
 
     public LinearProbingHashST<String, TravelBug> myTravelBugs = new LinearProbingHashST<>();
 
+    /**
+     * Contrutor que inicializa um Premium User com as suas caracteriasticas
+     * @param id id que o Premium User ira ter
+     * @param nome nome do User
+     * @param idade idade do User
+     * @param nr_caches_visitadas numero de caches que User visitou
+     */
     public Premium_User(String id, String nome, int idade, int nr_caches_visitadas) {
         super(id, nome, idade, nr_caches_visitadas);
         nr_caches_criadas = 0;
     }
 
+    /**
+     * Contrutor vazio que inicializa um Premium User com os parametros a null
+     */
     public Premium_User() {
         super();
 
     }
 
+    /**
+     * Criar um TravelBug e coloca no seu Inventario
+     * @param id id do TravelBug
+     * @param nome nome do TravelBug
+     * @param missao Cache em que esse TravelBug terá de chegar para concluir a sua missao
+     */
     public void CriarTb(String id, String nome, Cache missao) {
         TravelBug tb = new TravelBug(id, nome, this, missao);
         myTravelBugs.put(tb.id, tb);
@@ -27,6 +43,14 @@ public class Premium_User extends Basic_User {
         tb.h_user.put(this.id, this);
     }
 
+    /**
+     * O user visita uma cache e deixa um TravelBug que tinha consigo no inventario
+     * @param i data em que visitou a cache
+     * @param c cache que visitou
+     * @param log mensagem que deixou na cache
+     * @param postb TravelBug que tinha no inventario vai colocar para a cache
+     * @throws General_Exception caso aconteca erro gera uma exceção
+     */
     public void VisitarCache_deixarTB(Date i, Cache c, Logs log, String postb) throws General_Exception {
         if (c.myTipo == Tipo.PREMIUM) {
             ///////////////////////////////////////////////////////////////////vamos buscar o TB ao inventario do user e apagamos
@@ -66,6 +90,14 @@ public class Premium_User extends Basic_User {
         }
     }
 
+    /**
+     * O user visita uma cache e tira um TravelBug que tinha na cache
+     * @param i data em que visitou a cache
+     * @param c cache que visitou
+     * @param log mensagem que deixou na cache
+     * @param tb TravelBug que tinha na cache vai colocar no seu Inventario
+     * @throws General_Exception caso aconteca erro gera uma exceção
+     */
     public void VisitarCache_tirarTB(Date i, Cache c, Logs log, TravelBug tb) throws General_Exception {
         if (c.myTipo == Tipo.PREMIUM) {
             if (tb == null) return;
@@ -95,6 +127,15 @@ public class Premium_User extends Basic_User {
         }
     }
 
+    /**
+     * O user visita uma cache e tira um Objeto que tinha na cache e coloca na cache um TravelBug
+     * @param i data em que visitou a cache
+     * @param c cache que visitou
+     * @param log mensagem que deixou na cache
+     * @param tbBolso TravelBug que tinha no inventario vai colocar na cache
+     * @param objCache Objeto que estava na cache vai colocar no inventario
+     * @throws General_Exception
+     */
     public void VisitarCache_trocarTB_por_Obj(Date i, Cache c, Logs log, String tbBolso, Objeto objCache) throws General_Exception {
         if (c.myTipo == Tipo.PREMIUM) {
             ///////////////////////////////////////////////////////////////////vamos buscar o TB ao inventario do user e apagamos
@@ -138,6 +179,15 @@ public class Premium_User extends Basic_User {
         }
     }
 
+    /**
+     * O user visita uma cache e troca um TravelBug que tinha na cache e coloca na cache outro TravelBug
+     * @param i data em que visitou a cache
+     * @param c cache que visitou
+     * @param log mensagem que deixou na cache
+     * @param tbBolso TravelBug que tinha no inventario vai colocar na cache
+     * @param tbCache  TravelBug que estava na cache vai colocar na inventario
+     * @throws General_Exception
+     */
     public void VisitarCache_trocarTB_por_TB(Date i, Cache c, Logs log, String tbBolso, TravelBug tbCache) throws General_Exception {
         if (c.myTipo == Tipo.PREMIUM) {
             /////////////////////////////////////////////////////////////////buscar o TB ao user/cache , atulizar
@@ -190,6 +240,9 @@ public class Premium_User extends Basic_User {
         }
     }
 
+    /**
+     * Imprime os TravelBugs do User e o seu estado atual
+     */
     public void now() {
         System.out.println("O user com o nome " + this.nome + " tem estes travel bugs:");
         for (String key : myTravelBugs.keys()) {
@@ -197,6 +250,10 @@ public class Premium_User extends Basic_User {
         }
     }
 
+    /**
+     * Imprime todos os locais onde um dos seus TravelBugs andaram
+     * @param id_tb TravelBug que ira ver os locais onde esteve
+     */
     public void printLogsTB(String id_tb) {
         int i = 1;
         TravelBug tb = myTravelBugs.get(id_tb);

@@ -12,15 +12,31 @@ public class Admin_User extends Premium_User  {
     public static RedBlackBST<String, Basic_User> userST = new RedBlackBST<>();
     public static ST<String, Cache> cacheST = new ST<>();
 
-
+    /**
+     * Contrutor que inicializa um Admin User com as suas caracteriasticas
+     * @param id id que o Premium User ira ter
+     * @param nome nome do User
+     * @param idade idade do User
+     * @param nr_caches_visitadas numero de caches que o User visitou
+     */
     public Admin_User(String id, String nome, int idade, int nr_caches_visitadas) {
         super(id, nome, idade, nr_caches_visitadas);
     }
-
+    /**
+     * Imprime os TravelBugs do User e o seu estado atual
+     */
     public void now() {
+        System.out.println("O user com o nome " + this.nome + " tem estes travel bugs:");
+        for (String key : myTravelBugs.keys()) {
+            System.out.println("\n" + myTravelBugs.get(key).toString());
+        }
     }
 
-
+    /**
+     * Veirifca que ja existe algum User com algum id igual
+     * @param id id que ira verificar
+     * @return
+     */
     public static boolean check_id(String id) {
 
         for (String s : userST.keys()) {
@@ -35,7 +51,9 @@ public class Admin_User extends Premium_User  {
                 "    Cache criadas: " + nr_caches_criadas + " || Cache visitadas: " + nr_caches_visitadas +"\n";
     }
 
-
+    /**
+     * Imprime todos os objetos que cada cache contem no momento
+     */
     public static void print_Objetos_todasCaches(){
         if(cacheST.size()>0){
             for (String key : cacheST.keys()){
@@ -45,22 +63,37 @@ public class Admin_User extends Premium_User  {
         }
     }
 
+    /**
+     * Imprime todos os users que se encontram no userST
+     */
     public static void print_users() {
         for (String u : userST.keys()) {
             System.out.println(userST.get(u).toString());
         }
     }
 
+    /**
+     * Imprime todos as caches que se encontram na cacheST
+     */
     public static void print_caches() {
         for (String u : cacheST) {
             System.out.println(cacheST.get(u).toString());
         }
     }
 
+    /**
+     * Imprime todas as caches visitadas por um certo User
+     * @param user user que ira ver o seu historico de caches
+     */
     public static void printCachesVisitadas_r8_a(Basic_User user) {
         user.printHcaches();
     }
 
+    /**
+     * Imprime todas as caches visitadas de um User numa dada regiao
+     * @param user
+     * @param regiao
+     */
     public static void printCachesVisitadasRegiao_r8_a(Basic_User user, String regiao) {
         Iterator<Cache> itr = user.Hcaches.values().iterator();
         boolean have1=false;
@@ -75,6 +108,10 @@ public class Admin_User extends Premium_User  {
         if(!have1) System.out.println("O user " + user.nome + " nao tem nenhuma cache visitada na regiao_" + regiao);
     }
 
+    /**
+     * Imprime todas as caches nao visitadas por um User
+     * @param user user fornecido
+     */
     public static void printCachesNaoVisitadas_r8_b(Basic_User user) {
 
         String nomecache;
@@ -93,6 +130,11 @@ public class Admin_User extends Premium_User  {
         System.out.println();
     }
 
+    /**
+     * Imprime todas as caches nao visitadas por um User numa dada regiao
+     * @param user user fornecido
+     * @param Regiao regiao escolhida
+     */
     public static void printCachesNaoVisitadasRegiao_r8_b(Basic_User user, String Regiao) {
 
 
@@ -111,6 +153,10 @@ public class Admin_User extends Premium_User  {
         System.out.println();
     }
 
+    /**
+     * Imprime todos um Users que ja visitaram uma dada cache
+     * @param c cache fornecida
+     */
     public static void printUsers_ComVisitas_r8_c(Cache c) {
         Iterator<Basic_User> itr = c.H_User.values().iterator();
         System.out.println("Users que visitaram a Cache " + c.nome + ":");
@@ -119,6 +165,9 @@ public class Admin_User extends Premium_User  {
         }
     }
 
+    /**
+     * Imprime todas as caches Premium que tem pelo menos 1 objeto
+     */
     public static void printCachePremium_ComObjetos_r8_d() {
         System.out.println("Caixas Premium com pelo menos um Objeto:");
         for (String pos : cacheST) {
@@ -128,6 +177,9 @@ public class Admin_User extends Premium_User  {
         }
     }
 
+    /**
+     * Imprime todas as caches e os seus objetos
+     */
     public static void printCacheObjetos() {
         System.out.println("\n\nPrint Objetos de Caches:\n");
 
@@ -146,6 +198,9 @@ public class Admin_User extends Premium_User  {
         }
     }
 
+    /**
+     * Imprime todos os Users e os seus objetos
+     */
     public static void printUsersObjetos() {
         System.out.println("\n\nPrint Objetos de Users:\n");
         for (String id : userST.keys()){
@@ -164,6 +219,9 @@ public class Admin_User extends Premium_User  {
         }
     }
 
+    /**
+     * Imprime todos os Users e as caches que ja visitaram
+     */
     public static void printUsers_Hcaches(){
         System.out.println("\n\nUtilizadores -> Historico de caches visitadas:\n");
         for (String id : userST.keys()){
@@ -179,6 +237,9 @@ public class Admin_User extends Premium_User  {
         }
     }
 
+    /**
+     * Imprime todas as Caches e os users que ja a visitaram
+     */
     public static void printCache_Husers(){
         System.out.println("\n\nCaches -> Historico de utilizadores que visitaram esta cache:\n");
         for (String c : cacheST){
@@ -196,6 +257,11 @@ public class Admin_User extends Premium_User  {
         }
     }
 
+    /**
+     * Imprime o top 5 de Users que visitaram mais Caches entre duas datas
+     * @param i Data inicial
+     * @param f Data final
+     */
     public static void printTop5_visitarCaches_r8_e(Date i, Date f) {
         ST<String, Integer> nr_visitas = new ST<>();
         for (String pos : cacheST) {
@@ -242,6 +308,9 @@ public class Admin_User extends Premium_User  {
 
     }
 
+    /**
+     * Imprime o top 5 que percorreu mais caches
+     */
     public static void printTop_TravelBug_r8_f() {
         ArrayList<TravelBug> travelBugs = new ArrayList<>();
 
@@ -275,6 +344,9 @@ public class Admin_User extends Premium_User  {
         }
     }
 
+    /**
+     * Imprime todos os Logs de todas as Caches ,ou seja, os users que ja visitaram a cache,o dia e que objetos trocaram
+     */
     public static void printLogs_Caches(){
         System.out.println("Printing Logs from every Cache:");
         for (String cache : cacheST){
@@ -291,6 +363,10 @@ public class Admin_User extends Premium_User  {
         }
     }
 
+    /**
+     * Imprime todos os Logs de uma Cache ,ou seja, os users que ja visitaram a cache,o dia e que objetos trocaram
+     * @param name Cache fornecida
+     */
     public static void printLogs_Caches(String name){
         try{
             Cache c = cacheST.get(name);
@@ -307,6 +383,9 @@ public class Admin_User extends Premium_User  {
 
     }
 
+    /**
+     * Imprime todos os Logs de todos os Users ,ou seja, as caches que o User ja visitou,o dia e que objetos trocaram
+     */
     public static void printLogs_Users(){
         System.out.println("Printing Logs from every User:");
         for (String key : userST.keys()){
@@ -323,6 +402,10 @@ public class Admin_User extends Premium_User  {
         }
     }
 
+    /**
+     * Imprime todos os Logs de um User ,ou seja, as caches que o User ja visitou,o dia e que objetos trocaram
+     * @param id_user User fornecido
+     */
     public static void printLogs_Users(String id_user){
         try{
             Basic_User u = userST.get(id_user);

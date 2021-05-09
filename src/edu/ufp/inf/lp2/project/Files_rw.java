@@ -17,6 +17,9 @@ public class Files_rw {
 
     //Users Files
 
+    /**
+     * Guarda todos os User num ficheiro
+     */
     public static void save_Users() {
         Out out = new Out(".//data//Users.txt");
         for (String user : userST.keys()) {
@@ -34,6 +37,9 @@ public class Files_rw {
         out.close();
     }
 
+    /**
+     * Le todos os User de um ficheiro
+     */
     public static void read_Users() {
 
        In myFile = new In(".//data//Users.txt");
@@ -84,6 +90,10 @@ public class Files_rw {
     }
 
     //Caches Files
+
+    /**
+     * Guarda todos as Caches num ficheiro
+     */
     public static void save_Caches() {
         Out out = new Out(".//data//Caches.txt");
         for (String cache : cacheST) {
@@ -96,6 +106,9 @@ public class Files_rw {
         out.close();
     }
 
+    /**
+     * Le todos as Caches de um ficheiro
+     */
     public static void read_Caches() {
 
         In myFile = new In(".//data//Caches.txt");
@@ -156,6 +169,9 @@ public class Files_rw {
 
     //Logs Cache Files
 
+    /**
+     * Guarda todos os Logs de uma cache num ficheiro
+     */
     public static void save_Logs_Cache() {
         Out out = new Out(".//data//Logs_Caches.txt");
         for (String c : cacheST) {
@@ -170,7 +186,9 @@ public class Files_rw {
         out.close();
     }
 
-
+    /**
+     * Le todos os logs de uma cache dum ficheiro
+     */
     public static void read_Logs_Cache() {
         In myFile = new In(".//data//Logs_Caches.txt");
 
@@ -210,7 +228,11 @@ public class Files_rw {
         }
         myFile.close();
     }
-//Logs User Files
+
+    //Logs User Files
+    /**
+     * Guarda todos os Logs de um User num ficheiro
+     */
     public static void save_Logs_User() {
     Out out = new Out(".//data//Logs_User.txt");
     for (String key : userST.keys()) {
@@ -225,6 +247,9 @@ public class Files_rw {
     out.close();
 }
 
+    /**
+     * Le todos os logs de um User dum ficheiro
+     */
     public static void read_Logs_User() {
         In myFile = new In(".//data//Logs_User.txt");
 
@@ -262,8 +287,12 @@ public class Files_rw {
         }
         myFile.close();
     }
+
     //Logs normais Files
 
+    /**
+     * Guarda todos as Mensagens deixadas pelos Users na Cache num ficheiro
+     */
     public static void save_Logs() {
         Out out = new Out(".//data//Logs.txt");
         for (String c : cacheST) {
@@ -276,6 +305,9 @@ public class Files_rw {
         out.close();
     }
 
+    /**
+     * Le todos as Mensagens deixadas pelos Users na Cache dum ficheiro
+     */
     public static void read_Logs() {
         In myFile = new In(".//data//Logs.txt");
 
@@ -309,6 +341,9 @@ public class Files_rw {
 
     //Objetos Files
 
+    /**
+     * Guarda todos os Objetos contidos nas caches e nos users num ficheiro
+     */
     public static void save_Objetos() {
         Out out = new Out(".//data//Objetos.txt");
         for (String c : cacheST) {
@@ -347,7 +382,9 @@ public class Files_rw {
         out.close();
     }
 
-
+    /**
+     * Le todos os Objetos contidos nas caches e nos users dum ficheiro
+     */
     public static void read_Objetos(){
         In myFile = new In(".//data//Objetos.txt");
 
@@ -430,6 +467,9 @@ public class Files_rw {
 
     //Caches H_users  &&   //Basic_User hCaches
 
+    /**
+     * Guarda o historico de caches de todos os users e o historico de users de todas as caches num ficheiro
+     */
     public static void save_Cache_Users_Husers_Hcaches(){
         Out out = new Out(".//data//Cache_Husers.txt");
         for (String c : cacheST) {
@@ -443,6 +483,9 @@ public class Files_rw {
         out.close();
     }
 
+    /**
+     * Le o historico de caches de todos os users e o historico de users de todas as caches dum ficheiro
+     */
     public static void read_Cache_Users_Husers_Hcaches(){
         In myFile = new In(".//data//Cache_Husers.txt");
         while (myFile.hasNextLine()) {
@@ -474,9 +517,11 @@ public class Files_rw {
 
 
 
-
-
     //Logs Tb Files
+
+    /**
+     * Guarda todas as Logs de todos os TravelBugs num ficheiro
+     */
     public static void save_TravelBugs_Logs() {
         Out out = new Out(".//data//TravelBugs_Logs.txt");
         for (String id : userST.keys()) {
@@ -506,6 +551,9 @@ public class Files_rw {
         out.close();
     }
 
+    /**
+     * Le todas as Logs de todos os TravelBugs dum ficheiro
+     */
     public static void read_TravelBugs_Logs(){
        In myFile = new In(".//data//TravelBugs_Logs.txt");
         while (myFile.hasNextLine()) {
@@ -561,6 +609,9 @@ public class Files_rw {
 
     //TB hCaches
 
+    /**
+     * Guarda o historico de caches de todos os TravelBugs num ficheiro
+     */
     public static void save_TravelBugs_HCaches(){
         Out out = new Out(".//data//TravelBugs_HCaches.txt");
         for (String id : userST.keys()) {
@@ -583,6 +634,9 @@ public class Files_rw {
         out.close();
     }
 
+    /**
+     * Le o historico de caches de todos os TravelBugs dum ficheiro
+     */
     public static void read_TravelBugs_HCaches(){
         In myFile = new In(".//data//TravelBugs_HCaches.txt");
         while (myFile.hasNextLine()) {
@@ -614,6 +668,9 @@ public class Files_rw {
 
     //TB hUsers
 
+    /**
+     * Guarda o historico de users de todos os TravelBugs num ficheiro
+     */
     public static void save_TravelBugs_HUsers(){
         Out out = new Out(".//data//TravelBugs_HUsers.txt");
         for (String id : userST.keys()) {
@@ -636,6 +693,9 @@ public class Files_rw {
         out.close();
     }
 
+    /**
+     * Le o historico de users de todos os TravelBugs dum ficheiro
+     */
     public static void read_TravelBugs_HUsers(){
         In myFile = new In(".//data//TravelBugs_HUsers.txt");
         while (myFile.hasNextLine()) {
@@ -663,7 +723,9 @@ public class Files_rw {
         myFile.close();
     }
 
-
+    /**
+     * Usa todas as funcoes de guardar  nos ficheiros
+     */
     public static void save_all(){
         save_Users();
         save_Caches();
@@ -677,6 +739,9 @@ public class Files_rw {
         save_TravelBugs_HUsers();
     }
 
+    /**
+     * Usa todas as funcoes de ler dos ficheiros
+     */
     public static void read_all(){
         read_Users();
         read_Caches();
@@ -692,6 +757,10 @@ public class Files_rw {
     }
 
 
+    /**
+     * Guarda informacao de um certo user que foi removido num ficheiro
+     * @param u user removido
+     */
     public static void arquivoUsers(Basic_User u) {
 
         boolean isEmpty=false;
@@ -811,7 +880,10 @@ public class Files_rw {
 
     }
 
-
+    /**
+     * Guarda informacao de uma certa cache que foi removida num ficheiro
+     * @param c cache removido
+     */
     public static void arquivoCaches(Cache c){
 
         boolean isEmpty=false;

@@ -12,6 +12,7 @@ import static edu.ufp.inf.lp2.project.Admin_User.userST;
 public class Basic_User implements GestaoUtilizadores {
 
   public LinearProbingHashST<String,Objeto> myObj=new LinearProbingHashST<>();
+
   public ArrayList<Logs_User> myLogs_user = new ArrayList<>();
 
   public int nr_caches_visitadas;
@@ -25,8 +26,13 @@ public class Basic_User implements GestaoUtilizadores {
   public HashMap<String,Cache> Hcaches=new HashMap<>();
 
 
-
-
+  /**
+   *Contrutor que inicializa um Basic User com as suas caracteriasticas
+   * @param id id que o Basic User ira ter
+   * @param nome nome do User
+   * @param idade idade do User
+   * @param nr_caches_visitadas numero de caches que User visitou
+   */
   public Basic_User(String id, String nome, int idade,int nr_caches_visitadas){
     if (!Admin_User.check_id(id)){
       System.out.println("Erro ao criar Utilizador, id ja esta a ser utilizado");
@@ -39,11 +45,18 @@ public class Basic_User implements GestaoUtilizadores {
     this.InserirUtilizador();
   }
 
+  /**
+   * Contrutor vazio que inicializa um Basic User com os parametros a null
+   */
   public Basic_User() {
   }
 
 
-
+  /**
+   * Cria um objeto para o User
+   * @param id id do objeto
+   * @param nome nome do objeto
+   */
   public void CriarObjeto(String id, String nome) {
     Objeto obj = new Objeto(id,nome,this);
     myObj.put(obj.id,obj);
@@ -58,11 +71,19 @@ public class Basic_User implements GestaoUtilizadores {
             "   Cache visitadas: " + nr_caches_visitadas + "\n";
   }
 
+  /**
+   * Insere um utilizador no userST que é onde se encontram todos os Utilizadores de todos os tipos
+   */
   @Override
   public void InserirUtilizador() {
     userST.put(this.id,this);
   }
 
+  /**
+   * Edita os parametros de um User
+   * @param new_name novo nome do User
+   * @param new_age nova idade do User
+   */
   @Override
   public void EditarUtilizador(String new_name,int new_age) {
     //atualiza na userST
@@ -80,6 +101,9 @@ public class Basic_User implements GestaoUtilizadores {
 
   }
 
+  /**
+   * Remove o propio Utilizador do userST e escreve para um Ficheiro Arquivo o User removido
+   */
   @Override
   public void RemoverUtilizador() {
     Files_rw.arquivoUsers(this);
@@ -87,6 +111,12 @@ public class Basic_User implements GestaoUtilizadores {
     userST.delete(this.id);
   }
 
+  /**
+   * O user visita uma cache
+   * @param d dia em que visitou
+   * @param c cache que visitou
+   * @param log mensagem que deixou na cache
+   */
   public void VisitarCache(Date d,Cache c,Logs log){
     if(this.getClass().equals(Basic_User.class) && c.myTipo==Tipo.PREMIUM ) {
       System.out.println(this.nome + " nao conseguiu visitar cache pois a cache é PREMIUM e o grande " + this.nome + " é BASIC\n");
@@ -107,6 +137,13 @@ public class Basic_User implements GestaoUtilizadores {
     c.H_User.put(this.id,this);
   }
 
+  /**
+   * O user visita uma cache e deixa um objeto que tinha consigo
+   * @param d dia em que visitou
+   * @param c cache que visitou
+   * @param log mensagem que deixou na cache
+   * @param posO ID do Objeto que vai deixar na cache
+   */
   public void VisitarCache_deixarObj(Date d,Cache c,Logs log,String posO){
     ////////////////////////////////////////////////////////////////////////vamos buscar o obj ao inventario e apagamos do inventario
     Objeto o=myObj.get(posO);
@@ -129,6 +166,13 @@ public class Basic_User implements GestaoUtilizadores {
     c.H_User.put(this.id,this);
   }
 
+  /**
+   * O user visita uma cache e tira um objeto que estava na cache
+   * @param d dia em que visitou
+   * @param c cache que visitou
+   * @param log mensagem que deixou na cache
+   * @param posO ID do Objeto que vai tirar da cache e colocar no seu inventario
+   */
   public void VisitarCache_tirarObj(Date d,Cache c,Logs log,String posO){
     ///////////////////////////////////////////////////////////////////buscar o obj a cache ,remover da cache,colocar user,atualizar objeto
     Objeto o=c.FindObjeto(posO);
@@ -150,6 +194,15 @@ public class Basic_User implements GestaoUtilizadores {
     c.H_User.put(this.id,this);
   }
 
+
+  /**
+   * O user visita uma cache e troca um objeto que estava na cache por um seu
+   * @param d dia em que visitou
+   * @param c cache que visitou
+   * @param log mensagem que deixou na cache
+   * @param objBolso ID do Objeto que o user tinha no inventario e vai colocar na cache
+   * @param objCache Objeto que estava na cache e vai passar a estar com o user
+   */
   public void VisitarCache_trocarObj(Date d,Cache c,Logs log,String objBolso,Objeto objCache){
     ////////////////////////////////////////////////////////////////buscar o obj ao inventarioe cache, trocar, atualizar objetos
     Objeto objbolso=myObj.get(objBolso);
@@ -176,7 +229,11 @@ public class Basic_User implements GestaoUtilizadores {
   }
 
 
-
+  /**
+   * Cria um objeto novo que ira para o seu inventario
+   * @param id id do objeto
+   * @param nome nome do objeto
+   */
   public void CriarObj(String id,String nome){
     Objeto o = new Objeto(id, nome, this);
     myObj.put(o.id,o);
@@ -185,12 +242,19 @@ public class Basic_User implements GestaoUtilizadores {
   }
 
 
+  /**
+   * Imprime o inventario do User ou seja os objetos que tem
+   */
   public void printObj(){
     System.out.println("O user com o nome "+this.nome+" tem estes objetos:");
     for (String key :myObj.keys()) {
       System.out.println(myObj.get(key).toString());
     }
   }
+
+  /**
+   * Imprime todas as caches que o User ja visitou
+   */
   public void printHcaches(){
     Iterator<Cache> itr = this.Hcaches.values().iterator();
     System.out.println("O user com o nome "+this.nome+" já visistou estas caches:");

@@ -16,11 +16,21 @@ public class TravelBug extends Objeto {
 
   public ArrayList<LogsTB> myLogsTB =new ArrayList<>();//historico do TB
 
+    /**
+     * Contrutor que inicializa um TravelBug  com as suas caracteristicas
+     * @param id id que o TravelBug ira ter
+     * @param nome nome do TravelBug
+     * @param myCreator User que criou o TravelBug
+     * @param missao Cache em que o TravelBug tem como objeto chegar para completar o seu objetivo
+     */
   public TravelBug(String id,String nome,Premium_User myCreator, Cache missao) {
     super(id,nome,myCreator);
     this.missao = missao;
   }
 
+    /**
+     * Contrutor vazio que inicializa um TravelBug com os parametros a null
+     */
     public TravelBug() {
         super();
     }
@@ -83,6 +93,7 @@ public class TravelBug extends Objeto {
               "\n Com a missão de chegar a Cache " + missao.nome;
 
   }
+
 
   public Localizacao getCoordenadasTB() {
     return this.myCache.myLocalizacao;
