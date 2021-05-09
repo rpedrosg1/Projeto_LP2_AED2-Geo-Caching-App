@@ -11,18 +11,17 @@ import static edu.ufp.inf.lp2.project.Admin_User.cacheST;
 
 public class Cache implements GestaoCaches {
 
-    public Premium_User mycreator_user;
+    public Premium_User mycreator_user;//criador da cache
     public String nome;
     public String descrisao;
     public Dificuldade myDificuldade;
     public Tipo myTipo;
     public Localizacao myLocalizacao;
-
-    public ArrayList<Logs> myLogs = new ArrayList<>();
-    public ArrayList<Logs_Cache> myLogs_cache = new ArrayList<>();
-    public ArrayList<Objeto> objCache = new ArrayList<>();
-    public ArrayList<TravelBug> myTravelBug = new ArrayList<>();
-    public HashMap<String, Basic_User> H_User = new HashMap<>();
+    public ArrayList<Logs> myLogs = new ArrayList<>();//array de mensagens deixadas pelos users
+    public ArrayList<Logs_Cache> myLogs_cache = new ArrayList<>();//logs de quem visitou a cache
+    public ArrayList<Objeto> objCache = new ArrayList<>();//inventario da cache *só Objetos*
+    public ArrayList<TravelBug> myTravelBug = new ArrayList<>();//inventario da cache *só TB*
+    public HashMap<String, Basic_User> H_User = new HashMap<>();//historico de users q passram la n ha repetições
 
 
     public Cache(Premium_User mycreator_user, String nome, String descrisao, Localizacao myLocalizacao, Dificuldade myDificuldade, Tipo myTipo) {
@@ -44,7 +43,7 @@ public class Cache implements GestaoCaches {
 
     public void addObjeto(Objeto o) {
         objCache.add(o);
-    }
+    }//adicona uma objeto a cache (n serve para muito pq depois passamos a fazer diretamente)
 
     public Objeto FindObjeto(String id) {
         for (Objeto o : objCache) {
@@ -53,9 +52,9 @@ public class Cache implements GestaoCaches {
             }
         }
         return null;
-    }
+    }//retorna o objeto do id pedido
 
-    public TravelBug FindTB_inCache(String id) {
+    public TravelBug FindTB_inCache(String id) {//retorna o TB do id pedido
         for (TravelBug tb : myTravelBug) {
             if (tb.id.equals(id)) {
                 return tb;
@@ -72,26 +71,26 @@ public class Cache implements GestaoCaches {
         } else {
             System.out.println("Objeto n exite nesta Cache\n");
         }
-    }
+    }//troca um obj por outro
 
     public void remObjeto(Objeto o) {
         objCache.remove(o);
-    }
+    }//remove um objeto
 
     @Override
     public void InserirCache() {
         cacheST.put(this.nome, this);
-    }
+    }//insere a cache
 
     @Override
     public void EditarCache(String descrisao, String nome) {
         this.descrisao = descrisao;
         this.nome = nome;
-    }
+    }//edita a cache
 
 
     @Override
-    public void RemoverCache() {
+    public void RemoverCache() {//remove a cache
         Files_rw.arquivoCaches(this);
         System.out.println("Cache " + nome +" foi removida.");
         cacheST.remove(this.nome);
@@ -102,7 +101,7 @@ public class Cache implements GestaoCaches {
     }
 
 
-    public void printObjetos(){
+    public void printObjetos(){//da print de todos os objetos e Tb presentes na cache
         if(myTravelBug.size()>0 || objCache.size()>0){
             System.out.println("Objetos da Cache " + nome + ":\n");
             for (TravelBug tb : myTravelBug){
@@ -117,7 +116,7 @@ public class Cache implements GestaoCaches {
         }
     }
 
-    public  void printCache_Husers(){
+    public  void printCache_Husers(){//da print de todos os users q visitaram a cache
 
             if(H_User.size()>0){
                 System.out.println("\nA cache " + nome + " ja foi visitada pelos seguintes Utilizadores:\n");

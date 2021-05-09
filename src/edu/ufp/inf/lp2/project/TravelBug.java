@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 public class TravelBug extends Objeto {
   public Cache missao;
- // public Premium_User myUser;
   public SeparateChainingHashST<String,Cache> h_caches=new SeparateChainingHashST<>();
   public SeparateChainingHashST<String, Premium_User> h_user=new SeparateChainingHashST<>();
 

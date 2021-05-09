@@ -3,9 +3,9 @@ package edu.ufp.inf.lp2.project;
 public class Objeto {
     public String id;
     public String nome;
-    public Cache myCache;
-    public Basic_User myuser;
-    public Basic_User myCreator;
+    public Cache myCache;//cache onde esta se for null esta num user
+    public Basic_User myuser;//user onde esta se for null esta numa cache
+    public Basic_User myCreator;//criador do objeto
 
     public Objeto(String id, String nome, Basic_User myCreator) {
         this.id = id;
@@ -55,7 +55,7 @@ public class Objeto {
 
     @Override
     public String toString() {
-        if (myCache == null) {
+        if (myCache == null) {//se a cache estiver a null esta num user
             return "Objeto{" +
                     "id='" + id + '\'' +
                     ", nome='" + nome + '\'' +

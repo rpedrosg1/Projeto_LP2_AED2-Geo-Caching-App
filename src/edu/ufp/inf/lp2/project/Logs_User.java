@@ -1,10 +1,10 @@
 package edu.ufp.inf.lp2.project;
 
 public class Logs_User {
-    Date d;
-    String nome_cache;
-    String id_objdeixado;
-    String id_objretirado;
+    Date d;//data da Visita
+    String nome_cache;//nome da cache q visitou
+    String id_objdeixado;//id do objeto q deixou se for null n deixou nd
+    String id_objretirado;//id do objeto q retirou se for null n retirou nd
 
     public Logs_User(Date d, String nome_cache, String id_objdeixados, String id_objretirados) {
         this.d = d;
@@ -15,21 +15,21 @@ public class Logs_User {
 
     @Override
     public String toString() {
-        if (id_objretirado == null && id_objdeixado!=null) {
+        if (id_objretirado == null && id_objdeixado!=null) {// se n retirou e deixou
             return "Este User visitou a Cache:" + "[" + this.nome_cache + "] "
                     + d.toString() + "    " +
                     "\t\tDeixou objetoID -> " + id_objdeixado + ".\n" ;
-        } else if (id_objretirado!=null && id_objdeixado == null) {
+        } else if (id_objretirado!=null && id_objdeixado == null) {// se n deixou e retirou
             return  "Este User visitou a Cache:" + "[" + this.nome_cache + "] "
                     + d.toString()  + "    " +
                     "\t\tRetirou objetoID -> " + id_objretirado + ".\n" ;
 
         }
-        else if  (id_objretirado == null){
+        else if  (id_objretirado == null){// se n retirou nem deixou
             return  "Este User visitou a Cache:" + "[" + this.nome_cache + "] "
                     + d.toString() + "\n";
         }
-        else {
+        else {//se restirou e deixou
             return "Este User visitou a Cache:" + "[" + this.nome_cache + "] "
                     + d.toString()+
                     "\t\tDeixou objetoID -> " + id_objdeixado +"  ||   Retirou objetoID -> " + id_objretirado + ".\n" ;
