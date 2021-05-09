@@ -23,7 +23,15 @@ public class Cache implements GestaoCaches {
     public ArrayList<TravelBug> myTravelBug = new ArrayList<>();//inventario da cache *só TB*
     public HashMap<String, Basic_User> H_User = new HashMap<>();//historico de users q passram la n ha repetições
 
-
+    /**
+     * Contrutor que inicializa uma cache com as suas caracteriasticas
+     * @param mycreator_user id que o Premium User q a criou
+     * @param nome nome da cache
+     * @param descrisao descrisão breve da cache
+     * @param myDificuldade Dificuldade pode ser Facil/Medio/Dificl
+     * @param myLocalizacao da extends a coordenadas contem tudo o q precisa de saber da localização da cache
+     * @param myTipo Tipo pode ser Premium ou basic
+     */
     public Cache(Premium_User mycreator_user, String nome, String descrisao, Localizacao myLocalizacao, Dificuldade myDificuldade, Tipo myTipo) {
         //super(myLocalizacao.raio,myLocalizacao.regiao,myLocalizacao.getMyCoordenadas());
         this.mycreator_user = mycreator_user;
@@ -40,11 +48,15 @@ public class Cache implements GestaoCaches {
         this.nome = "";
         this.descrisao = "";
     }
-
+    /**
+     *adicona uma objeto a cache (n serve para muito pq depois passamos a fazer diretamente)
+     */
     public void addObjeto(Objeto o) {
         objCache.add(o);
-    }//adicona uma objeto a cache (n serve para muito pq depois passamos a fazer diretamente)
-
+    }
+    /**
+     *retorna o objeto do id pedido
+     */
     public Objeto FindObjeto(String id) {
         for (Objeto o : objCache) {
             if (o.id.equals(id)) {
@@ -52,9 +64,11 @@ public class Cache implements GestaoCaches {
             }
         }
         return null;
-    }//retorna o objeto do id pedido
-
-    public TravelBug FindTB_inCache(String id) {//retorna o TB do id pedido
+    }
+    /**
+     *retorna o TB do id pedido
+     */
+    public TravelBug FindTB_inCache(String id) {
         for (TravelBug tb : myTravelBug) {
             if (tb.id.equals(id)) {
                 return tb;
@@ -63,7 +77,9 @@ public class Cache implements GestaoCaches {
         return null;
     }
 
-
+    /**
+     *troca um obj por outro
+     */
     public void tradeObjeto(Objeto old_o, Objeto new_o) {
         if (objCache.contains(old_o)) {
             objCache.remove(old_o);
@@ -71,26 +87,36 @@ public class Cache implements GestaoCaches {
         } else {
             System.out.println("Objeto n exite nesta Cache\n");
         }
-    }//troca um obj por outro
-
+    }
+    /**
+     *Remove um objeto do inventario da cache
+     */
     public void remObjeto(Objeto o) {
         objCache.remove(o);
     }//remove um objeto
-
+    /**
+     * Insere uma Cache na cacheST que é onde se encontram todas os Caches de todos os tipos
+     */
     @Override
     public void InserirCache() {
         cacheST.put(this.nome, this);
     }//insere a cache
-
+    /**
+     * Edita os parametros de uma cache
+     * @param nome novo nome da Cache
+     * @param  descrisao nova descrisao da cache
+     */
     @Override
     public void EditarCache(String descrisao, String nome) {
         this.descrisao = descrisao;
         this.nome = nome;
     }//edita a cache
 
-
+    /**
+     * Remove a propia Cache da cacheST e escreve para um Ficheiro Arquivo a cache removida
+     */
     @Override
-    public void RemoverCache() {//remove a cache
+    public void RemoverCache() {
         Files_rw.arquivoCaches(this);
         System.out.println("Cache " + nome +" foi removida.");
         cacheST.remove(this.nome);
@@ -100,8 +126,10 @@ public class Cache implements GestaoCaches {
         return myLocalizacao;
     }
 
-
-    public void printObjetos(){//da print de todos os objetos e Tb presentes na cache
+    /**
+     * Imprime todos os objetos e Tb presentes na cache
+     */
+    public void printObjetos(){
         if(myTravelBug.size()>0 || objCache.size()>0){
             System.out.println("Objetos da Cache " + nome + ":\n");
             for (TravelBug tb : myTravelBug){
@@ -115,6 +143,9 @@ public class Cache implements GestaoCaches {
             System.out.println("A caixa " + this.nome + " nao tem objetos!\n");
         }
     }
+    /**
+     * Imprime todos os users que visitaram esta cache
+     */
 
     public  void printCache_Husers(){//da print de todos os users q visitaram a cache
 

@@ -1,12 +1,22 @@
 package edu.ufp.inf.lp2.project;
-
+/**
+ *Objeto
+ * mycache-cache onde esta se for null esta num user
+ * myuser-user onde esta se for null esta numa cache
+ */
 public class Objeto {
     public String id;
     public String nome;
-    public Cache myCache;//cache onde esta se for null esta num user
-    public Basic_User myuser;//user onde esta se for null esta numa cache
-    public Basic_User myCreator;//criador do objeto
+    public Cache myCache;
+    public Basic_User myuser;
+    public Basic_User myCreator;
 
+    /**
+     * Contrutor que inicializa um objeto com as suas caracteriasticas
+     * @param id id do objeto
+     * @param nome nome do objeto
+     * @param myCreator criador do objeto
+     */
     public Objeto(String id, String nome, Basic_User myCreator) {
         this.id = id;
         this.nome = nome;
@@ -52,7 +62,10 @@ public class Objeto {
     public void setMyCache(Cache myCache) {
         this.myCache = myCache;
     }
+/**
+    *Este metodo é para dar print corretamente do objeto
 
+*/
     @Override
     public String toString() {
         if (myCache == null) {//se a cache estiver a null esta num user

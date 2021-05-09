@@ -1,11 +1,17 @@
 package edu.ufp.inf.lp2.project;
 
 public class Logs_User {
-    Date d;//data da Visita
-    String nome_cache;//nome da cache q visitou
-    String id_objdeixado;//id do objeto q deixou se for null n deixou nd
-    String id_objretirado;//id do objeto q retirou se for null n retirou nd
-
+    Date d;
+    String nome_cache;
+    String id_objdeixado;
+    String id_objretirado;
+    /**
+     *Contrutor que inicializa um Log de User com as suas caracteriasticas
+     * @param d data da Visita
+     * @param nome_cache nome da cache q visitou
+     * @param id_objdeixados id do objeto q deixou se for null n deixou nd
+     * @param id_objretirados id do objeto q retirou se for null n retirou nd
+     */
     public Logs_User(Date d, String nome_cache, String id_objdeixados, String id_objretirados) {
         this.d = d;
         this.nome_cache = nome_cache;

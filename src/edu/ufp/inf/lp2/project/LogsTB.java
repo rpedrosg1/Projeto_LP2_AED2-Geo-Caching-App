@@ -8,15 +8,22 @@ import java.util.Vector;
 import static edu.ufp.inf.lp2.project.Admin_User.userST;
 public class LogsTB {
 
-  String nome_cache;//Se c==null(ESTA NUM UESR) e nome_cache vai ser nome de ultima cache que foi retirado
-  String id_user;//Se u==null(ESTA NUMA CACHE) e id_user vai ser o id do user que o deixou numa cache
-  Date data;//data da visita
-  Cache c;//cache onde ele ta atualmente se for null n ta numa cache
-  Premium_User u;//user onde ele ta atualmente se for null n ta num user
+  String nome_cache;
+  String id_user;
+  Date data;
+  Cache c;
+  Premium_User u;
 
   boolean missao_concluida;//missao
 
-
+  /**
+   *Contrutor que inicializa um Log de Tb com as suas caracteriasticas
+   * @param data data da Visita
+   * @param nome_cache se c==null(ESTA NUM UESR) e nome_cache vai ser nome de ultima cache que foi retirado
+   * @param id_user se u==null(ESTA NUMA CACHE) e id_user vai ser o id do user que o deixou numa cache
+   * @param c cache onde ele ta atualmente se for null n ta numa cache
+   * @param u user onde ele ta atualmente se for null n ta num user
+   */
   public LogsTB(String nome_cache, String id_user, Date data, Cache c, Premium_User u) {
     this.nome_cache = nome_cache;
     this.id_user = id_user;
@@ -25,6 +32,15 @@ public class LogsTB {
     this.u = u;
     missao_concluida = false;
   }
+  /**
+   *Contrutor que inicializa um Log de Tb com as suas caracteriasticas
+   * @param data data da Visita
+   * @param nome_cache se c==null(ESTA NUM UESR) e nome_cache vai ser nome de ultima cache que foi retirado
+   * @param id_user se u==null(ESTA NUMA CACHE) e id_user vai ser o id do user que o deixou numa cache
+   * @param c cache onde ele ta atualmente se for null n ta numa cache
+   * @param u user onde ele ta atualmente se for null n ta num user
+   * @param missao_concluida para ver se a missao esta concluida ou n para um Tb q é carregado de um file
+   */
   public LogsTB(String nome_cache, String id_user, Date data, Cache c, Premium_User u,boolean missao_concluida) {
     this.nome_cache = nome_cache;
     this.id_user = id_user;
