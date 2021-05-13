@@ -1,41 +1,49 @@
 package edu.ufp.inf.lp2.project.JavaFX;
 
+import edu.ufp.inf.lp2.project.Admin_User;
 import edu.ufp.inf.lp2.project.Basic_User;
-import javafx.application.Application;
+import edu.ufp.inf.lp2.project.Premium_User;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 
 import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.ResourceBundle;
 
 public class BTController  implements Initializable,Serializable {
+
+
+
 
     public TextField registrationField;
     public TextField modelField;
     public TextField brandField;
     public TextField cylindersField;
 
-    public TableView<Basic_User> vehicleTable;
-    public TableColumn<Basic_User, String> registrationCol;
-    public TableColumn<Basic_User, String> brandCol;
-    public TableColumn<Basic_User, String> modelCol;
-    public TableColumn<Basic_User, String> cylindersCol;
+    public TextArea textArea;
+
+    public TableView<Basic_User> userTable;
+    public TableColumn<Basic_User,String> idCol;
+    public TableColumn<Basic_User, String> nameCol;
+    public TableColumn<Basic_User, String> ageCol;
+    public TableColumn<Basic_User, String> ncacheCol;
+    //public TableColumn<Basic_User, String> typeCol;
 
 
-    private static final String PATH_VEHICLES = ".//data//vehicles.txt";
+
+
+
+    private static final String PATH_USERS = ".//data//usersteste.txt";
     private static final String PATH_VEHICLES_BIN = ".//data//vehiclesbin.bin";
     private static final String FILE_DELIMITTER = ";";
     private static final String PATH_BIN = ".//data//data_bt.bin";
+    public Button buttonUsers;
 
-    private ArrayList<Basic_User> vehicleArrayList = new ArrayList<>();
+    private ArrayList<Basic_User> userArrayList = new ArrayList<>();
 
 
     //Metodo para inicialização dos elementos da tabela vehiclesTable,
@@ -43,21 +51,32 @@ public class BTController  implements Initializable,Serializable {
     //TransitPolice
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        registrationCol.setCellValueFactory(new PropertyValueFactory<>("registration"));
-        registrationCol.setCellFactory(TextFieldTableCell.forTableColumn());
-        brandCol.setCellValueFactory(new PropertyValueFactory<>("brand"));
-        brandCol.setCellFactory(TextFieldTableCell.forTableColumn());
-        modelCol.setCellValueFactory(new PropertyValueFactory<>("model"));
-        modelCol.setCellFactory(TextFieldTableCell.forTableColumn());
-        cylindersCol.setCellValueFactory(new PropertyValueFactory<>("cylinders"));
-        cylindersCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        idCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        nameCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        ageCol.setCellValueFactory(new PropertyValueFactory<>("idade"));
+        ageCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        ncacheCol.setCellValueFactory(new PropertyValueFactory<>("nr_caches_visitadas"));
+        ncacheCol.setCellFactory(TextFieldTableCell.forTableColumn());
+
+
+       // typeCol.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        //typeCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        Basic_User aux = new Basic_User("1","Rui",21,0);
+        userTable.getItems().add(aux);
+
+
     }
 
     //Handler para acção do botão de abertura do ficheiro de texto, referente aos dados dos veículos
     public void handleReadFileAction(ActionEvent actionEvent) {
-        vehicleTable.getItems().clear();
+        userTable.getItems().clear();
         try {
-            vehicleTable.getItems().addAll(readVehiclesFromFile());
+            //userTable.getItems().addAll(readVehiclesFromFile());
+            for (Basic_User user : readVehiclesFromFile()){
+                userTable.getItems().add((Basic_User) user);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -67,23 +86,35 @@ public class BTController  implements Initializable,Serializable {
 
     //Handler para leitura de dados dos veículos a partir de um ficheiro de texto
     private ArrayList<Basic_User> readVehiclesFromFile() throws IOException {
-        if (!vehicleArrayList.isEmpty()) {
-            vehicleArrayList.clear();
+        if (!userArrayList.isEmpty()) {
+            userArrayList.clear();
         }
-        BufferedReader br = openBufferedReader(PATH_VEHICLES);
+        BufferedReader br = openBufferedReader(PATH_USERS);
         if (br != null) {
             br.readLine(); // read header
             String line = br.readLine();
             while (line != null) {
                 String[] dFields = line.split(FILE_DELIMITTER);
-                //Vehicle v = new Vehicle(dFields[0], dFields[1], dFields[2], Integer.parseInt(dFields[3]));
-                //vehicleArrayList.add(v);
+                if(dFields[0].equals("BASIC")) {
+                    Basic_User puser = new Basic_User(dFields[2],dFields[1],Integer.parseInt(dFields[3]),Integer.parseInt(dFields[4]) );
+                    userArrayList.add(puser);
+                    textArea.appendText(puser.toString());
+                }
+                else if(dFields[0].equals("PREMIUM")) {
+                    Premium_User puser = new Premium_User(dFields[2],dFields[1],Integer.parseInt(dFields[3]),Integer.parseInt(dFields[4]) );
+                    userArrayList.add(puser);
+                    textArea.appendText(puser.toString());
+                }else if(dFields[0].equals("ADMIN")) {
+                    Admin_User puser = new Admin_User(dFields[2],dFields[1],Integer.parseInt(dFields[3]),Integer.parseInt(dFields[4]) );
+                    userArrayList.add(puser);
+                    textArea.appendText(puser.toString());
+                }
                 line = br.readLine();
             }
             System.out.println("Vehicles lidos");
             br.close();
         }
-        return vehicleArrayList;
+        return userArrayList;
     }
 
     //Método para leitura do ficheiro de texto, no path indicado
@@ -104,7 +135,7 @@ public class BTController  implements Initializable,Serializable {
 
     //Método para efectuar o armazenamento dos dados dos veículos num ficheiro de texto
     private void saveVehiclesToFile() {
-        PrintWriter pw = openPrintWriter(PATH_VEHICLES);
+        PrintWriter pw = openPrintWriter(PATH_USERS);
         if(pw != null){
             pw.write("Registration"+FILE_DELIMITTER+"Brand"+FILE_DELIMITTER+"Model"+FILE_DELIMITTER+"Cylinders\n");
          /*   for(Vehicle v : vehicleTable.getItems()){
@@ -150,8 +181,8 @@ public class BTController  implements Initializable,Serializable {
     //Handler para acção do botão de abertura do ficheiro binário, referente aos dados dos veículos
     public void handleReadBinFileAction(ActionEvent actionEvent) {
         readVehiclesFromBinFile();
-        vehicleTable.getItems().clear();
-        vehicleTable.getItems().addAll(vehicleArrayList);
+        userTable.getItems().clear();
+        userTable.getItems().addAll(userArrayList);
         //addVehiclesToComboBox(vehicleArrayList);
 
     }
@@ -175,14 +206,14 @@ public class BTController  implements Initializable,Serializable {
 
          */
 //         OU
-        if (!vehicleArrayList.isEmpty()) {
-            vehicleArrayList.clear();
+        if (!userArrayList.isEmpty()) {
+            userArrayList.clear();
         }
         File f= new File(PATH_VEHICLES_BIN);
         try{
             FileInputStream fos = new FileInputStream(f);
             ObjectInputStream ois = new ObjectInputStream(fos);
-            vehicleArrayList= (ArrayList<Basic_User>) ois.readObject();
+            userArrayList = (ArrayList<Basic_User>) ois.readObject();
         } catch (IOException | ClassNotFoundException e){
             e.printStackTrace();
         }
@@ -213,7 +244,7 @@ public class BTController  implements Initializable,Serializable {
         try{
             FileOutputStream fos = new FileOutputStream(f);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(vehicleArrayList);
+            oos.writeObject(userArrayList);
             fos.close();
             oos.close();
         } catch (IOException e){
