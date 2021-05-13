@@ -1,11 +1,11 @@
 
 
-package edu.ufp.inf.lp2.project;
+package edu.ufp.inf.lp2.project.Graphs;
 import edu.princeton.cs.algs4.*;
 
 
 public class Edge_Project extends DirectedEdge {
-    private final float time;
+    private float time;
 
 
 
@@ -14,10 +14,11 @@ public class Edge_Project extends DirectedEdge {
         this.time = time;
     }
 
-    public float time() {
+    public float getTime() {
         return time;
     }
 
+    public void setTime(float Time) { this.time=Time; }
 
     public String toString() {
         return super.from() + "->" + super.to() + "|" + String.format("Distance:%5.2f km", super.weight())+ "|" +String.format("Time:%f min |||", time);

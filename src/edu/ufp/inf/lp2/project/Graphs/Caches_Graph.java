@@ -1,4 +1,4 @@
-package edu.ufp.inf.lp2.project;
+package edu.ufp.inf.lp2.project.Graphs;
 import edu.princeton.cs.algs4.*;
 
 public class Caches_Graph {

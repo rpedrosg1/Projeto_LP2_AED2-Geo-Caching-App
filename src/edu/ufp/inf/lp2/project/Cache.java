@@ -1,12 +1,9 @@
 package edu.ufp.inf.lp2.project;
 
-import edu.princeton.cs.algs4.BST;
-import edu.princeton.cs.algs4.EdgeWeightedDigraph;
+import edu.ufp.inf.lp2.project.Graphs.Graph_Project;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Vector;
 
 import static edu.ufp.inf.lp2.project.Admin_User.cacheST;
 import static edu.ufp.inf.lp2.project.Admin_User.CachesGraph;
@@ -126,13 +123,11 @@ public class Cache implements GestaoCaches {
         Files_rw.arquivoCaches(this);
         System.out.println("Cache " + nome +" foi removida.");
         cacheST.remove(this.nome);
+        int index_cache_rem=CachesGraph.st.get(this.nome);
         for (String nome : CachesGraph.st.keys()) {
             int index_cache_atual=CachesGraph.st.get(nome);
-            int index_cache_rem=CachesGraph.st.get(this.nome);
-            if (!nome.equals(this.nome)) {
-                if (index_cache_atual > index_cache_rem) {
+            if (!nome.equals(this.nome) && index_cache_atual > index_cache_rem) {
                     CachesGraph.st.put(nome,index_cache_atual-1);
-                }
             }
         }
         CachesGraph.st.remove(this.nome);

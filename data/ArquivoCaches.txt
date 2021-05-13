@@ -387,3 +387,98 @@ Logs da Cache:
 Logs da Cache:
 		User: [3] Fernando Visitou esta Cache  ||  Date:1/1/2021 , at : 16h.
 
+
+-----------------------------------------------------------------------------------------
+[PREMIUM] Cache ->TesteCache Desc. -> DescricaoTesteDif. -> FACIL
+	Localização -> Localização: Norte ,Raio=28.0
+     Coordenadas: Long: 41.172085,Lat: 0.0
+
+-----------------------------------------------------------------------------------------
+[BASIC] Cache ->geocache4 Desc. -> Original!Dif. -> FACIL
+	Localização -> Localização: Norte ,Raio=28.0
+     Coordenadas: Long: 41.158882,Lat: 0.0
+	Objetos da Cache:
+		Objeto[o10]: flauta,Criador objeto: [1]PREMIUM -> Name: Manuel, Age=27
+   Cache criadas: 1 || Cache visitadas: 7
+
+	Mensagens da Cache:
+		Logs{messagem='O Fernando Passou por aqui'}
+
+Logs da Cache:
+		User: [3] Fernando Visitou esta Cache  ||  Date:1/1/2021 , at : 16h.
+
+
+-----------------------------------------------------------------------------------------
+[BASIC] Cache ->geocache4 Desc. -> Original!Dif. -> FACIL
+	Localização -> Localização: Norte ,Raio=28.0
+     Coordenadas: Long: 41.158882,Lat: 0.0
+	Objetos da Cache:
+		Objeto[o10]: flauta,Criador objeto: [1]PREMIUM -> Name: Manuel, Age=27
+   Cache criadas: 1 || Cache visitadas: 7
+
+	Mensagens da Cache:
+		Logs{messagem='O Fernando Passou por aqui'}
+
+Logs da Cache:
+		User: [3] Fernando Visitou esta Cache  ||  Date:1/1/2021 , at : 16h.
+
+
+-----------------------------------------------------------------------------------------
+[BASIC] Cache ->geocache4 Desc. -> Original!Dif. -> FACIL
+	Localização -> Localização: Norte ,Raio=28.0
+     Coordenadas: Long: 41.158882,Lat: 0.0
+	Objetos da Cache:
+		Objeto[o10]: flauta,Criador objeto: [1]PREMIUM -> Name: Manuel, Age=27
+   Cache criadas: 1 || Cache visitadas: 7
+
+	Mensagens da Cache:
+		Logs{messagem='O Fernando Passou por aqui'}
+
+Logs da Cache:
+		User: [3] Fernando Visitou esta Cache  ||  Date:1/1/2021 , at : 16h.
+
+
+-----------------------------------------------------------------------------------------
+[BASIC] Cache ->geocache4 Desc. -> Original!Dif. -> FACIL
+	Localização -> Localização: Norte ,Raio=28.0
+     Coordenadas: Long: 41.158882,Lat: 0.0
+	Objetos da Cache:
+		Objeto[o10]: flauta,Criador objeto: [1]PREMIUM -> Name: Manuel, Age=27
+   Cache criadas: 1 || Cache visitadas: 7
+
+	Mensagens da Cache:
+		Logs{messagem='O Fernando Passou por aqui'}
+
+Logs da Cache:
+		User: [3] Fernando Visitou esta Cache  ||  Date:1/1/2021 , at : 16h.
+
+
+-----------------------------------------------------------------------------------------
+[BASIC] Cache ->geocache4 Desc. -> Original!Dif. -> FACIL
+	Localização -> Localização: Norte ,Raio=28.0
+     Coordenadas: Long: 41.158882,Lat: 0.0
+	Objetos da Cache:
+		Objeto[o10]: flauta,Criador objeto: [1]PREMIUM -> Name: Manuel, Age=27
+   Cache criadas: 1 || Cache visitadas: 7
+
+	Mensagens da Cache:
+		Logs{messagem='O Fernando Passou por aqui'}
+
+Logs da Cache:
+		User: [3] Fernando Visitou esta Cache  ||  Date:1/1/2021 , at : 16h.
+
+
+-----------------------------------------------------------------------------------------
+[BASIC] Cache ->geocache4 Desc. -> Original!Dif. -> FACIL
+	Localização -> Localização: Norte ,Raio=28.0
+     Coordenadas: Long: 41.158882,Lat: 0.0
+	Objetos da Cache:
+		Objeto[o10]: flauta,Criador objeto: [1]PREMIUM -> Name: Manuel, Age=27
+   Cache criadas: 1 || Cache visitadas: 7
+
+	Mensagens da Cache:
+		Logs{messagem='O Fernando Passou por aqui'}
+
+Logs da Cache:
+		User: [3] Fernando Visitou esta Cache  ||  Date:1/1/2021 , at : 16h.
+

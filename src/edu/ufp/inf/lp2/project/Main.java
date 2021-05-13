@@ -1,6 +1,6 @@
 package edu.ufp.inf.lp2.project;
 
-import java.io.File;
+import edu.ufp.inf.lp2.project.Graphs.Edge_Project;
 
 import static edu.ufp.inf.lp2.project.Admin_User.CachesGraph;
 
@@ -508,7 +508,14 @@ public class Main {
         //geocache8.RemoverCache();
         //geocache18.RemoverCache();\
 
+
+
+
 /////////////////////////////////grafos
+        //Cache teste = new Cache(manuel,"TesteCache","DescricaoTeste", geocache1.myLocalizacao, Dificuldade.FACIL,Tipo.PREMIUM);
+        //teste.InserirCache();
+        //geocache4.RemoverCache();
+
         int index_1=CachesGraph.st.get("geocache1");
         int index_2=CachesGraph.st.get("geocache2");
         int index_3=CachesGraph.st.get("geocache3");
