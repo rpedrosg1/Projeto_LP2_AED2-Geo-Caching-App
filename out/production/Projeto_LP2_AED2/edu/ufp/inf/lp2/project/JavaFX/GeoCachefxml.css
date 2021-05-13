@@ -1,0 +1,11 @@
+/* By switching to CSS over inline code styles, we separate the design from the content. */
+
+/* Use the .root style to apply a background image to the root node of the Scene instance. */
+.root {
+    -fx-background-image: url("background.jpg");
+}
+
+/*Use the hover pseudo-class to change buttons look when users hover the mouse over the button*/
+.button:hover {
+    -fx-background-color: linear-gradient(#2A5058, #61a2b1);
+}

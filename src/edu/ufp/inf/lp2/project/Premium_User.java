@@ -1,6 +1,11 @@
 package edu.ufp.inf.lp2.project;
 
 import edu.princeton.cs.algs4.LinearProbingHashST;
+import edu.ufp.inf.lp2.project.Graphs.AED_DijkstraSP;
+import edu.ufp.inf.lp2.project.Graphs.Edge_Project;
+
+import static edu.ufp.inf.lp2.project.Admin_User.CachesGraph;
+import static edu.ufp.inf.lp2.project.Admin_User.cacheST;
 
 public class Premium_User extends Basic_User {
 
@@ -53,6 +58,24 @@ public class Premium_User extends Basic_User {
      */
     public void VisitarCache_deixarTB(Date i, Cache c, Logs log, String postb) throws General_Exception {
         if (c.myTipo == Tipo.PREMIUM) {
+
+            //Testar se existe caminho
+            if(myLogs_user.size()>0){
+                Cache lastVisitedCache = cacheST.get(myLogs_user.get(myLogs_user.size()-1).nome_cache);
+                int indexatual=CachesGraph.st.get(lastVisitedCache.nome);//Index de ultima cache
+                int indexproximo=CachesGraph.st.get(c.nome);//Index da proxima Cache
+                AED_DijkstraSP dijkstraSP = new AED_DijkstraSP(CachesGraph.graph,indexatual);
+                if(!dijkstraSP.hasPathTo(indexproximo)){
+                    System.out.println("\nErro ao visitar a Cache " + c.nome + ", porque " + this.nome + " tentou fazer batota, nao pode saltar os caminhos das caches" +
+                            "\nUltima cache visitada: " + lastVisitedCache.nome );
+                    System.out.println("\tA Cache " + lastVisitedCache.nome + " tem os seguintes percursos:");
+                    for (Edge_Project e : CachesGraph.graph.adj(indexatual)) {
+                        System.out.println("\t\t" + e);
+                    }
+                    return;
+                }
+            }
+
             ///////////////////////////////////////////////////////////////////vamos buscar o TB ao inventario do user e apagamos
             TravelBug tb = (TravelBug) myObj.get(postb);
             if (tb == null) return;
@@ -101,6 +124,24 @@ public class Premium_User extends Basic_User {
     public void VisitarCache_tirarTB(Date i, Cache c, Logs log, TravelBug tb) throws General_Exception {
         if (c.myTipo == Tipo.PREMIUM) {
             if (tb == null) return;
+            //Testar se existe caminho
+            if(myLogs_user.size()>0){
+                Cache lastVisitedCache = cacheST.get(myLogs_user.get(myLogs_user.size()-1).nome_cache);
+                int indexatual=CachesGraph.st.get(lastVisitedCache.nome);//Index de ultima cache
+                int indexproximo=CachesGraph.st.get(c.nome);//Index da proxima Cache
+                AED_DijkstraSP dijkstraSP = new AED_DijkstraSP(CachesGraph.graph,indexatual);
+                if(!dijkstraSP.hasPathTo(indexproximo)){
+                    System.out.println("\nErro ao visitar a Cache " + c.nome + ", porque " + this.nome + " tentou fazer batota, nao pode saltar os caminhos das caches" +
+                            "\nUltima cache visitada: " + lastVisitedCache.nome );
+                    System.out.println("\tA Cache " + lastVisitedCache.nome + " tem os seguintes percursos:");
+                    for (Edge_Project e : CachesGraph.graph.adj(indexatual)) {
+                        System.out.println("\t\t" + e);
+                    }
+                    return;
+                }
+            }
+
+
             ///////////////////////////////////////////////////////////////////buscar o TB na cache , coloca lo no bolso,atualizar travelBug
             tb.myCache = null;
             tb.myuser = this;
@@ -138,6 +179,25 @@ public class Premium_User extends Basic_User {
      */
     public void VisitarCache_trocarTB_por_Obj(Date i, Cache c, Logs log, String tbBolso, Objeto objCache) throws General_Exception {
         if (c.myTipo == Tipo.PREMIUM) {
+
+            //Testar se existe caminho
+            if(myLogs_user.size()>0){
+                Cache lastVisitedCache = cacheST.get(myLogs_user.get(myLogs_user.size()-1).nome_cache);
+                int indexatual=CachesGraph.st.get(lastVisitedCache.nome);//Index de ultima cache
+                int indexproximo=CachesGraph.st.get(c.nome);//Index da proxima Cache
+                AED_DijkstraSP dijkstraSP = new AED_DijkstraSP(CachesGraph.graph,indexatual);
+                if(!dijkstraSP.hasPathTo(indexproximo)){
+                    System.out.println("\nErro ao visitar a Cache " + c.nome + ", porque " + this.nome + " tentou fazer batota, nao pode saltar os caminhos das caches" +
+                            "\nUltima cache visitada: " + lastVisitedCache.nome );
+                    System.out.println("\tA Cache " + lastVisitedCache.nome + " tem os seguintes percursos:");
+                    for (Edge_Project e : CachesGraph.graph.adj(indexatual)) {
+                        System.out.println("\t\t" + e);
+                    }
+                    return;
+                }
+            }
+
+
             ///////////////////////////////////////////////////////////////////vamos buscar o TB ao inventario do user e apagamos
             TravelBug tb = (TravelBug) myObj.get(tbBolso);
             myObj.delete(tbBolso);
@@ -190,6 +250,25 @@ public class Premium_User extends Basic_User {
      */
     public void VisitarCache_trocarTB_por_TB(Date i, Cache c, Logs log, String tbBolso, TravelBug tbCache) throws General_Exception {
         if (c.myTipo == Tipo.PREMIUM) {
+
+            //Testar se existe caminho
+            if(myLogs_user.size()>0){
+                Cache lastVisitedCache = cacheST.get(myLogs_user.get(myLogs_user.size()-1).nome_cache);
+                int indexatual=CachesGraph.st.get(lastVisitedCache.nome);//Index de ultima cache
+                int indexproximo=CachesGraph.st.get(c.nome);//Index da proxima Cache
+                AED_DijkstraSP dijkstraSP = new AED_DijkstraSP(CachesGraph.graph,indexatual);
+                if(!dijkstraSP.hasPathTo(indexproximo)){
+                    System.out.println("\nErro ao visitar a Cache " + c.nome + ", porque " + this.nome + " tentou fazer batota, nao pode saltar os caminhos das caches" +
+                            "\nUltima cache visitada: " + lastVisitedCache.nome );
+                    System.out.println("\tA Cache " + lastVisitedCache.nome + " tem os seguintes percursos:");
+                    for (Edge_Project e : CachesGraph.graph.adj(indexatual)) {
+                        System.out.println("\t\t" + e);
+                    }
+                    return;
+                }
+            }
+
+
             /////////////////////////////////////////////////////////////////buscar o TB ao user/cache , atulizar
             TravelBug tbolso = (TravelBug) myObj.get(tbBolso);
             myObj.delete(tbBolso);

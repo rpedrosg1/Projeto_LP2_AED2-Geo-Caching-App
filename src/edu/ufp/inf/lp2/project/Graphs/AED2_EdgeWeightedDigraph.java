@@ -1,10 +1,11 @@
 package edu.ufp.inf.lp2.project.Graphs;
 import edu.princeton.cs.algs4.*;
+import edu.ufp.inf.lp2.project.Cache;
 
 import java.util.NoSuchElementException;
 
 
-public class Graph_Project {
+public class AED2_EdgeWeightedDigraph {
     private static final String NEWLINE = System.getProperty("line.separator");
 
     public int V;                // number of vertices in this digraph
@@ -18,7 +19,7 @@ public class Graph_Project {
      * @param  V the number of vertices
      * @throws IllegalArgumentException if {@code V < 0}
      */
-    public Graph_Project(int V) {
+    public AED2_EdgeWeightedDigraph(int V) {
         if (V < 0) throw new IllegalArgumentException("Number of vertices in a Digraph must be non-negative");
         this.V = V;
         this.E = 0;
@@ -36,7 +37,7 @@ public class Graph_Project {
      * @throws IllegalArgumentException if {@code V < 0}
      * @throws IllegalArgumentException if {@code E < 0}
      */
-    public Graph_Project(int V, int E) {
+    public AED2_EdgeWeightedDigraph(int V, int E) {
         this(V);
         if (E < 0) throw new IllegalArgumentException("Number of edges in a Digraph must be non-negative");
         for (int i = 0; i < E; i++) {
@@ -61,7 +62,7 @@ public class Graph_Project {
      * @throws IllegalArgumentException if the endpoints of any edge are not in prescribed range
      * @throws IllegalArgumentException if the number of vertices or edges is negative
      */
-    public Graph_Project(In in) {
+    public AED2_EdgeWeightedDigraph(In in) {
         if (in == null) throw new IllegalArgumentException("argument is null");
         try {
             this.V = in.readInt();
@@ -94,7 +95,7 @@ public class Graph_Project {
      *
      * @param  G the edge-weighted digraph to copy
      */
-    public Graph_Project(Graph_Project G) {
+    public AED2_EdgeWeightedDigraph(AED2_EdgeWeightedDigraph G) {
         this(G.V());
         this.E = G.E();
         for (int v = 0; v < G.V(); v++)
@@ -198,10 +199,10 @@ public class Graph_Project {
      *
      * @return all edges in this edge-weighted digraph, as an iterable
      */
-    public Iterable<DirectedEdge> edges() {
-        Bag<DirectedEdge> list = new Bag<DirectedEdge>();
+    public Iterable<Edge_Project> edges() {
+        Bag<Edge_Project> list = new Bag<Edge_Project>();
         for (int v = 0; v < V; v++) {
-            for (DirectedEdge e : adj(v)) {
+            for (Edge_Project e : adj(v)) {
                 list.add(e);
             }
         }
@@ -234,9 +235,11 @@ public class Graph_Project {
      */
     public static void main(String[] args) {
         In in = new In(args[0]);
-        Graph_Project G = new Graph_Project(in);
+        AED2_EdgeWeightedDigraph G = new AED2_EdgeWeightedDigraph(in);
         StdOut.println(G);
     }
+
+
 
 }
 

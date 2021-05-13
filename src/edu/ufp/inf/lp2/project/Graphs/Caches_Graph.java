@@ -1,10 +1,11 @@
 package edu.ufp.inf.lp2.project.Graphs;
 import edu.princeton.cs.algs4.*;
+import edu.ufp.inf.lp2.project.Cache;
 
 public class Caches_Graph {
     public ST<String, Integer> st=new ST<>();  // string -> index
     public String[] keys;           // index  -> string
-    public Graph_Project graph;// Grafo
+    public AED2_EdgeWeightedDigraph graph;// Grafo
 
 
     public Caches_Graph(String filename, String delimiter) {
@@ -29,7 +30,7 @@ public class Caches_Graph {
 
         // second pass builds the digraph by connecting first vertex on each
         // line to all others
-        graph = new Graph_Project(st.size());
+        graph = new AED2_EdgeWeightedDigraph(st.size());
         in = new In(filename);
         while (in.hasNextLine()) {
             String[] a = in.readLine().split(delimiter);
@@ -108,7 +109,7 @@ public class Caches_Graph {
      * @deprecated Replaced by {@link #digraph()}.
      */
     @Deprecated
-    public Graph_Project G() {
+    public AED2_EdgeWeightedDigraph G() {
         return graph;
     }
 
@@ -118,7 +119,7 @@ public class Caches_Graph {
      *
      * @return the digraph associated with the symbol digraph
      */
-    public Graph_Project digraph() {
+    public AED2_EdgeWeightedDigraph digraph() {
         return graph;
     }
 
@@ -138,7 +139,7 @@ public class Caches_Graph {
         String filename  = args[0];
         String delimiter = args[1];
         Caches_Graph sg = new Caches_Graph(filename, delimiter);
-        Graph_Project graph = sg.graph;
+        AED2_EdgeWeightedDigraph graph = sg.graph;
         while (!StdIn.isEmpty()) {
             String t = StdIn.readLine();
             for (DirectedEdge e : graph.adj(sg.index(t))) {
@@ -147,6 +148,19 @@ public class Caches_Graph {
             }
         }
     }
+
+
+
+
+   /* public String findIndexCacheName(int index){
+       for(String key : this.st){
+           if(st.get(key).equals(index))return key;
+       }
+        return  null;
+    }
+
+
+    */
 }
 
 /******************************************************************************

@@ -1,27 +1,31 @@
 package edu.ufp.inf.lp2.project;
 
+import edu.princeton.cs.algs4.DijkstraSP;
 import edu.princeton.cs.algs4.LinearProbingHashST;
+import edu.princeton.cs.algs4.StdOut;
+import edu.ufp.inf.lp2.project.Graphs.AED_DijkstraSP;
+import edu.ufp.inf.lp2.project.Graphs.Edge_Project;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.logging.Logger;
 
-import static edu.ufp.inf.lp2.project.Admin_User.userST;
+import static edu.ufp.inf.lp2.project.Admin_User.*;
 
 public class Basic_User implements GestaoUtilizadores {
-
-  public LinearProbingHashST<String,Objeto> myObj=new LinearProbingHashST<>();
-
-  public ArrayList<Logs_User> myLogs_user = new ArrayList<>();
-
-  public int nr_caches_visitadas;
 
   public String id;
 
   public String nome;
 
   public int idade;
+
+  public int nr_caches_visitadas;
+
+  public LinearProbingHashST<String,Objeto> myObj=new LinearProbingHashST<>();
+
+  public ArrayList<Logs_User> myLogs_user = new ArrayList<>();
 
   public HashMap<String,Cache> Hcaches=new HashMap<>();
 
@@ -123,6 +127,25 @@ public class Basic_User implements GestaoUtilizadores {
       return;
     }
     if(c==null)return;
+
+    //Testar se existe caminho
+
+    if(myLogs_user.size()>0){
+      Cache lastVisitedCache = cacheST.get(myLogs_user.get(myLogs_user.size()-1).nome_cache);
+      int indexatual=CachesGraph.st.get(lastVisitedCache.nome);//Index de ultima cache
+      int indexproximo=CachesGraph.st.get(c.nome);//Index da proxima Cache
+      AED_DijkstraSP dijkstraSP = new AED_DijkstraSP(CachesGraph.graph,indexatual);
+      if(!dijkstraSP.hasPathTo(indexproximo)){
+        System.out.println("\nErro ao visitar a Cache " + c.nome + ", porque " + this.nome + " tentou fazer batota, nao pode saltar os caminhos das caches" +
+                "\nUltima cache visitada: " + lastVisitedCache.nome );
+        System.out.println("\tA Cache " + lastVisitedCache.nome + " tem os seguintes percursos:");
+        for (Edge_Project e : CachesGraph.graph.adj(indexatual)) {
+          System.out.println("\t\t" + e);
+        }
+        return;
+      }
+
+    }
     ////////////////////////////////////////////////////////////////////////////Criar logs user e cache / adciona las
     Logs_User u=new Logs_User(d,c.nome,null,null);
     Logs_Cache l=new Logs_Cache(d,this.id,null,null);
@@ -145,6 +168,24 @@ public class Basic_User implements GestaoUtilizadores {
    * @param posO ID do Objeto que vai deixar na cache
    */
   public void VisitarCache_deixarObj(Date d,Cache c,Logs log,String posO){
+    //Testar se existe caminho
+
+    if(myLogs_user.size()>0){
+      Cache lastVisitedCache = cacheST.get(myLogs_user.get(myLogs_user.size()-1).nome_cache);
+      int indexatual=CachesGraph.st.get(lastVisitedCache.nome);//Index de ultima cache
+      int indexproximo=CachesGraph.st.get(c.nome);//Index da proxima Cache
+      AED_DijkstraSP dijkstraSP = new AED_DijkstraSP(CachesGraph.graph,indexatual);
+      if(!dijkstraSP.hasPathTo(indexproximo)){
+        System.out.println("\nErro ao visitar a Cache " + c.nome + ", porque " + this.nome + " tentou fazer batota, nao pode saltar os caminhos das caches" +
+                "\nUltima cache visitada: " + lastVisitedCache.nome );
+        System.out.println("\tA Cache " + lastVisitedCache.nome + " tem os seguintes percursos:");
+        for (Edge_Project e : CachesGraph.graph.adj(indexatual)) {
+          System.out.println("\t\t" + e);
+        }
+        return;
+      }
+
+    }
     ////////////////////////////////////////////////////////////////////////vamos buscar o obj ao inventario e apagamos do inventario
     Objeto o=myObj.get(posO);
     myObj.delete(posO);
@@ -174,6 +215,24 @@ public class Basic_User implements GestaoUtilizadores {
    * @param posO ID do Objeto que vai tirar da cache e colocar no seu inventario
    */
   public void VisitarCache_tirarObj(Date d,Cache c,Logs log,String posO){
+    //Testar se existe caminho
+
+    if(myLogs_user.size()>0){
+      Cache lastVisitedCache = cacheST.get(myLogs_user.get(myLogs_user.size()-1).nome_cache);
+      int indexatual=CachesGraph.st.get(lastVisitedCache.nome);//Index de ultima cache
+      int indexproximo=CachesGraph.st.get(c.nome);//Index da proxima Cache
+      AED_DijkstraSP dijkstraSP = new AED_DijkstraSP(CachesGraph.graph,indexatual);
+      if(!dijkstraSP.hasPathTo(indexproximo)){
+        System.out.println("\nErro ao visitar a Cache " + c.nome + ", porque " + this.nome + " tentou fazer batota, nao pode saltar os caminhos das caches" +
+                "\nUltima cache visitada: " + lastVisitedCache.nome );
+        System.out.println("\tA Cache " + lastVisitedCache.nome + " tem os seguintes percursos:");
+        for (Edge_Project e : CachesGraph.graph.adj(indexatual)) {
+          System.out.println("\t\t" + e);
+        }
+        return;
+      }
+
+    }
     ///////////////////////////////////////////////////////////////////buscar o obj a cache ,remover da cache,colocar user,atualizar objeto
     Objeto o=c.FindObjeto(posO);
     o.myCache=null;
@@ -204,6 +263,24 @@ public class Basic_User implements GestaoUtilizadores {
    * @param objCache Objeto que estava na cache e vai passar a estar com o user
    */
   public void VisitarCache_trocarObj(Date d,Cache c,Logs log,String objBolso,Objeto objCache){
+    //Testar se existe caminho
+
+    if(myLogs_user.size()>0){
+      Cache lastVisitedCache = cacheST.get(myLogs_user.get(myLogs_user.size()-1).nome_cache);
+      int indexatual=CachesGraph.st.get(lastVisitedCache.nome);//Index de ultima cache
+      int indexproximo=CachesGraph.st.get(c.nome);//Index da proxima Cache
+      AED_DijkstraSP dijkstraSP = new AED_DijkstraSP(CachesGraph.graph,indexatual);
+      if(!dijkstraSP.hasPathTo(indexproximo)){
+        System.out.println("\nErro ao visitar a Cache " + c.nome + ", porque " + this.nome + " tentou fazer batota, nao pode saltar os caminhos das caches" +
+                "\nUltima cache visitada: " + lastVisitedCache.nome );
+        System.out.println("\tA Cache " + lastVisitedCache.nome + " tem os seguintes percursos:");
+        for (Edge_Project e : CachesGraph.graph.adj(indexatual)) {
+          System.out.println("\t\t" + e);
+        }
+        return;
+      }
+
+    }
     ////////////////////////////////////////////////////////////////buscar o obj ao inventarioe cache, trocar, atualizar objetos
     Objeto objbolso=myObj.get(objBolso);
 
@@ -262,6 +339,8 @@ public class Basic_User implements GestaoUtilizadores {
       System.out.println(itr.next().toString());
     }
   }
+
+
 
 
 

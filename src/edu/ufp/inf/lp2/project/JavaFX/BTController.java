@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.Pane;
 
 import java.io.*;
 import java.net.URL;
@@ -33,15 +34,15 @@ public class BTController  implements Initializable,Serializable {
     public TableColumn<Basic_User, String> ncacheCol;
     //public TableColumn<Basic_User, String> typeCol;
 
-
-
+    public Pane paneCaches;
+    public Pane paneUsers;
+    public Pane paneAdmin;
 
 
     private static final String PATH_USERS = ".//data//usersteste.txt";
     private static final String PATH_VEHICLES_BIN = ".//data//vehiclesbin.bin";
     private static final String FILE_DELIMITTER = ";";
     private static final String PATH_BIN = ".//data//data_bt.bin";
-    public Button buttonUsers;
 
     private ArrayList<Basic_User> userArrayList = new ArrayList<>();
 
@@ -51,6 +52,11 @@ public class BTController  implements Initializable,Serializable {
     //TransitPolice
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        paneUsers.setVisible(false);
+        paneCaches.setVisible(false);
+        paneAdmin.setVisible(false);
+
+
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         idCol.setCellFactory(TextFieldTableCell.forTableColumn());
         nameCol.setCellValueFactory(new PropertyValueFactory<>("nome"));
@@ -71,12 +77,15 @@ public class BTController  implements Initializable,Serializable {
 
     //Handler para acção do botão de abertura do ficheiro de texto, referente aos dados dos veículos
     public void handleReadFileAction(ActionEvent actionEvent) {
+        paneUsers.setVisible(true);
         userTable.getItems().clear();
         try {
-            //userTable.getItems().addAll(readVehiclesFromFile());
-            for (Basic_User user : readVehiclesFromFile()){
+            userTable.getItems().addAll(readVehiclesFromFile());
+            /*for (Basic_User user : readVehiclesFromFile()){
                 userTable.getItems().add((Basic_User) user);
             }
+
+             */
         } catch (IOException e) {
             e.printStackTrace();
         }

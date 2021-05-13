@@ -1,6 +1,6 @@
 package edu.ufp.inf.lp2.project;
 
-import edu.ufp.inf.lp2.project.Graphs.Graph_Project;
+import edu.ufp.inf.lp2.project.Graphs.AED2_EdgeWeightedDigraph;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -100,7 +100,7 @@ public class Cache implements GestaoCaches {
     public void InserirCache() {
         cacheST.put(this.nome, this);
         int size=cacheST.size()-1;
-        CachesGraph.graph=new Graph_Project(cacheST.size());
+        CachesGraph.graph=new AED2_EdgeWeightedDigraph(cacheST.size());
         CachesGraph.st.put(this.nome,size);
 
     }//insere a cache

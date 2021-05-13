@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
@@ -7,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="761.0" prefWidth="1159.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ufp.inf.lp2.project.JavaFX.BTController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="761.0" prefWidth="1159.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ufp.inf.lp2.project.JavaFX.BTController">
    <children>
       <AnchorPane prefHeight="761.0" prefWidth="336.0" style="-fx-background-color: #1D2026;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="804.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -56,6 +57,14 @@
                   </Blend>
                </effect>
             </Button>
+            <Button fx:id="buttonUsers1" alignment="BASELINE_LEFT" contentDisplay="CENTER" graphicTextGap="20.0" layoutX="3.0" layoutY="375.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="350.0" style="-fx-background-color: #1D2026;" text="         Admin" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
             <ImageView fitHeight="47.0" fitWidth="70.0" layoutX="14.0" layoutY="262.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@user_32.png" />
@@ -71,11 +80,6 @@
                   <Image url="@exit_32.png" />
                </image>
             </ImageView>
-            <Button fx:id="buttonUsers1" alignment="BASELINE_LEFT" contentDisplay="CENTER" graphicTextGap="20.0" layoutX="3.0" layoutY="375.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="350.0" style="-fx-background-color: #1D2026;" text="         Admin" textFill="WHITE">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Button>
             <ImageView fitHeight="47.0" fitWidth="70.0" layoutX="14.0" layoutY="385.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@admin_32.png" />
@@ -83,11 +87,11 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="355.0" prefHeight="761.0" prefWidth="805.0">
+      <AnchorPane layoutX="355.0" prefHeight="761.0" prefWidth="805.0" styleClass="root" stylesheets="@GeoCachefxml.css">
          <children>
-            <Pane prefHeight="761.0" prefWidth="805.0" />
-            <Pane prefHeight="761.0" prefWidth="805.0" />
-            <Pane prefHeight="761.0" prefWidth="805.0">
+            <Pane fx:id="paneCaches" prefHeight="761.0" prefWidth="805.0" styleClass="root" stylesheets="@GeoCachefxml.css" />
+            <Pane fx:id="paneAdmin" prefHeight="761.0" prefWidth="805.0" styleClass="root" stylesheets="@GeoCachefxml.css" />
+            <Pane fx:id="paneUsers" prefHeight="761.0" prefWidth="805.0" styleClass="root" stylesheets="@GeoCachefxml.css">
                <children>
                   <GridPane layoutY="336.0" prefHeight="425.0" prefWidth="805.0">
                     <columnConstraints>
@@ -100,8 +104,8 @@
                      <children>
                         <TableView fx:id="userTable" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                           <columns>
-                            <TableColumn fx:id="idCol" prefWidth="75.0" text="ID" />
-                            <TableColumn fx:id="nameCol" prefWidth="75.0" text="Name" />
+                            <TableColumn fx:id="idCol" prefWidth="91.0" text="ID" />
+                            <TableColumn fx:id="nameCol" prefWidth="311.0" text="Name" />
                             <TableColumn fx:id="ageCol" prefWidth="75.0" text="Age" />
                             <TableColumn fx:id="ncacheCol" prefWidth="75.0" text="Nº Caches Visited" />
                           </columns>
@@ -111,7 +115,7 @@
                         </TableView>
                      </children>
                   </GridPane>
-                  <TextArea fx:id="textArea" layoutX="59.0" layoutY="73.0" prefHeight="231.0" prefWidth="289.0" />
+                  <TextArea fx:id="textArea" layoutX="59.0" layoutY="73.0" prefHeight="269.0" prefWidth="689.0" />
                </children>
             </Pane>
          </children>

@@ -2,7 +2,7 @@ package edu.ufp.inf.lp2.project;
 
 import edu.ufp.inf.lp2.project.Graphs.Edge_Project;
 
-import static edu.ufp.inf.lp2.project.Admin_User.CachesGraph;
+import static edu.ufp.inf.lp2.project.Admin_User.*;
 
 public class Main {
 
@@ -10,7 +10,8 @@ public class Main {
     public static void main(String[] args) throws General_Exception {
         //teste();
         //teste_files();
-        teste_projeto();
+        //teste_projeto();
+        teste_Graphs();
     }
 
 
@@ -511,12 +512,78 @@ public class Main {
 
 
 
-/////////////////////////////////grafos
+
+
+///////////////////////////////////////////////////////////////////////////////
+
+
+        /*
+
+        System.out.println("\n\t\t\t\t-------------------------FUNCÕES TESTE 2 -------------------------------\n");
+
+        System.out.println("............Listagem Global..........\n");
+
+        System.out.println("............Listar todas as Caches............\n");
+
+        Admin_User.print_caches();
+
+        System.out.println("............Todos os objetos de todas as caches:............\n");
+
+        Admin_User.print_Objetos_todasCaches();
+
+        System.out.println("............Listar todos os Users...........\n");
+
+        Admin_User.print_users();
+
+        System.out.println("............Listar historico de Caches dos Users...........\n");
+
+        Admin_User.printUsers_Hcaches();
+
+        System.out.println("............Listar Caches não visitadas por cada User...........\n");
+
+        Admin_User.printCachesNaoVisitadas_r8_b(manuel);
+
+        Admin_User.printCachesNaoVisitadasRegiao_r8_b(manuel,"Norte");
+
+        System.out.println("............Lista de Users que visitaram a Cache -> geocache6...........\n");
+
+        geocache6.printCache_Husers();
+
+        System.out.println("............Lista Caches Premium com pelo menos 1 Objeto/TravelBug...........\n");
+
+        Admin_User.printCachePremium_ComObjetos_r8_d();
+
+        System.out.println("............Listar Top 5 Users que visitaram mais Caches..........\n");
+
+        Admin_User.printTop5_visitarCaches_r8_e(d1,d4);
+
+        System.out.println("............TravelBugs com maior numero de Localizações percorridas..........\n");
+
+        Admin_User.printTop_TravelBug_r8_f();
+
+*/
+
+
+        //Files_rw.save_all();
+        
+        //Files_rw.save_Users();
+        //Files_rw.save_Caches();
+        //Files_rw.save_Objetos();
+
+
+
+    }
+
+
+    public static void teste_Graphs(){
+        Files_rw.read_all();
+        Files_rw.read_GeoCacheGraphs();
+        /////////////////////////////////grafos
         //Cache teste = new Cache(manuel,"TesteCache","DescricaoTeste", geocache1.myLocalizacao, Dificuldade.FACIL,Tipo.PREMIUM);
         //teste.InserirCache();
         //geocache4.RemoverCache();
-
-        int index_1=CachesGraph.st.get("geocache1");
+/*
+       int index_1=CachesGraph.st.get("geocache1");
         int index_2=CachesGraph.st.get("geocache2");
         int index_3=CachesGraph.st.get("geocache3");
         int index_4=CachesGraph.st.get("geocache4");
@@ -610,66 +677,20 @@ public class Main {
         CachesGraph.graph.addEdge(e35);CachesGraph.graph.addEdge(e36);CachesGraph.graph.addEdge(e37);CachesGraph.graph.addEdge(e38);CachesGraph.graph.addEdge(e39);CachesGraph.graph.addEdge(e40);CachesGraph.graph.addEdge(e41);
         CachesGraph.graph.addEdge(e42);CachesGraph.graph.addEdge(e43);CachesGraph.graph.addEdge(e44);CachesGraph.graph.addEdge(e45);CachesGraph.graph.addEdge(e46);CachesGraph.graph.addEdge(e47);CachesGraph.graph.addEdge(e48);
         CachesGraph.graph.addEdge(e49);
+
+
+ */
+
+        userST.get("1").VisitarCache(new Date(1,2,3,4), cacheST.get("geocache1"),new Logs("abc") );
+        userST.get("1").VisitarCache(new Date(1,2,3,4), cacheST.get("geocache2"),new Logs("abc") );
+        userST.get("1").VisitarCache(new Date(1,2,3,4), cacheST.get("geocache3"),new Logs("abc") );
+        userST.get("1").VisitarCache(new Date(1,2,3,4), cacheST.get("geocache10"),new Logs("abc") );
+        userST.get("1").VisitarCache(new Date(1,2,3,4), cacheST.get("geocache5"),new Logs("abc") );
+        userST.get("1").VisitarCache(new Date(1,2,3,4), cacheST.get("geocache7"),new Logs("abc") );
         System.out.println(CachesGraph.graph.toString());
 
 
-///////////////////////////////////////////////////////////////////////////////
-
-
-        /*
-
-        System.out.println("\n\t\t\t\t-------------------------FUNCÕES TESTE 2 -------------------------------\n");
-
-        System.out.println("............Listagem Global..........\n");
-
-        System.out.println("............Listar todas as Caches............\n");
-
-        Admin_User.print_caches();
-
-        System.out.println("............Todos os objetos de todas as caches:............\n");
-
-        Admin_User.print_Objetos_todasCaches();
-
-        System.out.println("............Listar todos os Users...........\n");
-
-        Admin_User.print_users();
-
-        System.out.println("............Listar historico de Caches dos Users...........\n");
-
-        Admin_User.printUsers_Hcaches();
-
-        System.out.println("............Listar Caches não visitadas por cada User...........\n");
-
-        Admin_User.printCachesNaoVisitadas_r8_b(manuel);
-
-        Admin_User.printCachesNaoVisitadasRegiao_r8_b(manuel,"Norte");
-
-        System.out.println("............Lista de Users que visitaram a Cache -> geocache6...........\n");
-
-        geocache6.printCache_Husers();
-
-        System.out.println("............Lista Caches Premium com pelo menos 1 Objeto/TravelBug...........\n");
-
-        Admin_User.printCachePremium_ComObjetos_r8_d();
-
-        System.out.println("............Listar Top 5 Users que visitaram mais Caches..........\n");
-
-        Admin_User.printTop5_visitarCaches_r8_e(d1,d4);
-
-        System.out.println("............TravelBugs com maior numero de Localizações percorridas..........\n");
-
-        Admin_User.printTop_TravelBug_r8_f();
-
-*/
-
-
-        //Files_rw.save_all();
-        
-        //Files_rw.save_Users();
-        //Files_rw.save_Caches();
-        //Files_rw.save_Objetos();
-
-
+        Files_rw.save_GeoCacheGraphs();
 
     }
 

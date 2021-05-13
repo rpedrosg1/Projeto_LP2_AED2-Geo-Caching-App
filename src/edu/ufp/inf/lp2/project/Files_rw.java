@@ -1,8 +1,8 @@
 package edu.ufp.inf.lp2.project;
 
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.Out;
-import edu.ufp.inf.lp2.project.Graphs.Graph_Project;
+import edu.princeton.cs.algs4.*;
+import edu.ufp.inf.lp2.project.Graphs.Edge_Project;
+import edu.ufp.inf.lp2.project.Graphs.AED2_EdgeWeightedDigraph;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -11,8 +11,13 @@ import static edu.ufp.inf.lp2.project.Admin_User.*;
 import static edu.ufp.inf.lp2.project.Admin_User.CachesGraph;
 
 
+
+
+
 public class Files_rw {
 
+
+    private static final String FILE_DELIMITTER = ";";
     //Users Files
 
     /**
@@ -164,7 +169,7 @@ public class Files_rw {
             int size_cache=cacheST.size()-1;
             CachesGraph.st.put(cache.nome,size_cache);
         }
-        CachesGraph.graph=new Graph_Project(cacheST.size());
+        CachesGraph.graph=new AED2_EdgeWeightedDigraph(cacheST.size());
         myFile.close();
     }
 
@@ -942,5 +947,40 @@ public class Files_rw {
     }
 
 
+    /**
+     * Guarda informacao dos links/Graphs das Caches
+     */
+    public static void save_GeoCacheGraphs(){
+        Out out = new Out(".//data//Graphs.txt");
 
+        for(int v =0 ; v<CachesGraph.graph.V;v++){
+            for(Edge_Project edg : CachesGraph.graph.adj[v]){
+                out.print(edg.from() + "-" + edg.to() + FILE_DELIMITTER + edg.weight() + FILE_DELIMITTER + edg.getTime() + "\n");
+            }
+        }
+        out.close();
+    }
+
+
+
+    /**
+     * Le informacao dos links/Graphs das Caches
+     */
+    public static void read_GeoCacheGraphs(){
+        In myFile = new In(".//data//Graphs.txt");
+        String cindex1="",cindex2="";
+        while (myFile.hasNextLine()) {
+            String line = myFile.readLine();
+            String []words = line.split(FILE_DELIMITTER);
+            String[] edges = words[0].split("-");
+
+            Edge_Project edge_project = new Edge_Project(Integer.parseInt(edges[0]),
+                    Integer.parseInt(edges[1]),Double.parseDouble(words[1]),Float.parseFloat(words[2]));
+
+            CachesGraph.graph.addEdge(edge_project);
+
+
+        }
+        myFile.close();
+    }
 }

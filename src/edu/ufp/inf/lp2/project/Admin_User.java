@@ -424,4 +424,11 @@ public class Admin_User extends Premium_User  {
 
     }
 
+    public static String findIndexCacheName(int index){
+        for(String key : CachesGraph.st){
+            if(CachesGraph.st.get(key).equals(index))return key;
+        }
+        return  null;
+    }
+
 }
