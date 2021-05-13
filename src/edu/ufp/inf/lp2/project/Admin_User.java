@@ -10,6 +10,8 @@ public class Admin_User extends Premium_User  {
 
 
     public static RedBlackBST<String, Basic_User> userST = new RedBlackBST<>();
+    public static Caches_Graph CachesGraph=new Caches_Graph();
+
     public static ST<String, Cache> cacheST = new ST<>();
 
     /**

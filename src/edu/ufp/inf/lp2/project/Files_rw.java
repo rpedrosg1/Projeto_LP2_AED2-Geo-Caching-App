@@ -1,5 +1,6 @@
 package edu.ufp.inf.lp2.project;
 
+import edu.princeton.cs.algs4.EdgeWeightedDigraph;
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.Out;
 
@@ -9,8 +10,8 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.util.Scanner;
 
-import static edu.ufp.inf.lp2.project.Admin_User.cacheST;
-import static edu.ufp.inf.lp2.project.Admin_User.userST;
+import static edu.ufp.inf.lp2.project.Admin_User.*;
+import static edu.ufp.inf.lp2.project.Admin_User.CachesGraph;
 
 
 public class Files_rw {
@@ -163,6 +164,9 @@ public class Files_rw {
 
             Cache cache = new Cache(puser, nome, descrisao, loc, dificuldade, tipo);
             cacheST.put(cache.nome, cache);
+            int size_cache=cacheST.size()-1;
+            CachesGraph.graph=new Graph_Project(cacheST.size());
+            CachesGraph.st.put(cache.nome,size_cache);
         }
         myFile.close();
     }

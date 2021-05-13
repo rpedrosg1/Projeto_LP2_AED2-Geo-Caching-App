@@ -2,6 +2,8 @@ package edu.ufp.inf.lp2.project;
 
 import java.io.File;
 
+import static edu.ufp.inf.lp2.project.Admin_User.CachesGraph;
+
 public class Main {
 
 
@@ -504,10 +506,107 @@ public class Main {
 
         //geocache4.RemoverCache();
         //geocache8.RemoverCache();
-        //geocache18.RemoverCache();
+        //geocache18.RemoverCache();\
+
+/////////////////////////////////grafos
+        int index_1=CachesGraph.st.get("geocache1");
+        int index_2=CachesGraph.st.get("geocache2");
+        int index_3=CachesGraph.st.get("geocache3");
+        int index_4=CachesGraph.st.get("geocache4");
+        int index_5=CachesGraph.st.get("geocache5");
+        int index_6=CachesGraph.st.get("geocache6");
+        int index_7=CachesGraph.st.get("geocache7");
+        int index_8=CachesGraph.st.get("geocache8");
+        int index_9=CachesGraph.st.get("geocache9");
+        int index_10=CachesGraph.st.get("geocache10");
+        int index_11=CachesGraph.st.get("geocache11");
+        int index_12=CachesGraph.st.get("geocache12");
+        int index_13=CachesGraph.st.get("geocache13");
+        int index_14=CachesGraph.st.get("geocache14");
+        int index_15=CachesGraph.st.get("geocache15");
+        int index_16=CachesGraph.st.get("geocache16");
+        int index_17=CachesGraph.st.get("geocache17");
+        int index_18=CachesGraph.st.get("geocache18");
+        //ligacoes 1
+        Edge_Project e0 =new Edge_Project(index_1,index_2,5.2,60f);
+        Edge_Project e1 =new Edge_Project(index_1,index_3,8.2,102f);
+        Edge_Project e2 =new Edge_Project(index_1,index_4,6.2,70f);
+        Edge_Project e3 =new Edge_Project(index_1,index_5,4.2,40f);
+        Edge_Project e4 =new Edge_Project(index_1,index_6,3.2,35f);
+        Edge_Project e5 =new Edge_Project(index_1,index_7,5.2,66f);
+        //ligacoes 2
+        Edge_Project e6 =new Edge_Project(index_2,index_3,8.5,102f);
+        Edge_Project e7 =new Edge_Project(index_2,index_4, 5.8,65f);
+        Edge_Project e8 =new Edge_Project(index_2,index_5, 7.2,72f);
+        Edge_Project e9 =new Edge_Project(index_2,index_6, 5.4,53f);
+        Edge_Project e10 =new Edge_Project(index_2,index_7,4.5,51f);
+        //ligacoes 3
+        Edge_Project e11 =new Edge_Project(index_3,index_4,2.7,30f);
+        Edge_Project e12 =new Edge_Project(index_3,index_5, 3.2,35f);
+        Edge_Project e13 =new Edge_Project(index_3,index_6,4.1,43f);
+        Edge_Project e14 =new Edge_Project(index_3,index_7,8.5,89f);
+        //ligacoes 4
+        Edge_Project e15 =new Edge_Project(index_4,index_5,3.7,41f);
+        Edge_Project e16 =new Edge_Project(index_4,index_6,4.3,49f);
+        Edge_Project e17 =new Edge_Project(index_4,index_7,7.4,72f);
+        //ligacoes 5
+        Edge_Project e18 =new Edge_Project(index_5,index_6,7.4,71f);
+        Edge_Project e19 =new Edge_Project(index_5,index_7,5.2,53f);
+        //ligacoes 6
+        Edge_Project e20 =new Edge_Project(index_6,index_7,7.4,73f);
+        //ligacoes 7
+        Edge_Project e21 =new Edge_Project(index_7,index_8,130,1500f);
+        //ligacoes 8
+        Edge_Project e22 =new Edge_Project(index_8,index_9,7.2,72f);
+        Edge_Project e23 =new Edge_Project(index_8,index_10,4.7,51f);
+        Edge_Project e24 =new Edge_Project(index_8,index_11, 3.4,41f);
+        Edge_Project e25 =new Edge_Project(index_8,index_12,5.3,55f);
+        //ligacoes 9
+        Edge_Project e26=new Edge_Project(index_9,index_10,2.2,24f);
+        Edge_Project e27 =new Edge_Project(index_9,index_11,1.7,21f);
+        Edge_Project e28 =new Edge_Project(index_9,index_12, 6.4,71f);
+        //ligacoes 10
+        Edge_Project e29 =new Edge_Project(index_10,index_11,4.7,52f);
+        Edge_Project e30 =new Edge_Project(index_10,index_12,3.5,36f);
+        Edge_Project e31 =new Edge_Project(index_10,index_13,6.2,67f);
+        //ligacoes 11
+        Edge_Project e32 =new Edge_Project(index_11,index_12,2.8,32f);
+        //ligacoes 12
+        Edge_Project e33 =new Edge_Project(index_12,index_13,197,2460f);
+        //ligacoes 13
+        Edge_Project e34 =new Edge_Project(index_13,index_14,2.6,31f);
+        Edge_Project e35 =new Edge_Project(index_13,index_15,4.5,51f);
+        Edge_Project e36 =new Edge_Project(index_13,index_16,3.8,45f);
+        Edge_Project e37 =new Edge_Project(index_13,index_17,4.2,51f);
+        Edge_Project e38 =new Edge_Project(index_13,index_18,2.8,32f);
+        //ligacoes 14
+        Edge_Project e39 =new Edge_Project(index_14,index_15,3.3,41f);
+        Edge_Project e40 =new Edge_Project(index_14,index_16,4.8,58f);
+        Edge_Project e41 =new Edge_Project(index_14,index_17,5.2,62f);
+        Edge_Project e42=new Edge_Project(index_14,index_18,3.7,41f);
+        //ligacoes 15
+        Edge_Project e43 =new Edge_Project(index_15,index_16,4.4,53f);
+        Edge_Project e44 =new Edge_Project(index_15,index_17, 5.3,64f);
+        Edge_Project e45 =new Edge_Project(index_15,index_18,3.8,43f);
+        //ligacoes 16
+        Edge_Project e46 =new Edge_Project(index_16,index_17,1.2,22f);
+        Edge_Project e47 =new Edge_Project(index_16,index_18, 2.1,35f);
+        //ligacoes 17
+        Edge_Project e48 =new Edge_Project(index_17,index_18,3.8,44f);
+        Edge_Project e49 =new Edge_Project(index_17,index_15,330,45f);
+
+        CachesGraph.graph.addEdge(e0);CachesGraph.graph.addEdge(e1);CachesGraph.graph.addEdge(e2);CachesGraph.graph.addEdge(e3);CachesGraph.graph.addEdge(e4);CachesGraph.graph.addEdge(e5);CachesGraph.graph.addEdge(e6);
+        CachesGraph.graph.addEdge(e7);CachesGraph.graph.addEdge(e8);CachesGraph.graph.addEdge(e9);CachesGraph.graph.addEdge(e10);CachesGraph.graph.addEdge(e11);CachesGraph.graph.addEdge(e12);CachesGraph.graph.addEdge(e13);
+        CachesGraph.graph.addEdge(e14);CachesGraph.graph.addEdge(e15);CachesGraph.graph.addEdge(e16);CachesGraph.graph.addEdge(e17);CachesGraph.graph.addEdge(e18);CachesGraph.graph.addEdge(e19);CachesGraph.graph.addEdge(e20);
+        CachesGraph.graph.addEdge(e21);CachesGraph.graph.addEdge(e22);CachesGraph.graph.addEdge(e23);CachesGraph.graph.addEdge(e24);CachesGraph.graph.addEdge(e25);CachesGraph.graph.addEdge(e26);CachesGraph.graph.addEdge(e27);
+        CachesGraph.graph.addEdge(e28);CachesGraph.graph.addEdge(e29);CachesGraph.graph.addEdge(e30);CachesGraph.graph.addEdge(e31);CachesGraph.graph.addEdge(e32);CachesGraph.graph.addEdge(e33);CachesGraph.graph.addEdge(e34);
+        CachesGraph.graph.addEdge(e35);CachesGraph.graph.addEdge(e36);CachesGraph.graph.addEdge(e37);CachesGraph.graph.addEdge(e38);CachesGraph.graph.addEdge(e39);CachesGraph.graph.addEdge(e40);CachesGraph.graph.addEdge(e41);
+        CachesGraph.graph.addEdge(e42);CachesGraph.graph.addEdge(e43);CachesGraph.graph.addEdge(e44);CachesGraph.graph.addEdge(e45);CachesGraph.graph.addEdge(e46);CachesGraph.graph.addEdge(e47);CachesGraph.graph.addEdge(e48);
+        CachesGraph.graph.addEdge(e49);
+        System.out.println(CachesGraph.graph.toString());
 
 
-
+///////////////////////////////////////////////////////////////////////////////
 
 
         /*
