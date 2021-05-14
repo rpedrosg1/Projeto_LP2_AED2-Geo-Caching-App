@@ -6,6 +6,7 @@ import edu.princeton.cs.algs4.StdOut;
 import edu.ufp.inf.lp2.project.Graphs.AED_DijkstraSP;
 import edu.ufp.inf.lp2.project.Graphs.Edge_Project;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -13,7 +14,7 @@ import java.util.logging.Logger;
 
 import static edu.ufp.inf.lp2.project.Admin_User.*;
 
-public class Basic_User implements GestaoUtilizadores {
+public class Basic_User implements GestaoUtilizadores, Serializable {
 
   public String id;
 
@@ -22,6 +23,8 @@ public class Basic_User implements GestaoUtilizadores {
   public int idade;
 
   public int nr_caches_visitadas;
+
+  public String type;
 
   public LinearProbingHashST<String,Objeto> myObj=new LinearProbingHashST<>();
 
@@ -46,6 +49,24 @@ public class Basic_User implements GestaoUtilizadores {
     this.nome = nome;
     this.idade = idade;
     this.nr_caches_visitadas=nr_caches_visitadas;
+    if(this.getClass().equals(Basic_User.class))this.type = "BASIC";
+    else if(this.getClass().equals(Premium_User.class))this.type = "PREMIUM";
+    else if(this.getClass().equals(Admin_User.class))this.type = "ADMIN";
+    this.InserirUtilizador();
+  }
+
+  public Basic_User(String id, String nome, int idade){
+    if (!Admin_User.check_id(id)){
+      System.out.println("Erro ao criar Utilizador, id ja esta a ser utilizado");
+      return;
+    }
+    this.id = id;
+    this.nome = nome;
+    this.idade = idade;
+    this.nr_caches_visitadas=0;
+    if(this.getClass().equals(Basic_User.class))this.type = "BASIC";
+    else if(this.getClass().equals(Premium_User.class))this.type = "PREMIUM";
+    else if(this.getClass().equals(Admin_User.class))this.type = "ADMIN";
     this.InserirUtilizador();
   }
 
@@ -103,6 +124,66 @@ public class Basic_User implements GestaoUtilizadores {
     this.idade=new_age;
     userST.put(this.id,this);
 
+  }
+
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public String getNome() {
+    return nome;
+  }
+
+  public void setNome(String nome) {
+    this.nome = nome;
+  }
+
+  public String getIdade() {
+    return "" + idade;
+  }
+
+  public String getType() {
+    return type;
+  }
+
+  public void setIdade(int idade) {
+    this.idade = idade;
+  }
+
+  public String  getNr_caches_visitadas() {
+    return "" + nr_caches_visitadas;
+  }
+
+  public void setNr_caches_visitadas(int nr_caches_visitadas) {
+    this.nr_caches_visitadas = nr_caches_visitadas;
+  }
+
+  public LinearProbingHashST<String, Objeto> getMyObj() {
+    return myObj;
+  }
+
+  public void setMyObj(LinearProbingHashST<String, Objeto> myObj) {
+    this.myObj = myObj;
+  }
+
+  public ArrayList<Logs_User> getMyLogs_user() {
+    return myLogs_user;
+  }
+
+  public void setMyLogs_user(ArrayList<Logs_User> myLogs_user) {
+    this.myLogs_user = myLogs_user;
+  }
+
+  public HashMap<String, Cache> getHcaches() {
+    return Hcaches;
+  }
+
+  public void setHcaches(HashMap<String, Cache> hcaches) {
+    Hcaches = hcaches;
   }
 
   /**

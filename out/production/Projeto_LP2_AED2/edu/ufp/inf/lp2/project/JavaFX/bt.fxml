@@ -14,19 +14,22 @@
          <children>
             <Pane prefHeight="110.0" prefWidth="350.0" style="-fx-background-color: #1D2026;" styleClass="ic">
                <children>
-                  <Label layoutX="105.0" layoutY="42.0" prefHeight="26.0" prefWidth="165.0" text="GeoCache APP" textAlignment="CENTER" textFill="WHITE">
+                  <Button fx:id="buttonUsers1" alignment="BASELINE_LEFT" contentDisplay="CENTER" graphicTextGap="20.0" layoutX="14.0" layoutY="22.0" mnemonicParsing="false" onAction="#handlePanelStart" prefHeight="66.0" prefWidth="338.0" style="-fx-background-color: #1D2026;" text="         GeoCache APP" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                      <font>
-                        <Font name="Verdana" size="21.0" />
+                        <Font name="Verdana" size="20.0" />
                      </font>
-                  </Label>
-                  <ImageView fitHeight="66.0" fitWidth="101.0" layoutX="21.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+                  </Button>
+                  <ImageView fitHeight="66.0" fitWidth="101.0" layoutX="14.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@icons8_geocaching_32.png" />
                      </image>
                   </ImageView>
                </children>
             </Pane>
-            <Button fx:id="buttonUsers" alignment="BASELINE_LEFT" contentDisplay="CENTER" graphicTextGap="20.0" layoutX="3.0" layoutY="252.0" mnemonicParsing="false" onAction="#handleReadFileAction" prefHeight="66.0" prefWidth="350.0" style="-fx-background-color: #1D2026;" text="         Users" textFill="WHITE">
+            <Button fx:id="buttonUsers" alignment="BASELINE_LEFT" contentDisplay="CENTER" graphicTextGap="20.0" layoutX="3.0" layoutY="252.0" mnemonicParsing="false" onAction="#handlePanelUsers" prefHeight="66.0" prefWidth="350.0" style="-fx-background-color: #1D2026;" text="         Users" textFill="WHITE">
                <font>
                   <Font size="20.0" />
                </font>
@@ -34,7 +37,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="buttonCaches" alignment="BASELINE_LEFT" contentDisplay="CENTER" graphicTextGap="20.0" layoutY="318.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="355.0" style="-fx-background-color: #1D2026;" text="         Caches" textFill="WHITE">
+            <Button fx:id="buttonCaches" alignment="BASELINE_LEFT" contentDisplay="CENTER" graphicTextGap="20.0" layoutY="318.0" mnemonicParsing="false" onAction="#handlePanelCaches" prefHeight="66.0" prefWidth="355.0" style="-fx-background-color: #1D2026;" text="         Caches" textFill="WHITE">
                <font>
                   <Font size="20.0" />
                </font>
@@ -57,7 +60,7 @@
                   </Blend>
                </effect>
             </Button>
-            <Button fx:id="buttonUsers1" alignment="BASELINE_LEFT" contentDisplay="CENTER" graphicTextGap="20.0" layoutX="3.0" layoutY="375.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="350.0" style="-fx-background-color: #1D2026;" text="         Admin" textFill="WHITE">
+            <Button fx:id="buttonAdmin" alignment="BASELINE_LEFT" contentDisplay="CENTER" graphicTextGap="20.0" layoutX="3.0" layoutY="375.0" mnemonicParsing="false" onAction="#handlePanelAdmin" prefHeight="66.0" prefWidth="350.0" style="-fx-background-color: #1D2026;" text="         Admin" textFill="WHITE">
                <font>
                   <Font size="20.0" />
                </font>
@@ -85,12 +88,32 @@
                   <Image url="@admin_32.png" />
                </image>
             </ImageView>
+            <Button fx:id="buttonTravelBug" alignment="BASELINE_LEFT" contentDisplay="CENTER" graphicTextGap="20.0" layoutX="3.0" layoutY="432.0" mnemonicParsing="false" onAction="#handlePanelTravelBufs" prefHeight="66.0" prefWidth="350.0" style="-fx-background-color: #1D2026;" text="         TravelBugs" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="47.0" fitWidth="70.0" layoutX="14.0" layoutY="442.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@travelBug_32.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
       <AnchorPane layoutX="355.0" prefHeight="761.0" prefWidth="805.0" styleClass="root" stylesheets="@GeoCachefxml.css">
          <children>
-            <Pane fx:id="paneCaches" prefHeight="761.0" prefWidth="805.0" styleClass="root" stylesheets="@GeoCachefxml.css" />
-            <Pane fx:id="paneAdmin" prefHeight="761.0" prefWidth="805.0" styleClass="root" stylesheets="@GeoCachefxml.css" />
+            <Pane fx:id="paneStart" layoutX="10.0" layoutY="10.0" prefHeight="761.0" prefWidth="805.0" styleClass="root" stylesheets="@GeoCachefxml.css">
+               <children>
+                  <ImageView fitHeight="324.0" fitWidth="439.0" layoutX="183.0" layoutY="257.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@naom_55bf637d42301.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
             <Pane fx:id="paneUsers" prefHeight="761.0" prefWidth="805.0" styleClass="root" stylesheets="@GeoCachefxml.css">
                <children>
                   <GridPane layoutY="336.0" prefHeight="425.0" prefWidth="805.0">
@@ -108,16 +131,32 @@
                             <TableColumn fx:id="nameCol" prefWidth="311.0" text="Name" />
                             <TableColumn fx:id="ageCol" prefWidth="75.0" text="Age" />
                             <TableColumn fx:id="ncacheCol" prefWidth="75.0" text="Nº Caches Visited" />
+                              <TableColumn fx:id="typeCol" prefWidth="75.0" text="Type" />
                           </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
                         </TableView>
+                        <HBox fx:id="user_HBox" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <ComboBox fx:id="combobox_typeUser" prefHeight="47.0" prefWidth="150.0" promptText="Type of User" />
+                              <TextField fx:id="user_idField" prefHeight="47.0" prefWidth="190.0" promptText="ID" />
+                              <TextField fx:id="user_nameField" layoutX="100.0" layoutY="10.0" prefHeight="47.0" prefWidth="190.0" promptText="Name" />
+                              <TextField fx:id="user_idadeField" layoutX="100.0" layoutY="10.0" prefHeight="47.0" prefWidth="190.0" promptText="Age" />
+                              <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#handleAddUserAction" prefHeight="48.0" prefWidth="85.0" text="Add">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                        </HBox>
                      </children>
                   </GridPane>
-                  <TextArea fx:id="textArea" layoutX="59.0" layoutY="73.0" prefHeight="269.0" prefWidth="689.0" />
                </children>
             </Pane>
+            <Pane fx:id="paneCaches" prefHeight="761.0" prefWidth="805.0" styleClass="root" stylesheets="@GeoCachefxml.css" />
+            <Pane fx:id="paneAdmin" prefHeight="761.0" prefWidth="805.0" styleClass="root" stylesheets="@GeoCachefxml.css" />
+            <Pane fx:id="paneTravelBugs" layoutX="10.0" layoutY="10.0" prefHeight="761.0" prefWidth="805.0" styleClass="root" stylesheets="@GeoCachefxml.css" />
          </children>
       </AnchorPane>
    </children>

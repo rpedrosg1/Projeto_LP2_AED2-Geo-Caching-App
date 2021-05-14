@@ -25,6 +25,11 @@ public class Premium_User extends Basic_User {
         nr_caches_criadas = 0;
     }
 
+    public Premium_User(String id, String nome, int idade) {
+        super(id, nome, idade);
+        nr_caches_criadas = 0;
+    }
+
     /**
      * Contrutor vazio que inicializa um Premium User com os parametros a null
      */

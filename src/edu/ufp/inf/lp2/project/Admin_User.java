@@ -24,6 +24,12 @@ public class Admin_User extends Premium_User  {
     public Admin_User(String id, String nome, int idade, int nr_caches_visitadas) {
         super(id, nome, idade, nr_caches_visitadas);
     }
+
+    public Admin_User(String id, String nome, int idade) {
+        super(id, nome, idade);
+        nr_caches_criadas=0;
+        nr_caches_visitadas=0;
+    }
     /**
      * Imprime os TravelBugs do User e o seu estado atual
      */
