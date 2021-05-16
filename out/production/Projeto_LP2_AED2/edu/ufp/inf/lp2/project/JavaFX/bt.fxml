@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import java.lang.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
@@ -25,7 +25,7 @@
                   </Button>
                   <ImageView fitHeight="66.0" fitWidth="101.0" layoutX="14.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@icons8_geocaching_32.png" />
+                        <Image url="@../Icons/icons8_geocaching_32.png" />
                      </image>
                   </ImageView>
                </children>
@@ -71,22 +71,22 @@
             </Button>
             <ImageView fitHeight="47.0" fitWidth="70.0" layoutX="14.0" layoutY="262.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@user_32.png" />
+                  <Image url="@../Icons/user_32.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="47.0" fitWidth="70.0" layoutX="14.0" layoutY="328.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@cache_32.png" />
+                  <Image url="@../Icons/cache_32.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="47.0" fitWidth="70.0" layoutX="14.0" layoutY="705.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@exit_32.png" />
+                  <Image url="@../Icons/exit_32.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="47.0" fitWidth="70.0" layoutX="14.0" layoutY="385.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@admin_32.png" />
+                  <Image url="@../Icons/admin_32.png" />
                </image>
             </ImageView>
             <Button fx:id="buttonTravelBug" alignment="BASELINE_LEFT" contentDisplay="CENTER" graphicTextGap="20.0" layoutX="3.0" layoutY="432.0" mnemonicParsing="false" onAction="#handlePanelTravelBufs" prefHeight="66.0" prefWidth="350.0" style="-fx-background-color: #1D2026;" text="         TravelBugs" textFill="WHITE">
@@ -99,68 +99,94 @@
             </Button>
             <ImageView fitHeight="47.0" fitWidth="70.0" layoutX="14.0" layoutY="442.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@travelBug_32.png" />
+                  <Image url="@../Icons/travelBug_32.png" />
                </image>
             </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="355.0" prefHeight="761.0" prefWidth="805.0" styleClass="root" stylesheets="@GeoCachefxml.css">
+      <AnchorPane layoutX="355.0" prefHeight="299.0" prefWidth="815.0" styleClass="root" stylesheets="@GeoCachefxml.css">
          <children>
-            <Pane fx:id="paneStart" layoutX="10.0" layoutY="10.0" prefHeight="761.0" prefWidth="805.0" styleClass="root" stylesheets="@GeoCachefxml.css">
+            <Pane fx:id="paneStart" prefHeight="761.0" prefWidth="815.0" styleClass="root" stylesheets="@GeoCachefxml.css">
                <children>
                   <ImageView fitHeight="324.0" fitWidth="439.0" layoutX="183.0" layoutY="257.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@naom_55bf637d42301.png" />
+                        <Image url="@../Icons/naom_55bf637d42301.png" />
                      </image>
                   </ImageView>
                </children>
             </Pane>
             <Pane fx:id="paneUsers" prefHeight="761.0" prefWidth="805.0" styleClass="root" stylesheets="@GeoCachefxml.css">
                <children>
-                  <GridPane layoutY="336.0" prefHeight="425.0" prefWidth="805.0">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints maxHeight="208.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="382.0" minHeight="10.0" prefHeight="378.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <TableView fx:id="userTable" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
-                          <columns>
-                            <TableColumn fx:id="idCol" prefWidth="91.0" text="ID" />
-                            <TableColumn fx:id="nameCol" prefWidth="311.0" text="Name" />
-                            <TableColumn fx:id="ageCol" prefWidth="75.0" text="Age" />
-                            <TableColumn fx:id="ncacheCol" prefWidth="75.0" text="Nº Caches Visited" />
-                              <TableColumn fx:id="typeCol" prefWidth="75.0" text="Type" />
-                          </columns>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                        </TableView>
-                        <HBox fx:id="user_HBox" prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <ComboBox fx:id="combobox_typeUser" prefHeight="47.0" prefWidth="150.0" promptText="Type of User" />
-                              <TextField fx:id="user_idField" prefHeight="47.0" prefWidth="190.0" promptText="ID" />
-                              <TextField fx:id="user_nameField" layoutX="100.0" layoutY="10.0" prefHeight="47.0" prefWidth="190.0" promptText="Name" />
-                              <TextField fx:id="user_idadeField" layoutX="100.0" layoutY="10.0" prefHeight="47.0" prefWidth="190.0" promptText="Age" />
-                              <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#handleAddUserAction" prefHeight="48.0" prefWidth="85.0" text="Add">
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </Button>
-                           </children>
-                        </HBox>
-                     </children>
-                  </GridPane>
-                  <Button fx:id="buttonCarregarUsers" layoutX="3.0" layoutY="50.0" mnemonicParsing="false" onAction="#handleReadFileAction" text="Carregar Users" />
-                  <Button fx:id="buttonSalvarUsers" layoutX="3.0" layoutY="100.0" mnemonicParsing="false" onAction="#handlePanelStart" prefHeight="31.0" prefWidth="117.0" text="Salvar Users" />
+                  <TabPane prefHeight="761.0" prefWidth="805.0" tabClosingPolicy="UNAVAILABLE">
+                     <tabs>
+                        <Tab text="Users">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <VBox layoutY="299.0" prefHeight="425.0" prefWidth="815.0">
+                                       <children>
+                                          <GridPane alignment="BOTTOM_CENTER" prefHeight="466.0" prefWidth="815.0">
+                                             <children>
+                                                <TableView fx:id="userTable" prefHeight="371.0" prefWidth="793.0" GridPane.rowIndex="1">
+                                                   <columnResizePolicy>
+                                                      <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                   </columnResizePolicy>
+                                                   <columns>
+                                                      <TableColumn fx:id="idCol" prefWidth="91.0" text="ID" />
+                                                      <TableColumn fx:id="nameCol" prefWidth="311.0" text="Name" />
+                                                      <TableColumn fx:id="ageCol" prefWidth="75.0" text="Age" />
+                                                      <TableColumn fx:id="ncacheCol" prefWidth="75.0" text="Nº Caches Visited" />
+                                                      <TableColumn fx:id="typeCol" prefWidth="75.0" text="Type" />
+                                                   </columns>
+                                                </TableView>
+                                                <HBox fx:id="user_HBox1" prefHeight="100.0" prefWidth="200.0">
+                                                   <children>
+                                                      <ComboBox fx:id="combobox_typeUser" prefHeight="47.0" prefWidth="150.0" promptText="Type of User" />
+                                                      <TextField fx:id="user_idField" prefHeight="47.0" prefWidth="190.0" promptText="ID" />
+                                                      <TextField fx:id="user_nameField" layoutX="100.0" layoutY="10.0" prefHeight="47.0" prefWidth="190.0" promptText="Name" />
+                                                      <TextField fx:id="user_idadeField" layoutX="100.0" layoutY="10.0" prefHeight="47.0" prefWidth="190.0" promptText="Age" />
+                                                      <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#handleAddUserAction" prefHeight="48.0" prefWidth="85.0" text="Add">
+                                                         <cursor>
+                                                            <Cursor fx:constant="HAND" />
+                                                         </cursor>
+                                                      </Button>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints maxHeight="208.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="382.0" minHeight="10.0" prefHeight="378.0" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                          </GridPane>
+                                       </children>
+                                    </VBox>
+                                    <Button fx:id="buttonCarregarUsers" layoutY="264.0" mnemonicParsing="false" onAction="#handleReadUsersFileAction" prefHeight="35.0" prefWidth="120.0" text="Carregar Users" />
+                                    <Button fx:id="buttonSalvarUsers" layoutX="120.0" layoutY="264.0" mnemonicParsing="false" onAction="#handlePanelStart" prefHeight="35.0" prefWidth="120.0" text="Salvar Users" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab text="Untitled Tab 2">
+                           <content>
+                              <VBox prefHeight="200.0" prefWidth="100.0" />
+                           </content>
+                        </Tab>
+                     </tabs>
+                  </TabPane>
                </children>
             </Pane>
             <Pane fx:id="paneCaches" prefHeight="761.0" prefWidth="805.0" styleClass="root" stylesheets="@GeoCachefxml.css">
                <children>
-                  <TabPane prefHeight="761.0" prefWidth="805.0" styleClass="tab" tabClosingPolicy="UNAVAILABLE">
+                  <TabPane depthTest="DISABLE" prefHeight="761.0" prefWidth="805.0" styleClass="tab" tabClosingPolicy="UNAVAILABLE">
                      <tabs>
+                        <Tab text="Menu">
+                           <content>
+                              <ComboBox fx:id="combobox_Caches" layoutX="14.0" layoutY="72.0" onAction="#handleCurrentCacheAction" prefWidth="150.0" promptText="Choose Cache" />
+                           </content>
+                        </Tab>
                         <Tab text="Settings">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -173,17 +199,17 @@
                                           <TextArea fx:id="edgesField" prefHeight="200.0" prefWidth="200.0" promptText="Insert edges Format vertice1;vertice2 " GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                           <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                              <children>
-                                                <Button mnemonicParsing="false" prefWidth="60.0" text="Vertices">///onAction="#handleVerticesButtonAction"
+                                                <Button mnemonicParsing="false" onAction="#handleVerticesButtonAction" prefWidth="60.0" text="Vertices">///onAction="#handleVerticesButtonAction"
                                                    <HBox.margin>
                                                       <Insets top="20.0" />
                                                    </HBox.margin>
                                                 </Button>
-                                                <Button mnemonicParsing="false" prefWidth="60.0" text="Edges">//onAction="#handleEdgesButtonAction"
+                                                <Button mnemonicParsing="false" onAction="#handleEdgesButtonAction" prefWidth="60.0" text="Edges">//onAction="#handleEdgesButtonAction"
                                                    <HBox.margin>
                                                       <Insets left="40.0" top="20.0" />
                                                    </HBox.margin>
                                                 </Button>
-                                                <Button mnemonicParsing="false" prefWidth="60.0" text="Clear">// onAction="#handleClearButtonAction"
+                                                <Button mnemonicParsing="false" onAction="#handleClearButtonAction" prefWidth="60.0" text="Clear">// onAction="#handleClearButtonAction"
                                                    <HBox.margin>
                                                       <Insets left="40.0" top="20.0" />
                                                    </HBox.margin>
@@ -210,9 +236,9 @@
                         </Tab>
                         <Tab text="Graph">
                            <content>
-                              <AnchorPane fx:id="graphGroup" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <Group layoutX="142.0" layoutY="79.0" />
+                                    <Group fx:id="graphGroup" />
                                  </children>
                               </AnchorPane>
                            </content>
@@ -221,7 +247,11 @@
                   </TabPane>
                </children></Pane>
             <Pane fx:id="paneAdmin" prefHeight="761.0" prefWidth="805.0" styleClass="root" stylesheets="@GeoCachefxml.css" />
-            <Pane fx:id="paneTravelBugs" layoutX="10.0" layoutY="10.0" prefHeight="761.0" prefWidth="805.0" styleClass="root" stylesheets="@GeoCachefxml.css" />
+            <Pane fx:id="paneTravelBugs" prefHeight="761.0" prefWidth="815.0" styleClass="root" stylesheets="@GeoCachefxml.css">
+               <children>
+                  <ComboBox fx:id="combobox_TraveLbugs" layoutX="14.0" layoutY="72.0" onAction="#handleCurrentTravelBugAction" prefWidth="150.0" promptText="Choose TB" />
+               </children>
+            </Pane>
          </children>
       </AnchorPane>
    </children>

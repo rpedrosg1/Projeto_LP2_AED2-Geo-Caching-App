@@ -439,6 +439,10 @@ public class Files_rw {
                             tb.myCreator=puser;
                             tb.h_user.put(puser.id,puser);
                             puser.myTravelBugs.put(tb.id,tb);
+
+
+                            //JAVAFX
+
                         }
 
                     }
