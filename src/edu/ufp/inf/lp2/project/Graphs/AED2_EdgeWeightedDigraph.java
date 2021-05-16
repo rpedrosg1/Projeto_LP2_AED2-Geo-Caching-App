@@ -1,6 +1,6 @@
 package edu.ufp.inf.lp2.project.Graphs;
 import edu.princeton.cs.algs4.*;
-import edu.ufp.inf.lp2.project.Cache;
+
 
 import java.util.NoSuchElementException;
 
@@ -29,7 +29,7 @@ public class AED2_EdgeWeightedDigraph {
             adj[v] = new Bag<Edge_Project>();
     }
 
-    /**
+    /**E
      * Initializes a random edge-weighted digraph with {@code V} vertices and <em>E</em> edges.
      *
      * @param  V the number of vertices
