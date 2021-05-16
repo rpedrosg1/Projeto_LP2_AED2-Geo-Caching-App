@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
@@ -153,73 +152,9 @@
                         </HBox>
                      </children>
                   </GridPane>
-                  <Button fx:id="buttonCarregarUsers" layoutX="3.0" layoutY="50.0" mnemonicParsing="false" onAction="#handleReadFileAction" text="Carregar Users" />
-                  <Button fx:id="buttonSalvarUsers" layoutX="3.0" layoutY="100.0" mnemonicParsing="false" onAction="#handlePanelStart" prefHeight="31.0" prefWidth="117.0" text="Salvar Users" />
                </children>
             </Pane>
-            <Pane fx:id="paneCaches" prefHeight="761.0" prefWidth="805.0" styleClass="root" stylesheets="@GeoCachefxml.css">
-               <children>
-                  <TabPane prefHeight="761.0" prefWidth="805.0" styleClass="tab" tabClosingPolicy="UNAVAILABLE">
-                     <tabs>
-                        <Tab text="Settings">
-                           <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                 <children>
-                                    <GridPane layoutX="7.0" layoutY="20.0" prefHeight="633.0" prefWidth="747.0" AnchorPane.topAnchor="20.0">
-                                       <children>
-                                          <Label text="Vertices" GridPane.halignment="CENTER" />
-                                          <Label text="Edges" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                                          <TextField fx:id="nVerticesField" promptText="insert number of vertices" GridPane.columnIndex="1" />
-                                          <TextArea fx:id="edgesField" prefHeight="200.0" prefWidth="200.0" promptText="Insert edges Format vertice1;vertice2 " GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                          <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                             <children>
-                                                <Button mnemonicParsing="false" prefWidth="60.0" text="Vertices">///onAction="#handleVerticesButtonAction"
-                                                   <HBox.margin>
-                                                      <Insets top="20.0" />
-                                                   </HBox.margin>
-                                                </Button>
-                                                <Button mnemonicParsing="false" prefWidth="60.0" text="Edges">//onAction="#handleEdgesButtonAction"
-                                                   <HBox.margin>
-                                                      <Insets left="40.0" top="20.0" />
-                                                   </HBox.margin>
-                                                </Button>
-                                                <Button mnemonicParsing="false" prefWidth="60.0" text="Clear">// onAction="#handleClearButtonAction"
-                                                   <HBox.margin>
-                                                      <Insets left="40.0" top="20.0" />
-                                                   </HBox.margin>
-                                                </Button>
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                       <columnConstraints>
-                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="291.0" minWidth="10.0" prefWidth="99.0" />
-                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="495.0" minWidth="10.0" prefWidth="495.0" />
-                                       </columnConstraints>
-                                       <padding>
-                                          <Insets bottom="20.0" right="20.0" top="20.0" />
-                                       </padding>
-                                       <rowConstraints>
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                       </rowConstraints>
-                                    </GridPane>
-                                 </children>
-                              </AnchorPane>
-                           </content>
-                        </Tab>
-                        <Tab text="Graph">
-                           <content>
-                              <AnchorPane fx:id="graphGroup" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                 <children>
-                                    <Group layoutX="142.0" layoutY="79.0" />
-                                 </children>
-                              </AnchorPane>
-                           </content>
-                        </Tab>
-                     </tabs>
-                  </TabPane>
-               </children></Pane>
+            <Pane fx:id="paneCaches" prefHeight="761.0" prefWidth="805.0" styleClass="root" stylesheets="@GeoCachefxml.css" />
             <Pane fx:id="paneAdmin" prefHeight="761.0" prefWidth="805.0" styleClass="root" stylesheets="@GeoCachefxml.css" />
             <Pane fx:id="paneTravelBugs" layoutX="10.0" layoutY="10.0" prefHeight="761.0" prefWidth="805.0" styleClass="root" stylesheets="@GeoCachefxml.css" />
          </children>

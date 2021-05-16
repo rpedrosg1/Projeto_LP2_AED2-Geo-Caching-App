@@ -15,20 +15,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
-import javafx.scene.text.Text;
-import javafx.scene.layout.StackPane;
-import javafx.event.ActionEvent;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
+
 import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
 
 public class BTController  implements Initializable,Serializable {
 
@@ -69,9 +60,7 @@ public class BTController  implements Initializable,Serializable {
 
     private ArrayList<Basic_User> userArrayList = new ArrayList<>();
 
-    public TextField nVerticesField;
-    public TextArea edgesField;
-    public AnchorPane graphGroup;
+
     //Metodo para inicialização dos elementos da tabela vehiclesTable,
     //do arrayList vehicleArrayList e do objecto bt, relativo à classe
     //TransitPolice
@@ -133,7 +122,7 @@ public class BTController  implements Initializable,Serializable {
     }
 
 
-
+    //Handler para acção do botão de abertura do ficheiro de texto, referente aos dados dos veículos
     public void handleReadFileAction(ActionEvent actionEvent) {
         changepane(paneUsers);
         userTable.getItems().clear();
