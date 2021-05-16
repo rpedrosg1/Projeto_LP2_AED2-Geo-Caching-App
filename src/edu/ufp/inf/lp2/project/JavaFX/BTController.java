@@ -1,13 +1,9 @@
 package edu.ufp.inf.lp2.project.JavaFX;
 
-import edu.princeton.cs.algs4.DirectedEdge;
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdOut;
 import edu.ufp.inf.lp2.project.Admin_User;
 import edu.ufp.inf.lp2.project.Basic_User;
-import edu.ufp.inf.lp2.project.Graphs.AED2_EdgeWeightedDigraph;
-import edu.ufp.inf.lp2.project.Graphs.Edge_Project;
-import edu.ufp.inf.lp2.project.Graphs.GeoGraph;
 import edu.ufp.inf.lp2.project.Premium_User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -32,7 +28,7 @@ import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import static edu.ufp.inf.lp2.project.Admin_User.CachesGraph;
+
 
 public class BTController  implements Initializable,Serializable {
 
@@ -76,9 +72,6 @@ public class BTController  implements Initializable,Serializable {
     public TextField nVerticesField;
     public TextArea edgesField;
     public AnchorPane graphGroup;
-
-    GeoGraph gG;
-    protected static final int RADIUS = 20;
     //Metodo para inicialização dos elementos da tabela vehiclesTable,
     //do arrayList vehicleArrayList e do objecto bt, relativo à classe
     //TransitPolice
@@ -358,60 +351,5 @@ public class BTController  implements Initializable,Serializable {
 
     //Método para inserção de novos veículos na vehicleComboBox (tab Penalties)
     private void addVehiclesToComboBox(ArrayList<Basic_User> vehicles) {}
-
-
-
-
-
-
-    ///geograph   vamos la ver se isto da
-    private void createGraphGroup(GeoGraph G,AnchorPane group) {
-        group.getChildren().clear();
-        for (int i= 0; i < gG.V(); i++){
-
-            Circle c = new Circle(gG.getPositionX(i), gG.getPositionY(i), RADIUS, Color.WHITE);
-            String nome=Admin_User.findIndexCacheName(i);
-            Text id = new Text(nome);
-
-            System.out.println(gG.getPositionX(i) + "" + gG.getPositionY(i));
-
-            StackPane sp = new StackPane();
-            sp.setLayoutX(gG.getPositionX(i) -RADIUS);
-            sp.setLayoutY(gG.getPositionY(i) - RADIUS);
-            sp.getChildren().addAll(c,id);
-
-            group.getChildren().add(sp);
-
-
-            for(Edge_Project v : gG.adjgeo(i)){
-                Line l = new Line(gG.getPositionX(i), gG.getPositionY(i), gG.getPositionX(v.to()), gG.getPositionY(v.from()));
-                group.getChildren().add(l);
-            }
-        }
-
-    }
-
-    public void handleCreateGraphButtonAction(ActionEvent actionEvent) {
-        GeoGraph g =new GeoGraph(CachesGraph.graph);
-        createGraphGroup(g,graphGroup);
-    }
-
-    public void handleEdgesButtonAction(ActionEvent actionEvent) {
-        //if(gG == null)gG = new GeoGraph(Double.parseDouble(this.nVerticesField.getText()));
-        String[] lines = this.edgesField.getText().split("\n");
-        for(String line : lines){
-            String[] aux = line.split(";");
-            Edge_Project e=new Edge_Project(Integer.parseInt(aux[0]), Integer.parseInt(aux[1]),Double.parseDouble(aux[2]),Float.parseFloat(aux[3]));
-            gG.addEdge(e);
-        }
-        //createGraphGroup();
-    }
-
-    public void handleClearButtonAction(ActionEvent actionEvent) {
-        this.graphGroup.getChildren().clear();
-        this.nVerticesField.setText("");
-        this.edgesField.setText("");
-        this.gG = null;
-    }
 }
 
