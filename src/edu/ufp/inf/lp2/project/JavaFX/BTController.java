@@ -1,20 +1,7 @@
 package edu.ufp.inf.lp2.project.JavaFX;
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
 import edu.ufp.inf.lp2.project.*;
 import edu.ufp.inf.lp2.project.Graphs.Edge_Project;
-=======
-import edu.princeton.cs.algs4.DirectedEdge;
->>>>>>> ea2904436c01563a18cb5bb3801659d770df1015
-import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.StdOut;
-import edu.ufp.inf.lp2.project.Admin_User;
-import edu.ufp.inf.lp2.project.Basic_User;
-import edu.ufp.inf.lp2.project.Premium_User;
-import javafx.collections.FXCollections;
->>>>>>> dc100f2b86384ef4a7d353c44d05464f3e28ec70
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -23,29 +10,19 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.Pane;
-<<<<<<< HEAD
-=======
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
->>>>>>> ea2904436c01563a18cb5bb3801659d770df1015
 
 import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
 
 import static edu.ufp.inf.lp2.project.Admin_User.cacheST;
 import static edu.ufp.inf.lp2.project.Admin_User.userST;
-=======
-import static edu.ufp.inf.lp2.project.Admin_User.CachesGraph;
->>>>>>> dc100f2b86384ef4a7d353c44d05464f3e28ec70
->>>>>>> ea2904436c01563a18cb5bb3801659d770df1015
 
 public class BTController  implements Initializable,Serializable {
 
@@ -107,20 +84,7 @@ public class BTController  implements Initializable,Serializable {
     public TravelBug currentTravelBug;
 
 
-<<<<<<< HEAD
-=======
 
-<<<<<<< HEAD
-=======
-    public TextField nVerticesField;
-    public TextArea edgesField;
-    public AnchorPane graphGroup;
->>>>>>> ea2904436c01563a18cb5bb3801659d770df1015
-
-    //Metodo para inicialização dos elementos da tabela vehiclesTable,
-    //do arrayList vehicleArrayList e do objecto bt, relativo à classe
-    //TransitPolice
->>>>>>> dc100f2b86384ef4a7d353c44d05464f3e28ec70
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         changepane(paneStart);
@@ -191,17 +155,11 @@ public class BTController  implements Initializable,Serializable {
     }
 
 
-<<<<<<< HEAD
-    //Handler para acção do botão de abertura do ficheiro de texto, referente aos dados dos veículos
-    public void handleReadFileAction(ActionEvent actionEvent) {
-        changepane(paneUsers);
-=======
 
     public void handleReadUsersFileAction(ActionEvent actionEvent) {
         if(userST.size()>0) {
             while(userST.size()>0)userST.deleteMax();
         }
->>>>>>> ea2904436c01563a18cb5bb3801659d770df1015
         userTable.getItems().clear();
         userArrayList.clear();
         try {
@@ -417,15 +375,12 @@ public class BTController  implements Initializable,Serializable {
 
     //Método para inserção de novos veículos na vehicleComboBox (tab Penalties)
     private void addVehiclesToComboBox(ArrayList<Basic_User> vehicles) {}
-<<<<<<< HEAD
-=======
 
 
 
 
 
 
-<<<<<<< HEAD
 
 
 
@@ -614,57 +569,5 @@ public class BTController  implements Initializable,Serializable {
     }
 
 
-=======
-    ///geograph   vamos la ver se isto da
-    private void createGraphGroup(GeoGraph G,AnchorPane group) {
-        group.getChildren().clear();
-        for (int i= 0; i < gG.V(); i++){
-
-            Circle c = new Circle(gG.getPositionX(i), gG.getPositionY(i), RADIUS, Color.WHITE);
-            String nome=Admin_User.findIndexCacheName(i);
-            Text id = new Text(nome);
-
-            System.out.println(gG.getPositionX(i) + "" + gG.getPositionY(i));
-
-            StackPane sp = new StackPane();
-            sp.setLayoutX(gG.getPositionX(i) -RADIUS);
-            sp.setLayoutY(gG.getPositionY(i) - RADIUS);
-            sp.getChildren().addAll(c,id);
-
-            group.getChildren().add(sp);
-
-
-            for(Edge_Project v : gG.adjgeo(i)){
-                Line l = new Line(gG.getPositionX(i), gG.getPositionY(i), gG.getPositionX(v.to()), gG.getPositionY(v.from()));
-                group.getChildren().add(l);
-            }
-        }
-
-    }
-
-    public void handleCreateGraphButtonAction(ActionEvent actionEvent) {
-        GeoGraph g =new GeoGraph(CachesGraph.graph);
-        createGraphGroup(g,graphGroup);
-    }
-
-    public void handleEdgesButtonAction(ActionEvent actionEvent) {
-        //if(gG == null)gG = new GeoGraph(Double.parseDouble(this.nVerticesField.getText()));
-        String[] lines = this.edgesField.getText().split("\n");
-        for(String line : lines){
-            String[] aux = line.split(";");
-            Edge_Project e=new Edge_Project(Integer.parseInt(aux[0]), Integer.parseInt(aux[1]),Double.parseDouble(aux[2]),Float.parseFloat(aux[3]));
-            gG.addEdge(e);
-        }
-        //createGraphGroup();
-    }
-
-    public void handleClearButtonAction(ActionEvent actionEvent) {
-        this.graphGroup.getChildren().clear();
-        this.nVerticesField.setText("");
-        this.edgesField.setText("");
-        this.gG = null;
-    }
->>>>>>> dc100f2b86384ef4a7d353c44d05464f3e28ec70
->>>>>>> ea2904436c01563a18cb5bb3801659d770df1015
 }
 
