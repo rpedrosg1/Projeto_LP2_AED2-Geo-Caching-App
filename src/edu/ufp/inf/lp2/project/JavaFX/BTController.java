@@ -1,33 +1,55 @@
 package edu.ufp.inf.lp2.project.JavaFX;
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+import edu.ufp.inf.lp2.project.*;
+import edu.ufp.inf.lp2.project.Graphs.Edge_Project;
+=======
+import edu.princeton.cs.algs4.DirectedEdge;
+>>>>>>> ea2904436c01563a18cb5bb3801659d770df1015
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdOut;
 import edu.ufp.inf.lp2.project.Admin_User;
 import edu.ufp.inf.lp2.project.Basic_User;
 import edu.ufp.inf.lp2.project.Premium_User;
 import javafx.collections.FXCollections;
+>>>>>>> dc100f2b86384ef4a7d353c44d05464f3e28ec70
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableListBase;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+<<<<<<< HEAD
+=======
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.scene.text.Text;
+>>>>>>> ea2904436c01563a18cb5bb3801659d770df1015
 
 import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+import static edu.ufp.inf.lp2.project.Admin_User.cacheST;
+import static edu.ufp.inf.lp2.project.Admin_User.userST;
+=======
+import static edu.ufp.inf.lp2.project.Admin_User.CachesGraph;
+>>>>>>> dc100f2b86384ef4a7d353c44d05464f3e28ec70
+>>>>>>> ea2904436c01563a18cb5bb3801659d770df1015
 
 public class BTController  implements Initializable,Serializable {
 
-
-
-
-
-
+    public static final int GROUP_MARGIN = 20;
     //USERS
         //TABLE USERS
         public TableView<Basic_User> userTable;
@@ -43,7 +65,6 @@ public class BTController  implements Initializable,Serializable {
         public TextField user_nameField;
         public TextField user_idadeField;
 
-        public HBox user_HBox;
 
 
     //PAINEIS
@@ -53,17 +74,53 @@ public class BTController  implements Initializable,Serializable {
     public Pane paneAdmin;
     public Pane paneTravelBugs;
 
+    //Caches
+        //Graphs
+        public TextField nVerticesField;
+        public TextArea edgesField;
+        public Group graphGroup;
+        final double radius=20;
+        private GeoGraph gG;
+
+    public ComboBox<String> combobox_Caches;
+
+    //TravelBugs
+
+    public ComboBox<String> combobox_TraveLbugs;
+
+
+
+
+
     private static final String PATH_USERS = ".//data//usersteste.txt";
+    private static final String PATH_TB = ".//data//tbteste.txt";
+    private static final String PATH_CACHES = ".//data//cacheteste.txt";
     private static final String PATH_VEHICLES_BIN = ".//data//vehiclesbin.bin";
     private static final String FILE_DELIMITTER = ";";
     private static final String PATH_BIN = ".//data//data_bt.bin";
 
     private ArrayList<Basic_User> userArrayList = new ArrayList<>();
+    public TravelBug currentUser;
+    private ArrayList<Cache> cacheArrayList = new ArrayList<>();
+    public Cache currentCache;
+    private ArrayList<TravelBug> travelBugArrayList = new ArrayList<>();
+    public TravelBug currentTravelBug;
 
+
+<<<<<<< HEAD
+=======
+
+<<<<<<< HEAD
+=======
+    public TextField nVerticesField;
+    public TextArea edgesField;
+    public AnchorPane graphGroup;
+>>>>>>> ea2904436c01563a18cb5bb3801659d770df1015
 
     //Metodo para inicialização dos elementos da tabela vehiclesTable,
     //do arrayList vehicleArrayList e do objecto bt, relativo à classe
     //TransitPolice
+>>>>>>> dc100f2b86384ef4a7d353c44d05464f3e28ec70
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         changepane(paneStart);
@@ -79,11 +136,7 @@ public class BTController  implements Initializable,Serializable {
         typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
         typeCol.setCellFactory(TextFieldTableCell.forTableColumn());
 
-        ObservableList<String> list = combobox_typeUser.getItems();
-        list.add("Basic");
-        list.add("Premium");
-        list.add("Admin");
-        combobox_typeUser.setPromptText("Type of User");
+
 
 
 
@@ -107,27 +160,52 @@ public class BTController  implements Initializable,Serializable {
     //Handler mudar o Panel
     public void handlePanelUsers(ActionEvent actionEvent) {
         changepane(paneUsers);
+        ObservableList<String> list = combobox_typeUser.getItems();
+        list.add("Basic");
+        list.add("Premium");
+        list.add("Admin");
+        combobox_typeUser.setPromptText("Type of User");
+        userTable.getItems().clear();
     }
     //Handler mudar o Panel
-    public void handlePanelCaches(ActionEvent actionEvent) {
+    public void handlePanelCaches(ActionEvent actionEvent) throws IOException {
+
         changepane(paneCaches);
+        handleReadCachesFileAction(new ActionEvent());
     }
     //Handler mudar o Panel
     public void handlePanelAdmin(ActionEvent actionEvent) {
         changepane(paneAdmin);
     }
     //Handler mudar o Panel
-    public void handlePanelTravelBufs(ActionEvent actionEvent) {
+    public void handlePanelTravelBufs(ActionEvent actionEvent) throws IOException {
         changepane(paneTravelBugs);
+        if(userArrayList.size()==0){
+            handleReadUsersFileAction( new ActionEvent());
+        }
+        if(cacheArrayList.size()==0){
+            handleReadCachesFileAction( new ActionEvent());
+        }
+        handleReadTravelBugAction( new ActionEvent());
+
     }
 
 
+<<<<<<< HEAD
     //Handler para acção do botão de abertura do ficheiro de texto, referente aos dados dos veículos
     public void handleReadFileAction(ActionEvent actionEvent) {
         changepane(paneUsers);
+=======
+
+    public void handleReadUsersFileAction(ActionEvent actionEvent) {
+        if(userST.size()>0) {
+            while(userST.size()>0)userST.deleteMax();
+        }
+>>>>>>> ea2904436c01563a18cb5bb3801659d770df1015
         userTable.getItems().clear();
+        userArrayList.clear();
         try {
-            userTable.getItems().addAll(readVehiclesFromFile());
+            userTable.getItems().addAll(readUsersFromFile());
             /*for (Basic_User user : readVehiclesFromFile()){
                 userTable.getItems().add((Basic_User) user);
             }
@@ -141,13 +219,12 @@ public class BTController  implements Initializable,Serializable {
 
 
     //Handler para leitura de dados dos veículos a partir de um ficheiro de texto
-    private ArrayList<Basic_User> readVehiclesFromFile() throws IOException {
+    private ArrayList<Basic_User> readUsersFromFile() throws IOException {
         if (!userArrayList.isEmpty()) {
             userArrayList.clear();
         }
         BufferedReader br = openBufferedReader(PATH_USERS);
         if (br != null) {
-            br.readLine(); // read header
             String line = br.readLine();
             while (line != null) {
                 String[] dFields = line.split(FILE_DELIMITTER);
@@ -164,7 +241,7 @@ public class BTController  implements Initializable,Serializable {
                 }
                 line = br.readLine();
             }
-            System.out.println("Vehicles lidos");
+            System.out.println("Users lidos");
             br.close();
         }
         return userArrayList;
@@ -340,5 +417,254 @@ public class BTController  implements Initializable,Serializable {
 
     //Método para inserção de novos veículos na vehicleComboBox (tab Penalties)
     private void addVehiclesToComboBox(ArrayList<Basic_User> vehicles) {}
+<<<<<<< HEAD
+=======
+
+
+
+
+
+
+<<<<<<< HEAD
+
+
+
+
+    //////////////////////////CACHES////////////////////////
+    private void handleReadCachesFileAction(ActionEvent actionEvent) throws IOException {
+        cacheArrayList.clear();
+        if(userArrayList.size()==0)userArrayList=readUsersFromFile();
+        cacheArrayList=readCachesFromFile();
+        for (Cache c : cacheArrayList){
+            combobox_Caches.getItems().add(c.nome);
+        }
+
+    }
+
+    private ArrayList<Cache> readCachesFromFile() throws IOException {
+        if (!cacheArrayList.isEmpty()) {
+            cacheArrayList.clear();
+        }
+        if (userArrayList.isEmpty()) {
+            userArrayList=readUsersFromFile();
+        }
+       /* BufferedReader br = openBufferedReader(PATH_CACHES);
+        if (br != null) {
+
+            String line = br.readLine();// read header
+            while (line != null) {
+                String[] dFields = line.split(FILE_DELIMITTER);
+                if(userST.isEmpty())Files_rw.read_Users();
+                if(cacheST.isEmpty())Files_rw.read_Caches();
+                //Premium_User creatorCache = (Premium_User) userST.get(dFields[0]);
+                Premium_User creatorCache = (Premium_User) userArrayList.get(Integer.parseInt(dFields[0]));
+                //public Cache(Premium_User mycreator_user, String nome, String descrisao, Localizacao myLocalizacao, Dificuldade myDificuldade, Tipo myTipo) {
+                //3|geocache1|Original!|PREMIUM|FACIL|28.0|Norte|41.1720859|-8.6148178
+
+                Cache c = new Cache(creatorCache,dFields[1],dFields[2],new Localizacao() );
+
+                line = br.readLine();
+            }
+
+
+            System.out.println("TravelBugs lidos");
+            br.close();
+        }
+        */
+        if(userST.isEmpty())Files_rw.read_Users();
+        if(cacheST.isEmpty())Files_rw.read_Caches();
+        for (String key : cacheST.keys()){
+            cacheArrayList.add(cacheST.get(key));
+        }
+        System.out.println("Caches lidos");
+
+        return cacheArrayList;
+    }
+
+    public void handleCurrentCacheAction(ActionEvent actionEvent){
+        for (Cache c : cacheArrayList){
+            if(c.nome.equals(combobox_Caches.getSelectionModel().getSelectedItem()))currentCache=c;
+        }
+        System.out.println("Cache: " + currentCache.nome);
+    }
+
+
+
+    ///Graphs
+
+    public void createGraphGroup(){
+        graphGroup.getChildren().clear();
+
+        for(int i=0; i<gG.V(); i++){
+            Circle c = new Circle(gG.getVertexPosX(i), gG.getVertexPosY(i), radius);
+            c.setFill(Color.WHITE);
+
+            StackPane stack = new StackPane();
+            stack.setLayoutX(gG.getVertexPosX(i)-radius);
+            stack.setLayoutY(gG.getVertexPosY(i)-radius);
+            stack.getChildren().addAll(c, new Text(i + ""));
+
+            graphGroup.getChildren().add(stack);
+
+            if(gG.E() > 0){
+                for(Edge_Project edg: gG.adj(i)){
+                    int index1 = Integer.parseInt(Admin_User.findIndexCacheName(edg.from()));
+                    int index2 = Integer.parseInt(Admin_User.findIndexCacheName(edg.to()));
+                    Line line = new Line(gG.getVertexPosX(i), gG.getVertexPosY(i), gG.getVertexPosX(index1), gG.getVertexPosY(index2));
+                    graphGroup.getChildren().add(line);
+                }
+            }
+        }
+    }
+
+    private void createNewGraph(int nVertices){
+        if(gG == null){
+            gG = new GeoGraph(nVertices);
+        } else
+            gG = new GeoGraph(gG, nVertices);
+    }
+
+    public void handleClearButtonAction(ActionEvent actionEvent) {
+        graphGroup.getChildren().clear();
+        edgesField.setText("");
+        nVerticesField.setText("");
+        gG = null;
+    }
+
+    public void handleVerticesButtonAction(ActionEvent actionEvent) {
+        try{
+            createNewGraph(Integer.parseInt(nVerticesField.getText()));
+            createGraphGroup();
+        } catch(NumberFormatException e){
+            System.out.println("Error: Vertices not inserted");
+        }
+    }
+
+    public void handleEdgesButtonAction(ActionEvent actionEvent) {
+        try{
+            if(gG != null)
+                gG = new GeoGraph(gG);
+            else
+                createNewGraph(Integer.parseInt(nVerticesField.getText()));
+
+            String[] lines = edgesField.getText().split("\n");
+            for(String line: lines){
+                String[] position = line.split(";");
+                int v = Integer.parseInt(position[0]);
+                int adj = Integer.parseInt(position[1]);
+                Edge_Project e = new Edge_Project(v,adj,0,0);
+                if(!gG.containsEdge(v, adj))
+                    gG.addEdge(e);
+            }
+            createGraphGroup();
+        } catch(NumberFormatException e){
+            System.out.println("Error: Values not inserted");
+        }
+    }
+
+
+    //////////////////////////ADMIN////////////////////////
+
+
+
+    //////////////////////////TRAVELBUG////////////////////////
+
+    public void handleReadTravelBugAction(ActionEvent actionEvent) throws IOException {
+        travelBugArrayList.clear();
+        if(userArrayList.size()==0)userArrayList=readUsersFromFile();
+        travelBugArrayList=readTravelBugFromFile();
+        for (TravelBug tb : travelBugArrayList){
+            combobox_TraveLbugs.getItems().add(tb.nome);
+        }
+
+    }
+
+    private ArrayList<TravelBug> readTravelBugFromFile() throws IOException {
+        if (!travelBugArrayList.isEmpty()) {
+            travelBugArrayList.clear();
+        }
+        BufferedReader br = openBufferedReader(PATH_TB);
+        if (br != null) {
+
+            String line = br.readLine();// read header
+            while (line != null) {
+                String[] dFields = line.split(FILE_DELIMITTER);
+                //String id,String nome,Premium_User myCreator, Cache missao
+                if(userST.isEmpty())Files_rw.read_Users();
+                if(cacheST.isEmpty())Files_rw.read_Caches();
+                Premium_User creatorTB = (Premium_User) userST.get(dFields[4]);
+                Cache missao = cacheST.get(dFields[3]);
+                TravelBug tb = new TravelBug(dFields[0], dFields[1],creatorTB,missao);
+                travelBugArrayList.add(tb);
+                line = br.readLine();
+            }
+            System.out.println("TravelBugs lidos");
+            br.close();
+        }
+
+
+        return travelBugArrayList;
+    }
+
+    public void handleCurrentTravelBugAction(ActionEvent actionEvent){
+        for (TravelBug tb : travelBugArrayList){
+            if(tb.nome.equals(combobox_TraveLbugs.getSelectionModel().getSelectedItem()))currentTravelBug=tb;
+        }
+        System.out.println("TB: " + currentCache.nome);
+    }
+
+
+=======
+    ///geograph   vamos la ver se isto da
+    private void createGraphGroup(GeoGraph G,AnchorPane group) {
+        group.getChildren().clear();
+        for (int i= 0; i < gG.V(); i++){
+
+            Circle c = new Circle(gG.getPositionX(i), gG.getPositionY(i), RADIUS, Color.WHITE);
+            String nome=Admin_User.findIndexCacheName(i);
+            Text id = new Text(nome);
+
+            System.out.println(gG.getPositionX(i) + "" + gG.getPositionY(i));
+
+            StackPane sp = new StackPane();
+            sp.setLayoutX(gG.getPositionX(i) -RADIUS);
+            sp.setLayoutY(gG.getPositionY(i) - RADIUS);
+            sp.getChildren().addAll(c,id);
+
+            group.getChildren().add(sp);
+
+
+            for(Edge_Project v : gG.adjgeo(i)){
+                Line l = new Line(gG.getPositionX(i), gG.getPositionY(i), gG.getPositionX(v.to()), gG.getPositionY(v.from()));
+                group.getChildren().add(l);
+            }
+        }
+
+    }
+
+    public void handleCreateGraphButtonAction(ActionEvent actionEvent) {
+        GeoGraph g =new GeoGraph(CachesGraph.graph);
+        createGraphGroup(g,graphGroup);
+    }
+
+    public void handleEdgesButtonAction(ActionEvent actionEvent) {
+        //if(gG == null)gG = new GeoGraph(Double.parseDouble(this.nVerticesField.getText()));
+        String[] lines = this.edgesField.getText().split("\n");
+        for(String line : lines){
+            String[] aux = line.split(";");
+            Edge_Project e=new Edge_Project(Integer.parseInt(aux[0]), Integer.parseInt(aux[1]),Double.parseDouble(aux[2]),Float.parseFloat(aux[3]));
+            gG.addEdge(e);
+        }
+        //createGraphGroup();
+    }
+
+    public void handleClearButtonAction(ActionEvent actionEvent) {
+        this.graphGroup.getChildren().clear();
+        this.nVerticesField.setText("");
+        this.edgesField.setText("");
+        this.gG = null;
+    }
+>>>>>>> dc100f2b86384ef4a7d353c44d05464f3e28ec70
+>>>>>>> ea2904436c01563a18cb5bb3801659d770df1015
 }
 

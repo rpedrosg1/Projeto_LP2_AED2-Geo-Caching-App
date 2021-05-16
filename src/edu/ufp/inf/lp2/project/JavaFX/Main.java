@@ -13,7 +13,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("bt.fxml"));
         Scene scene = new Scene(root);
 
-        primaryStage.setTitle("Graph Creator");
+        primaryStage.setTitle("GeoCaching APP");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

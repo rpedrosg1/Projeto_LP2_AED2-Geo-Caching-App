@@ -1,0 +1,3 @@
+tb1;travelbug1;geocache1;geocache15;5
+tb2;travelbug2;geocache2;geocache17;2
+tb3;travelbug3;geocache3;geocache12;6
