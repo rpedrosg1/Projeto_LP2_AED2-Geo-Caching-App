@@ -278,8 +278,10 @@ public class AED2_EdgeWeightedDigraph {
     private void setRandomPositions(int pos){
         for(int i=pos; i<this.V(); i++){
             Random r = new Random();
-            setPositionX(i, (int)(r.nextDouble() * 600));
-            setPositionY(i, (int) (r.nextDouble() * 271));
+            //setPositionX(i, (int)(GROUP_MARGIN + r.nextDouble() * 700));
+            //setPositionY(i, (int) (GROUP_MARGIN + r.nextDouble() * 600));
+            positionsX[i] = (int)(GROUP_MARGIN + r.nextDouble() * (750-GROUP_MARGIN*2));
+            positionsY[i] = (int)(GROUP_MARGIN + r.nextDouble() * (700-GROUP_MARGIN*2));
         }
     }
     public void setPositionX(int pos, int value){
@@ -293,8 +295,8 @@ public class AED2_EdgeWeightedDigraph {
 
     private void setPositions(int pos,Cache c){
 
-        positionsX[pos] = (int) (GROUP_MARGIN + c.myLocalizacao.longitude * (600-GROUP_MARGIN*2));
-        positionsY[pos] = (int)(GROUP_MARGIN + c.myLocalizacao.latitude * (371-GROUP_MARGIN*2));
+        positionsX[pos] = (int) (GROUP_MARGIN + c.myLocalizacao.longitude * (750-GROUP_MARGIN*2));
+        positionsY[pos] = (int)(GROUP_MARGIN + c.myLocalizacao.latitude * (700-GROUP_MARGIN*2));
 
     }
 

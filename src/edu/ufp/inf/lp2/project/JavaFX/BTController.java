@@ -453,6 +453,7 @@ public class BTController  implements Initializable,Serializable {
 
     public void createGraphGroup(){
         graphGroup.getChildren().clear();
+        int aux=0;
         for(int i=0; i<gG.V(); i++){
             Circle c = new Circle(gG.getVertexPosX(i), gG.getVertexPosY(i), radius);
             c.setFill(Color.WHITE);
@@ -467,16 +468,22 @@ public class BTController  implements Initializable,Serializable {
             if(gG.E() > 0){
                 for (String key:CachesGraph.st){
                    int index= CachesGraph.st.get(key);
-                    for(Edge_Project edg: gG.adj(index)){
-                        int index1 = edg.from();
-                        int index2 = edg.to();
-                        Line line = new Line(gG.getVertexPosX(i), gG.getVertexPosY(i), gG.getVertexPosX(index1), gG.getVertexPosY(index2));
-                        graphGroup.getChildren().add(line);
-                    }
+                   if(index==i) {
+                       for (Edge_Project edg : gG.adj(index)) {
+                           aux++;
+                           int index1 = edg.from();
+                           int index2 = edg.to();
+                           //i ou index 1
+                           Line line = new Line(gG.getVertexPosX(index1), gG.getVertexPosY(index1), gG.getVertexPosX(index2), gG.getVertexPosY(index2));
+                           graphGroup.getChildren().add(line);
+                       }
+
+                   }
                 }
 
             }
         }
+        System.out.println("\nNumero de edges no graph = " + aux + "\n");
     }
 
     public void createNewGraph(int nVertices,ArrayList<Cache> c){
