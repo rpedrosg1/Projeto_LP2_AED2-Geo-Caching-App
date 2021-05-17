@@ -236,7 +236,7 @@
                         </Tab>
                         <Tab text="Graph">
                            <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                              <AnchorPane minHeight="-10.0" minWidth="20.0" prefHeight="0.0" prefWidth="50.0">
                                  <children>
                                     <Group fx:id="graphGroup" />
                                  </children>

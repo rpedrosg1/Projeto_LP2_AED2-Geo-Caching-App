@@ -2,7 +2,12 @@ package edu.ufp.inf.lp2.project.Graphs;
 import edu.princeton.cs.algs4.*;
 import edu.ufp.inf.lp2.project.Cache;
 
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
+import java.util.Random;
+
+import static edu.ufp.inf.lp2.project.Admin_User.CachesGraph;
+import static edu.ufp.inf.lp2.project.JavaFX.BTController.GROUP_MARGIN;
 
 
 public class AED2_EdgeWeightedDigraph {
@@ -12,7 +17,8 @@ public class AED2_EdgeWeightedDigraph {
     public int E;                      // number of edges in this digraph
     public Bag<Edge_Project>[] adj;    // adj[v] = adjacency list for vertex v
     public int[] indegree;             // indegree[v] = indegree of vertex v ... For an undirected graph, the degree of a vertex is equal to the number of adjacent vertices. A special case is a loop, which adds two to the degree. This can be understood by letting each connection of the loop edge count as its own adjacent vertex.
-
+    private int[] positionsX;
+    private int[] positionsY;
     /**
      * Initializes an empty edge-weighted digraph with {@code V} vertices and 0 edges.
      *
@@ -24,9 +30,13 @@ public class AED2_EdgeWeightedDigraph {
         this.V = V;
         this.E = 0;
         this.indegree = new int[V];
+        this.positionsX = new int[V];
+        this.positionsY = new int[V];
+
         adj = (Bag<Edge_Project>[]) new Bag[V];
         for (int v = 0; v < V; v++)
             adj[v] = new Bag<Edge_Project>();
+        setRandomPositions(0);
     }
 
     /**
@@ -89,6 +99,31 @@ public class AED2_EdgeWeightedDigraph {
             throw new IllegalArgumentException("invalid input format in Graph_Project constructor", e);
         }
     }
+    public AED2_EdgeWeightedDigraph(ArrayList<Cache> c, int nVertices) {
+        this(nVertices);
+        positionsX = new int[nVertices];
+        positionsY = new int[nVertices];
+        setRandomPositions(0);
+    }
+    public AED2_EdgeWeightedDigraph(AED2_EdgeWeightedDigraph gG, int newSize) {
+        this(newSize);
+        positionsX = new int[newSize];
+        positionsY = new int[newSize];
+
+        for(int i=0; i<gG.V() && i<newSize; i++){
+            positionsX[i] = gG.positionsX[i];
+            positionsY[i] = gG.positionsY[i];
+        }
+
+        setRandomPositions(gG.V);
+
+        for(int v=0; v<gG.V(); v++){
+            for(Edge_Project adj: gG.adj(v)){
+                this.addEdge(adj);
+            }
+        }
+
+    }
 
     /**
      * Initializes a new edge-weighted digraph that is a deep copy of {@code G}.
@@ -98,6 +133,8 @@ public class AED2_EdgeWeightedDigraph {
     public AED2_EdgeWeightedDigraph(AED2_EdgeWeightedDigraph G) {
         this(G.V());
         this.E = G.E();
+        this.positionsX = G.positionsX;
+        this.positionsY = G.positionsY;
         for (int v = 0; v < G.V(); v++)
             this.indegree[v] = G.indegree(v);
         for (int v = 0; v < G.V(); v++) {
@@ -228,17 +265,54 @@ public class AED2_EdgeWeightedDigraph {
         return s.toString();
     }
 
-    /**
-     * Unit tests the {@code EdgeWeightedDigraph} data type.
-     *
-     * @param args the command-line arguments
-     */
-    public static void main(String[] args) {
-        In in = new In(args[0]);
-        AED2_EdgeWeightedDigraph G = new AED2_EdgeWeightedDigraph(in);
-        StdOut.println(G);
+
+    private void setVertexPosition(int vertexIDx, int x, int y){
+        positionsX[vertexIDx] = x;
+        positionsY[vertexIDx] = y;
     }
 
+    public int getVertexPosX(int vertexIDx) { return positionsX[vertexIDx];}
+
+    public int getVertexPosY(int vertexIDx) { return positionsY[vertexIDx];}
+
+    private void setRandomPositions(int pos){
+        for(int i=pos; i<this.V(); i++){
+            Random r = new Random();
+            setPositionX(i, (int)(r.nextDouble() * 600));
+            setPositionY(i, (int) (r.nextDouble() * 271));
+        }
+    }
+    public void setPositionX(int pos, int value){
+        positionsX[pos] = value;
+    }
+
+    public void setPositionY(int pos, int value){
+        positionsY[pos] = value;
+    }
+
+
+    private void setPositions(int pos,Cache c){
+
+        positionsX[pos] = (int) (GROUP_MARGIN + c.myLocalizacao.longitude * (600-GROUP_MARGIN*2));
+        positionsY[pos] = (int)(GROUP_MARGIN + c.myLocalizacao.latitude * (371-GROUP_MARGIN*2));
+
+    }
+
+    public boolean containsEdge(int v, int a){
+        AED_DijkstraSP dijkstraSP = new AED_DijkstraSP(this,v);
+        return dijkstraSP.hasPathTo(a);
+       /* for(Edge_Project adj: this.adj(v))
+            if(adj == a) return true;
+
+        for(Edge_Project adj: this.adj(a))
+            if(adj==v) return true;
+
+
+
+        return false;
+
+        */
+    }
 
 
 }

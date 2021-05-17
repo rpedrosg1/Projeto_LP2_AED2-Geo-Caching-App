@@ -1,6 +1,7 @@
 package edu.ufp.inf.lp2.project.JavaFX;
 
 import edu.ufp.inf.lp2.project.*;
+import edu.ufp.inf.lp2.project.Graphs.AED2_EdgeWeightedDigraph;
 import edu.ufp.inf.lp2.project.Graphs.Edge_Project;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,14 +20,16 @@ import javafx.scene.text.Text;
 import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import static edu.ufp.inf.lp2.project.Admin_User.cacheST;
 import static edu.ufp.inf.lp2.project.Admin_User.userST;
+import static edu.ufp.inf.lp2.project.Admin_User.CachesGraph;
 
 public class BTController  implements Initializable,Serializable {
 
-    public static final int GROUP_MARGIN = 20;
+    public static final int GROUP_MARGIN =20;
     //USERS
         //TABLE USERS
         public TableView<Basic_User> userTable;
@@ -57,7 +60,7 @@ public class BTController  implements Initializable,Serializable {
         public TextArea edgesField;
         public Group graphGroup;
         final double radius=20;
-        private GeoGraph gG;
+        private AED2_EdgeWeightedDigraph gG;
 
     public ComboBox<String> combobox_Caches;
 
@@ -431,6 +434,7 @@ public class BTController  implements Initializable,Serializable {
         for (String key : cacheST.keys()){
             cacheArrayList.add(cacheST.get(key));
         }
+        if (CachesGraph.st.size()==0)Files_rw.read_GeoCacheGraphs();
         System.out.println("Caches lidos");
 
         return cacheArrayList;
@@ -449,7 +453,6 @@ public class BTController  implements Initializable,Serializable {
 
     public void createGraphGroup(){
         graphGroup.getChildren().clear();
-
         for(int i=0; i<gG.V(); i++){
             Circle c = new Circle(gG.getVertexPosX(i), gG.getVertexPosY(i), radius);
             c.setFill(Color.WHITE);
@@ -462,21 +465,33 @@ public class BTController  implements Initializable,Serializable {
             graphGroup.getChildren().add(stack);
 
             if(gG.E() > 0){
-                for(Edge_Project edg: gG.adj(i)){
-                    int index1 = Integer.parseInt(Admin_User.findIndexCacheName(edg.from()));
-                    int index2 = Integer.parseInt(Admin_User.findIndexCacheName(edg.to()));
-                    Line line = new Line(gG.getVertexPosX(i), gG.getVertexPosY(i), gG.getVertexPosX(index1), gG.getVertexPosY(index2));
-                    graphGroup.getChildren().add(line);
+                for (String key:CachesGraph.st){
+                   int index= CachesGraph.st.get(key);
+                    for(Edge_Project edg: gG.adj(index)){
+                        int index1 = edg.from();
+                        int index2 = edg.to();
+                        Line line = new Line(gG.getVertexPosX(i), gG.getVertexPosY(i), gG.getVertexPosX(index1), gG.getVertexPosY(index2));
+                        graphGroup.getChildren().add(line);
+                    }
                 }
+
             }
         }
     }
 
-    private void createNewGraph(int nVertices){
+    public void createNewGraph(int nVertices,ArrayList<Cache> c){
         if(gG == null){
-            gG = new GeoGraph(nVertices);
+            gG = new AED2_EdgeWeightedDigraph(c,nVertices);
+            for (Cache cache : c){
+                int index=CachesGraph.st.get(cache.nome);
+                Iterable<Edge_Project> adj =CachesGraph.graph.adj(index);
+                for (Edge_Project e : adj){
+                    Edge_Project ep=new Edge_Project(e.from(),e.to(),e.weight(),e.getTime());
+                    gG.addEdge(ep);
+                }
+            }
         } else
-            gG = new GeoGraph(gG, nVertices);
+            gG = new AED2_EdgeWeightedDigraph(gG, nVertices);
     }
 
     public void handleClearButtonAction(ActionEvent actionEvent) {
@@ -488,7 +503,7 @@ public class BTController  implements Initializable,Serializable {
 
     public void handleVerticesButtonAction(ActionEvent actionEvent) {
         try{
-            createNewGraph(Integer.parseInt(nVerticesField.getText()));
+            createNewGraph(cacheArrayList.size(),cacheArrayList);
             createGraphGroup();
         } catch(NumberFormatException e){
             System.out.println("Error: Vertices not inserted");
@@ -498,9 +513,9 @@ public class BTController  implements Initializable,Serializable {
     public void handleEdgesButtonAction(ActionEvent actionEvent) {
         try{
             if(gG != null)
-                gG = new GeoGraph(gG);
+                gG = new AED2_EdgeWeightedDigraph(gG);
             else
-                createNewGraph(Integer.parseInt(nVerticesField.getText()));
+                createNewGraph(Integer.parseInt(nVerticesField.getText()),cacheArrayList);
 
             String[] lines = edgesField.getText().split("\n");
             for(String line: lines){
