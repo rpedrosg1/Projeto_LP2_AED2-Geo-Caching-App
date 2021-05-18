@@ -83,6 +83,14 @@ public class Basic_User implements GestaoUtilizadores, Serializable {
    * @param nome nome do objeto
    */
   public void CriarObjeto(String id, String nome) {
+    if(this.myObj.size()>0){
+      for (String key : this.myObj.keys()){
+        if(this.myObj.get(key).id.equals(id)){
+          System.err.println("Erro ao criar objeto , id ja existe");
+          return;
+        }
+      }
+    }
     Objeto obj = new Objeto(id,nome,this);
     myObj.put(obj.id,obj);
     obj.setMyuser(this);
