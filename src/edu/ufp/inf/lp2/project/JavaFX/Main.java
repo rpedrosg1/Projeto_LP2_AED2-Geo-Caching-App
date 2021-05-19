@@ -20,7 +20,7 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-        edu.ufp.inf.lp2.project.Main.teste_Graphs();
+        //edu.ufp.inf.lp2.project.Main.teste_Graphs();
         launch(args);
     }
 }

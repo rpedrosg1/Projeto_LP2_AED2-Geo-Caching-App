@@ -28,13 +28,13 @@ public class Files_rw {
         for (String user : userST.keys()) {
             if (userST.get(user).getClass().equals(Basic_User.class)) {
                 Basic_User u = userST.get(user);
-                out.print("BASIC|" + u.nome + "|" + u.id + "|" + u.idade + "|" + u.nr_caches_visitadas + "|\n");
+                out.print("BASIC|" + u.nome + FILE_DELIMITTER + u.id + FILE_DELIMITTER+ u.idade + FILE_DELIMITTER + u.nr_caches_visitadas + "\n");
             } else if (userST.get(user).getClass().equals(Premium_User.class)) {
                 Basic_User u = userST.get(user);
-                out.print("PREMIUM|" + u.nome + "|" + u.id + "|" + u.idade + "|" + u.nr_caches_visitadas + "|\n");
+                out.print("PREMIUM" +FILE_DELIMITTER + u.nome + FILE_DELIMITTER + u.id + FILE_DELIMITTER + u.idade + FILE_DELIMITTER + u.nr_caches_visitadas + "\n");
             } else if (userST.get(user).getClass().equals(Admin_User.class)) {
                 Basic_User u = userST.get(user);
-                out.print("ADMIN|" + u.nome + "|" + u.id + "|" + u.idade + "|" + u.nr_caches_visitadas + "|\n");
+                out.print("ADMIN"+FILE_DELIMITTER + u.nome + FILE_DELIMITTER + u.id + FILE_DELIMITTER + u.idade + FILE_DELIMITTER + u.nr_caches_visitadas + "\n");
             }
         }
         out.close();
@@ -56,7 +56,7 @@ public class Files_rw {
             int idade = 0, nr_caches_visitadas = 0;
             for (int i = 0; i < size; i++) {
 
-                if (curLine.charAt(i) == '|') {
+                if (curLine.charAt(i) == ';') {
                     word = curLine.substring(lastword, i);
                     currword++;
                     lastword = i + 1;
@@ -764,6 +764,7 @@ public class Files_rw {
 
         read_TravelBugs_HCaches();
         read_TravelBugs_HUsers();
+        read_GeoCacheGraphs();
     }
 
 

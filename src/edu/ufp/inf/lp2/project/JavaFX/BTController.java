@@ -48,7 +48,9 @@ public class BTController  implements Initializable,Serializable {
 
         public ComboBox<String> combobox_Users;
     //Objetos
-        private ArrayList<Objeto> currentUserObjetos = new ArrayList<>();
+
+        private ArrayList<Objeto> objetosAllArrayList = new ArrayList<>();
+        private ArrayList<Objeto> currentUserObjArrayList = new ArrayList<>();
 
         public TableView<Objeto> userObjetosTable;
         public TableColumn<Objeto,String> idObjCol;
@@ -151,7 +153,7 @@ public class BTController  implements Initializable,Serializable {
     //Handler mudar o Panel
     public void handlePanelUsers(ActionEvent actionEvent) throws IOException {
         changepane(paneUsers);
-        if(userArrayList.size()==0)userArrayList=readUsersFromFile();
+        handleReadUsersFileAction(new ActionEvent());
         combobox_Users.getItems().clear();
         for (Basic_User user : userArrayList){
             combobox_Users.getItems().add(user.nome);
@@ -164,7 +166,7 @@ public class BTController  implements Initializable,Serializable {
         changepane(paneCaches);
         combobox_Caches.getItems().clear();
         handleReadCachesFileAction(new ActionEvent());
-        Files_rw.read_Objetos();
+        //Files_rw.read_Objetos();
     }
     //Handler mudar o Panel
     public void handlePanelAdmin(ActionEvent actionEvent) {
@@ -238,22 +240,23 @@ public class BTController  implements Initializable,Serializable {
         }
 
         public void handleReadUsersFileAction(ActionEvent actionEvent) {
-            if(userST.size()>0) {
-                while(userST.size()>0)userST.deleteMax();
+            if(userST.size()==0) {
+                Files_rw.read_Users();
             }
             userTable.getItems().clear();
             userArrayList.clear();
-            try {
+            for (String key : userST.keys()){
+                userArrayList.add(userST.get(key));
+            }
+           /* try {
                 userTable.getItems().addAll(readUsersFromFile());
-                /*for (Basic_User user : readVehiclesFromFile()){
-                    userTable.getItems().add((Basic_User) user);
-                }
 
-                 */
+
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
+        */
         }
 
         public void handleSaveUsersFileAction(ActionEvent actionEvent) {
@@ -307,11 +310,11 @@ public class BTController  implements Initializable,Serializable {
         if(cacheST.isEmpty())Files_rw.read_Caches();
         Files_rw.read_Objetos();
         for (String key : currentUser.myObj.keys()){
-            currentUserObjetos.add(currentUser.myObj.get(key));
+            currentUserObjArrayList.add(currentUser.myObj.get(key));
         }
         System.out.println("Caches Objetos");
 
-        return currentUserObjetos;
+        return currentUserObjArrayList;
     }
 
         public void handleOnClickInventario(ActionEvent actionEvent) {
@@ -336,7 +339,7 @@ public class BTController  implements Initializable,Serializable {
 
         public void buttonCarregarUsersObjetos(ActionEvent actionEvent) throws IOException {
             readObjetosUsersFromFile();
-            if(currentUserObjetos.size()>0)userObjetosTable.getItems().addAll(currentUserObjetos);
+            if(currentUserObjArrayList.size()>0)userObjetosTable.getItems().addAll(currentUserObjArrayList);
         }
 
 
@@ -356,7 +359,7 @@ public class BTController  implements Initializable,Serializable {
         if(type.equals("Objeto")){
             Objeto o = new Objeto(obj_idField.getText(),obj_nameField.getText(),currentUser);
             o.myuser=currentUser;
-            currentUserObjetos.add(o);
+            currentUserObjArrayList.add(o);
             currentUser.myObj.put(o.id,o);
             obj_idField.setText("");
             obj_nameField.setText("");
@@ -368,7 +371,7 @@ public class BTController  implements Initializable,Serializable {
             TravelBug tb = new TravelBug(obj_idField.getText(),obj_nameField.getText(), (Premium_User) currentUser,cacheST.get("geocache1"));
             currentUser.myObj.put(tb.id,tb);
             userObjetosTable.getItems().add(tb);
-            currentUserObjetos.add(tb);
+            currentUserObjArrayList.add(tb);
             obj_idField.setText("");
             obj_nameField.setText("");
             //textAreaObjetos.setText(tb.toString());
@@ -492,11 +495,11 @@ public class BTController  implements Initializable,Serializable {
 
     //////////////////////////CACHES////////////////////////
     private void handleReadCachesFileAction(ActionEvent actionEvent) throws IOException {
+        handleReadUsersFileAction(new ActionEvent());
         cacheArrayList.clear();
-        if(userArrayList.size()==0)userArrayList=readUsersFromFile();
-        cacheArrayList=readCachesFromFile();
-        for (Cache c : cacheArrayList){
-            combobox_Caches.getItems().add(c.nome);
+        if(cacheST.size()==0)Files_rw.read_Caches();
+        for (String key: cacheST.keys()){
+            cacheArrayList.add(cacheST.get(key));
         }
 
     }
@@ -575,7 +578,9 @@ public class BTController  implements Initializable,Serializable {
                            int index1 = edg.from();
                            int index2 = edg.to();
                            //i ou index 1
+
                            Line line = new Line(gG.getVertexPosX(index1), gG.getVertexPosY(index1), gG.getVertexPosX(index2), gG.getVertexPosY(index2));
+                           //Arrow arrow = new Arrow(line,new Line(),new Line());
                            graphGroup.getChildren().add(line);
                        }
 
@@ -648,8 +653,10 @@ public class BTController  implements Initializable,Serializable {
     //////////////////////////TRAVELBUG////////////////////////
 
     public void handleReadTravelBugAction(ActionEvent actionEvent) throws IOException {
+        if(userArrayList.size()==0)handleReadUsersFileAction(new ActionEvent());
+        if(cacheArrayList.size()==0)handleReadCachesFileAction(new ActionEvent());
         travelBugArrayList.clear();
-        if(userArrayList.size()==0)userArrayList=readUsersFromFile();
+        //if()
         travelBugArrayList=readTravelBugFromFile();
         for (TravelBug tb : travelBugArrayList){
             combobox_TraveLbugs.getItems().add(tb.nome);
