@@ -186,7 +186,13 @@
                      <tabs>
                         <Tab text="Menu">
                            <content>
-                              <ComboBox fx:id="combobox_Caches" layoutX="14.0" onAction="#handleCurrentCacheAction" prefHeight="35.0" prefWidth="157.0" promptText="Choose Cache" />
+                              <AnchorPane prefHeight="652.0" prefWidth="692.0">
+                                 <children>
+                                    <ComboBox fx:id="combobox_Caches" layoutX="14.0" layoutY="35.0" onAction="#handleCurrentCacheAction" prefWidth="150.0" promptText="Choose Cache" />
+                                    <ComboBox fx:id="combobox_CachesDetails" layoutX="165.0" layoutY="35.0" onAction="#handleCurrentCacheDetailsAction" prefWidth="400.0" promptText="Choose Details" />
+                                    <TextArea fx:id="textFieldCacheDetail" layoutX="98.0" layoutY="200.0" prefHeight="470.0" prefWidth="620.0" />
+                                 </children>
+                              </AnchorPane>
                            </content>
                         </Tab>
                         <Tab text="Settings">
