@@ -160,6 +160,10 @@ public class Date implements Comparable<Date>{
     return  "("+ hour +"h)(" + day + "," + month + "," + year + ")";
   }
 
+  public String print2() {
+    return   day + "/" + month + "/" + year + "at " + hour +"h";
+  }
+
   @Override
   public String toString() {
     return "Date:"+ day +"/"+ month + "/" + year + " , at : " + hour + "h.\n";

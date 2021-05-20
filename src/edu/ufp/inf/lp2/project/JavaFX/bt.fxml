@@ -121,7 +121,11 @@
                      <tabs>
                         <Tab text="Users">
                            <content>
-                              <ComboBox fx:id="combobox_Users" layoutX="14.0" layoutY="72.0" onAction="#handleCurrentUserAction" prefHeight="35.0" prefWidth="150.0" promptText="Choose User" />
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <ComboBox fx:id="combobox_Users" layoutX="70.0" layoutY="50.0" onAction="#handleCurrentUserAction" prefHeight="35.0" prefWidth="150.0" promptText="Choose User" />
+                                 </children>
+                              </AnchorPane>
                            </content>
                         </Tab>
                         <Tab text="Visitar Caches">
@@ -318,7 +322,7 @@
                </children></Pane>
             <Pane fx:id="paneTravelBugs" prefHeight="761.0" prefWidth="815.0" styleClass="root" stylesheets="@GeoCachefxml.css">
                <children>
-                  <ComboBox fx:id="combobox_TraveLbugs" layoutX="14.0" layoutY="72.0" onAction="#handleCurrentTravelBugAction" prefWidth="150.0" promptText="Choose TB" />
+                  <ComboBox fx:id="combobox_TraveLbugs" layoutX="54.0" layoutY="87.0" onAction="#handleCurrentTravelBugAction" prefWidth="150.0" promptText="Choose TB" />
                </children>
             </Pane>
          </children>

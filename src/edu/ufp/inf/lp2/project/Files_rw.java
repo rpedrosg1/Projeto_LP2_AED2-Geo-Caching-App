@@ -10,6 +10,10 @@ import java.io.FileWriter;
 import static edu.ufp.inf.lp2.project.Admin_User.*;
 import static edu.ufp.inf.lp2.project.Admin_User.CachesGraph;
 
+import static edu.ufp.inf.lp2.project.JavaFX.BTController.userArrayList;
+import static edu.ufp.inf.lp2.project.JavaFX.BTController.objetosAllArrayList;
+import static edu.ufp.inf.lp2.project.JavaFX.BTController.cacheArrayList;
+import static edu.ufp.inf.lp2.project.JavaFX.BTController.travelBugArrayList;
 
 
 
@@ -80,11 +84,12 @@ public class Files_rw {
             currword = 0;
             lastword = 0;
             if (mytype == 1) {
-                new Basic_User(id, nome, idade, nr_caches_visitadas);
+                userArrayList.add(new Basic_User(id, nome, idade, nr_caches_visitadas));
+
             } else if (mytype == 2) {
-                new Premium_User(id, nome, idade, nr_caches_visitadas);
+                userArrayList.add(new Premium_User(id, nome, idade, nr_caches_visitadas));
             } else if (mytype == 3) {
-                new Admin_User(id, nome, idade, nr_caches_visitadas);
+                userArrayList.add(new Admin_User(id, nome, idade, nr_caches_visitadas));
             }
 
         }
@@ -168,6 +173,8 @@ public class Files_rw {
             cacheST.put(cache.nome, cache);
             int size_cache=cacheST.size()-1;
             CachesGraph.st.put(cache.nome,size_cache);
+
+            cacheArrayList.add(cache);
         }
         CachesGraph.graph=new AED2_EdgeWeightedDigraph(cacheST.size());
         myFile.close();
@@ -421,6 +428,7 @@ public class Files_rw {
                         Objeto o = new Objeto(objID,objName,userST.get(userCreatorID));
                         o.myCache=c;
                         c.objCache.add(o);
+                        objetosAllArrayList.add(o);
                     }else{//TravelBug
                         Cache c = cacheST.get(objCacheName);
                         Premium_User puser= (Premium_User) userST.get(userCreatorID);
@@ -440,7 +448,8 @@ public class Files_rw {
                             tb.h_user.put(puser.id,puser);
                             puser.myTravelBugs.put(tb.id,tb);
 
-
+                            objetosAllArrayList.add(tb);
+                            travelBugArrayList.add(tb);
                             //JAVAFX
 
                         }
@@ -453,6 +462,8 @@ public class Files_rw {
                         o.myuser=user;
                         o.myCache=null;
                         user.myObj.put(o.id,o);
+                        objetosAllArrayList.add(o);
+
                     }else{//TravelBug
                         Premium_User puser = (Premium_User) userST.get(objUserID);
                         if(puser!=null){
@@ -464,6 +475,10 @@ public class Files_rw {
                             tb.myuser= puser;
                             paux.myTravelBugs.put(tb.id,tb);
                             puser.myObj.put(tb.id,tb);
+
+                            objetosAllArrayList.add(tb);
+                            travelBugArrayList.add(tb);
+
                         }
 
                     }

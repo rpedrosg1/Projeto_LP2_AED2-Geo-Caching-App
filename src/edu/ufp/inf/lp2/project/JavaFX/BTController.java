@@ -42,14 +42,15 @@ public class BTController  implements Initializable,Serializable {
     //USERS
 
         TextArea textAreaObjetos;
-        private ArrayList<Basic_User> userArrayList = new ArrayList<>();
+        public static ArrayList<Basic_User> userArrayList = new ArrayList<>();
 
         public Basic_User currentUser;
 
         public ComboBox<String> combobox_Users;
     //Objetos
 
-        private ArrayList<Objeto> objetosAllArrayList = new ArrayList<>();
+        public static ArrayList<Objeto> objetosAllArrayList = new ArrayList<>();
+
         private ArrayList<Objeto> currentUserObjArrayList = new ArrayList<>();
 
         public TableView<Objeto> userObjetosTable;
@@ -70,7 +71,7 @@ public class BTController  implements Initializable,Serializable {
 //////////////////////////////////////////////////////////////////////////////////
     //Caches
 
-    private ArrayList<Cache> cacheArrayList = new ArrayList<>();
+    public static ArrayList<Cache> cacheArrayList = new ArrayList<>();
 
     public Cache currentCache;
 
@@ -84,7 +85,7 @@ public class BTController  implements Initializable,Serializable {
         public TextField nVerticesField;
         public TextArea edgesField;
         public Group graphGroup;
-        final double radius=20;
+        final double radius=10;
         private AED2_EdgeWeightedDigraph gG;
 
 
@@ -93,7 +94,7 @@ public class BTController  implements Initializable,Serializable {
 
     //TravelBugs
 
-    private ArrayList<TravelBug> travelBugArrayList = new ArrayList<>();
+    public static ArrayList<TravelBug> travelBugArrayList = new ArrayList<>();
 
     public TravelBug currentTravelBug;
 
@@ -122,7 +123,7 @@ public class BTController  implements Initializable,Serializable {
 //////////////////////////////////////////////////////////////////////////////////
 
     private static final String PATH_USERS = ".//data//Users.txt";
-    private static final String PATH_TB = ".//data//tbteste.txt";
+
     private static final String PATH_CACHES = ".//data//cacheteste.txt";
 
     private static final String FILE_DELIMITTER = ";";
@@ -153,8 +154,10 @@ public class BTController  implements Initializable,Serializable {
     //Handler mudar o Panel
     public void handlePanelUsers(ActionEvent actionEvent) throws IOException {
         changepane(paneUsers);
-        handleReadUsersFileAction(new ActionEvent());
         combobox_Users.getItems().clear();
+       /* handleReadUsersFileAction(new ActionEvent());
+        combobox_Users.getItems().clear();
+        */
         for (Basic_User user : userArrayList){
             combobox_Users.getItems().add(user.nome);
         }
@@ -165,7 +168,11 @@ public class BTController  implements Initializable,Serializable {
 
         changepane(paneCaches);
         combobox_Caches.getItems().clear();
-        handleReadCachesFileAction(new ActionEvent());
+
+        for (Cache c : cacheArrayList){
+            combobox_Caches.getItems().add(c.nome);
+        }
+        //handleReadCachesFileAction(new ActionEvent());
         //Files_rw.read_Objetos();
     }
     //Handler mudar o Panel
@@ -196,13 +203,15 @@ public class BTController  implements Initializable,Serializable {
     //Handler mudar o Panel
     public void handlePanelTravelBufs(ActionEvent actionEvent) throws IOException {
         changepane(paneTravelBugs);
-        if(userArrayList.size()==0){
+       /* if(userArrayList.size()==0){
             handleReadUsersFileAction( new ActionEvent());
         }
         if(cacheArrayList.size()==0){
             handleReadCachesFileAction( new ActionEvent());
         }
         handleReadTravelBugAction( new ActionEvent());
+        */
+
 
     }
 
@@ -248,15 +257,7 @@ public class BTController  implements Initializable,Serializable {
             for (String key : userST.keys()){
                 userArrayList.add(userST.get(key));
             }
-           /* try {
-                userTable.getItems().addAll(readUsersFromFile());
-
-
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        */
+            userTable.getItems().addAll(userArrayList);
         }
 
         public void handleSaveUsersFileAction(ActionEvent actionEvent) {
@@ -345,7 +346,6 @@ public class BTController  implements Initializable,Serializable {
 
         public void buttonSalvarUsersObjetos(ActionEvent actionEvent) {
             Files_rw.save_Objetos();
-
         }
 
 
@@ -360,6 +360,9 @@ public class BTController  implements Initializable,Serializable {
             Objeto o = new Objeto(obj_idField.getText(),obj_nameField.getText(),currentUser);
             o.myuser=currentUser;
             currentUserObjArrayList.add(o);
+            objetosAllArrayList.add(o);
+            currentUserObjArrayList.add(o);
+
             currentUser.myObj.put(o.id,o);
             obj_idField.setText("");
             obj_nameField.setText("");
@@ -369,6 +372,13 @@ public class BTController  implements Initializable,Serializable {
 
         }else if(type.equals("TravelBug")){
             TravelBug tb = new TravelBug(obj_idField.getText(),obj_nameField.getText(), (Premium_User) currentUser,cacheST.get("geocache1"));
+            tb.myuser=currentUser;
+            currentUserObjArrayList.add(tb);
+            travelBugArrayList.add(tb);
+            objetosAllArrayList.add(tb);
+            currentUserObjArrayList.add(tb);
+
+
             currentUser.myObj.put(tb.id,tb);
             userObjetosTable.getItems().add(tb);
             currentUserObjArrayList.add(tb);
@@ -520,35 +530,58 @@ public class BTController  implements Initializable,Serializable {
     }
     public void  handleCurrentCacheDetailsAction(ActionEvent actionEvent){
         textFieldCacheDetail.clear();
-        if(combobox_CachesDetails.getValue().equals("Ver Objetos")){
-            if(currentCache.objCache.size()>0) {
-                textFieldCacheDetail.setText("Objetos da Cache " + currentCache.nome + ":\n");
+        if(combobox_CachesDetails.getValue()==null)return;
 
-                int aux=1;
-                for (Objeto o :currentCache.objCache){
-                    textFieldCacheDetail.appendText(o.id + "-> " + o.nome + "\n" );
+        switch (combobox_CachesDetails.getValue()) {
+            case "Ver Objetos":
+                if (currentCache.objCache.size() > 0) {
+                    textFieldCacheDetail.setText("Objetos da Cache " + currentCache.nome + ":\n");
+
+                    int aux = 1;
+                    for (Objeto o : currentCache.objCache) {
+                        textFieldCacheDetail.appendText(o.id + "-> " + o.nome + "\n");
+                    }
+                } else {
+                    textFieldCacheDetail.setText("Esta Cache neste momento nao tem nenhum objeto!");
                 }
-            }else{
-                textFieldCacheDetail.setText("Esta Cache neste momento nao tem nenhum objeto");
-            }
-        }else if (combobox_CachesDetails.getValue().equals("Ver TravelBugs")){
-            if(currentCache.myTravelBug.size()>0) {
-                textFieldCacheDetail.setText("TrabelBugs da Cache " + currentCache.nome + ":\n");
+                break;
+            case "Ver TravelBugs":
+                if (currentCache.myTravelBug.size() > 0) {
+                    textFieldCacheDetail.setText("TrabelBugs da Cache " + currentCache.nome + ":\n");
 
-                int aux=1;
-                for (TravelBug tb :currentCache.myTravelBug){
-                    textFieldCacheDetail.appendText(tb.id + "-> " + tb.nome + " ,Creador TB -> " + tb.myCreator.nome + ",Missao -> " +tb.missao + "\n" );
+                    for (TravelBug tb : currentCache.myTravelBug) {
+                        textFieldCacheDetail.appendText("\t-" + tb.id + "-> " + tb.nome + " ,Creador TB -> " + tb.myCreator.nome + ",Cache Missao -> " + tb.missao.nome + "\n");
+                    }
+                } else {
+                    textFieldCacheDetail.setText("Esta Cache neste momento nao tem nenhum TravelBug!");
+
                 }
-            }else{
-                textFieldCacheDetail.setText("Esta Cache neste momento nao tem nenhum TravelBug");
 
-            }
+                break;
+            case "Ver Historico Users":
+                if (currentCache.myLogs_cache.size() > 0) {
+                    textFieldCacheDetail.setText("Historido de Users da Cache " + currentCache.nome + ":\n");
+                    for (Logs_Cache log : currentCache.myLogs_cache) {
+                        textFieldCacheDetail.appendText("\t-O utlizador " + userST.get(log.id_user).nome + "no dia " + log.d.print2() + "\n");
+                        textFieldCacheDetail.appendText("\t\t-Objeto deixado " + findObjetoArrayListObjetos(log.id_objdeixado) + "\n");
+                        textFieldCacheDetail.appendText("\t\t-Objeto retirado " + findObjetoArrayListObjetos(log.id_objretirado) + "\n");
 
-        }
-        else if (combobox_CachesDetails.getValue().equals("Ver Historico Users")){
+                    }
+                } else {
+                    textFieldCacheDetail.setText("Esta Cache ainda nao recebeu nenhuma visita!");
+                }
 
-        }else if(combobox_CachesDetails.getValue().equals("Ver Historico Users")){
-
+                break;
+            case "Ver Logs":
+                if (currentCache.myLogs.size() > 0) {
+                    textFieldCacheDetail.setText("Logs da Cache " + currentCache.nome + ":\n");
+                    for (Logs log : currentCache.myLogs) {
+                        textFieldCacheDetail.appendText("\t-" + log.messagem + "\n");
+                    }
+                } else {
+                    textFieldCacheDetail.setText("Com muita pena esta cache ainda nao  tem Logs!");
+                }
+                break;
         }
     }
 
@@ -580,8 +613,23 @@ public class BTController  implements Initializable,Serializable {
                            //i ou index 1
 
                            Line line = new Line(gG.getVertexPosX(index1), gG.getVertexPosY(index1), gG.getVertexPosX(index2), gG.getVertexPosY(index2));
-                           //Arrow arrow = new Arrow(line,new Line(),new Line());
-                           graphGroup.getChildren().add(line);
+
+                           Arrow arrow = new Arrow(gG.getVertexPosX(index1),gG.getVertexPosY(index1),gG.getVertexPosX(index2),gG.getVertexPosY(index2),20);
+/*
+                           Arrow1 arrow = new Arrow1();
+
+                           //Arrow arrowaux = new Arrow();
+
+                                       // set pos of end with arrow head
+
+                                       arrow.setStartX(gG.getVertexPosX(index1));
+                                       arrow.setStartY(gG.getVertexPosY(index1));
+
+                                       // set pos of end without arrow head
+                                       arrow.setEndX( gG.getVertexPosX(index2));
+                                       arrow.setEndY( gG.getVertexPosY(index2));
+*/
+                           graphGroup.getChildren().add(arrow);
                        }
 
                    }
@@ -665,7 +713,7 @@ public class BTController  implements Initializable,Serializable {
     }
 
     private ArrayList<TravelBug> readTravelBugFromFile() throws IOException {
-        if (!travelBugArrayList.isEmpty()) {
+     /*   if (!travelBugArrayList.isEmpty()) {
             travelBugArrayList.clear();
         }
         BufferedReader br = openBufferedReader(PATH_TB);
@@ -689,6 +737,8 @@ public class BTController  implements Initializable,Serializable {
 
 
         return travelBugArrayList;
+        */
+      return null;
     }
 
     public void handleCurrentTravelBugAction(ActionEvent actionEvent){
@@ -773,6 +823,15 @@ public class BTController  implements Initializable,Serializable {
         System.out.println("Caches lidos");
 
         return cacheArrayList;
+    }
+
+
+
+    public String findObjetoArrayListObjetos(String id){
+        for (Objeto o : objetosAllArrayList){
+            if(o.id.equals(id))return o.nome;
+        }
+        return "null";
     }
 
 }
