@@ -1,12 +1,13 @@
 package edu.ufp.inf.lp2.project.Graphs;
 import edu.princeton.cs.algs4.*;
 import edu.ufp.inf.lp2.project.Cache;
+import edu.ufp.inf.lp2.project.Localizacao;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Random;
 
-import static edu.ufp.inf.lp2.project.Admin_User.CachesGraph;
+import static edu.ufp.inf.lp2.project.Admin_User.*;
 import static edu.ufp.inf.lp2.project.JavaFX.BTController.GROUP_MARGIN;
 
 
@@ -103,7 +104,15 @@ public class AED2_EdgeWeightedDigraph {
         this(nVertices);
         positionsX = new int[nVertices];
         positionsY = new int[nVertices];
-        setRandomPositions(0);
+
+        //setRandomPositions(0);
+        for(int i=0; i<this.V(); i++){
+            //setPositionX(i, (int)(GROUP_MARGIN + r.nextDouble() * 700));
+            //setPositionY(i, (int) (GROUP_MARGIN + r.nextDouble() * 600));
+            Localizacao l = cacheST.get(findIndexCacheName(i)).myLocalizacao;
+            positionsX[i] = (int)l.latitude;
+            positionsY[i] = (int)l.longitude;
+        }
     }
     public AED2_EdgeWeightedDigraph(AED2_EdgeWeightedDigraph gG, int newSize) {
         this(newSize);

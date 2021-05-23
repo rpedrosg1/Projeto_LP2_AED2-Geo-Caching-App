@@ -87,7 +87,6 @@ public class BTController  implements Initializable,Serializable {
         private AED2_EdgeWeightedDigraph gG;
 
 
-
 //////////////////////////////////////////////////////////////////////////////////
 
     //TravelBugs
@@ -153,9 +152,6 @@ public class BTController  implements Initializable,Serializable {
     public void handlePanelUsers(ActionEvent actionEvent) throws IOException {
         changepane(paneUsers);
         combobox_Users.getItems().clear();
-       /* handleReadUsersFileAction(new ActionEvent());
-        combobox_Users.getItems().clear();
-        */
         for (Basic_User user : userArrayList){
             combobox_Users.getItems().add(user.nome);
         }
@@ -479,23 +475,6 @@ public class BTController  implements Initializable,Serializable {
 
 
 
-        //Handler para acção de edição dos dados dos veículos na vehiclesTable
-        public void handleEditVehicleAction(TableColumn.CellEditEvent<Basic_User, String> vehicleStringCellEditEvent) {}
-
-        //Handler para acção de selecção do veículos na vehicleComboBox (tab Penalties)
-        //Pesquisa se veículo seleccionado tem alguma multa inserida pela brigada de trânsito
-        public void handleSelectVehicleAction(ActionEvent actionEvent) {}
-
-        //Handler para acção de selecção dos condutores na driversComboBox (tab Penalties)
-        public void handleSelectDriverAction(ActionEvent actionEvent) {}
-
-        //Método para inserção de novos veículos na vehicleComboBox (tab Penalties)
-        private void addVehiclesToComboBox(ArrayList<Basic_User> vehicles) {}
-
-
-
-
-
 
 
 
@@ -591,6 +570,7 @@ public class BTController  implements Initializable,Serializable {
         int aux=0;
         for(int i=0; i<gG.V(); i++) {
             Circle c = new Circle(gG.getVertexPosX(i), gG.getVertexPosY(i), radius);
+
             c.setFill(Color.WHITE);
             if(cacheST.get(findIndexCacheName(i)).myTipo== Tipo.PREMIUM)c.setFill(Color.AQUA);
 
@@ -616,7 +596,7 @@ public class BTController  implements Initializable,Serializable {
                            //Line line = new Line(gG.getVertexPosX(index1), gG.getVertexPosY(index1), gG.getVertexPosX(index2), gG.getVertexPosY(index2));
 
                            Arrow arrow = new Arrow(gG.getVertexPosX(index1),gG.getVertexPosY(index1),gG.getVertexPosX(index2),gG.getVertexPosY(index2),10);
-
+                           
                            graphGroup.getChildren().add(arrow);
                        }
 
