@@ -1,7 +1,10 @@
 package edu.ufp.inf.lp2.project;
 
 import edu.princeton.cs.algs4.*;
+import edu.ufp.inf.lp2.project.Graphs.AED2_EdgeWeightedDigraph;
 import edu.ufp.inf.lp2.project.Graphs.Caches_Graph;
+import edu.ufp.inf.lp2.project.Graphs.Edge_Project;
+import edu.ufp.inf.lp2.project.JavaFX.Arrow;
 
 import java.util.ArrayList;
 
@@ -12,6 +15,7 @@ public class Admin_User extends Premium_User  {
 
     public static RedBlackBST<String, Basic_User> userST = new RedBlackBST<>();
     public static Caches_Graph CachesGraph=new Caches_Graph();
+    public static Caches_Graph new_CachesGraph=new Caches_Graph();
     public static ST<String, Cache> cacheST = new ST<>();
 
     /**
@@ -436,5 +440,41 @@ public class Admin_User extends Premium_User  {
         }
         return  null;
     }
+    public static String new_findIndexCacheName(int index){
+        for(String key : new_CachesGraph.st){
+            if(new_CachesGraph.st.get(key).equals(index))return key;
+        }
+        return  null;
+    }
+    public static void Create_graph_per_region(String Region){
+        for (String key : cacheST){
+            Cache c=cacheST.get(key);
+            if(c.myLocalizacao.regiao.equals(Region)){
+                int size=new_CachesGraph.st.size();
+                new_CachesGraph.st.put(c.nome,size);
+            }
+        }
+        new_CachesGraph.graph=new AED2_EdgeWeightedDigraph(new_CachesGraph.st.size());
+        for(int i=0; i<new_CachesGraph.graph.V(); i++) {
+                for (String key:new_CachesGraph.st){
+                    int index= CachesGraph.st.get(key);
+                    for (Edge_Project edg : CachesGraph.graph.adj(index)) {
+                            if(cacheST.get(findIndexCacheName(edg.to())).myLocalizacao.regiao.equals(Region)) {
+                                int index1=new_CachesGraph.st.get(findIndexCacheName(edg.from()));
+                                int index2=new_CachesGraph.st.get(findIndexCacheName(edg.to()));
+                                Edge_Project e =new Edge_Project(index1,index2,edg.weight(),edg.getTime());
+                                new_CachesGraph.graph.addEdge(e);
+                            }
+                            }
+                    }
+
+        }
+    }
+
+
+
+
+
+
 
 }
