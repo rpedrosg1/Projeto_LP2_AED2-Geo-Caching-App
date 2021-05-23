@@ -4,7 +4,6 @@ import edu.ufp.inf.lp2.project.Cache;
 
 public class Caches_Graph {
     public ST<String, Integer> st=new ST<>();  // string -> index
-    public String[] keys;           // index  -> string
     public AED2_EdgeWeightedDigraph graph;// Grafo
 
 
@@ -22,11 +21,8 @@ public class Caches_Graph {
             }
         }
 
-        // inverted index to get string keys in an array
-        keys = new String[st.size()];
-        for (String name : st.keys()) {
-            keys[st.get(name)] = name;
-        }
+
+
 
         // second pass builds the digraph by connecting first vertex on each
         // line to all others
@@ -84,11 +80,7 @@ public class Caches_Graph {
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      * @deprecated Replaced by {@link #nameOf(int)}.
      */
-    @Deprecated
-    public String name(int v) {
-        validateVertex(v);
-        return keys[v];
-    }
+
 
     /**
      * Returns the name of the vertex associated with the integer {@code v}.
@@ -96,10 +88,7 @@ public class Caches_Graph {
      * @return the name of the vertex associated with the integer {@code v}
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
-    public String nameOf(int v) {
-        validateVertex(v);
-        return keys[v];
-    }
+
 
     /**
      * Returns the digraph assoicated with the symbol graph. It is the client's responsibility
@@ -130,24 +119,7 @@ public class Caches_Graph {
             throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
     }
 
-    /**
-     * Unit tests the {@code SymbolDigraph} data type.
-     *
-     * @param args the command-line arguments
-     */
-    public static void main(String[] args) {
-        String filename  = args[0];
-        String delimiter = args[1];
-        Caches_Graph sg = new Caches_Graph(filename, delimiter);
-        AED2_EdgeWeightedDigraph graph = sg.graph;
-        while (!StdIn.isEmpty()) {
-            String t = StdIn.readLine();
-            for (DirectedEdge e : graph.adj(sg.index(t))) {
-                int v=e.from();
-                StdOut.println("   " + sg.name(v));
-            }
-        }
-    }
+
 
 
 
