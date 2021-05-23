@@ -14,7 +14,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
@@ -44,25 +43,26 @@ public class BTController  implements Initializable,Serializable {
         public Basic_User currentUser;
 
         public ComboBox<String> combobox_Users;
-    //Objetos
 
-        public static ArrayList<Objeto> objetosAllArrayList = new ArrayList<>();
+            //Objetos
 
-        private ArrayList<Objeto> currentUserObjArrayList = new ArrayList<>();
+                public static ArrayList<Objeto> objetosAllArrayList = new ArrayList<>();
 
-        public TableView<Objeto> userObjetosTable;
-        public TableColumn<Objeto,String> idObjCol;
-        public TableColumn<Objeto, String> nameObjCol;
-        //public TableColumn<Basic_User, String> myObjcreatorCol;
-        public TableColumn<Objeto, String> myObjTypeCol;
-        //public TableColumn<Objeto, String>  myObjMissaoCol;
+                private ArrayList<Objeto> currentUserObjArrayList = new ArrayList<>();
+
+                public TableView<Objeto> userObjetosTable;
+                public TableColumn<Objeto,String> idObjCol;
+                public TableColumn<Objeto, String> nameObjCol;
+                //public TableColumn<Basic_User, String> myObjcreatorCol;
+                public TableColumn<Objeto, String> myObjTypeCol;
+                //public TableColumn<Objeto, String>  myObjMissaoCol;
 
 
-    //ADD Objeto
+            //ADD Objeto
 
-        public ComboBox<String> combobox_typeObj;
-        public TextField obj_idField;
-        public TextField obj_nameField;
+                public ComboBox<String> combobox_typeObj;
+                public TextField obj_idField;
+                public TextField obj_nameField;
 
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -83,6 +83,8 @@ public class BTController  implements Initializable,Serializable {
         public TextArea edgesField;
         public Group graphGroup;
         final double radius=30;
+        public ComboBox<String> combobox_GraphRegiao;
+
 
         private AED2_EdgeWeightedDigraph gG;
 
@@ -96,6 +98,11 @@ public class BTController  implements Initializable,Serializable {
     public TravelBug currentTravelBug;
 
     public ComboBox<String> combobox_TraveLbugs;
+
+    public ComboBox<String> combobox_TraveLbugsDetails;
+
+    public TextArea textFieldTraveLbugsDetails;
+
 
     //////////////////////////////////////////////////////////////////////////////////
     //ADMIN
@@ -166,8 +173,11 @@ public class BTController  implements Initializable,Serializable {
         for (Cache c : cacheArrayList){
             combobox_Caches.getItems().add(c.nome);
         }
-        //handleReadCachesFileAction(new ActionEvent());
-        //Files_rw.read_Objetos();
+        combobox_GraphRegiao.getItems().add("Geral");
+        combobox_GraphRegiao.getItems().add("Norte");
+        combobox_GraphRegiao.getItems().add("Centro");
+        combobox_GraphRegiao.getItems().add("Sul");
+
     }
     //Handler mudar o Panel
     public void handlePanelAdmin(ActionEvent actionEvent) {
@@ -205,7 +215,15 @@ public class BTController  implements Initializable,Serializable {
         }
         handleReadTravelBugAction( new ActionEvent());
         */
-
+        combobox_TraveLbugs.getItems().clear();
+        combobox_TraveLbugsDetails.getItems().clear();
+        travelBugArrayList.clear();
+        for (Objeto o : objetosAllArrayList){
+            if (o instanceof TravelBug){
+                travelBugArrayList.add((TravelBug) o);
+                combobox_TraveLbugs.getItems().add(o.nome);
+            }
+        }
 
     }
 
@@ -505,6 +523,7 @@ public class BTController  implements Initializable,Serializable {
         combobox_CachesDetails.getItems().add("Ver Logs");
 
     }
+
     public void  handleCurrentCacheDetailsAction(ActionEvent actionEvent){
         textFieldCacheDetail.clear();
         if(combobox_CachesDetails.getValue()==null)return;
@@ -596,7 +615,7 @@ public class BTController  implements Initializable,Serializable {
                            //Line line = new Line(gG.getVertexPosX(index1), gG.getVertexPosY(index1), gG.getVertexPosX(index2), gG.getVertexPosY(index2));
 
                            Arrow arrow = new Arrow(gG.getVertexPosX(index1),gG.getVertexPosY(index1),gG.getVertexPosX(index2),gG.getVertexPosY(index2),10);
-                           
+
                            graphGroup.getChildren().add(arrow);
                        }
 
@@ -608,6 +627,97 @@ public class BTController  implements Initializable,Serializable {
         System.out.println("\nNumero de edges no graph = " + aux + "\n");
     }
 
+    public void createGraphGroupRegiao(){
+        graphGroup.getChildren().clear();
+        int aux=0;
+        for(int i=0; i<gG.V(); i++) {
+            Circle c = new Circle(gG.getVertexPosX(i), gG.getVertexPosY(i), radius);
+
+            c.setFill(Color.WHITE);
+            if(cacheST.get(new_findIndexCacheName(i)).myTipo== Tipo.PREMIUM)c.setFill(Color.AQUA);
+
+            Text t = new Text(i+1 + "");
+            t.setFont(Font.font(40));
+            StackPane stack = new StackPane();
+            stack.setLayoutX(gG.getVertexPosX(i) - radius);
+            stack.setLayoutY(gG.getVertexPosY(i) - radius);
+            stack.getChildren().addAll(c, t);
+            graphGroup.getChildren().add(stack);
+        }
+        for(int i=0; i<gG.V(); i++) {
+            if(gG.E() > 0){
+                for (String key:CachesGraph.st){
+                    int index= CachesGraph.st.get(key);
+                    if(index==i) {
+                        for (Edge_Project edg : gG.adj(index)) {
+                            aux++;
+                            int index1 = edg.from();
+                            int index2 = edg.to();
+                            //i ou index 1
+
+                            //Line line = new Line(gG.getVertexPosX(index1), gG.getVertexPosY(index1), gG.getVertexPosX(index2), gG.getVertexPosY(index2));
+
+                            Arrow arrow = new Arrow(gG.getVertexPosX(index1),gG.getVertexPosY(index1),gG.getVertexPosX(index2),gG.getVertexPosY(index2),10);
+
+                            graphGroup.getChildren().add(arrow);
+                        }
+
+                    }
+                }
+
+            }
+        }
+        System.out.println("\nNumero de edges no graph = " + aux + "\n");
+    }
+
+/*
+   public void createGraphGroupRegiao(String regiao){
+        graphGroup.getChildren().clear();
+        int aux=0;
+        for(int i=0; i<gG.V(); i++) {
+            if(cacheST.get(findIndexCacheName(i)).myLocalizacao.regiao.equals(regiao)){
+                Circle c = new Circle(gG.getVertexPosX(i), gG.getVertexPosY(i), radius);
+                c.setFill(Color.WHITE);
+                if(cacheST.get(findIndexCacheName(i)).myTipo== Tipo.PREMIUM)c.setFill(Color.AQUA);
+
+                Text t = new Text(i+1 + "");
+                t.setFont(Font.font(40));
+                StackPane stack = new StackPane();
+                stack.setLayoutX(gG.getVertexPosX(i) - radius);
+                stack.setLayoutY(gG.getVertexPosY(i) - radius);
+                stack.getChildren().addAll(c, t);
+                graphGroup.getChildren().add(stack);
+            }
+        }
+
+
+
+        for(int i=0; i<gG.V(); i++) {
+            if(gG.E() > 0){
+                for (String key:CachesGraph.st){
+                    int index= CachesGraph.st.get(key);
+                    if(index==i && cacheST.get(key).myLocalizacao.regiao.equals(regiao)) {
+                        for (Edge_Project edg : gG.adj(index)) {
+                            aux++;
+                            int index1 = edg.from();
+                            int index2 = edg.to();
+                            //i ou index 1
+
+                            //Line line = new Line(gG.getVertexPosX(index1), gG.getVertexPosY(index1), gG.getVertexPosX(index2), gG.getVertexPosY(index2));
+                                if(cacheST.get(findIndexCacheName(index2)).myLocalizacao.regiao.equals(regiao)){
+                                    Arrow arrow = new Arrow(gG.getVertexPosX(index1),gG.getVertexPosY(index1),gG.getVertexPosX(index2),gG.getVertexPosY(index2),10);
+                                    graphGroup.getChildren().add(arrow);
+                                }
+                        }
+
+                    }
+                }
+
+            }
+        }
+        System.out.println("\nNumero de edges no graph = " + aux + "\n");
+    }
+*/
     public void createNewGraph(int nVertices,ArrayList<Cache> c){
         if(gG == null){
             gG = new AED2_EdgeWeightedDigraph(c,nVertices);
@@ -623,12 +733,49 @@ public class BTController  implements Initializable,Serializable {
             gG = new AED2_EdgeWeightedDigraph(gG, nVertices);
     }
 
+
     public void handleClearButtonAction(ActionEvent actionEvent) {
         graphGroup.getChildren().clear();
         edgesField.setText("");
         nVerticesField.setText("");
         gG = null;
     }
+
+
+    public void handleGraphRegiao(ActionEvent actionEvent){
+
+        handleClearButtonAction(new ActionEvent());
+        String regiao = combobox_GraphRegiao.getValue();
+        if(regiao.equals("Geral"))GraphGeral();
+        else {
+            GraphGeralRegiao(regiao);
+        }
+    }
+    public void GraphGeral() {
+        try{
+            createNewGraph(cacheArrayList.size(),cacheArrayList);
+            createGraphGroup();
+        } catch(NumberFormatException e){
+            System.out.println("Error: Vertices not inserted");
+        }
+    }
+
+    public void GraphGeralRegiao(String regiao) {
+        try{
+            Create_graph_per_region(regiao);
+            gG = new AED2_EdgeWeightedDigraph(new_CachesGraph.graph, new_CachesGraph.st.size());
+            createGraphGroupRegiao();
+        } catch(NumberFormatException e){
+            System.out.println("Error: Vertices not inserted");
+        }
+    }
+
+    public void createNewGraphRegion(){
+        Create_graph_per_region("Centro");
+
+        gG = new AED2_EdgeWeightedDigraph(new_CachesGraph.graph, new_CachesGraph.st.size());
+    }
+
 
     public void handleVerticesButtonAction(ActionEvent actionEvent) {
         try{
@@ -638,6 +785,8 @@ public class BTController  implements Initializable,Serializable {
             System.out.println("Error: Vertices not inserted");
         }
     }
+
+
 
     public void handleEdgesButtonAction(ActionEvent actionEvent) {
         try{
@@ -711,12 +860,77 @@ public class BTController  implements Initializable,Serializable {
 
     public void handleCurrentTravelBugAction(ActionEvent actionEvent){
         for (TravelBug tb : travelBugArrayList){
-            if(tb.nome.equals(combobox_TraveLbugs.getSelectionModel().getSelectedItem()))currentTravelBug=tb;
+            if(tb.nome.equals(combobox_TraveLbugs.getValue())){
+                currentTravelBug=tb;
+                break;
+            }
+
         }
-        System.out.println("TB: " + currentCache.nome);
+        combobox_TraveLbugsDetails.getItems().add("Informações basicas sobre TravelBug");
+        combobox_TraveLbugsDetails.getItems().add("Historico Caches do  TravelBug");
+        combobox_TraveLbugsDetails.getItems().add("Historico Users do  TravelBug");
+        combobox_TraveLbugsDetails.getItems().add("Logs do  TravelBug");
+        System.out.println("TB: " + currentTravelBug.nome);
+
+
     }
 
+    public void handleCurrentTravelBugDetailsAction(ActionEvent actionEvent){
+        textFieldTraveLbugsDetails.clear();
+        if(combobox_TraveLbugsDetails.getValue()==null)return;
 
+        switch (combobox_TraveLbugsDetails.getValue()) {
+            case "Informações basicas sobre TravelBug":
+                textFieldTraveLbugsDetails.setText("\t\t\tInformações Basicas Sobre TrabelBug:\n");
+                textFieldTraveLbugsDetails.appendText("\t-Nome: " + currentTravelBug.nome+"\n");
+                textFieldTraveLbugsDetails.appendText("\t-Criador: " + currentTravelBug.myCreator.nome+"\n");
+                textFieldTraveLbugsDetails.appendText("\t-Cache Missao: " + currentTravelBug.missao.nome+"\n");
+                if(currentTravelBug.myuser!=null){
+                textFieldTraveLbugsDetails.appendText("\t-TravelBug neste momento encontra-se com o user: " + currentTravelBug.myuser.nome);
+                }else{
+                    textFieldTraveLbugsDetails.appendText("\t-TravelBug neste momento encontra-se na cache : " + currentTravelBug.myCache.nome);
+                }
+                break;
+            case "Historico Caches do  TravelBug":
+                if(currentTravelBug.h_caches.size()>0){
+                    textFieldTraveLbugsDetails.setText("Historico de Caches que o  TravelBug ja percorreu:\n");
+                    for (String key: currentTravelBug.h_caches.keys()){
+                        Cache c = currentTravelBug.h_caches.get(key);
+                        textFieldTraveLbugsDetails.appendText("\t-Cache -> " + c.nome + "\n");
+                    }
+                }else{
+                    textFieldTraveLbugsDetails.setText("O travelBug ainda nao esteve em nenhuma Cache!\n");
+                }
+                break;
+            case "Historico Users do  TravelBug":
+                if(currentTravelBug.h_user.size()>0){
+                    textFieldTraveLbugsDetails.setText("Historico de Users que o  TravelBug ja percorreu:\n");
+                    for (String key: currentTravelBug.h_user.keys()){
+                        Premium_User p = currentTravelBug.h_user.get(key);
+                        textFieldTraveLbugsDetails.appendText("\t-User -> " + p.nome + "\n");
+                    }
+                }else{
+                    textFieldTraveLbugsDetails.setText("O travelBug ainda nao esteve em nenhum User!\n");
+                }
+                break;
+            case "Logs do  TravelBug":
+                if(currentTravelBug.myLogsTB.size()>0){
+                    textFieldTraveLbugsDetails.setText("Logs do TravelBug:\n");
+                    for (LogsTB log: currentTravelBug.myLogsTB){
+                        if(log.u==null){//Esteve na Cache
+                            textFieldTraveLbugsDetails.appendText("O Travel Bug foi para a Cache " + log.nome_cache + " no dia " + log.data.print2() + ".\n");
+                        }else{//Esteve no User
+                            textFieldTraveLbugsDetails.appendText("O Travel Bug foi para o User " + log.u.nome + " no dia " + log.data.print2() + ".\n");
+
+                        }
+
+                    }
+                }else{
+                    textFieldTraveLbugsDetails.setText("O travelBug ainda nao Logs!\n");
+                }
+                break;
+        }
+    }
     /////////////////////////////////////////FILES////////////////////////////
 
 

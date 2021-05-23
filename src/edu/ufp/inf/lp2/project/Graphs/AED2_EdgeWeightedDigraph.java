@@ -37,7 +37,14 @@ public class AED2_EdgeWeightedDigraph {
         adj = (Bag<Edge_Project>[]) new Bag[V];
         for (int v = 0; v < V; v++)
             adj[v] = new Bag<Edge_Project>();
-        setRandomPositions(0);
+        //setRandomPositions(0);
+        for(int i=0; i<this.V(); i++){
+            //setPositionX(i, (int)(GROUP_MARGIN + r.nextDouble() * 700));
+            //setPositionY(i, (int) (GROUP_MARGIN + r.nextDouble() * 600));
+            Localizacao l = cacheST.get(findIndexCacheName(i)).myLocalizacao;
+            positionsX[i] = (int)l.latitude;
+            positionsY[i] = (int)l.longitude;
+        }
     }
 
     /**
@@ -132,6 +139,13 @@ public class AED2_EdgeWeightedDigraph {
                 this.addEdge(adj);
             }
         }
+        for(int i=0; i<this.V(); i++){
+            //setPositionX(i, (int)(GROUP_MARGIN + r.nextDouble() * 700));
+            //setPositionY(i, (int) (GROUP_MARGIN + r.nextDouble() * 600));
+            Localizacao l = cacheST.get(new_findIndexCacheName(i)).myLocalizacao;
+            positionsX[i] = (int)l.latitude;
+            positionsY[i] = (int)l.longitude;
+        }
 
     }
 
@@ -158,6 +172,8 @@ public class AED2_EdgeWeightedDigraph {
             }
         }
     }
+
+
 
     /**
      * Returns the number of vertices in this edge-weighted digraph.

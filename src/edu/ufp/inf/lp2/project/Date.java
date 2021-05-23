@@ -161,7 +161,7 @@ public class Date implements Comparable<Date>{
   }
 
   public String print2() {
-    return   day + "/" + month + "/" + year + "at " + hour +"h";
+    return   day + "/" + month + "/" + year + " at " + hour +"h";
   }
 
   @Override

@@ -250,6 +250,7 @@
                            <content>
                               <AnchorPane minHeight="-10.0" minWidth="20.0" prefHeight="0.0" prefWidth="50.0">
                                  <children>
+                                    <ComboBox fx:id="combobox_GraphRegiao" onAction="#handleGraphRegiao" prefWidth="150.0" promptText="Choose Região" />
                                     <Group fx:id="graphGroup" />
                                  </children>
                               </AnchorPane>
@@ -326,7 +327,13 @@
                </children></Pane>
             <Pane fx:id="paneTravelBugs" prefHeight="761.0" prefWidth="815.0" styleClass="root" stylesheets="@GeoCachefxml.css">
                <children>
-                  <ComboBox fx:id="combobox_TraveLbugs" layoutX="54.0" layoutY="87.0" onAction="#handleCurrentTravelBugAction" prefWidth="150.0" promptText="Choose TB" />
+                  <AnchorPane prefHeight="761.0" prefWidth="815.0">
+                     <children>
+                        <ComboBox fx:id="combobox_TraveLbugs" layoutX="39.0" layoutY="66.0" onAction="#handleCurrentTravelBugAction" prefWidth="150.0" promptText="Choose TB" />
+                        <ComboBox fx:id="combobox_TraveLbugsDetails" layoutX="198.0" layoutY="66.0" onAction="#handleCurrentTravelBugDetailsAction" prefHeight="31.0" prefWidth="302.0" promptText="Choose TravelBug details" />
+                        <TextArea fx:id="textFieldTraveLbugsDetails" layoutX="98.0" layoutY="216.0" prefHeight="470.0" prefWidth="620.0" />
+                     </children>
+                  </AnchorPane>
                </children>
             </Pane>
          </children>

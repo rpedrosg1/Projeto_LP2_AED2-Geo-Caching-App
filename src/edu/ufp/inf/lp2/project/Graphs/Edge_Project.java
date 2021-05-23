@@ -25,6 +25,15 @@ public class Edge_Project extends DirectedEdge {
     public String toString() {
         String atual = Admin_User.findIndexCacheName(super.from());
         String path = Admin_User.findIndexCacheName(super.to());
+        /*
+        if(val==0){
+            atual = Admin_User.findIndexCacheName(super.from());
+            path = Admin_User.findIndexCacheName(super.to());
+        }else if(val == 1) {
+            atual = Admin_User.new_findIndexCacheName(super.from());
+            path = Admin_User.new_findIndexCacheName(super.to());
+        }else System.err.println("Valor invalido!\n");
+         */
         return atual + "->" + path + "|" + String.format("Distance:%5.2f km", super.weight())+ "|" +String.format("Time:%f min |||", time);
     }
 

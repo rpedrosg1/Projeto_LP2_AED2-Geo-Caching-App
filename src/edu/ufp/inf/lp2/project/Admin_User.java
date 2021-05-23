@@ -19,7 +19,7 @@ public class Admin_User extends Premium_User  {
     public static ST<String, Cache> cacheST = new ST<>();
 
     /**
-     * Contrutor que inicializa um Admin User com as suas caracteriasticas
+     * Contrutor que iniciFaliza um Admin User com as suas caracteriasticas
      * @param id id que o Premium User ira ter
      * @param nome nome do User
      * @param idade idade do User
@@ -434,7 +434,7 @@ public class Admin_User extends Premium_User  {
 
     }
 
-    public static String findIndexCacheName(int index){
+    public static String findIndexCacheName( int index){
         for(String key : CachesGraph.st){
             if(CachesGraph.st.get(key).equals(index))return key;
         }
@@ -447,6 +447,11 @@ public class Admin_User extends Premium_User  {
         return  null;
     }
     public static void Create_graph_per_region(String Region){
+       /*for (String key : new_CachesGraph.st.keys()){
+            new_CachesGraph.st.delete(key);
+        }
+*/
+        new_CachesGraph.st=new ST<>();
         for (String key : cacheST){
             Cache c=cacheST.get(key);
             if(c.myLocalizacao.regiao.equals(Region)){
@@ -455,26 +460,16 @@ public class Admin_User extends Premium_User  {
             }
         }
         new_CachesGraph.graph=new AED2_EdgeWeightedDigraph(new_CachesGraph.st.size());
-        for(int i=0; i<new_CachesGraph.graph.V(); i++) {
-                for (String key:new_CachesGraph.st){
-                    int index= CachesGraph.st.get(key);
-                    for (Edge_Project edg : CachesGraph.graph.adj(index)) {
-                            if(cacheST.get(findIndexCacheName(edg.to())).myLocalizacao.regiao.equals(Region)) {
-                                int index1=new_CachesGraph.st.get(findIndexCacheName(edg.from()));
-                                int index2=new_CachesGraph.st.get(findIndexCacheName(edg.to()));
-                                Edge_Project e =new Edge_Project(index1,index2,edg.weight(),edg.getTime());
-                                new_CachesGraph.graph.addEdge(e);
-                            }
-                            }
+        for (String key:new_CachesGraph.st){
+            int index= CachesGraph.st.get(key);
+            for (Edge_Project edg : CachesGraph.graph.adj(index)) {
+                    if(cacheST.get(findIndexCacheName(edg.to())).myLocalizacao.regiao.equals(Region)) {
+                        int index1=new_CachesGraph.st.get(findIndexCacheName(edg.from()));
+                        int index2=new_CachesGraph.st.get(findIndexCacheName(edg.to()));
+                        new_CachesGraph.graph.addEdge(new Edge_Project(index1,index2, edg.weight(),edg.getTime()));
                     }
-
-        }
+                }
+            }
     }
-
-
-
-
-
-
 
 }

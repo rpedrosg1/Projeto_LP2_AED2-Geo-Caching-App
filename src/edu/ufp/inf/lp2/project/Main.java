@@ -577,7 +577,7 @@ public class Main {
 
     public static void teste_Graphs(){
         Files_rw.read_all();
-        Files_rw.read_GeoCacheGraphs();
+        //Files_rw.read_GeoCacheGraphs();
         Create_graph_per_region("Centro");
         /////////////////////////////////grafos
         //Cache teste = new Cache(manuel,"TesteCache","DescricaoTeste", geocache1.myLocalizacao, Dificuldade.FACIL,Tipo.PREMIUM);

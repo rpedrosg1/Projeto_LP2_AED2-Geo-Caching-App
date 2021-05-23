@@ -8,11 +8,11 @@ import java.util.Vector;
 import static edu.ufp.inf.lp2.project.Admin_User.userST;
 public class LogsTB {
 
-  String nome_cache;
-  String id_user;
-  Date data;
-  Cache c;
-  Premium_User u;
+  public String nome_cache;
+  public String id_user;
+  public Date data;
+  public Cache c;
+  public Premium_User u;
 
   boolean missao_concluida;//missao
 

@@ -438,10 +438,11 @@ public class Files_rw {
                             tb.myuser=null;
                             tb.h_caches.put(c.nome,c);
                             c.myTravelBug.add(tb);
+                            tb.missao=cacheST.get(objUserID);
 
 
                             Date aux = new Date();
-                            LogsTB ltb = new LogsTB(c.nome,objUserID,aux,c,puser);
+                            LogsTB ltb = new LogsTB(c.nome,null,aux,c,puser);
                             tb.myLogsTB.add(ltb);
 
                             tb.myCreator=puser;
