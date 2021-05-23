@@ -260,7 +260,7 @@
                </children></Pane>
             <Pane fx:id="paneAdmin" prefHeight="761.0" prefWidth="805.0" styleClass="root" stylesheets="@GeoCachefxml.css">
                <children>
-                  <TabPane prefHeight="761.0" prefWidth="805.0" tabClosingPolicy="UNAVAILABLE">
+                  <TabPane prefHeight="761.0" prefWidth="815.0" tabClosingPolicy="UNAVAILABLE">
                      <tabs>
                         <Tab text="Users">
                            <content>
@@ -312,9 +312,13 @@
                               </AnchorPane>
                            </content>
                         </Tab>
-                        <Tab text="Untitled Tab 2">
+                        <Tab text="Caches">
                            <content>
-                              <VBox prefHeight="200.0" prefWidth="100.0" />
+                              <AnchorPane prefHeight="710.0" prefWidth="815.0">
+                                 <children>
+                                    <VBox layoutY="333.0" prefHeight="390.0" prefWidth="815.0" />
+                                 </children>
+                              </AnchorPane>
                            </content>
                         </Tab>
                      </tabs>

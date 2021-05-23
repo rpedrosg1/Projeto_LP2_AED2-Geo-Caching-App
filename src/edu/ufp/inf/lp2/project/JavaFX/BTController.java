@@ -15,6 +15,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.io.*;
@@ -22,11 +23,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-
-
-import static edu.ufp.inf.lp2.project.Admin_User.cacheST;
-import static edu.ufp.inf.lp2.project.Admin_User.userST;
-import static edu.ufp.inf.lp2.project.Admin_User.CachesGraph;
+import static edu.ufp.inf.lp2.project.Admin_User.*;
 
 public class BTController  implements Initializable,Serializable {
 
@@ -85,7 +82,8 @@ public class BTController  implements Initializable,Serializable {
         public TextField nVerticesField;
         public TextArea edgesField;
         public Group graphGroup;
-        final double radius=10;
+        final double radius=30;
+
         private AED2_EdgeWeightedDigraph gG;
 
 
@@ -591,17 +589,20 @@ public class BTController  implements Initializable,Serializable {
     public void createGraphGroup(){
         graphGroup.getChildren().clear();
         int aux=0;
-        for(int i=0; i<gG.V(); i++){
+        for(int i=0; i<gG.V(); i++) {
             Circle c = new Circle(gG.getVertexPosX(i), gG.getVertexPosY(i), radius);
             c.setFill(Color.WHITE);
+            if(cacheST.get(findIndexCacheName(i)).myTipo== Tipo.PREMIUM)c.setFill(Color.AQUA);
 
+            Text t = new Text(i+1 + "");
+            t.setFont(Font.font(40));
             StackPane stack = new StackPane();
-            stack.setLayoutX(gG.getVertexPosX(i)-radius);
-            stack.setLayoutY(gG.getVertexPosY(i)-radius);
-            stack.getChildren().addAll(c, new Text(i + ""));
-
+            stack.setLayoutX(gG.getVertexPosX(i) - radius);
+            stack.setLayoutY(gG.getVertexPosY(i) - radius);
+            stack.getChildren().addAll(c, t);
             graphGroup.getChildren().add(stack);
-
+        }
+        for(int i=0; i<gG.V(); i++) {
             if(gG.E() > 0){
                 for (String key:CachesGraph.st){
                    int index= CachesGraph.st.get(key);
@@ -612,23 +613,10 @@ public class BTController  implements Initializable,Serializable {
                            int index2 = edg.to();
                            //i ou index 1
 
-                           Line line = new Line(gG.getVertexPosX(index1), gG.getVertexPosY(index1), gG.getVertexPosX(index2), gG.getVertexPosY(index2));
+                           //Line line = new Line(gG.getVertexPosX(index1), gG.getVertexPosY(index1), gG.getVertexPosX(index2), gG.getVertexPosY(index2));
 
-                           Arrow arrow = new Arrow(gG.getVertexPosX(index1),gG.getVertexPosY(index1),gG.getVertexPosX(index2),gG.getVertexPosY(index2),20);
-/*
-                           Arrow1 arrow = new Arrow1();
+                           Arrow arrow = new Arrow(gG.getVertexPosX(index1),gG.getVertexPosY(index1),gG.getVertexPosX(index2),gG.getVertexPosY(index2),10);
 
-                           //Arrow arrowaux = new Arrow();
-
-                                       // set pos of end with arrow head
-
-                                       arrow.setStartX(gG.getVertexPosX(index1));
-                                       arrow.setStartY(gG.getVertexPosY(index1));
-
-                                       // set pos of end without arrow head
-                                       arrow.setEndX( gG.getVertexPosX(index2));
-                                       arrow.setEndY( gG.getVertexPosY(index2));
-*/
                            graphGroup.getChildren().add(arrow);
                        }
 

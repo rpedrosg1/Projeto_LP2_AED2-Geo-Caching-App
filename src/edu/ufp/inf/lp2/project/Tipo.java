@@ -1,8 +1,8 @@
 package edu.ufp.inf.lp2.project;
 
-enum Tipo {
+public enum Tipo {
 
-  BASIC,
+   BASIC,
 
   PREMIUM;
 }

@@ -2,7 +2,7 @@
 
 /* Use the .root style to apply a background image to the root node of the Scene instance. */
 .root {
-    -fx-background-image: url("KinitoGay.jpeg");
+    -fx-background-image: url("background.jpg");
 }
 
 /*Use the hover pseudo-class to change buttons look when users hover the mouse over the button*/

@@ -115,7 +115,8 @@ public class AED2_EdgeWeightedDigraph {
             positionsY[i] = gG.positionsY[i];
         }
 
-        setRandomPositions(gG.V);
+        //setRandomPositions(gG.V);
+
 
         for(int v=0; v<gG.V(); v++){
             for(Edge_Project adj: gG.adj(v)){
