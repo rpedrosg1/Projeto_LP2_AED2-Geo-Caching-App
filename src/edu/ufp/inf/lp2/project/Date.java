@@ -25,7 +25,7 @@ public class Date implements Comparable<Date>{
 
   public Date() {
     GregorianCalendar c = new GregorianCalendar();
-    this.hour=24;
+    this.hour=c.get(Calendar.HOUR_OF_DAY);
     this.day = c.get(Calendar.DAY_OF_MONTH);
     this.month = c.get(Calendar.MONTH) + 1;
     this.year = c.get(Calendar.YEAR);
