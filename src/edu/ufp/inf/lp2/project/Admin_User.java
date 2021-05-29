@@ -546,6 +546,100 @@ public class Admin_User extends Premium_User {
             }
         }
     }
+    public static void Create_graph_exclude_region(String Region) {
+       /*for (String key : new_CachesGraph.st.keys()){
+            new_CachesGraph.st.delete(key);
+        }
+*/
+        new_CachesGraph.st = new ST<>();
+        for (String key : cacheST) {
+            Cache c = cacheST.get(key);
+            if (!c.myLocalizacao.regiao.equals(Region)) {
+                int size = new_CachesGraph.st.size();
+                new_CachesGraph.st.put(c.nome, size);
+            }
+        }
+        new_CachesGraph.graph = new AED2_EdgeWeightedDigraph(new_CachesGraph.st.size());
+        for (String key : new_CachesGraph.st) {
+            int index = CachesGraph.st.get(key);
+            for (Edge_Project edg : CachesGraph.graph.adj(index)) {
+                if (!cacheST.get(findIndexCacheName(edg.to())).myLocalizacao.regiao.equals(Region)) {
+                    int index1 = new_CachesGraph.st.get(findIndexCacheName(edg.from()));
+                    int index2 = new_CachesGraph.st.get(findIndexCacheName(edg.to()));
+                    new_CachesGraph.graph.addEdge(new Edge_Project(index1, index2, edg.weight(), edg.getTime()));
+                }
+            }
+        }
+    }
+    public static void Create_graph_exclude_dificuldade(String Dificuldade) {
+       /*for (String key : new_CachesGraph.st.keys()){
+            new_CachesGraph.st.delete(key);
+        }
+*/
+        Dificuldade tipo=null;
+        switch (Dificuldade) {
+            case "Dificil":
+                tipo = edu.ufp.inf.lp2.project.Dificuldade.DIFICIL;
+                break;
+            case "Medio":
+                tipo = edu.ufp.inf.lp2.project.Dificuldade.MEDIO;
+                break;
+            case "Facil":
+                tipo = edu.ufp.inf.lp2.project.Dificuldade.FACIL;
+                break;
+        }
+        new_CachesGraph.st = new ST<>();
+        for (String key : cacheST) {
+            Cache c = cacheST.get(key);
+            if (!c.myDificuldade.equals(tipo)) {
+                int size = new_CachesGraph.st.size();
+                new_CachesGraph.st.put(c.nome, size);
+            }
+        }
+        new_CachesGraph.graph = new AED2_EdgeWeightedDigraph(new_CachesGraph.st.size());
+        for (String key : new_CachesGraph.st) {
+            int index = CachesGraph.st.get(key);
+            for (Edge_Project edg : CachesGraph.graph.adj(index)) {
+                if (!cacheST.get(findIndexCacheName(edg.to())).myDificuldade.equals(tipo)) {
+                    int index1 = new_CachesGraph.st.get(findIndexCacheName(edg.from()));
+                    int index2 = new_CachesGraph.st.get(findIndexCacheName(edg.to()));
+                    new_CachesGraph.graph.addEdge(new Edge_Project(index1, index2, edg.weight(), edg.getTime()));
+                }
+            }
+        }
+    }
+
+    public static void Create_graph_per_number_visitantes(int numero_de_visitantes_min,int numero_de_visitantes_max) {
+        if(numero_de_visitantes_min<=numero_de_visitantes_max) {
+       /*for (String key : new_CachesGraph.st.keys()){
+            new_CachesGraph.st.delete(key);
+        }
+*/
+        new_CachesGraph.st = new ST<>();
+        for (String key : cacheST) {
+            Cache c = cacheST.get(key);
+            int nr_Vistantes=c.H_User.size();
+            if (nr_Vistantes>=numero_de_visitantes_min && nr_Vistantes<=numero_de_visitantes_max) {
+                int size = new_CachesGraph.st.size();
+                new_CachesGraph.st.put(c.nome, size);
+            }
+        }
+        new_CachesGraph.graph = new AED2_EdgeWeightedDigraph(new_CachesGraph.st.size());
+        for (String key : new_CachesGraph.st) {
+            int index = CachesGraph.st.get(key);
+            for (Edge_Project edg : CachesGraph.graph.adj(index)) {
+                if (cacheST.get(findIndexCacheName(edg.to())).H_User.size()>=numero_de_visitantes_min && cacheST.get(findIndexCacheName(edg.to())).H_User.size()<=numero_de_visitantes_max) {
+                    int index1 = new_CachesGraph.st.get(findIndexCacheName(edg.from()));
+                    int index2 = new_CachesGraph.st.get(findIndexCacheName(edg.to()));
+                    new_CachesGraph.graph.addEdge(new Edge_Project(index1, index2, edg.weight(), edg.getTime()));
+                }
+            }
+        }
+    }else {
+            System.out.println("ERROR");
+        }
+
+    }
 
     public static void R18(double maxkm) {
         double max=0;int vertice_max = 0;
@@ -611,5 +705,20 @@ public class Admin_User extends Premium_User {
 
     }
 
+    public static void ShortestPath_new_Graph(int s,int t) {
+        AED2_EdgeWeightedDigraph G = new AED2_EdgeWeightedDigraph(new_CachesGraph.graph);
+        AED_DijkstraSP sp = new AED_DijkstraSP(G, s);
+        if (sp.hasPathTo(t)) {
+            StdOut.printf("%d to %d (%.2f)  ", s, t, sp.distTo(t));
+            for (DirectedEdge e : sp.pathTo(t)) {
+                StdOut.print(e + "   ");
+            }
+            StdOut.println();
+        }
+        else {
+            StdOut.printf("%d to %d         no path\n", s, t);
+        }
+
+    }
 
 }
