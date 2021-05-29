@@ -69,8 +69,14 @@ public class BTController  implements Initializable,Serializable {
 
             public ComboBox<String> combobox_cache_visited;
 
+            public ComboBox<String> combobox_putObj;
+            public ComboBox<String> combobox_takeObj;
+
             public Cache currentCacheVisited;
 
+            public TextField logVisitCache;
+
+            //handleButtonVisitCache
 
 //////////////////////////////////////////////////////////////////////////////////
     //Caches
@@ -187,6 +193,9 @@ public class BTController  implements Initializable,Serializable {
         combobox_GraphRegiao.getItems().add("Sul");
         combobox_GraphRegiao.getItems().add("Basic");
         combobox_GraphRegiao.getItems().add("Premium");
+        combobox_GraphRegiao.getItems().add("Facil");
+        combobox_GraphRegiao.getItems().add("Medio");
+        combobox_GraphRegiao.getItems().add("Dificil");
 
         text_Graphs1.setText("•Basic");
         text_Graphs1.setFont(new Font(17));
@@ -253,6 +262,8 @@ public class BTController  implements Initializable,Serializable {
 
 
         //TAB1 -
+
+        //Escolhe currrent user
         public void handleCurrentUserAction(ActionEvent actionEvent){
             for (Basic_User user : userArrayList){
                 if(user.nome.equals(combobox_Users.getValue()))currentUser=user;
@@ -283,12 +294,199 @@ public class BTController  implements Initializable,Serializable {
                 else if (currentUser instanceof Premium_User )combobox_cache_visited.getItems().add(c.nome);
             }
 
+            combobox_putObj.getItems().clear();
+            combobox_takeObj.getItems().clear();
+
         }
 
-
+        //Seleciona cache que user quer visitar
         public void handleCurrentCacheVisitedAction(ActionEvent actionEvent){
-            currentCache=cacheST.get(combobox_cache_visited.getValue());
-            System.out.println("Cache a visitar : " + currentCache.nome +" " + currentCache.myTipo.toString());
+            currentCacheVisited=cacheST.get(combobox_cache_visited.getValue());
+            System.out.println("Cache a visitar : " + currentCacheVisited.nome +" " + currentCacheVisited.myTipo.toString());
+
+            combobox_putObj.getItems().clear();
+            combobox_takeObj.getItems().clear();
+            combobox_putObj.getItems().add("Nenhum");
+            combobox_takeObj.getItems().add("Nenhum");
+            for (Objeto obj : currentUserObjArrayList){
+                combobox_putObj.getItems().add(obj.nome);
+            }
+            for (Objeto obj : currentCacheVisited.objCache){
+                combobox_takeObj.getItems().add(obj.nome);
+            }
+
+            if(currentUser instanceof Premium_User){
+                for (TravelBug tb : currentCacheVisited.myTravelBug){
+                    combobox_takeObj.getItems().add(tb.nome);
+                }
+            }
+
+        }
+
+        public void handleButtonVisitCache(ActionEvent actionEvent) throws General_Exception {
+            if(currentCacheVisited == null ){
+                System.err.println("Erro Cache nao selecionada");
+                return;
+            }
+            if(currentUser == null ){
+                System.err.println("Erro User nao selecionada");
+                return;
+            }
+
+            String put = combobox_putObj.getValue();
+            String take = combobox_takeObj.getValue();
+            Logs log = new Logs(logVisitCache.getText());
+
+            boolean soVisitar = false;
+            //visitar cache sem colocar/tirar obj
+            if((put == null || put.equals("Nenhum") )&& (take == null || take.equals("Nenhum"))){
+                Date d = new Date();
+                currentUser.VisitarCache(d,currentCacheVisited,log);
+                System.out.println("User " + currentUser.nome + " visitou a cache " +
+                        currentCacheVisited.nome + " no dia " + d.print2() + "\n");
+                soVisitar=true;
+            }
+
+            //visitar cache colocar obj , nao tirar obj
+            else if((put!=null && !put.equals("Nenhum"))&& (take==null ||  take.equals("Nenhum"))){
+                Objeto obj = new Objeto();
+                for(String key :currentUser.myObj.keys()){
+                    Objeto o = currentUser.myObj.get(key);
+                    if(o.nome.equals(put)){
+                        obj=o;
+                        break;
+                    }
+                }
+                Date d = new Date();
+
+                if(obj instanceof TravelBug){
+                    Premium_User p = (Premium_User)currentUser;
+                    p.VisitarCache_deixarTB(d,currentCacheVisited,log,obj.id);
+                }else{
+                    currentUser.VisitarCache_deixarObj(d,currentCacheVisited,log,obj.id);
+                }
+                currentUserObjArrayList.remove(obj);
+                System.out.println("User " + currentUser.nome + " visitou a cache " +
+                        currentCacheVisited.nome + " no dia " + d.print2() + "\n\t colocou obj na cache" + put + "\n");
+            }
+
+
+            //visitar cache nao colocar obj , retirar obj
+            else if((put==null || put.equals("Nenhum"))&& (take!=null && !take.equals("Nenhum"))){
+
+               // boolean isObj = false;
+                Objeto obj = new Objeto();
+                for(Objeto o :currentCacheVisited.objCache){
+                    if(o.nome.equals(take)){
+                        obj=o;
+                        //isObj=true;
+                        break;
+                    }
+                }
+                for(Objeto o :currentCacheVisited.myTravelBug){
+                    if(o.nome.equals(take)){
+                        obj=o;
+                        //isObj=true;
+                        break;
+                    }
+                }
+
+                Date d = new Date();
+
+                if(obj instanceof TravelBug){
+                    Premium_User p = (Premium_User)currentUser;
+                    p.VisitarCache_tirarTB(d,currentCacheVisited,log,(TravelBug)obj );
+                }else{
+                    currentUser.VisitarCache_tirarObj(d,currentCacheVisited,log, obj.id);
+                }
+
+                currentUserObjArrayList.add(obj);
+                System.out.println("User " + currentUser.nome + " visitou a cache " +
+                        currentCacheVisited.nome + " no dia " + d.print2() + "\n\t retirou obj da cache " + take + "\n");
+            }
+
+            //visitar cache  colocar obj e retirar obj
+            else{
+                Objeto objColocar = new Objeto();
+                Objeto objRetirar = new Objeto();
+                for(String key :currentUser.myObj.keys()){
+                    Objeto o = currentUser.myObj.get(key);
+                    if(o.nome.equals(put)){
+                        objColocar=o;
+                        break;
+                    }
+                }
+
+                for(Objeto o :currentCacheVisited.objCache){
+                    if(o.nome.equals(take)){
+                        objRetirar=o;
+                        break;
+                    }
+                }
+                for(Objeto o :currentCacheVisited.myTravelBug){
+                    if(o.nome.equals(take)){
+                        objRetirar=o;
+                        break;
+                    }
+                }
+
+                Date d = new Date();
+                //colocar e retiar sao objetos
+                if(objColocar.getClass().equals(Objeto.class) && objRetirar.getClass().equals(Objeto.class) ){
+                    currentUser.VisitarCache_trocarObj(d,currentCacheVisited,log,objColocar.id,objRetirar);
+                    System.out.println("User " + currentUser.nome + " visitou a cache " +
+                            currentCacheVisited.nome + " no dia " + d.print2() + "\n\t colocou obj na cache" + put +
+                            " e retirou da cache obj  " + take+"\n");
+                    currentUserObjArrayList.add(objRetirar);
+                    currentUserObjArrayList.remove(objColocar);
+                }
+                //colocar é obj , retirar é tb
+                else if(objColocar.getClass().equals(Objeto.class) && objRetirar.getClass().equals(TravelBug.class)){
+                    System.out.println("Ainda nao temos\n");
+                }
+                //colocar é TB e retirar é Objeto
+                else if(objRetirar.getClass().equals(Objeto.class)){
+                    Premium_User p = (Premium_User)currentUser;
+                    p.VisitarCache_trocarTB_por_Obj(d,currentCacheVisited,log,objColocar.id,objRetirar);
+                    System.out.println("User " + currentUser.nome + " visitou a cache " +
+                            currentCacheVisited.nome + " no dia " + d.print2() + "\n\t colocou TravelBug na cache" + put +
+                            " e retirou da cache obj  " + take+"\n");
+                    currentUserObjArrayList.add(objRetirar);
+                    currentUserObjArrayList.remove(objColocar);
+                }
+                //colocar e retiar sao TB
+                else if(objRetirar.getClass().equals(TravelBug.class)){
+                    Premium_User p = (Premium_User)currentUser;
+                    p.VisitarCache_trocarTB_por_TB(d,currentCacheVisited,log,objColocar.id,(TravelBug)objRetirar);
+                    System.out.println("User " + currentUser.nome + " visitou a cache " +
+                            currentCacheVisited.nome + " no dia " + d.print2() + "\n\t colocou TravelBug na cache" + put +
+                            " e retirou da cache TravelBug  " + take+"\n");
+                    currentUserObjArrayList.add(objRetirar);
+                    currentUserObjArrayList.remove(objColocar);
+                }
+            }
+
+
+
+            //dar update as combox de objetos da cache e user
+            if(!soVisitar){
+                combobox_putObj.getItems().clear();
+                combobox_takeObj.getItems().clear();
+
+                combobox_putObj.getItems().add("Nenhum");
+                combobox_takeObj.getItems().add("Nenhum");
+                for (Objeto obj : currentUserObjArrayList){
+                    combobox_putObj.getItems().add(obj.nome);
+                }
+                for (Objeto obj : currentCacheVisited.objCache){
+                    combobox_takeObj.getItems().add(obj.nome);
+                }
+                for (Objeto obj : currentCacheVisited.myTravelBug){
+                    combobox_takeObj.getItems().add(obj.nome);
+                }
+            }
+
+
         }
 
         public void handleReadUsersFileAction(ActionEvent actionEvent) {
@@ -382,8 +580,13 @@ public class BTController  implements Initializable,Serializable {
         }
 
         public void buttonCarregarUsersObjetos(ActionEvent actionEvent) throws IOException {
+        if(currentUser!=null){
             readObjetosUsersFromFile();
             if(currentUserObjArrayList.size()>0)userObjetosTable.getItems().addAll(currentUserObjArrayList);
+        }else{
+            System.err.println("Erro, nao selecionou nenhum user\n");
+        }
+
         }
 
 
@@ -481,6 +684,7 @@ public class BTController  implements Initializable,Serializable {
 
         //Handler para acção do botão de encerramento da aplicação
         public void handleExitAction(ActionEvent actionEvent) {
+            //Files_rw.save_all();
             System.exit(0);
         }
 
@@ -539,7 +743,6 @@ public class BTController  implements Initializable,Serializable {
         }
 
     }
-
 
 
     public void handleCurrentCacheAction(ActionEvent actionEvent){
@@ -701,33 +904,28 @@ public class BTController  implements Initializable,Serializable {
         System.out.println("\nNumero de edges no graph = " + aux + "\n");
     }
 
-/*
-   public void createGraphGroupRegiao(String regiao){
+    public void createGraphGroupDificuldade(){
         graphGroup.getChildren().clear();
         int aux=0;
         for(int i=0; i<gG.V(); i++) {
-            if(cacheST.get(findIndexCacheName(i)).myLocalizacao.regiao.equals(regiao)){
-                Circle c = new Circle(gG.getVertexPosX(i), gG.getVertexPosY(i), radius);
-                c.setFill(Color.WHITE);
-                if(cacheST.get(findIndexCacheName(i)).myTipo== Tipo.PREMIUM)c.setFill(Color.AQUA);
+            Circle c = new Circle(gG.getVertexPosX(i), gG.getVertexPosY(i), radius);
 
-                Text t = new Text(i+1 + "");
-                t.setFont(Font.font(40));
-                StackPane stack = new StackPane();
-                stack.setLayoutX(gG.getVertexPosX(i) - radius);
-                stack.setLayoutY(gG.getVertexPosY(i) - radius);
-                stack.getChildren().addAll(c, t);
-                graphGroup.getChildren().add(stack);
-            }
+            c.setFill(Color.WHITE);
+            if(cacheST.get(new_findIndexCacheName(i)).myTipo== Tipo.PREMIUM)c.setFill(Color.AQUA);
+
+            Text t = new Text(i+1 + "");
+            t.setFont(Font.font(40));
+            StackPane stack = new StackPane();
+            stack.setLayoutX(gG.getVertexPosX(i) - radius);
+            stack.setLayoutY(gG.getVertexPosY(i) - radius);
+            stack.getChildren().addAll(c, t);
+            graphGroup.getChildren().add(stack);
         }
-
-
-
         for(int i=0; i<gG.V(); i++) {
             if(gG.E() > 0){
                 for (String key:CachesGraph.st){
                     int index= CachesGraph.st.get(key);
-                    if(index==i && cacheST.get(key).myLocalizacao.regiao.equals(regiao)) {
+                    if(index==i) {
                         for (Edge_Project edg : gG.adj(index)) {
                             aux++;
                             int index1 = edg.from();
@@ -735,10 +933,10 @@ public class BTController  implements Initializable,Serializable {
                             //i ou index 1
 
                             //Line line = new Line(gG.getVertexPosX(index1), gG.getVertexPosY(index1), gG.getVertexPosX(index2), gG.getVertexPosY(index2));
-                                if(cacheST.get(findIndexCacheName(index2)).myLocalizacao.regiao.equals(regiao)){
-                                    Arrow arrow = new Arrow(gG.getVertexPosX(index1),gG.getVertexPosY(index1),gG.getVertexPosX(index2),gG.getVertexPosY(index2),10);
-                                    graphGroup.getChildren().add(arrow);
-                                }
+
+                            Arrow arrow = new Arrow(gG.getVertexPosX(index1),gG.getVertexPosY(index1),gG.getVertexPosX(index2),gG.getVertexPosY(index2),10);
+
+                            graphGroup.getChildren().add(arrow);
                         }
 
                     }
@@ -748,7 +946,8 @@ public class BTController  implements Initializable,Serializable {
         }
         System.out.println("\nNumero de edges no graph = " + aux + "\n");
     }
-*/
+
+
     public void createNewGraph(int nVertices,ArrayList<Cache> c){
         if(gG == null){
             gG = new AED2_EdgeWeightedDigraph(c,nVertices);
@@ -776,12 +975,13 @@ public class BTController  implements Initializable,Serializable {
     public void handleGraphRegiao(ActionEvent actionEvent){
 
         handleClearButtonAction(new ActionEvent());
-        String regiao = combobox_GraphRegiao.getValue();
-        if(regiao.equals("Geral"))GraphGeral();
-        else if(regiao.equals("Norte") || regiao.equals("Centro") || regiao.equals("Sul")) {
-            GraphGeralRegiao(regiao);
+        String tipo = combobox_GraphRegiao.getValue();
+        if(tipo.equals("Geral"))GraphGeral();
+        else if(tipo.equals("Norte") || tipo.equals("Centro") || tipo.equals("Sul")) {
+            GraphRegiao(tipo);
         }
-        else if (regiao.equals("Basic") || regiao.equals("Premium")) GraphGeralTipo(regiao);
+        else if (tipo.equals("Basic") || tipo.equals("Premium")) GraphGeralTipo(tipo);
+        else if (tipo.equals("Facil") || tipo.equals("Medio") ||tipo.equals("Dificil")  ) GraphDificuldade(tipo);
     }
 
 
@@ -794,30 +994,39 @@ public class BTController  implements Initializable,Serializable {
         }
     }
 
-    public void GraphGeralRegiao(String regiao) {
+    public void GraphRegiao(String regiao) {
         try{
             Create_graph_per_region(regiao);
             gG = new AED2_EdgeWeightedDigraph(new_CachesGraph.graph, new_CachesGraph.st.size());
-            createGraphGroupRegiao();
+            createGraphGroup();
+            //createGraphGroupRegiao();
         } catch(NumberFormatException e){
             System.out.println("Error: Vertices not inserted");
         }
     }
+
     public void GraphGeralTipo(String tipo) {
         try{
             Create_graph_per_tipo(tipo);
             gG = new AED2_EdgeWeightedDigraph(new_CachesGraph.graph, new_CachesGraph.st.size());
-            createGraphGroupRegiao();
+            createGraphGroup();
+            //createGraphGroupRegiao();
         } catch(NumberFormatException e){
             System.out.println("Error: Vertices not inserted");
         }
     }
 
-    public void createNewGraphRegion(){
-        Create_graph_per_region("Centro");
-
-        gG = new AED2_EdgeWeightedDigraph(new_CachesGraph.graph, new_CachesGraph.st.size());
+    public void GraphDificuldade(String dificuldade) {
+        try{
+            Create_graph_per_dificuldade(dificuldade);
+            gG = new AED2_EdgeWeightedDigraph(new_CachesGraph.graph, new_CachesGraph.st.size());
+            createGraphGroup();
+            //createGraphGroupDificuldade();
+        } catch(NumberFormatException e){
+            System.out.println("Error: Vertices not inserted");
+        }
     }
+
 
 
     public void handleVerticesButtonAction(ActionEvent actionEvent) {
@@ -902,6 +1111,7 @@ public class BTController  implements Initializable,Serializable {
     }
 
     public void handleCurrentTravelBugAction(ActionEvent actionEvent){
+        combobox_TraveLbugsDetails.getItems().clear();
         for (TravelBug tb : travelBugArrayList){
             if(tb.nome.equals(combobox_TraveLbugs.getValue())){
                 currentTravelBug=tb;
