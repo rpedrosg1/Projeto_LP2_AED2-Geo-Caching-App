@@ -1,6 +1,6 @@
 3|geocache1|Original!|PREMIUM|FACIL|28.0|Norte|50|500|
 3|geocache2|Original!|PREMIUM|MEDIO|28.0|Norte|30|700|
-3|geocache3|Original!|PREMIUM|DIFICIL|28.0|Norte|70|150|
+3|geocache3|Original!|PREMIUM|DIFICIL|28.0|Norte|70|193|
 3|geocache4|Original!|BASIC|FACIL|28.0|Norte|150|310|
 4|geocache5|Original!|PREMIUM|MEDIO|28.0|Norte|180|90|
 4|geocache6|Original!|BASIC|DIFICIL|28.0|Norte|123|700|

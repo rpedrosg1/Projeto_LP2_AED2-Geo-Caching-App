@@ -65,6 +65,13 @@ public class BTController  implements Initializable,Serializable {
                 public TextField obj_nameField;
 
 
+            //VISITAR CACHE
+
+            public ComboBox<String> combobox_cache_visited;
+
+            public Cache currentCacheVisited;
+
+
 //////////////////////////////////////////////////////////////////////////////////
     //Caches
 
@@ -84,7 +91,8 @@ public class BTController  implements Initializable,Serializable {
         public Group graphGroup;
         final double radius=30;
         public ComboBox<String> combobox_GraphRegiao;
-
+        public Text text_Graphs1;
+        public Text text_Graphs2;
 
         private AED2_EdgeWeightedDigraph gG;
 
@@ -177,6 +185,15 @@ public class BTController  implements Initializable,Serializable {
         combobox_GraphRegiao.getItems().add("Norte");
         combobox_GraphRegiao.getItems().add("Centro");
         combobox_GraphRegiao.getItems().add("Sul");
+        combobox_GraphRegiao.getItems().add("Basic");
+        combobox_GraphRegiao.getItems().add("Premium");
+
+        text_Graphs1.setText("•Basic");
+        text_Graphs1.setFont(new Font(17));
+        text_Graphs1.setFill(Color.WHITE);
+        text_Graphs2.setText("•Premium");
+        text_Graphs2.setFont(new Font(17));
+        text_Graphs2.setFill(Color.AQUA);
 
     }
     //Handler mudar o Panel
@@ -258,6 +275,20 @@ public class BTController  implements Initializable,Serializable {
                 list.add("TravelBug");
             }
             combobox_typeUser.setPromptText("Type of Object");
+
+
+            combobox_cache_visited.getItems().clear();
+            for (Cache c : cacheArrayList){
+                if(c.myTipo==Tipo.BASIC)combobox_cache_visited.getItems().add(c.nome);
+                else if (currentUser instanceof Premium_User )combobox_cache_visited.getItems().add(c.nome);
+            }
+
+        }
+
+
+        public void handleCurrentCacheVisitedAction(ActionEvent actionEvent){
+            currentCache=cacheST.get(combobox_cache_visited.getValue());
+            System.out.println("Cache a visitar : " + currentCache.nome +" " + currentCache.myTipo.toString());
         }
 
         public void handleReadUsersFileAction(ActionEvent actionEvent) {
@@ -747,10 +778,13 @@ public class BTController  implements Initializable,Serializable {
         handleClearButtonAction(new ActionEvent());
         String regiao = combobox_GraphRegiao.getValue();
         if(regiao.equals("Geral"))GraphGeral();
-        else {
+        else if(regiao.equals("Norte") || regiao.equals("Centro") || regiao.equals("Sul")) {
             GraphGeralRegiao(regiao);
         }
+        else if (regiao.equals("Basic") || regiao.equals("Premium")) GraphGeralTipo(regiao);
     }
+
+
     public void GraphGeral() {
         try{
             createNewGraph(cacheArrayList.size(),cacheArrayList);
@@ -763,6 +797,15 @@ public class BTController  implements Initializable,Serializable {
     public void GraphGeralRegiao(String regiao) {
         try{
             Create_graph_per_region(regiao);
+            gG = new AED2_EdgeWeightedDigraph(new_CachesGraph.graph, new_CachesGraph.st.size());
+            createGraphGroupRegiao();
+        } catch(NumberFormatException e){
+            System.out.println("Error: Vertices not inserted");
+        }
+    }
+    public void GraphGeralTipo(String tipo) {
+        try{
+            Create_graph_per_tipo(tipo);
             gG = new AED2_EdgeWeightedDigraph(new_CachesGraph.graph, new_CachesGraph.st.size());
             createGraphGroupRegiao();
         } catch(NumberFormatException e){
