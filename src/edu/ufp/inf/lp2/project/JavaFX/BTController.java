@@ -998,8 +998,8 @@ public class BTController  implements Initializable,Serializable {
         try{
             Create_graph_per_region(regiao);
             gG = new AED2_EdgeWeightedDigraph(new_CachesGraph.graph, new_CachesGraph.st.size());
-            createGraphGroup();
-            //createGraphGroupRegiao();
+            //createGraphGroup();
+            createGraphGroupRegiao();
         } catch(NumberFormatException e){
             System.out.println("Error: Vertices not inserted");
         }
@@ -1009,8 +1009,8 @@ public class BTController  implements Initializable,Serializable {
         try{
             Create_graph_per_tipo(tipo);
             gG = new AED2_EdgeWeightedDigraph(new_CachesGraph.graph, new_CachesGraph.st.size());
-            createGraphGroup();
-            //createGraphGroupRegiao();
+            //createGraphGroup();
+            createGraphGroupRegiao();
         } catch(NumberFormatException e){
             System.out.println("Error: Vertices not inserted");
         }
@@ -1020,8 +1020,8 @@ public class BTController  implements Initializable,Serializable {
         try{
             Create_graph_per_dificuldade(dificuldade);
             gG = new AED2_EdgeWeightedDigraph(new_CachesGraph.graph, new_CachesGraph.st.size());
-            createGraphGroup();
-            //createGraphGroupDificuldade();
+            //createGraphGroup();
+            createGraphGroupDificuldade();
         } catch(NumberFormatException e){
             System.out.println("Error: Vertices not inserted");
         }
