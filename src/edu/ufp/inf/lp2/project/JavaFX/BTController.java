@@ -96,11 +96,14 @@ public class BTController  implements Initializable,Serializable {
         public TextArea edgesField;
         public Group graphGroup;
         final double radius=30;
-        public ComboBox<String> combobox_GraphRegiao;
         public Text text_Graphs1;
         public Text text_Graphs2;
 
         private AED2_EdgeWeightedDigraph gG;
+
+        public TextArea nrVisitantesGraphs;
+
+
 
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -187,15 +190,6 @@ public class BTController  implements Initializable,Serializable {
         for (Cache c : cacheArrayList){
             combobox_Caches.getItems().add(c.nome);
         }
-        combobox_GraphRegiao.getItems().add("Geral");
-        combobox_GraphRegiao.getItems().add("Norte");
-        combobox_GraphRegiao.getItems().add("Centro");
-        combobox_GraphRegiao.getItems().add("Sul");
-        combobox_GraphRegiao.getItems().add("Basic");
-        combobox_GraphRegiao.getItems().add("Premium");
-        combobox_GraphRegiao.getItems().add("Facil");
-        combobox_GraphRegiao.getItems().add("Medio");
-        combobox_GraphRegiao.getItems().add("Dificil");
 
         text_Graphs1.setText("•Basic");
         text_Graphs1.setFont(new Font(17));
@@ -972,17 +966,94 @@ public class BTController  implements Initializable,Serializable {
     }
 
 
-    public void handleGraphRegiao(ActionEvent actionEvent){
 
+    //GERAL
+    public void graphMenuItemGeral(ActionEvent actionEvent){
         handleClearButtonAction(new ActionEvent());
-        String tipo = combobox_GraphRegiao.getValue();
-        if(tipo.equals("Geral"))GraphGeral();
-        else if(tipo.equals("Norte") || tipo.equals("Centro") || tipo.equals("Sul")) {
-            GraphRegiao(tipo);
-        }
-        else if (tipo.equals("Basic") || tipo.equals("Premium")) GraphGeralTipo(tipo);
-        else if (tipo.equals("Facil") || tipo.equals("Medio") ||tipo.equals("Dificil")  ) GraphDificuldade(tipo);
+        GraphGeral();
     }
+    //REGIAO
+    public void graphMenuItemRegiaoNorte(ActionEvent actionEvent){
+        handleClearButtonAction(new ActionEvent());
+        GraphRegiao("Norte");
+    }
+    public void graphMenuItemRegiaoCentro(ActionEvent actionEvent){
+        handleClearButtonAction(new ActionEvent());
+        GraphRegiao("Centro");
+    }
+    public void graphMenuItemRegiaoSul(ActionEvent actionEvent){
+        handleClearButtonAction(new ActionEvent());
+        GraphRegiao("Sul");
+    }
+    //REGIAO EXCLUSAO
+    public void graphMenuItemRegiaoNorteExclusao(ActionEvent actionEvent){
+        handleClearButtonAction(new ActionEvent());
+        GraphRegiaoExclude("Norte");
+    }
+    public void graphMenuItemRegiaoCentroExclusao(ActionEvent actionEvent){
+        handleClearButtonAction(new ActionEvent());
+        GraphRegiaoExclude("Centro");
+    }
+    public void graphMenuItemRegiaoSulExclusao(ActionEvent actionEvent){
+        handleClearButtonAction(new ActionEvent());
+        GraphRegiaoExclude("Sul");
+    }
+    //TIPO
+    public void graphMenuItemTipoBasic(ActionEvent actionEvent){
+        handleClearButtonAction(new ActionEvent());
+        GraphGeralTipo("Basic");
+
+    }
+    public void graphMenuItemTipoPremium(ActionEvent actionEvent){
+        handleClearButtonAction(new ActionEvent());
+        GraphGeralTipo("Premium");
+    }
+    //DIFICULDADE
+    public void graphMenuItemDificuldadeFacil(ActionEvent actionEvent){
+        handleClearButtonAction(new ActionEvent());
+        GraphDificuldade("Facil");
+    }
+    public void graphMenuItemDificuldadeMedio(ActionEvent actionEvent){
+        handleClearButtonAction(new ActionEvent());
+        GraphDificuldade("Medio");
+    }
+    public void graphMenuItemDificuldadeDificil(ActionEvent actionEvent){
+        handleClearButtonAction(new ActionEvent());
+        GraphDificuldade("Dificil");
+    }
+    //DIFICULDADE EXCLUSAO
+    public void graphMenuItemDificuldadeFacilExclusao(ActionEvent actionEvent){
+        handleClearButtonAction(new ActionEvent());
+        GraphDificuldadeExclude("Facil");
+    }
+    public void graphMenuItemDificuldadeMedioExclusao(ActionEvent actionEvent){
+        handleClearButtonAction(new ActionEvent());
+        GraphDificuldadeExclude("Medio");
+    }
+    public void graphMenuItemDificuldadeDificilExclusao(ActionEvent actionEvent){
+        handleClearButtonAction(new ActionEvent());
+        GraphDificuldadeExclude("Dificil");
+    }
+
+    public void graphMenuItemnrVisitantes(ActionEvent actionEvent){
+    String nrvisitantes = nrVisitantesGraphs.getText();
+    String []words = nrvisitantes.split("-");
+    int a=0,b=0;
+    try {
+        a=Integer.parseInt(words[0]);
+        b=Integer.parseInt(words[1]);
+    }catch (Exception e){
+        System.err.println("Erro ao inserir Nrº visitantes");
+    }
+    if(words.length!=2 || a<0 || b<0){
+        System.err.println("Erro ao inserir Nrº visitantes");
+        return;
+    }
+    handleClearButtonAction(new ActionEvent());
+    GraphNrVisitantes(a,b);
+
+    }
+
 
 
     public void GraphGeral() {
@@ -1005,6 +1076,17 @@ public class BTController  implements Initializable,Serializable {
         }
     }
 
+    public void GraphRegiaoExclude(String regiao) {
+        try{
+            Create_graph_exclude_region(regiao);
+            gG = new AED2_EdgeWeightedDigraph(new_CachesGraph.graph, new_CachesGraph.st.size());
+            //createGraphGroup();
+            createGraphGroupRegiao();
+        } catch(NumberFormatException e){
+            System.out.println("Error: Vertices not inserted");
+        }
+    }
+
     public void GraphGeralTipo(String tipo) {
         try{
             Create_graph_per_tipo(tipo);
@@ -1016,12 +1098,34 @@ public class BTController  implements Initializable,Serializable {
         }
     }
 
+    public void GraphDificuldadeExclude(String dificuldadeExclude){
+        try{
+            Create_graph_exclude_dificuldade(dificuldadeExclude);
+            gG = new AED2_EdgeWeightedDigraph(new_CachesGraph.graph, new_CachesGraph.st.size());
+            //createGraphGroup();
+            createGraphGroupDificuldade();
+        } catch(NumberFormatException e){
+            System.out.println("Error: Vertices not inserted");
+        }
+    }
+
     public void GraphDificuldade(String dificuldade) {
         try{
             Create_graph_per_dificuldade(dificuldade);
             gG = new AED2_EdgeWeightedDigraph(new_CachesGraph.graph, new_CachesGraph.st.size());
             //createGraphGroup();
             createGraphGroupDificuldade();
+        } catch(NumberFormatException e){
+            System.out.println("Error: Vertices not inserted");
+        }
+    }
+
+    public void GraphNrVisitantes(int a,int b){
+        try{
+            Create_graph_per_number_visitantes(a,b);
+            gG = new AED2_EdgeWeightedDigraph(new_CachesGraph.graph, new_CachesGraph.st.size());
+            createGraphGroup();
+            //createGraphGroupDificuldade();
         } catch(NumberFormatException e){
             System.out.println("Error: Vertices not inserted");
         }
