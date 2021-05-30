@@ -125,7 +125,7 @@
                                  <content>
                                     <AnchorPane prefHeight="200.0" prefWidth="200.0">
                                        <children>
-                                          <GridPane layoutX="10.0" layoutY="200.0" prefHeight="30.0" prefWidth="784.0">
+                                          <GridPane layoutX="10.0" layoutY="220.0" prefHeight="30.0" prefWidth="784.0">
                                             <columnConstraints>
                                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -144,8 +144,23 @@
                                                 <TextField fx:id="logVisitCache" promptText="Log" GridPane.columnIndex="3" />
                                              </children>
                                           </GridPane>
-                                          <ComboBox fx:id="combobox_Users" layoutX="70.0" layoutY="50.0" onAction="#handleCurrentUserAction" promptText="Choose User" />
-                                          <Text layoutX="40.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Visitar Caches:" wrappingWidth="190.53076171875">
+                                          <Text layoutX="10.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User:" wrappingWidth="190.53076171875">
+                                             <font>
+                                                <Font name="System Bold" size="17.0" />
+                                             </font>
+                                          </Text>
+                                          <ComboBox fx:id="combobox_Users" layoutX="10.0" layoutY="60.0" onAction="#handleCurrentUserAction" promptText="Choose User" />
+                                          <Text layoutX="10.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Visit Caches:" wrappingWidth="190.53076171875">
+                                             <font>
+                                                <Font name="System Bold" size="17.0" />
+                                             </font>
+                                          </Text>
+                                          <Text layoutX="175.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Take:" wrappingWidth="135.0">
+                                             <font>
+                                                <Font name="System Bold" size="17.0" />
+                                             </font>
+                                          </Text>
+                                          <Text layoutX="328.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Put:" wrappingWidth="135.0">
                                              <font>
                                                 <Font name="System Bold" size="17.0" />
                                              </font>
@@ -154,12 +169,7 @@
                                     </AnchorPane>
                                  </content>
                               </Tab>
-                              <Tab text="Visitar Caches">
-                                 <content>
-                                    <VBox prefHeight="200.0" prefWidth="100.0" />
-                                 </content>
-                              </Tab>
-                              <Tab text="Inventario">
+                              <Tab text="Inventory">
                                  <content>
                                     <AnchorPane prefHeight="180.0" prefWidth="200.0">
                                        <children>
@@ -280,7 +290,55 @@
                                  <children>
                                     <Text fx:id="text_Graphs1" layoutX="10.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="142.6708984375" />
                                     <Text fx:id="text_Graphs2" layoutX="10.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="142.6708984375" />
-                                    <ComboBox fx:id="combobox_GraphRegiao" onAction="#handleGraphRegiao" prefWidth="150.0" promptText="Choose Região" />
+                                    <TextArea fx:id="nrVisitantesGraphs" layoutX="90.0" prefHeight="32.0" prefWidth="120.0" promptText="Ex: 0-5" />
+                                    <MenuBar>
+                                      <menus>
+                                        <Menu mnemonicParsing="false" text="Caches">
+                                          <items>
+                                            <MenuItem mnemonicParsing="false" onAction="#graphMenuItemGeral" text="Geral" />
+                                              <Menu mnemonicParsing="false" text="Regiao">
+                                                <items>
+                                                  <MenuItem mnemonicParsing="false" onAction="#graphMenuItemRegiaoNorte" text="Norte" />
+                                                      <MenuItem mnemonicParsing="false" onAction="#graphMenuItemRegiaoCentro" text="Centro" />
+                                                      <MenuItem mnemonicParsing="false" onAction="#graphMenuItemRegiaoSul" text="Sul" />
+                                                      <Menu mnemonicParsing="false" text="Excluir">
+                                                         <items>
+                                                            <MenuItem mnemonicParsing="false" onAction="#graphMenuItemRegiaoNorteExclusao" text="Norte" />
+                                                            <MenuItem mnemonicParsing="false" onAction="#graphMenuItemRegiaoCentroExclusao" text="Centro" />
+                                                            <MenuItem mnemonicParsing="false" onAction="#graphMenuItemRegiaoSulExclusao" text="Sul" />
+                                                         </items>
+                                                      </Menu>
+                                                </items>
+                                              </Menu>
+                                              <Menu mnemonicParsing="false" text="Tipo">
+                                                <items>
+                                                  <MenuItem mnemonicParsing="false" onAction="#graphMenuItemTipoBasic" text="Basic" />
+                                                      <MenuItem mnemonicParsing="false" onAction="#graphMenuItemTipoPremium" text="Premium" />
+                                                </items>
+                                              </Menu>
+                                                <Menu mnemonicParsing="false" text="Dificuldade">
+                                                   <items>
+                                                      <MenuItem mnemonicParsing="false" onAction="#graphMenuItemDificuldadeFacil" text="Facil" />
+                                                      <MenuItem mnemonicParsing="false" onAction="#graphMenuItemDificuldadeMedio" text="Medio" />
+                                                      <MenuItem mnemonicParsing="false" onAction="#graphMenuItemDificuldadeDificil" text="Dificil" />
+                                                      <Menu mnemonicParsing="false" text="Excluir">
+                                                         <items>
+                                                            <MenuItem mnemonicParsing="false" onAction="#graphMenuItemDificuldadeFacilExclusao" text="Facil" />
+                                                            <MenuItem mnemonicParsing="false" onAction="#graphMenuItemDificuldadeMedioExclusao" text="Medio" />
+                                                            <MenuItem mnemonicParsing="false" onAction="#graphMenuItemDificuldadeDificilExclusao" text="Dificil" />
+                                                         </items>
+                                                      </Menu>
+                                                   </items>
+                                                </Menu>
+                                                <Menu mnemonicParsing="false" text="Nrº Visitantes">
+                                                   <items>
+                                                      <MenuItem mnemonicParsing="false" onAction="#graphMenuItemnrVisitantes" text="Nr visitantes" />
+                                                   </items>
+                                                </Menu>
+                                          </items>
+                                        </Menu>
+                                      </menus>
+                                    </MenuBar>
                                     <Group fx:id="graphGroup" />
                                  </children>
                               </AnchorPane>
