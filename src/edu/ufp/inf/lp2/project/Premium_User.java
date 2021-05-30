@@ -154,7 +154,7 @@ public class Premium_User extends Basic_User {
             myObj.put(tb.id, tb);
             c.myTravelBug.remove(tb);
             ///////////////////////////////////////////////////////////////////adicionamos o tb a cache se a cache for igual a missao ent esta encontra se concluida adcionamos uma data final
-            LogsTB log_tb = new LogsTB(c.nome, this.id, i, null, this);//cria mos um log onde o user é null e a cache é c
+            LogsTB log_tb = new LogsTB(c.nome, this.id, i, null, this);////cria mos um log onde o user é this e a cache é null
             log_tb.missao_concluida = false;
             tb.myLogsTB.add(log_tb);
             ///////////////////////////////////////////////////////////////////adicionamos os logs da Cache
@@ -323,7 +323,65 @@ public class Premium_User extends Basic_User {
             //System.out.println("Esta cache n é premium logo n pode ter travel bugs\n");
         }
     }
+    /**
+     * O user visita uma cache e tira um Objeto que tinha na cache e coloca na cache um TravelBug
+     * @param i data em que visitou a cache
+     * @param c cache que visitou
+     * @param log mensagem que deixou na cache
+     * @param objbolso Objeto que tinha no inventario vai colocar na cache
+     * @param TBCache TravelBug que estava na cache vai colocar no inventario
+     * @throws General_Exception
+     */
+   
+    public void VisitarCache_trocarObj_por_TB(Date i, Cache c, Logs log, String objbolso, TravelBug TBCache) throws General_Exception {
+        if (c.myTipo == Tipo.PREMIUM) {
 
+            //Testar se existe caminho
+            if(myLogs_user.size()>0){
+                Cache lastVisitedCache = cacheST.get(myLogs_user.get(myLogs_user.size()-1).nome_cache);
+                int indexatual=CachesGraph.st.get(lastVisitedCache.nome);//Index de ultima cache
+                int indexproximo=CachesGraph.st.get(c.nome);//Index da proxima Cache
+                AED_DijkstraSP dijkstraSP = new AED_DijkstraSP(CachesGraph.graph,indexatual);
+                if(!dijkstraSP.hasPathTo(indexproximo)){
+                    System.out.println("\nErro ao visitar a Cache " + c.nome + ", porque " + this.nome + " tentou fazer batota, nao pode saltar os caminhos das caches" +
+                            "\nUltima cache visitada: " + lastVisitedCache.nome );
+                    System.out.println("\tA Cache " + lastVisitedCache.nome + " tem os seguintes percursos:");
+                    for (Edge_Project e : CachesGraph.graph.adj(indexatual)) {
+                        System.out.println("\t\t" + e);
+                    }
+                    return;
+                }
+            }
+            ////////////////////////////////////////////////////////////////buscar o obj ao inventario
+            Objeto Objbolso=myObj.get(objbolso);
+            Objbolso.myCache=c;
+            Objbolso.myuser=null;
+            myObj.delete(objbolso);
+            ///////////////////////////////////////////////////////////////////buscar o TB na cache , coloca lo no bolso,atualizar travelBug
+            TBCache.myCache = null;
+            TBCache.myuser = this;
+            TBCache.h_user.put(this.id, this);
+            myObj.put(TBCache.id, TBCache);
+            c.myTravelBug.remove(TBCache);
+            ///////////////////////////////////////////////////////////////////adicionamos o tb a cache se a cache for igual a missao ent esta encontra se concluida adcionamos uma data final
+            LogsTB log_tb = new LogsTB(c.nome, this.id, i, null, this);//cria mos um log onde o user é this e a cache é null
+            log_tb.missao_concluida = false;
+            TBCache.myLogsTB.add(log_tb);
+            ///////////////////////////////////////////////////////////////////adicionamos os logs da Cache e do user
+            Logs_Cache log_cache = new Logs_Cache(i, this.id, Objbolso.id, TBCache.id);
+            Logs_User u = new Logs_User(i, c.nome, Objbolso.id, TBCache.id);
+            this.myLogs_user.add(u);
+            c.myLogs_cache.add(log_cache);
+            c.addLog(log);
+            ///////////////////////////////////////////////////////////////////adicionamos ao historico de cada e incre
+            this.Hcaches.put(c.nome, c);
+            c.H_User.put(this.id, this);
+            this.nr_caches_visitadas++;
+        } else {
+            throw new General_Exception("Esta cache n é premium nao existem TravelBugs || VisitarCache_trocarTB_por_Obj");
+            //System.out.println("Esta cache n é premium logo n pode ter travel bugs\n");
+        }
+    }
     /**
      * Imprime os TravelBugs do User e o seu estado atual
      */
