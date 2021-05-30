@@ -60,6 +60,8 @@ public class BTController  implements Initializable,Serializable {
 
             //ADD Objeto
 
+                public Text textCurrentUserName;
+
                 public ComboBox<String> combobox_typeObj;
                 public TextField obj_idField;
                 public TextField obj_nameField;
@@ -101,7 +103,7 @@ public class BTController  implements Initializable,Serializable {
 
         private AED2_EdgeWeightedDigraph gG;
 
-        public TextArea nrVisitantesGraphs;
+        public TextField nrVisitantesGraphs;
 
 
 
@@ -179,6 +181,7 @@ public class BTController  implements Initializable,Serializable {
         for (Basic_User user : userArrayList){
             combobox_Users.getItems().add(user.nome);
         }
+        textCurrentUserName.setText("");
 
     }
     //Handler mudar o Panel
@@ -224,6 +227,7 @@ public class BTController  implements Initializable,Serializable {
         combobox_typeUser.setPromptText("Type of User");
         userTable.getItems().clear();
     }
+
     //Handler mudar o Panel
     public void handlePanelTravelBufs(ActionEvent actionEvent) throws IOException {
         changepane(paneTravelBugs);
@@ -268,8 +272,6 @@ public class BTController  implements Initializable,Serializable {
             idObjCol.setCellFactory(TextFieldTableCell.forTableColumn());
             nameObjCol.setCellValueFactory(new PropertyValueFactory<>("nome"));
             nameObjCol.setCellFactory(TextFieldTableCell.forTableColumn());
-            //myObjcreatorCol.setCellValueFactory(new PropertyValueFactory<>("nome"));
-            //myObjcreatorCol.setCellFactory( TextFieldTableCell.forTableColumn());
             myObjTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
             myObjTypeCol.setCellFactory(TextFieldTableCell.forTableColumn());
 
@@ -283,6 +285,7 @@ public class BTController  implements Initializable,Serializable {
 
 
             combobox_cache_visited.getItems().clear();
+
             for (Cache c : cacheArrayList){
                 if(c.myTipo==Tipo.BASIC)combobox_cache_visited.getItems().add(c.nome);
                 else if (currentUser instanceof Premium_User )combobox_cache_visited.getItems().add(c.nome);
@@ -291,11 +294,17 @@ public class BTController  implements Initializable,Serializable {
             combobox_putObj.getItems().clear();
             combobox_takeObj.getItems().clear();
 
+            textCurrentUserName.setText(currentUser.nome);
+
+            currentUserObjArrayList.clear();
+            for (String key : currentUser.myObj.keys())currentUserObjArrayList.add(currentUser.myObj.get(key));
+
         }
+
 
         //Seleciona cache que user quer visitar
         public void handleCurrentCacheVisitedAction(ActionEvent actionEvent){
-            currentCacheVisited=cacheST.get(combobox_cache_visited.getValue());
+            if(combobox_cache_visited.getValue()!=null)currentCacheVisited=cacheST.get(combobox_cache_visited.getValue());
             System.out.println("Cache a visitar : " + currentCacheVisited.nome +" " + currentCacheVisited.myTipo.toString());
 
             combobox_putObj.getItems().clear();
@@ -519,36 +528,13 @@ public class BTController  implements Initializable,Serializable {
         if (userArrayList.isEmpty()) {
             userArrayList=readUsersFromFile();
         }
-       /* BufferedReader br = openBufferedReader(PATH_CACHES);
-        if (br != null) {
-
-            String line = br.readLine();// read header
-            while (line != null) {
-                String[] dFields = line.split(FILE_DELIMITTER);
-                if(userST.isEmpty())Files_rw.read_Users();
-                if(cacheST.isEmpty())Files_rw.read_Caches();
-                //Premium_User creatorCache = (Premium_User) userST.get(dFields[0]);
-                Premium_User creatorCache = (Premium_User) userArrayList.get(Integer.parseInt(dFields[0]));
-                //public Cache(Premium_User mycreator_user, String nome, String descrisao, Localizacao myLocalizacao, Dificuldade myDificuldade, Tipo myTipo) {
-                //3|geocache1|Original!|PREMIUM|FACIL|28.0|Norte|41.1720859|-8.6148178
-
-                Cache c = new Cache(creatorCache,dFields[1],dFields[2],new Localizacao() );
-
-                line = br.readLine();
-            }
-
-
-            System.out.println("TravelBugs lidos");
-            br.close();
-        }
-        */
         if(userST.isEmpty())Files_rw.read_Users();
         if(cacheST.isEmpty())Files_rw.read_Caches();
         Files_rw.read_Objetos();
         for (String key : currentUser.myObj.keys()){
             currentUserObjArrayList.add(currentUser.myObj.get(key));
         }
-        System.out.println("Caches Objetos");
+        System.out.println("Objetos Carregados");
 
         return currentUserObjArrayList;
     }
@@ -575,10 +561,14 @@ public class BTController  implements Initializable,Serializable {
 
         public void buttonCarregarUsersObjetos(ActionEvent actionEvent) throws IOException {
         if(currentUser!=null){
-            readObjetosUsersFromFile();
-            if(currentUserObjArrayList.size()>0)userObjetosTable.getItems().addAll(currentUserObjArrayList);
+            //readObjetosUsersFromFile();
+            if(currentUserObjArrayList.size()>0){
+                userObjetosTable.getItems().clear();
+                userObjetosTable.getItems().addAll(currentUserObjArrayList);
+            }
         }else{
             System.err.println("Erro, nao selecionou nenhum user\n");
+
         }
 
         }
@@ -598,6 +588,10 @@ public class BTController  implements Initializable,Serializable {
         }
         if(type.equals("Objeto")){
             Objeto o = new Objeto(obj_idField.getText(),obj_nameField.getText(),currentUser);
+            if(!Admin_User.checkObjID(o.id)){
+                System.err.println("Erro, ID de objeto ja existe!");
+                return;
+            }
             o.myuser=currentUser;
             currentUserObjArrayList.add(o);
             objetosAllArrayList.add(o);
@@ -608,10 +602,15 @@ public class BTController  implements Initializable,Serializable {
             obj_nameField.setText("");
             userObjetosTable.getItems().add(o);
             //textAreaObjetos.setText(o.toString());
+            combobox_putObj.getItems().add(o.nome);
 
 
         }else if(type.equals("TravelBug")){
             TravelBug tb = new TravelBug(obj_idField.getText(),obj_nameField.getText(), (Premium_User) currentUser,cacheST.get("geocache1"));
+            if(!Admin_User.checkTBID(tb.id)){
+                System.err.println("Erro, ID de TravelBug ja existe!");
+                return;
+            }
             tb.myuser=currentUser;
             currentUserObjArrayList.add(tb);
             travelBugArrayList.add(tb);
@@ -625,6 +624,7 @@ public class BTController  implements Initializable,Serializable {
             obj_idField.setText("");
             obj_nameField.setText("");
             //textAreaObjetos.setText(tb.toString());
+            combobox_putObj.getItems().add(tb.nome);
         }
     }
 
@@ -786,7 +786,7 @@ public class BTController  implements Initializable,Serializable {
                 if (currentCache.myLogs_cache.size() > 0) {
                     textFieldCacheDetail.setText("Historido de Users da Cache " + currentCache.nome + ":\n");
                     for (Logs_Cache log : currentCache.myLogs_cache) {
-                        textFieldCacheDetail.appendText("\t-O utlizador " + userST.get(log.id_user).nome + "no dia " + log.d.print2() + "\n");
+                        textFieldCacheDetail.appendText("\t-O utlizador " + userST.get(log.id_user).nome + " no dia " + log.d.print2() + "\n");
                         textFieldCacheDetail.appendText("\t\t-Objeto deixado " + findObjetoArrayListObjetos(log.id_objdeixado) + "\n");
                         textFieldCacheDetail.appendText("\t\t-Objeto retirado " + findObjetoArrayListObjetos(log.id_objretirado) + "\n");
 
@@ -1044,6 +1044,7 @@ public class BTController  implements Initializable,Serializable {
         b=Integer.parseInt(words[1]);
     }catch (Exception e){
         System.err.println("Erro ao inserir Nrº visitantes");
+        return;
     }
     if(words.length!=2 || a<0 || b<0){
         System.err.println("Erro ao inserir Nrº visitantes");

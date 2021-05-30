@@ -4,6 +4,9 @@ package edu.ufp.inf.lp2.project;
  * mycache-cache onde esta se for null esta num user
  * myuser-user onde esta se for null esta numa cache
  */
+
+
+
 public class Objeto {
     public String id;
     public String nome;
@@ -70,6 +73,8 @@ public class Objeto {
     public void setType(String type) {
         this.type = type;
     }
+
+
 
     /**
     *Este metodo é para dar print corretamente do objeto

@@ -212,6 +212,11 @@
                                                 </GridPane>
                                              </children>
                                           </VBox>
+                                          <Text fx:id="textCurrentUserName" layoutY="-16.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="682.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="83.0" AnchorPane.topAnchor="50.0">
+                                             <font>
+                                                <Font size="35.0" />
+                                             </font>
+                                          </Text>
                                        </children>
                                     </AnchorPane>
                                  </content>
@@ -290,7 +295,7 @@
                                  <children>
                                     <Text fx:id="text_Graphs1" layoutX="10.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="142.6708984375" />
                                     <Text fx:id="text_Graphs2" layoutX="10.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="142.6708984375" />
-                                    <TextArea fx:id="nrVisitantesGraphs" layoutX="90.0" prefHeight="32.0" prefWidth="120.0" promptText="Ex: 0-5" />
+                                    <TextField fx:id="nrVisitantesGraphs" layoutX="87.0" prefHeight="31.0" prefWidth="150.0" promptText="Ex: 1-5" />
                                     <MenuBar>
                                       <menus>
                                         <Menu mnemonicParsing="false" text="Caches">

@@ -710,4 +710,37 @@ public class Admin_User extends Premium_User {
 
     }
 
+
+
+    public static boolean  checkObjID(String objID){
+            for(String key : userST.keys()){
+                Basic_User user = userST.get(key);
+                for (String obj : user.myObj.keys()){
+                    if(obj.equals(objID))return false;
+                }
+            }
+            for(String key : cacheST.keys()){
+                Cache cache = cacheST.get(key);
+                for (Objeto obj : cache.objCache){
+                    if(obj.id.equals(objID))return false;
+                }
+            }
+
+
+
+        return true;
+    }
+
+    public static boolean  checkTBID(String objID){
+        for(String key : userST.keys()){
+            if(userST.get(key) instanceof Premium_User){
+                Premium_User user = (Premium_User) userST.get(key);
+                for (String obj : user.myTravelBugs.keys()){
+                    if(obj.equals(objID))return false;
+                }
+            }
+
+        }
+        return true;
+    }
 }

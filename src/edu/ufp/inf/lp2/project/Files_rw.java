@@ -422,36 +422,48 @@ public class Files_rw {
                     else if (currword == 7) userCreatorID = word;
                 }
             }
+            boolean repeated=false;
                 if(objPlace.equals("Cache")){
                     if(objType.equals("Objeto")){
                         Cache c = cacheST.get(objCacheName);
                         Objeto o = new Objeto(objID,objName,userST.get(userCreatorID));
-                        o.myCache=c;
-                        c.objCache.add(o);
-                        objetosAllArrayList.add(o);
+
+                       if(c.objCache.contains(o))repeated=true;
+                        if(!repeated){
+                            o.myCache=c;
+                            c.objCache.add(o);
+                            objetosAllArrayList.add(o);
+                        }
+
                     }else{//TravelBug
                         Cache c = cacheST.get(objCacheName);
                         Premium_User puser= (Premium_User) userST.get(userCreatorID);
                         if(puser!=null){
                             TravelBug tb = new TravelBug(objID,objName, puser,cacheST.get(objUserID));
-                            tb.myCache=c;
-                            tb.myuser=null;
-                            tb.h_caches.put(c.nome,c);
-                            c.myTravelBug.add(tb);
-                            tb.missao=cacheST.get(objUserID);
+
+                            if(c.myTravelBug.contains(tb)) repeated = true;
+
+                            if(!repeated){
+                                tb.myCache=c;
+                                tb.myuser=null;
+                                tb.h_caches.put(c.nome,c);
+                                c.myTravelBug.add(tb);
+                                tb.missao=cacheST.get(objUserID);
 
 
-                            Date aux = new Date();
-                            LogsTB ltb = new LogsTB(c.nome,null,aux,c,puser);
-                            tb.myLogsTB.add(ltb);
+                                Date aux = new Date();
+                                LogsTB ltb = new LogsTB(c.nome,null,aux,c,puser);
+                                tb.myLogsTB.add(ltb);
 
-                            tb.myCreator=puser;
-                            tb.h_user.put(puser.id,puser);
-                            puser.myTravelBugs.put(tb.id,tb);
+                                tb.myCreator=puser;
+                                tb.h_user.put(puser.id,puser);
+                                puser.myTravelBugs.put(tb.id,tb);
 
-                            objetosAllArrayList.add(tb);
-                            travelBugArrayList.add(tb);
-                            //JAVAFX
+                                objetosAllArrayList.add(tb);
+                                travelBugArrayList.add(tb);
+                                //JAVAFX
+                            }
+
 
                         }
 
@@ -460,26 +472,34 @@ public class Files_rw {
                     if(objType.equals("Objeto")){
                         Basic_User user = userST.get(objUserID);
                         Objeto o = new Objeto(objID,objName,userST.get(userCreatorID));
-                        o.myuser=user;
-                        o.myCache=null;
-                        user.myObj.put(o.id,o);
-                        objetosAllArrayList.add(o);
+                        if(user.myObj.contains(o.id))repeated=true;
+
+                        if(!repeated){
+                            o.myuser=user;
+                            o.myCache=null;
+                            user.myObj.put(o.id,o);
+                            objetosAllArrayList.add(o);
+                        }
+
 
                     }else{//TravelBug
                         Premium_User puser = (Premium_User) userST.get(objUserID);
                         if(puser!=null){
                             TravelBug tb = new TravelBug(objID,objName, (Premium_User) userST.get(userCreatorID),cacheST.get(objCacheName));
-                            tb.h_user.put(puser.id,puser);
-                            tb.myCache=null;
-                            Premium_User paux = (Premium_User) userST.get(tb.myCreator.id);
-                            tb.h_user.put(paux.id,paux);
-                            tb.myuser= puser;
-                            paux.myTravelBugs.put(tb.id,tb);
-                            puser.myObj.put(tb.id,tb);
 
-                            objetosAllArrayList.add(tb);
-                            travelBugArrayList.add(tb);
+                            if(puser.myObj.contains(tb.id))repeated=true;
+                            if(!repeated){
+                                tb.h_user.put(puser.id,puser);
+                                tb.myCache=null;
+                                Premium_User paux = (Premium_User) userST.get(tb.myCreator.id);
+                                tb.h_user.put(paux.id,paux);
+                                tb.myuser= puser;
+                                paux.myTravelBugs.put(tb.id,tb);
+                                puser.myObj.put(tb.id,tb);
 
+                                objetosAllArrayList.add(tb);
+                                travelBugArrayList.add(tb);
+                            }
                         }
 
                     }
