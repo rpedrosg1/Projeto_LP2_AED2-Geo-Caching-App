@@ -248,17 +248,10 @@
                                  <children>
                                     <GridPane layoutX="7.0" layoutY="20.0" prefHeight="633.0" prefWidth="747.0" AnchorPane.topAnchor="20.0">
                                        <children>
-                                          <Label text="Vertices" GridPane.halignment="CENTER" />
                                           <Label text="Edges" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                                          <TextField fx:id="nVerticesField" promptText="insert number of vertices" GridPane.columnIndex="1" />
-                                          <TextArea fx:id="edgesField" prefHeight="200.0" prefWidth="200.0" promptText="Insert edges Format vertice1;vertice2 " GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <TextArea fx:id="edgesField" prefHeight="200.0" prefWidth="200.0" promptText="Insert edges Format vertice1;vertice2 ;weight;time" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                           <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                              <children>
-                                                <Button mnemonicParsing="false" onAction="#handleVerticesButtonAction" prefWidth="60.0" text="Vertices">///onAction="#handleVerticesButtonAction"
-                                                   <HBox.margin>
-                                                      <Insets top="20.0" />
-                                                   </HBox.margin>
-                                                </Button>
                                                 <Button mnemonicParsing="false" onAction="#handleEdgesButtonAction" prefWidth="60.0" text="Edges">//onAction="#handleEdgesButtonAction"
                                                    <HBox.margin>
                                                       <Insets left="40.0" top="20.0" />

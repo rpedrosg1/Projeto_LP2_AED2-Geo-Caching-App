@@ -94,7 +94,6 @@ public class BTController  implements Initializable,Serializable {
     public TextArea textFieldCacheDetail;
 
         //Graphs
-        public TextField nVerticesField;
         public TextArea edgesField;
         public Group graphGroup;
         final double radius=30;
@@ -147,7 +146,11 @@ public class BTController  implements Initializable,Serializable {
 
     private static final String PATH_USERS = ".//data//Users.txt";
 
+    private static final String PATH_USERS_BIN = ".//data//UsersBin.bin";
+
     private static final String PATH_CACHES = ".//data//cacheteste.txt";
+
+    private static final String PATH_CACHES_Bin = ".//data//CachesBin.bin";
 
     private static final String FILE_DELIMITTER = ";";
 
@@ -961,7 +964,7 @@ public class BTController  implements Initializable,Serializable {
     public void handleClearButtonAction(ActionEvent actionEvent) {
         graphGroup.getChildren().clear();
         edgesField.setText("");
-        nVerticesField.setText("");
+
         gG = null;
     }
 
@@ -1147,22 +1150,43 @@ public class BTController  implements Initializable,Serializable {
 
     public void handleEdgesButtonAction(ActionEvent actionEvent) {
         try{
-            if(gG != null)
+            /*if(gG != null)
                 gG = new AED2_EdgeWeightedDigraph(gG);
             else
                 createNewGraph(Integer.parseInt(nVerticesField.getText()),cacheArrayList);
+                */
+             //if(gG == null)graphMenuItemGeral(new ActionEvent());
+            if(gG==null){
+                createNewGraph(cacheArrayList.size(),cacheArrayList);
+            }
+
 
             String[] lines = edgesField.getText().split("\n");
             for(String line: lines){
                 String[] position = line.split(";");
-                int v = Integer.parseInt(position[0]);
-                int adj = Integer.parseInt(position[1]);
-                Edge_Project e = new Edge_Project(v,adj,0,0);
+                //int v = Integer.parseInt(position[0]);
+                //int adj = Integer.parseInt(position[1]);
+
+                if(Integer.parseInt(position[0] )<1|| Integer.parseInt(position[1])<1){
+                    System.err.println("Error: Values not inserted");
+                    return;
+                }
+                int v = Integer.parseInt(position[0])-1;
+                int adj = Integer.parseInt(position[1])-1;
+
+                double weight = Double.parseDouble(position[2]);
+                float time = Float.parseFloat(position[3]);
+                Edge_Project e = new Edge_Project(v,adj,weight,time);
+                CachesGraph.graph.addEdge(e);
                 if(!gG.containsEdge(v, adj))
                     gG.addEdge(e);
+
+                //Arrow arrow = new Arrow(gG.getVertexPosX(v-1),gG.getVertexPosY(v-1),gG.getVertexPosX(adj-1),gG.getVertexPosY(adj-1),10);
+                //graphGroup.getChildren().add(arrow);
             }
-            createGraphGroup();
+            graphMenuItemGeral(new ActionEvent());
         } catch(NumberFormatException e){
+            createGraphGroup();
             System.out.println("Error: Values not inserted");
         }
     }
@@ -1372,6 +1396,59 @@ public class BTController  implements Initializable,Serializable {
             if(o.id.equals(id))return o.nome;
         }
         return "null";
+    }
+
+
+
+
+
+    private void readFileBinUsers() throws IOException{
+        try{
+            FileInputStream fis = new FileInputStream(PATH_USERS_BIN);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            int size = ois.readInt();
+            for (int i =0 ; i<size;i++)userArrayList.add((Basic_User) ois.readObject());
+
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println(e);
+        }
+    }
+
+
+    private void readFileBinCaches() throws IOException{
+        try{
+            FileInputStream fis = new FileInputStream(PATH_USERS_BIN);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            int size = ois.readInt();
+            for (int i =0 ; i<size;i++)cacheArrayList.add((Cache) ois.readObject());
+
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println(e);
+        }
+    }
+
+
+
+    private void SaveFileBinUsers() {
+
+        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(PATH_USERS_BIN))){
+            oos.writeInt(userArrayList.size());
+            for (Basic_User user : userArrayList)oos.writeObject(user);
+        }catch(IOException e){
+            System.out.println(e);
+        }
+    }
+
+    private void SaveFileBinCaches(){
+
+        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(PATH_CACHES_Bin))){
+            oos.writeInt(cacheArrayList.size());
+            for (Cache c : cacheArrayList)oos.writeObject(c);
+        }catch(IOException e){
+            System.out.println(e);
+        }
     }
 
 }
