@@ -587,6 +587,8 @@ public class Admin_User extends Premium_User {
             case "Facil":
                 tipo = edu.ufp.inf.lp2.project.Dificuldade.FACIL;
                 break;
+            default:
+                break;
         }
         new_CachesGraph.st = new ST<>();
         for (String key : cacheST) {
@@ -635,7 +637,7 @@ public class Admin_User extends Premium_User {
                 }
             }
         }
-    }else {
+     }else {
             System.out.println("ERROR");
         }
 
@@ -643,38 +645,26 @@ public class Admin_User extends Premium_User {
 
     public static void R18(double maxkm) {
         double max=0;int vertice_max = 0;
-        AED2_EdgeWeightedDigraph G = CachesGraph.graph;
+        AED2_EdgeWeightedDigraph G = new AED2_EdgeWeightedDigraph(CachesGraph.graph);
         ST<Integer,Integer> MostReachableCaches=new ST<>();
-        for (int s = 0; s < G.V(); s++) {
-            System.out.println("New Vertice");
-            Caxeiro_Viajante sp = new Caxeiro_Viajante(G, s);
-            // print negative cycle
-            if (sp.hasNegativeCycle()) {
-                for (Edge_Project e : sp.negativeCycle())
-                    StdOut.println(e);
-            } else {// print shortest paths
-                for (int v = 0; v < G.V(); v++) {
-                    if (sp.hasPathTo(v)) {
-                        StdOut.printf("| %d to %d-(%5.2f )  |", s, v, sp.distTo(v));
-                        double d=sp.distTo(v);
-                        if (sp.distTo(v)<=maxkm){
-                            if(MostReachableCaches.contains(s)){
-                                int value=MostReachableCaches.get(s);
-                                MostReachableCaches.put(s,value+1);
-                            }else {
-                                MostReachableCaches.put(s,1);
-                            }
-
-                        }
-                    }else {
-                        StdOut.printf("| %d to %d-Nao ha caminho |", s, v);
-                    }
-                }
-                System.out.println();
-
+        System.out.println("Caxeiro Viajante");
+        for (int v=0;v<G.V();v++){
+            System.out.println("----------------------------------------------------------");
+            System.out.println("Partindo da geocache"+(v+1)+" podemos chegar:");
+            Caxeiro_Viajante mst = new Caxeiro_Viajante(G,v,maxkm);
+            for (Edge_Project e : mst.edges()) {
+                StdOut.println(e);
             }
-
+            StdOut.printf("É preciso %.5f km para percorrer todas as caches\n", mst.weight());
         }
+
+
+
+
+
+
+
+
        for(Integer key : MostReachableCaches){
            int value=MostReachableCaches.get(key);
            if(value>max){
