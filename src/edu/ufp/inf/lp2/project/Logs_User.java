@@ -1,6 +1,7 @@
 package edu.ufp.inf.lp2.project;
 
 public class Logs_User {
+
     public Date d;
     public String nome_cache;
     public String id_objdeixado;

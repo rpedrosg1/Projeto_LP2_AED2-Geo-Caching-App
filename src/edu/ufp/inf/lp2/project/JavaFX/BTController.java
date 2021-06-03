@@ -150,12 +150,14 @@ public class BTController implements Initializable, Serializable {
     public TextField user_idadeField;
 
     //ADD CACHE
+    public ComboBox<String> combobox_CacheCreator;
     public ComboBox<String> combobox_typeCache;
     public ComboBox<String> combobox_DifCache;
     public TextField cache_nameField;
     public TextField cache_descricaoField;
     public TextField cache_RegiaoField;
     public TextField cache_CoordenadasField;
+
 
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -278,6 +280,14 @@ public class BTController implements Initializable, Serializable {
         combobox_DifCache.getItems().add("Dificil");
 
         cacheTable.getItems().clear();
+
+        currentUser=null;
+
+        combobox_CacheCreator.getItems().clear();
+
+        for (Basic_User user : userArrayList){
+            if(user instanceof Admin_User)combobox_CacheCreator.getItems().add(user.nome);
+        }
 
     }
 
@@ -1304,6 +1314,54 @@ public class BTController implements Initializable, Serializable {
        // if (currentCache != null) {
             Files_rw.save_Caches();
         //}
+    }
+
+    public void handleAddCacheAction(ActionEvent actionEvent){
+
+        for (Basic_User user : userArrayList){
+            if(user.nome.equals(combobox_CacheCreator.getValue()))currentUser=user;
+        }
+
+        if(currentUser==null){
+            System.err.println("User creator nao selecionado");
+            return;
+        }
+        if(combobox_DifCache.getValue() == null || combobox_typeCache.getValue()==null){
+            System.err.println("Dificuldade ou Tipo de Cache nao selecionado");
+            return;
+        }
+
+
+
+
+
+        String name="",descricao="",regiao="";
+        float raio=0.0f,latitude=0.0f,longitude=0.0f;
+        try {
+            name=cache_nameField.getText();
+            descricao=cache_descricaoField.getText();
+            String raioRegiao = cache_RegiaoField.getText();
+            String []words = raioRegiao.split(FILE_DELIMITTER);
+            raio=Float.parseFloat(words[0]);
+            regiao=words[1].toUpperCase();
+            if(regiao.equals("NORTE"))regiao="Norte";
+            else if(regiao.equals("CENTRO")) regiao="Centro";
+            else if(regiao.equals("SUL")) regiao="sul";
+            else{
+                System.err.println("Regiao invalida.\n");
+                return;
+            }
+
+            String latLong = cache_CoordenadasField.getText();
+            String []words2 = latLong.split(FILE_DELIMITTER);
+            latitude=Float.parseFloat(words2[0]);
+            longitude=Float.parseFloat(words2[1]);
+
+
+        }catch (Exception e){
+            System.err.println("Erro nas caracteristicas da Cache.\n");
+            return;
+        }
     }
 
     //////////////////////////TRAVELBUG////////////////////////

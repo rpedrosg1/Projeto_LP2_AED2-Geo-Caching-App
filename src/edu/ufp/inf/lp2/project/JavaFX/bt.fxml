@@ -405,8 +405,9 @@
                            <content>
                               <AnchorPane prefHeight="710.0" prefWidth="815.0">
                                  <children>
-                                    <ComboBox fx:id="combobox_DifCache" prefHeight="47.0" prefWidth="150.0" promptText="Dificulty of Cache" />
-                                    <ComboBox fx:id="combobox_typeCache" layoutY="50.0" prefHeight="47.0" prefWidth="150.0" promptText="Type of Cache" />
+                                    <ComboBox fx:id="combobox_CacheCreator" layoutX="10.0" prefHeight="47.0" prefWidth="150.0" promptText="Cache Creator" />
+                                    <ComboBox fx:id="combobox_DifCache" layoutX="10.0" layoutY="50.0" prefHeight="47.0" prefWidth="150.0" promptText="Dificulty of Cache" />
+                                    <ComboBox fx:id="combobox_typeCache" layoutX="10.0" layoutY="100.0" prefHeight="47.0" prefWidth="150.0" promptText="Type of Cache" />
                                     <VBox layoutY="300.0" prefHeight="425.0" prefWidth="815.0">
                                        <children>
                                           <GridPane alignment="BOTTOM_CENTER" prefHeight="466.0" prefWidth="815.0">
@@ -427,7 +428,7 @@
                                                       <TextField fx:id="cache_descricaoField" layoutX="100.0" layoutY="10.0" prefHeight="47.0" prefWidth="190.0" promptText="Descrição" />
                                                       <TextField fx:id="cache_RegiaoField" layoutX="100.0" layoutY="10.0" prefHeight="47.0" prefWidth="190.0" promptText="Raio;Regiao" />
                                                       <TextField fx:id="cache_CoordenadasField" layoutX="390.0" layoutY="10.0" prefHeight="47.0" prefWidth="190.0" promptText="Latitude;Longitude" />
-                                                      <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#handleAddUserAction" prefHeight="48.0" prefWidth="85.0" text="Add">
+                                                      <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#handleAddCacheAction" prefHeight="48.0" prefWidth="85.0" text="Add">
                                                          <cursor>
                                                             <Cursor fx:constant="HAND" />
                                                          </cursor>
