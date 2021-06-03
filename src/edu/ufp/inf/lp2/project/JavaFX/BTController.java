@@ -1402,54 +1402,6 @@ public class BTController  implements Initializable,Serializable {
 
 
 
-    private void readFileBinUsers() throws IOException{
-        try{
-            FileInputStream fis = new FileInputStream(PATH_USERS_BIN);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-
-            int size = ois.readInt();
-            for (int i =0 ; i<size;i++)userArrayList.add((Basic_User) ois.readObject());
-
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println(e);
-        }
-    }
-
-
-    private void readFileBinCaches() throws IOException{
-        try{
-            FileInputStream fis = new FileInputStream(PATH_USERS_BIN);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-
-            int size = ois.readInt();
-            for (int i =0 ; i<size;i++)cacheArrayList.add((Cache) ois.readObject());
-
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println(e);
-        }
-    }
-
-
-
-    private void SaveFileBinUsers() {
-
-        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(PATH_USERS_BIN))){
-            oos.writeInt(userArrayList.size());
-            for (Basic_User user : userArrayList)oos.writeObject(user);
-        }catch(IOException e){
-            System.out.println(e);
-        }
-    }
-
-    private void SaveFileBinCaches(){
-
-        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(PATH_CACHES_Bin))){
-            oos.writeInt(cacheArrayList.size());
-            for (Cache c : cacheArrayList)oos.writeObject(c);
-        }catch(IOException e){
-            System.out.println(e);
-        }
-    }
 
 }
 

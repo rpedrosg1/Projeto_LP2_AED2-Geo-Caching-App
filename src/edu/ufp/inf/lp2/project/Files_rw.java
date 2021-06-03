@@ -4,8 +4,7 @@ import edu.princeton.cs.algs4.*;
 import edu.ufp.inf.lp2.project.Graphs.Edge_Project;
 import edu.ufp.inf.lp2.project.Graphs.AED2_EdgeWeightedDigraph;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
+import java.io.*;
 
 import static edu.ufp.inf.lp2.project.Admin_User.*;
 import static edu.ufp.inf.lp2.project.Admin_User.CachesGraph;
@@ -20,8 +19,16 @@ import static edu.ufp.inf.lp2.project.JavaFX.BTController.travelBugArrayList;
 
 public class Files_rw {
 
+    private static final String PATH_USERS = ".//data//Users.txt";
+
+    private static final String PATH_USERS_BIN = ".//data//UsersBin.bin";
+
+    private static final String PATH_CACHES = ".//data//cacheteste.txt";
+
+    private static final String PATH_CACHES_Bin = ".//data//CachesBin.bin";
 
     private static final String FILE_DELIMITTER = ";";
+
     //Users Files
 
     /**
@@ -1024,5 +1031,57 @@ public class Files_rw {
 
         }
         myFile.close();
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////////
+
+    private void readFileBinUsers() throws IOException {
+        try{
+            FileInputStream fis = new FileInputStream(PATH_USERS_BIN);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            int size = ois.readInt();
+            for (int i =0 ; i<size;i++)userArrayList.add((Basic_User) ois.readObject());
+
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println(e);
+        }
+    }
+
+
+    private void readFileBinCaches() throws IOException{
+        try{
+            FileInputStream fis = new FileInputStream(PATH_USERS_BIN);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            int size = ois.readInt();
+            for (int i =0 ; i<size;i++)cacheArrayList.add((Cache) ois.readObject());
+
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println(e);
+        }
+    }
+
+
+
+    private void SaveFileBinUsers() {
+
+        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(PATH_USERS_BIN))){
+            oos.writeInt(userArrayList.size());
+            for (Basic_User user : userArrayList)oos.writeObject(user);
+        }catch(IOException e){
+            System.out.println(e);
+        }
+    }
+
+    private void SaveFileBinCaches(){
+
+        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(PATH_CACHES_Bin))){
+            oos.writeInt(cacheArrayList.size());
+            for (Cache c : cacheArrayList)oos.writeObject(c);
+        }catch(IOException e){
+            System.out.println(e);
+        }
     }
 }
