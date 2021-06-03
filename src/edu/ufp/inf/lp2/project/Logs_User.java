@@ -1,10 +1,10 @@
 package edu.ufp.inf.lp2.project;
 
 public class Logs_User {
-    Date d;
-    String nome_cache;
-    String id_objdeixado;
-    String id_objretirado;
+    public Date d;
+    public String nome_cache;
+    public String id_objdeixado;
+    public String id_objretirado;
     /**
      *Contrutor que inicializa um Log de User com as suas caracteriasticas
      * @param d data da Visita
