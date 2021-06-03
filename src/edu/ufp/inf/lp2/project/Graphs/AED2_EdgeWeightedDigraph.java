@@ -2,7 +2,9 @@ package edu.ufp.inf.lp2.project.Graphs;
 import edu.princeton.cs.algs4.*;
 import edu.ufp.inf.lp2.project.Cache;
 import edu.ufp.inf.lp2.project.Localizacao;
+import edu.ufp.inf.lp2.project.Project_Bag;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Random;
@@ -11,12 +13,12 @@ import static edu.ufp.inf.lp2.project.Admin_User.*;
 import static edu.ufp.inf.lp2.project.JavaFX.BTController.GROUP_MARGIN;
 
 
-public class AED2_EdgeWeightedDigraph {
+public class AED2_EdgeWeightedDigraph implements Serializable {
     private static final String NEWLINE = System.getProperty("line.separator");
 
     public int V;                // number of vertices in this digraph
     public int E;                      // number of edges in this digraph
-    public Bag<Edge_Project>[] adj;    // adj[v] = adjacency list for vertex v
+    public Project_Bag<Edge_Project>[] adj;    // adj[v] = adjacency list for vertex v
     public int[] indegree;             // indegree[v] = indegree of vertex v ... For an undirected graph, the degree of a vertex is equal to the number of adjacent vertices. A special case is a loop, which adds two to the degree. This can be understood by letting each connection of the loop edge count as its own adjacent vertex.
     private int[] positionsX;
     private int[] positionsY;
@@ -34,9 +36,9 @@ public class AED2_EdgeWeightedDigraph {
         this.positionsX = new int[V];
         this.positionsY = new int[V];
 
-        adj = (Bag<Edge_Project>[]) new Bag[V];
+        adj = (Project_Bag<Edge_Project>[]) new Project_Bag[V];
         for (int v = 0; v < V; v++)
-            adj[v] = new Bag<Edge_Project>();
+            adj[v] = new Project_Bag<Edge_Project>();
         //setRandomPositions(0);
         for(int i=0; i<this.V(); i++){
             //setPositionX(i, (int)(GROUP_MARGIN + r.nextDouble() * 700));
@@ -86,9 +88,9 @@ public class AED2_EdgeWeightedDigraph {
             this.V = in.readInt();
             if (V < 0) throw new IllegalArgumentException("number of vertices in a Digraph must be non-negative");
             indegree = new int[V];
-            adj = (Bag<Edge_Project>[]) new Bag[V];
+            adj = (Project_Bag<Edge_Project>[]) new Project_Bag[V];
             for (int v = 0; v < V; v++) {
-                adj[v] = new Bag<Edge_Project>();
+                adj[v] = new Project_Bag<Edge_Project>();
             }
 
             int E = in.readInt();
@@ -263,7 +265,7 @@ public class AED2_EdgeWeightedDigraph {
      * @return all edges in this edge-weighted digraph, as an iterable
      */
     public Iterable<Edge_Project> edges() {
-        Bag<Edge_Project> list = new Bag<Edge_Project>();
+        Project_Bag<Edge_Project> list = new Project_Bag<Edge_Project>();
         for (int v = 0; v < V; v++) {
             for (Edge_Project e : adj(v)) {
                 list.add(e);

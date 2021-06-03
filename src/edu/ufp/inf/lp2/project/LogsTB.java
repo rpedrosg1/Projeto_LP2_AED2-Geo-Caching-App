@@ -4,9 +4,10 @@ package edu.ufp.inf.lp2.project;
 import edu.princeton.cs.algs4.BST;
 import edu.princeton.cs.algs4.RedBlackBST;
 
+import java.io.Serializable;
 import java.util.Vector;
 import static edu.ufp.inf.lp2.project.Admin_User.userST;
-public class LogsTB {
+public class LogsTB implements Serializable {
 
   public String nome_cache;
   public String id_user;

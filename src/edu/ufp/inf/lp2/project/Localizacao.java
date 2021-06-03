@@ -1,9 +1,10 @@
 package edu.ufp.inf.lp2.project;
 
+import java.io.Serializable;
 import java.util.Vector;
 
 
-public class Localizacao extends Coordenadas{
+public class Localizacao extends Coordenadas implements Serializable {
 
     public float raio;
 

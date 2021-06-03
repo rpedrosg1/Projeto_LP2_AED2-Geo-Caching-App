@@ -2,13 +2,14 @@ package edu.ufp.inf.lp2.project;
 
 import edu.ufp.inf.lp2.project.Graphs.AED2_EdgeWeightedDigraph;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import static edu.ufp.inf.lp2.project.Admin_User.cacheST;
 import static edu.ufp.inf.lp2.project.Admin_User.CachesGraph;
 
-public class Cache implements GestaoCaches {
+public class Cache implements GestaoCaches , Serializable {
 
     public Premium_User mycreator_user;//criador da cache
     public String nome;

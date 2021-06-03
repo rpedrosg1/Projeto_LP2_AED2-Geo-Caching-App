@@ -26,7 +26,7 @@ public class Basic_User implements GestaoUtilizadores, Serializable {
 
   public String type;
 
-  public LinearProbingHashST<String,Objeto> myObj=new LinearProbingHashST<>();
+  public Project_LinearProbingHashST<String,Objeto> myObj=new Project_LinearProbingHashST<>();
 
   public ArrayList<Logs_User> myLogs_user = new ArrayList<>();
 
@@ -170,11 +170,11 @@ public class Basic_User implements GestaoUtilizadores, Serializable {
     this.nr_caches_visitadas = nr_caches_visitadas;
   }
 
-  public LinearProbingHashST<String, Objeto> getMyObj() {
+  public Project_LinearProbingHashST<String, Objeto> getMyObj() {
     return myObj;
   }
 
-  public void setMyObj(LinearProbingHashST<String, Objeto> myObj) {
+  public void setMyObj(Project_LinearProbingHashST<String, Objeto> myObj) {
     this.myObj = myObj;
   }
 

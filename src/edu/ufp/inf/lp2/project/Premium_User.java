@@ -11,7 +11,7 @@ public class Premium_User extends Basic_User {
 
     public int nr_caches_criadas;
 
-    public LinearProbingHashST<String, TravelBug> myTravelBugs = new LinearProbingHashST<>();
+    public Project_LinearProbingHashST<String, TravelBug> myTravelBugs = new Project_LinearProbingHashST<>();
 
     /**
      * Contrutor que inicializa um Premium User com as suas caracteriasticas

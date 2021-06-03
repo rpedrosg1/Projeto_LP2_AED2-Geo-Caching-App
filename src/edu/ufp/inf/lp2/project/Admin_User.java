@@ -12,10 +12,11 @@ import java.util.Iterator;
 public class Admin_User extends Premium_User {
 
 
-    public static RedBlackBST<String, Basic_User> userST = new RedBlackBST<>();
+    public static Project_RedBlackBST<String, Basic_User> userST = new Project_RedBlackBST<>();
     public static Caches_Graph CachesGraph = new Caches_Graph();
     public static Caches_Graph new_CachesGraph = new Caches_Graph();
-    public static ST<String, Cache> cacheST = new ST<>();
+    public static Project_ST<String, Cache> cacheST = new Project_ST<>();
+
 
     /**
      * Contrutor que iniciFaliza um Admin User com as suas caracteriasticas
@@ -465,7 +466,7 @@ public class Admin_User extends Premium_User {
             new_CachesGraph.st.delete(key);
         }
 */
-        new_CachesGraph.st = new ST<>();
+        new_CachesGraph.st = new Project_ST<>();
         for (String key : cacheST) {
             Cache c = cacheST.get(key);
             if (c.myLocalizacao.regiao.equals(Region)) {
@@ -502,7 +503,7 @@ public class Admin_User extends Premium_User {
                 tipo = edu.ufp.inf.lp2.project.Dificuldade.FACIL;
                 break;
         }
-        new_CachesGraph.st = new ST<>();
+        new_CachesGraph.st = new Project_ST<>();
         for (String key : cacheST) {
             Cache c = cacheST.get(key);
             if (c.myDificuldade.equals(tipo)) {
@@ -526,7 +527,7 @@ public class Admin_User extends Premium_User {
 
         Tipo t = Tipo.BASIC;
         if(tipo.equals("Premium"))t=Tipo.PREMIUM;
-        new_CachesGraph.st=new ST<>();
+        new_CachesGraph.st=new Project_ST<>();
         for (String key : cacheST){
             Cache c=cacheST.get(key);
             if(c.myTipo.equals(t)){
@@ -551,7 +552,7 @@ public class Admin_User extends Premium_User {
             new_CachesGraph.st.delete(key);
         }
 */
-        new_CachesGraph.st = new ST<>();
+        new_CachesGraph.st = new Project_ST<>();
         for (String key : cacheST) {
             Cache c = cacheST.get(key);
             if (!c.myLocalizacao.regiao.equals(Region)) {
@@ -588,7 +589,7 @@ public class Admin_User extends Premium_User {
                 tipo = edu.ufp.inf.lp2.project.Dificuldade.FACIL;
                 break;
         }
-        new_CachesGraph.st = new ST<>();
+        new_CachesGraph.st = new Project_ST<>();
         for (String key : cacheST) {
             Cache c = cacheST.get(key);
             if (!c.myDificuldade.equals(tipo)) {
@@ -615,7 +616,7 @@ public class Admin_User extends Premium_User {
             new_CachesGraph.st.delete(key);
         }
 */
-        new_CachesGraph.st = new ST<>();
+        new_CachesGraph.st = new Project_ST<>();
         for (String key : cacheST) {
             Cache c = cacheST.get(key);
             int nr_Vistantes=c.H_User.size();
@@ -683,7 +684,7 @@ public class Admin_User extends Premium_User {
         AED_DijkstraSP sp = new AED_DijkstraSP(G, s);
             if (sp.hasPathTo(t)) {
                 StdOut.printf("%d to %d (%.2f)  ", s, t, sp.distTo(t));
-                for (DirectedEdge e : sp.pathTo(t)) {
+                for (Edge_Project e : sp.pathTo(t)) {
                     StdOut.print(e + "   ");
                 }
                 StdOut.println();
@@ -699,7 +700,7 @@ public class Admin_User extends Premium_User {
         AED_DijkstraSP sp = new AED_DijkstraSP(G, s);
         if (sp.hasPathTo(t)) {
             StdOut.printf("%d to %d (%.2f)  ", s, t, sp.distTo(t));
-            for (DirectedEdge e : sp.pathTo(t)) {
+            for (Edge_Project e : sp.pathTo(t)) {
                 StdOut.print(e + "   ");
             }
             StdOut.println();

@@ -1,14 +1,17 @@
 package edu.ufp.inf.lp2.project.Graphs;
 import edu.princeton.cs.algs4.*;
 import edu.ufp.inf.lp2.project.Cache;
+import edu.ufp.inf.lp2.project.Project_ST;
 
-public class Caches_Graph {
-    public ST<String, Integer> st=new ST<>();  // string -> index
+import java.io.Serializable;
+
+public class Caches_Graph implements Serializable {
+    public Project_ST<String, Integer> st=new Project_ST<>();  // string -> index
     public AED2_EdgeWeightedDigraph graph;// Grafo
 
 
     public Caches_Graph(String filename, String delimiter) {
-        st = new ST<String, Integer>();
+        st = new Project_ST<String, Integer>();
 
         // First pass builds the index by reading strings to associate
         // distinct strings with an index

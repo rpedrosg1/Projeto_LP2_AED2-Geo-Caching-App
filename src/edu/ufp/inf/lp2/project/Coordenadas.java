@@ -1,6 +1,8 @@
 package edu.ufp.inf.lp2.project;
 
-public class Coordenadas  {
+import java.io.Serializable;
+
+public class Coordenadas implements Serializable {
 
   public float longitude;
 

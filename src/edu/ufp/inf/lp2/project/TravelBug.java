@@ -4,14 +4,16 @@ import edu.princeton.cs.algs4.SeparateChainingHashST;
 
 import static edu.ufp.inf.lp2.project.Admin_User.cacheST;
 import static edu.ufp.inf.lp2.project.Admin_User.userST;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
 
-public class TravelBug extends Objeto {
+public class TravelBug extends Objeto implements Serializable {
   public Cache missao;
-  public SeparateChainingHashST<String,Cache> h_caches=new SeparateChainingHashST<>();
-  public SeparateChainingHashST<String, Premium_User> h_user=new SeparateChainingHashST<>();
+  public Project_SeparateChainingHashST<String,Cache> h_caches=new Project_SeparateChainingHashST<>();
+  public Project_SeparateChainingHashST<String, Premium_User> h_user=new Project_SeparateChainingHashST<>();
 
   public ArrayList<LogsTB> myLogsTB =new ArrayList<>();//historico do TB
 
