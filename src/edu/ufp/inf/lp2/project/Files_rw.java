@@ -1,8 +1,11 @@
 package edu.ufp.inf.lp2.project;
 
 import edu.princeton.cs.algs4.*;
+import edu.ufp.inf.lp2.project.Graphs.Caches_Graph;
 import edu.ufp.inf.lp2.project.Graphs.Edge_Project;
 import edu.ufp.inf.lp2.project.Graphs.AED2_EdgeWeightedDigraph;
+import edu.ufp.inf.lp2.project.SerializableClasses.Project_RedBlackBST;
+import edu.ufp.inf.lp2.project.SerializableClasses.Project_ST;
 
 import java.io.*;
 
@@ -22,6 +25,8 @@ public class Files_rw {
     private static final String PATH_USERS = ".//data//Users.txt";
 
     private static final String PATH_USERS_BIN = ".//data//UsersBin.bin";
+
+    private static final String PATH_CACHEGRAPH_BIN = ".//data//CacheGraphBin.bin";
 
     private static final String PATH_CACHES = ".//data//cacheteste.txt";
 
@@ -409,13 +414,10 @@ public class Files_rw {
         In myFile = new In(".//data//Objetos.txt");
 
         while (myFile.hasNextLine()) {
-
             String curLine = myFile.readLine();//Current Line
-
             int size = curLine.length(), currword = 0, lastword = 0;
             String word = "", objPlace = "", objType = "",objID="",objName="",objCacheName="",objUserID="",userCreatorID="";
             for (int i = 0; i < size; i++) {
-
                 if (curLine.charAt(i) == '|') {
                     word = curLine.substring(lastword, i);
                     currword++;
@@ -790,7 +792,20 @@ public class Files_rw {
         save_Objetos();
         save_TravelBugs_HCaches();
         save_TravelBugs_HUsers();
-        //save_GeoCacheGraphs();
+        save_GeoCacheGraphs();
+    }
+    public static void save_all_BIN(){
+        SaveFileBinUsers();
+        SaveFileBinCaches();
+        saveFileBinGeoCacheGraphs();
+        save_Cache_Users_Husers_Hcaches();
+        save_TravelBugs_Logs();
+        save_Logs();
+        save_Logs_Cache();
+        save_Logs_User();
+        save_Objetos();
+        save_TravelBugs_HCaches();
+        save_TravelBugs_HUsers();
     }
 
     /**
@@ -799,6 +814,7 @@ public class Files_rw {
     public static void read_all(){
         read_Users();
         read_Caches();
+        read_GeoCacheGraphs();
         read_Objetos();
         read_Cache_Users_Husers_Hcaches();
         read_TravelBugs_Logs();
@@ -808,7 +824,22 @@ public class Files_rw {
 
         read_TravelBugs_HCaches();
         read_TravelBugs_HUsers();
-        read_GeoCacheGraphs();
+
+    }
+    public static void read_all_BIN() throws IOException {
+        readFileBinUsers();
+        readFileBinCaches();
+        readFileBinGeoCacheGraphs();
+        read_Objetos();
+        read_Cache_Users_Husers_Hcaches();
+        read_TravelBugs_Logs();
+        read_Logs();
+        read_Logs_Cache();
+        read_Logs_User();
+
+        read_TravelBugs_HCaches();
+        read_TravelBugs_HUsers();
+
     }
 
 
@@ -1025,7 +1056,6 @@ public class Files_rw {
 
             Edge_Project edge_project = new Edge_Project(Integer.parseInt(edges[0]),
                     Integer.parseInt(edges[1]),Double.parseDouble(words[1]),Float.parseFloat(words[2]));
-
             CachesGraph.graph.addEdge(edge_project);
 
 
@@ -1036,13 +1066,13 @@ public class Files_rw {
 
     ///////////////////////////////////////////////////////////////////////////////
 
-    private void readFileBinUsers() throws IOException {
+    public static void readFileBinUsers() throws IOException {
         try{
             FileInputStream fis = new FileInputStream(PATH_USERS_BIN);
             ObjectInputStream ois = new ObjectInputStream(fis);
 
-            int size = ois.readInt();
-            for (int i =0 ; i<size;i++)userArrayList.add((Basic_User) ois.readObject());
+            //int size = ois.readInt();
+            userST=(Project_RedBlackBST<String, Basic_User>) ois.readObject();
 
         } catch (IOException | ClassNotFoundException e) {
             System.out.println(e);
@@ -1050,36 +1080,61 @@ public class Files_rw {
     }
 
 
-    private void readFileBinCaches() throws IOException{
+    public static void readFileBinCaches() throws IOException{
         try{
-            FileInputStream fis = new FileInputStream(PATH_USERS_BIN);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-
-            int size = ois.readInt();
-            for (int i =0 ; i<size;i++)cacheArrayList.add((Cache) ois.readObject());
-
+            FileInputStream fis = new FileInputStream(PATH_CACHES_Bin);
+            ObjectInputStream ois_caches = new ObjectInputStream(fis);
+           cacheST=(Project_ST<String, Cache>) ois_caches.readObject();
         } catch (IOException | ClassNotFoundException e) {
             System.out.println(e);
         }
     }
 
 
+    /**
+     * Le informacao dos links/Graphs das Caches
+     */
+    public static void readFileBinGeoCacheGraphs(){
+        try{
+            FileInputStream fis = new FileInputStream(PATH_CACHEGRAPH_BIN);
+            ObjectInputStream ois_caches = new ObjectInputStream(fis);
+            CachesGraph=(Caches_Graph) ois_caches.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println(e);
+        }
+    }
 
-    private void SaveFileBinUsers() {
 
-        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(PATH_USERS_BIN))){
-            oos.writeInt(userArrayList.size());
-            for (Basic_User user : userArrayList)oos.writeObject(user);
+    public static void saveFileBinGeoCacheGraphs(){
+        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(PATH_CACHEGRAPH_BIN))){
+            oos.writeObject(CachesGraph);
         }catch(IOException e){
             System.out.println(e);
         }
     }
 
-    private void SaveFileBinCaches(){
 
+
+
+
+    public static void SaveFileBinUsers() {
+
+        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(PATH_USERS_BIN))){
+            //oos.writeInt(userArrayList.size());
+            //for (Basic_User user : userArrayList)oos.writeObject(user);
+            Project_RedBlackBST<String,Basic_User> Redblack=new Project_RedBlackBST<>();
+            Redblack=userST;
+            oos.writeObject(Redblack);
+        }catch(IOException e){
+            System.out.println(e);
+        }
+    }
+
+    public static void SaveFileBinCaches(){
         try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(PATH_CACHES_Bin))){
-            oos.writeInt(cacheArrayList.size());
-            for (Cache c : cacheArrayList)oos.writeObject(c);
+            Project_ST<String,Cache> st_caches=new Project_ST<>();
+            st_caches=cacheST;
+            oos.writeObject(st_caches);
         }catch(IOException e){
             System.out.println(e);
         }

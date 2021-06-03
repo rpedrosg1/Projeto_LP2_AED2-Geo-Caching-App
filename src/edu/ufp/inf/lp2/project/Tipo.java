@@ -1,6 +1,8 @@
 package edu.ufp.inf.lp2.project;
 
-public enum Tipo {
+import java.io.Serializable;
+
+public enum Tipo implements Serializable {
 
    BASIC,
 

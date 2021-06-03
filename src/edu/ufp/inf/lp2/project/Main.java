@@ -8,10 +8,14 @@ import edu.ufp.inf.lp2.project.Graphs.Edge_Project;
 
 import static edu.ufp.inf.lp2.project.Admin_User.*;
 import edu.ufp.inf.lp2.project.Graphs.Caxeiro_Viajante;
+
+import java.io.File;
+import java.io.IOException;
+
 public class Main {
 
 
-    public static void main(String[] args) throws General_Exception {
+    public static void main(String[] args) throws General_Exception, IOException {
         //teste();
         //teste_files();
         //teste_projeto();
@@ -273,7 +277,7 @@ public class Main {
 
     }
 
-    public static void teste_projeto() throws General_Exception {
+    public static void teste_projeto() throws General_Exception, IOException {
         Files_rw.read_all();
 
         Premium_User manuel = (Premium_User) Admin_User.userST.get("1");
@@ -579,8 +583,10 @@ public class Main {
     }
 
 
-    public static void teste_Graphs(){
-        Files_rw.read_all();
+    public static void teste_Graphs() throws IOException {
+
+        //Files_rw.read_all();
+        Files_rw.read_all_BIN();
         //Files_rw.read_GeoCacheGraphs();
         //Create_graph_per_region("Centro");
         //Create_graph_per_dificuldade("Facil");
@@ -703,7 +709,10 @@ public class Main {
        // Admin_User.ShortestPath(0,6);
 
 
+        //Files_rw.SaveFileBinUsers();
 
+       //Files_rw.SaveFileBinCaches();
+       //Files_rw.saveFileBinGeoCacheGraphs();
         //Files_rw.save_GeoCacheGraphs();
 
     }

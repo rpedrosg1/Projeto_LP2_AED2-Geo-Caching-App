@@ -1,8 +1,8 @@
 package edu.ufp.inf.lp2.project;
 
-import edu.princeton.cs.algs4.LinearProbingHashST;
 import edu.ufp.inf.lp2.project.Graphs.AED_DijkstraSP;
 import edu.ufp.inf.lp2.project.Graphs.Edge_Project;
+import edu.ufp.inf.lp2.project.SerializableClasses.Project_LinearProbingHashST;
 
 import static edu.ufp.inf.lp2.project.Admin_User.CachesGraph;
 import static edu.ufp.inf.lp2.project.Admin_User.cacheST;
@@ -11,7 +11,7 @@ public class Premium_User extends Basic_User {
 
     public int nr_caches_criadas;
 
-    public LinearProbingHashST<String, TravelBug> myTravelBugs = new LinearProbingHashST<>();
+    public Project_LinearProbingHashST<String, TravelBug> myTravelBugs = new Project_LinearProbingHashST<>();
 
     /**
      * Contrutor que inicializa um Premium User com as suas caracteriasticas

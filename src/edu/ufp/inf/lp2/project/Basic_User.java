@@ -1,16 +1,13 @@
 package edu.ufp.inf.lp2.project;
 
-import edu.princeton.cs.algs4.DijkstraSP;
-import edu.princeton.cs.algs4.LinearProbingHashST;
-import edu.princeton.cs.algs4.StdOut;
 import edu.ufp.inf.lp2.project.Graphs.AED_DijkstraSP;
 import edu.ufp.inf.lp2.project.Graphs.Edge_Project;
+import edu.ufp.inf.lp2.project.SerializableClasses.Project_LinearProbingHashST;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.logging.Logger;
 
 import static edu.ufp.inf.lp2.project.Admin_User.*;
 
@@ -26,7 +23,7 @@ public class Basic_User implements GestaoUtilizadores, Serializable {
 
   public String type;
 
-  public LinearProbingHashST<String,Objeto> myObj=new LinearProbingHashST<>();
+  public Project_LinearProbingHashST<String,Objeto> myObj=new Project_LinearProbingHashST<>();
 
   public ArrayList<Logs_User> myLogs_user = new ArrayList<>();
 
@@ -170,11 +167,11 @@ public class Basic_User implements GestaoUtilizadores, Serializable {
     this.nr_caches_visitadas = nr_caches_visitadas;
   }
 
-  public LinearProbingHashST<String, Objeto> getMyObj() {
+  public Project_LinearProbingHashST<String, Objeto> getMyObj() {
     return myObj;
   }
 
-  public void setMyObj(LinearProbingHashST<String, Objeto> myObj) {
+  public void setMyObj(Project_LinearProbingHashST<String, Objeto> myObj) {
     this.myObj = myObj;
   }
 

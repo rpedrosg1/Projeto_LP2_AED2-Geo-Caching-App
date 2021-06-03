@@ -1,6 +1,8 @@
 package edu.ufp.inf.lp2.project;
 
-public class Logs_Cache {
+import java.io.Serializable;
+
+public class Logs_Cache implements Serializable {
     public Date d;
     public String id_user;
     public String id_objdeixado;

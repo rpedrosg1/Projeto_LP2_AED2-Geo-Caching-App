@@ -1,4 +1,7 @@
 package edu.ufp.inf.lp2.project;
+
+import java.io.Serializable;
+
 /**
  *Objeto
  * mycache-cache onde esta se for null esta num user
@@ -7,7 +10,7 @@ package edu.ufp.inf.lp2.project;
 
 
 
-public class Objeto {
+public class Objeto implements Serializable {
     public String id;
     public String nome;
     public Cache myCache;

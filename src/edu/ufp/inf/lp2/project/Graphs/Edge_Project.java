@@ -3,10 +3,12 @@
 package edu.ufp.inf.lp2.project.Graphs;
 import edu.princeton.cs.algs4.*;
 import edu.ufp.inf.lp2.project.Admin_User;
-import edu.ufp.inf.lp2.project.Cache;
+import edu.ufp.inf.lp2.project.SerializableClasses.Project_DirectedEdge;
+
+import java.io.Serializable;
 
 
-public class Edge_Project extends DirectedEdge {
+public class Edge_Project extends Project_DirectedEdge implements Serializable {
     private float time;
 
 

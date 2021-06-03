@@ -1,9 +1,10 @@
 package edu.ufp.inf.lp2.project;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class Date implements Comparable<Date>{
+public class Date implements Comparable<Date>, Serializable {
 
   public int hour;
 
