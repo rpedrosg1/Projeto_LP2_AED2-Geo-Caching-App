@@ -9,6 +9,7 @@ import edu.ufp.inf.lp2.project.Graphs.Edge_Project;
 import static edu.ufp.inf.lp2.project.Admin_User.*;
 import edu.ufp.inf.lp2.project.Graphs.Caxeiro_Viajante;
 
+import java.io.File;
 import java.io.IOException;
 
 public class Main {
@@ -583,7 +584,9 @@ public class Main {
 
 
     public static void teste_Graphs() throws IOException {
-        Files_rw.read_all();
+
+        //Files_rw.read_all();
+        Files_rw.read_all_BIN();
         //Files_rw.read_GeoCacheGraphs();
         //Create_graph_per_region("Centro");
         //Create_graph_per_dificuldade("Facil");

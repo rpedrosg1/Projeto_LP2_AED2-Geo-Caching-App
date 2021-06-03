@@ -3,7 +3,8 @@ package edu.ufp.inf.lp2.project;
 import edu.princeton.cs.algs4.*;
 import edu.ufp.inf.lp2.project.Graphs.*;
 
-import edu.ufp.inf.lp2.project.JavaFX.Arrow;
+import edu.ufp.inf.lp2.project.SerializableClasses.Project_RedBlackBST;
+import edu.ufp.inf.lp2.project.SerializableClasses.Project_ST;
 
 import java.util.ArrayList;
 

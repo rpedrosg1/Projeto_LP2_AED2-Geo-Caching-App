@@ -175,11 +175,7 @@ public class BTController implements Initializable, Serializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         changepane(paneStart);
-        try {
-            Files_rw.read_all();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Files_rw.read_all();
     }
 
     public void changepane(Pane p) {

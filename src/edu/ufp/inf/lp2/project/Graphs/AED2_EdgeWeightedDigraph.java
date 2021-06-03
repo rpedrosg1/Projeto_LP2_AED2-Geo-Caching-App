@@ -2,7 +2,7 @@ package edu.ufp.inf.lp2.project.Graphs;
 import edu.princeton.cs.algs4.*;
 import edu.ufp.inf.lp2.project.Cache;
 import edu.ufp.inf.lp2.project.Localizacao;
-import edu.ufp.inf.lp2.project.Project_Bag;
+import edu.ufp.inf.lp2.project.SerializableClasses.Project_Bag;
 
 import java.io.Serializable;
 import java.util.ArrayList;

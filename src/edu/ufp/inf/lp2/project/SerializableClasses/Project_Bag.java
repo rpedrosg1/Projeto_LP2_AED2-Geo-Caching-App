@@ -1,4 +1,4 @@
-package edu.ufp.inf.lp2.project;
+package edu.ufp.inf.lp2.project.SerializableClasses;
 
 
 

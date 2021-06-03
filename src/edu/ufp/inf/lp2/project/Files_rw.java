@@ -4,6 +4,8 @@ import edu.princeton.cs.algs4.*;
 import edu.ufp.inf.lp2.project.Graphs.Caches_Graph;
 import edu.ufp.inf.lp2.project.Graphs.Edge_Project;
 import edu.ufp.inf.lp2.project.Graphs.AED2_EdgeWeightedDigraph;
+import edu.ufp.inf.lp2.project.SerializableClasses.Project_RedBlackBST;
+import edu.ufp.inf.lp2.project.SerializableClasses.Project_ST;
 
 import java.io.*;
 
@@ -412,13 +414,10 @@ public class Files_rw {
         In myFile = new In(".//data//Objetos.txt");
 
         while (myFile.hasNextLine()) {
-
             String curLine = myFile.readLine();//Current Line
-
             int size = curLine.length(), currword = 0, lastword = 0;
             String word = "", objPlace = "", objType = "",objID="",objName="",objCacheName="",objUserID="",userCreatorID="";
             for (int i = 0; i < size; i++) {
-
                 if (curLine.charAt(i) == '|') {
                     word = curLine.substring(lastword, i);
                     currword++;
@@ -795,17 +794,42 @@ public class Files_rw {
         save_TravelBugs_HUsers();
         save_GeoCacheGraphs();
     }
+    public static void save_all_BIN(){
+        SaveFileBinUsers();
+        SaveFileBinCaches();
+        saveFileBinGeoCacheGraphs();
+        save_Cache_Users_Husers_Hcaches();
+        save_TravelBugs_Logs();
+        save_Logs();
+        save_Logs_Cache();
+        save_Logs_User();
+        save_Objetos();
+        save_TravelBugs_HCaches();
+        save_TravelBugs_HUsers();
+    }
 
     /**
      * Usa todas as funcoes de ler dos ficheiros
      */
-    public static void read_all() throws IOException {
+    public static void read_all(){
+        read_Users();
+        read_Caches();
+        read_GeoCacheGraphs();
+        read_Objetos();
+        read_Cache_Users_Husers_Hcaches();
+        read_TravelBugs_Logs();
+        read_Logs();
+        read_Logs_Cache();
+        read_Logs_User();
+
+        read_TravelBugs_HCaches();
+        read_TravelBugs_HUsers();
+
+    }
+    public static void read_all_BIN() throws IOException {
         readFileBinUsers();
         readFileBinCaches();
         readFileBinGeoCacheGraphs();
-        //read_Users();
-        //read_Caches();
-        //read_GeoCacheGraphs();
         read_Objetos();
         read_Cache_Users_Husers_Hcaches();
         read_TravelBugs_Logs();

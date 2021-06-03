@@ -1,8 +1,8 @@
 package edu.ufp.inf.lp2.project;
 
-import edu.princeton.cs.algs4.LinearProbingHashST;
 import edu.ufp.inf.lp2.project.Graphs.AED_DijkstraSP;
 import edu.ufp.inf.lp2.project.Graphs.Edge_Project;
+import edu.ufp.inf.lp2.project.SerializableClasses.Project_LinearProbingHashST;
 
 import static edu.ufp.inf.lp2.project.Admin_User.CachesGraph;
 import static edu.ufp.inf.lp2.project.Admin_User.cacheST;

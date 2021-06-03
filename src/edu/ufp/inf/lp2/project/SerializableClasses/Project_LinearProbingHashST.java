@@ -1,21 +1,21 @@
+package edu.ufp.inf.lp2.project.SerializableClasses;
+
 /******************************************************************************
- *  Compilation:  javac Project_SeparateChainingHashST.java
- *  Execution:    java Project_SeparateChainingHashST < input.txt
+ *  Compilation:  javac LinearProbingHashST.java
+ *  Execution:    java LinearProbingHashST < input.txt
  *  Dependencies: StdIn.java StdOut.java
  *  Data files:   https://algs4.cs.princeton.edu/34hash/tinyST.txt
  *
- *  A symbol table implemented with a separate-chaining hash table.
+ *  Symbol-table implementation with linear-probing hash table.
  *
  ******************************************************************************/
-
-package edu.ufp.inf.lp2.project;
 
 import edu.princeton.cs.algs4.*;
 
 import java.io.Serializable;
 
 /**
- *  The {@code Project_SeparateChainingHashST} class represents a symbol table of generic
+ *  The {@code LinearProbingHashST} class represents a symbol table of generic
  *  key-value pairs.
  *  It supports the usual <em>put</em>, <em>get</em>, <em>contains</em>,
  *  <em>delete</em>, <em>size</em>, and <em>is-empty</em> methods.
@@ -28,7 +28,7 @@ import java.io.Serializable;
  *  value associated with a key to {@code null} is equivalent to deleting the key
  *  from the symbol table.
  *  <p>
- *  This implementation uses a separate chaining hash table. It requires that
+ *  This implementation uses a linear probing hash table. It requires that
  *  the key type overrides the {@code equals()} and {@code hashCode()} methods.
  *  The expected time per <em>put</em>, <em>contains</em>, or <em>remove</em>
  *  operation is constant, subject to the uniform hashing assumption.
@@ -39,62 +39,39 @@ import java.io.Serializable;
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *  For other implementations, see {@link ST}, {@link BinarySearchST},
  *  {@link SequentialSearchST}, {@link BST}, {@link RedBlackBST}, and
- *  {@link LinearProbingHashST},
+ *  {@link SeparateChainingHashST},
  *
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class Project_SeparateChainingHashST<Key, Value> implements Serializable {
+public class Project_LinearProbingHashST<Key, Value> implements Serializable {
+
+    // must be a power of 2
     private static final int INIT_CAPACITY = 4;
 
-    private int n;                                // number of key-value pairs
-    private int m;                                // hash table size
-    private Project_SequentialSearchST<Key, Value>[] st;  // array of linked-list symbol tables
+    private int n;           // number of key-value pairs in the symbol table
+    private int m;           // size of linear probing table
+    private Key[] keys;      // the keys
+    private Value[] vals;    // the values
 
 
     /**
      * Initializes an empty symbol table.
      */
-    public Project_SeparateChainingHashST() {
+    public Project_LinearProbingHashST() {
         this(INIT_CAPACITY);
     }
 
     /**
-     * Initializes an empty symbol table with {@code m} chains.
-     * @param m the initial number of chains
+     * Initializes an empty symbol table with the specified initial capacity.
+     *
+     * @param capacity the initial capacity
      */
-    public Project_SeparateChainingHashST(int m) {
-        this.m = m;
-        st = (Project_SequentialSearchST<Key, Value>[]) new Project_SequentialSearchST[m];
-        for (int i = 0; i < m; i++)
-            st[i] = new Project_SequentialSearchST<Key, Value>();
-    }
-
-    // resize the hash table to have the given number of chains,
-    // rehashing all of the keys
-    private void resize(int chains) {
-        Project_SeparateChainingHashST<Key, Value> temp = new Project_SeparateChainingHashST<Key, Value>(chains);
-        for (int i = 0; i < m; i++) {
-            for (Key key : st[i].keys()) {
-                temp.put(key, st[i].get(key));
-            }
-        }
-        this.m  = temp.m;
-        this.n  = temp.n;
-        this.st = temp.st;
-    }
-
-    // hash function for keys - returns value between 0 and m-1
-    private int hashTextbook(Key key) {
-        return (key.hashCode() & 0x7fffffff) % m;
-    }
-
-    // hash function for keys - returns value between 0 and m-1 (assumes m is a power of 2)
-    // (from Java 7 implementation, protects against poor quality hashCode() implementations)
-    private int hash(Key key) {
-        int h = key.hashCode();
-        h ^= (h >>> 20) ^ (h >>> 12) ^ (h >>> 7) ^ (h >>> 4);
-        return h & (m-1);
+    public Project_LinearProbingHashST(int capacity) {
+        m = capacity;
+        n = 0;
+        keys = (Key[])   new Object[m];
+        vals = (Value[]) new Object[m];
     }
 
     /**
@@ -129,18 +106,30 @@ public class Project_SeparateChainingHashST<Key, Value> implements Serializable 
         return get(key) != null;
     }
 
-    /**
-     * Returns the value associated with the specified key in this symbol table.
-     *
-     * @param  key the key
-     * @return the value associated with {@code key} in the symbol table;
-     *         {@code null} if no such value
-     * @throws IllegalArgumentException if {@code key} is {@code null}
-     */
-    public Value get(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to get() is null");
-        int i = hash(key);
-        return st[i].get(key);
+    // hash function for keys - returns value between 0 and m-1
+    private int hashTextbook(Key key) {
+        return (key.hashCode() & 0x7fffffff) % m;
+    }
+
+    // hash function for keys - returns value between 0 and m-1 (assumes m is a power of 2)
+    // (from Java 7 implementation, protects against poor quality hashCode() implementations)
+    private int hash(Key key) {
+        int h = key.hashCode();
+        h ^= (h >>> 20) ^ (h >>> 12) ^ (h >>> 7) ^ (h >>> 4);
+        return h & (m-1);
+    }
+
+    // resizes the hash table to the given capacity by re-hashing all of the keys
+    private void resize(int capacity) {
+        Project_LinearProbingHashST<Key, Value> temp = new Project_LinearProbingHashST<Key, Value>(capacity);
+        for (int i = 0; i < m; i++) {
+            if (keys[i] != null) {
+                temp.put(keys[i], vals[i]);
+            }
+        }
+        keys = temp.keys;
+        vals = temp.vals;
+        m    = temp.m;
     }
 
     /**
@@ -155,17 +144,40 @@ public class Project_SeparateChainingHashST<Key, Value> implements Serializable 
      */
     public void put(Key key, Value val) {
         if (key == null) throw new IllegalArgumentException("first argument to put() is null");
+
         if (val == null) {
             delete(key);
             return;
         }
 
-        // double table size if average length of list >= 10
-        if (n >= 10*m) resize(2*m);
+        // double table size if 50% full
+        if (n >= m/2) resize(2*m);
 
-        int i = hash(key);
-        if (!st[i].contains(key)) n++;
-        st[i].put(key, val);
+        int i;
+        for (i = hash(key); keys[i] != null; i = (i + 1) % m) {
+            if (keys[i].equals(key)) {
+                vals[i] = val;
+                return;
+            }
+        }
+        keys[i] = key;
+        vals[i] = val;
+        n++;
+    }
+
+    /**
+     * Returns the value associated with the specified key.
+     * @param key the key
+     * @return the value associated with {@code key};
+     *         {@code null} if no such value
+     * @throws IllegalArgumentException if {@code key} is {@code null}
+     */
+    public Value get(Key key) {
+        if (key == null) throw new IllegalArgumentException("argument to get() is null");
+        for (int i = hash(key); keys[i] != null; i = (i + 1) % m)
+            if (keys[i].equals(key))
+                return vals[i];
+        return null;
     }
 
     /**
@@ -177,33 +189,82 @@ public class Project_SeparateChainingHashST<Key, Value> implements Serializable 
      */
     public void delete(Key key) {
         if (key == null) throw new IllegalArgumentException("argument to delete() is null");
+        if (!contains(key)) return;
 
+        // find position i of key
         int i = hash(key);
-        if (st[i].contains(key)) n--;
-        st[i].delete(key);
+        while (!key.equals(keys[i])) {
+            i = (i + 1) % m;
+        }
 
-        // halve table size if average length of list <= 2
-        if (m > INIT_CAPACITY && n <= 2*m) resize(m/2);
+        // delete key and associated value
+        keys[i] = null;
+        vals[i] = null;
+
+        // rehash all keys in same cluster
+        i = (i + 1) % m;
+        while (keys[i] != null) {
+            // delete keys[i] an vals[i] and reinsert
+            Key   keyToRehash = keys[i];
+            Value valToRehash = vals[i];
+            keys[i] = null;
+            vals[i] = null;
+            n--;
+            put(keyToRehash, valToRehash);
+            i = (i + 1) % m;
+        }
+
+        n--;
+
+        // halves size of array if it's 12.5% full or less
+        if (n > 0 && n <= m/8) resize(m/2);
+
+        assert check();
     }
 
-    // return keys in symbol table as an Iterable
+    /**
+     * Returns all keys in this symbol table as an {@code Iterable}.
+     * To iterate over all of the keys in the symbol table named {@code st},
+     * use the foreach notation: {@code for (Key key : st.keys())}.
+     *
+     * @return all keys in this symbol table
+     */
     public Iterable<Key> keys() {
         Queue<Key> queue = new Queue<Key>();
-        for (int i = 0; i < m; i++) {
-            for (Key key : st[i].keys())
-                queue.enqueue(key);
-        }
+        for (int i = 0; i < m; i++)
+            if (keys[i] != null) queue.enqueue(keys[i]);
         return queue;
+    }
+
+    // integrity check - don't check after each put() because
+    // integrity not maintained during a delete()
+    private boolean check() {
+
+        // check that hash table is at most 50% full
+        if (m < 2*n) {
+            System.err.println("Hash table size m = " + m + "; array size n = " + n);
+            return false;
+        }
+
+        // check that each key in table can be found by get()
+        for (int i = 0; i < m; i++) {
+            if (keys[i] == null) continue;
+            else if (get(keys[i]) != vals[i]) {
+                System.err.println("get[" + keys[i] + "] = " + get(keys[i]) + "; vals[i] = " + vals[i]);
+                return false;
+            }
+        }
+        return true;
     }
 
 
     /**
-     * Unit tests the {@code Project_SeparateChainingHashST} data type.
+     * Unit tests the {@code LinearProbingHashST} data type.
      *
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        Project_SeparateChainingHashST<String, Integer> st = new Project_SeparateChainingHashST<String, Integer>();
+        Project_LinearProbingHashST<String, Integer> st = new Project_LinearProbingHashST<String, Integer>();
         for (int i = 0; !StdIn.isEmpty(); i++) {
             String key = StdIn.readString();
             st.put(key, i);
@@ -212,9 +273,7 @@ public class Project_SeparateChainingHashST<Key, Value> implements Serializable 
         // print keys
         for (String s : st.keys())
             StdOut.println(s + " " + st.get(s));
-
     }
-
 }
 
 /******************************************************************************

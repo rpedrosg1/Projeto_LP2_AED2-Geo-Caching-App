@@ -1,7 +1,6 @@
 package edu.ufp.inf.lp2.project.Graphs;
 import edu.princeton.cs.algs4.*;
-import edu.ufp.inf.lp2.project.Cache;
-import edu.ufp.inf.lp2.project.Project_ST;
+import edu.ufp.inf.lp2.project.SerializableClasses.Project_ST;
 
 import java.io.Serializable;
 
