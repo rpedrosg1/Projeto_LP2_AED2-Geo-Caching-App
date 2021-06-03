@@ -23,6 +23,18 @@ public class Cache implements GestaoCaches , Serializable {
     public ArrayList<TravelBug> myTravelBug = new ArrayList<>();//inventario da cache *só TB*
     public HashMap<String, Basic_User> H_User = new HashMap<>();//historico de users q passram la n ha repetições
 
+    public String getNome() {
+        return nome;
+    }
+
+    public String getDescrisao() {
+        return descrisao;
+    }
+    public String getRegiao(){
+
+        return myLocalizacao.regiao;
+    }
+
     /**
      * Contrutor que inicializa uma cache com as suas caracteriasticas
      * @param mycreator_user id que o Premium User q a criou

@@ -165,6 +165,8 @@
                                                 <Font name="System Bold" size="17.0" />
                                              </font>
                                           </Text>
+                                          <ComboBox fx:id="combobox_UsersDetails" layoutX="10.0" layoutY="300.0" onAction="#handleCurrentUserDetailsAction" prefHeight="31.0" prefWidth="268.0" promptText="Choose User details" />
+                                          <TextArea fx:id="textFieldUserDetails" prefHeight="370.0" prefWidth="619.0" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="345.0" />
                                        </children>
                                     </AnchorPane>
                                  </content>
@@ -403,7 +405,48 @@
                            <content>
                               <AnchorPane prefHeight="710.0" prefWidth="815.0">
                                  <children>
-                                    <VBox layoutY="333.0" prefHeight="390.0" prefWidth="815.0" />
+                                    <ComboBox fx:id="combobox_DifCache" prefHeight="47.0" prefWidth="150.0" promptText="Dificulty of Cache" />
+                                    <ComboBox fx:id="combobox_typeCache" layoutY="50.0" prefHeight="47.0" prefWidth="150.0" promptText="Type of Cache" />
+                                    <VBox layoutY="300.0" prefHeight="425.0" prefWidth="815.0">
+                                       <children>
+                                          <GridPane alignment="BOTTOM_CENTER" prefHeight="466.0" prefWidth="815.0">
+                                             <children>
+                                                <TableView fx:id="cacheTable" prefHeight="371.0" prefWidth="793.0" GridPane.rowIndex="1">
+                                                   <columnResizePolicy>
+                                                      <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                   </columnResizePolicy>
+                                                   <columns>
+                                                      <TableColumn fx:id="nameColCache" prefWidth="91.0" text="Nome" />
+                                                      <TableColumn fx:id="descrisaoColCache" prefWidth="311.0" text="Descrisao" />
+                                                      <TableColumn fx:id="localizacaoColCache" prefWidth="311.0" text="Regiao" />
+                                                   </columns>
+                                                </TableView>
+                                                <HBox fx:id="user_HBox1" prefHeight="100.0" prefWidth="200.0">
+                                                   <children>
+                                                      <TextField fx:id="cache_nameField" prefHeight="47.0" prefWidth="190.0" promptText="Nome" />
+                                                      <TextField fx:id="cache_descricaoField" layoutX="100.0" layoutY="10.0" prefHeight="47.0" prefWidth="190.0" promptText="Descrição" />
+                                                      <TextField fx:id="cache_RegiaoField" layoutX="100.0" layoutY="10.0" prefHeight="47.0" prefWidth="190.0" promptText="Raio;Regiao" />
+                                                      <TextField fx:id="cache_CoordenadasField" layoutX="390.0" layoutY="10.0" prefHeight="47.0" prefWidth="190.0" promptText="Latitude;Longitude" />
+                                                      <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#handleAddUserAction" prefHeight="48.0" prefWidth="85.0" text="Add">
+                                                         <cursor>
+                                                            <Cursor fx:constant="HAND" />
+                                                         </cursor>
+                                                      </Button>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints maxHeight="208.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="382.0" minHeight="10.0" prefHeight="378.0" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                          </GridPane>
+                                       </children>
+                                    </VBox>
+                                    <Button layoutY="264.0" mnemonicParsing="false" onAction="#handleReadCachesTableViewAction" prefHeight="35.0" prefWidth="120.0" text="Carregar Caches" />
+                                    <Button layoutX="120.0" layoutY="264.0" mnemonicParsing="false" onAction="#handleSaveCachesTableViewAction" prefHeight="35.0" prefWidth="120.0" text="Salvar Caches" />
                                  </children>
                               </AnchorPane>
                            </content>
@@ -413,7 +456,7 @@
                </children></Pane>
             <Pane fx:id="paneTravelBugs" styleClass="root" stylesheets="@GeoCachefxml.css">
                <children>
-                  <AnchorPane prefHeight="761.0" prefWidth="815.0">
+                  <AnchorPane layoutX="-14.0" prefHeight="761.0" prefWidth="815.0">
                      <children>
                         <ComboBox fx:id="combobox_TraveLbugs" layoutX="39.0" layoutY="66.0" onAction="#handleCurrentTravelBugAction" prefWidth="150.0" promptText="Choose TB" />
                         <ComboBox fx:id="combobox_TraveLbugsDetails" layoutX="198.0" layoutY="66.0" onAction="#handleCurrentTravelBugDetailsAction" prefHeight="31.0" prefWidth="302.0" promptText="Choose TravelBug details" />
