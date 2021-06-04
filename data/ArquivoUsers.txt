@@ -28,3 +28,6 @@ Users removidos:
 
 
 
+
+-----------------------------------------------------------------------------------------
+[PREMIUM] User -> Manuel, ID -> 1, Idade -> 27, Caches visitadas -> 0, Caches criadas -> 0

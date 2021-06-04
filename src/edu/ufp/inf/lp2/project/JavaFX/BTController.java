@@ -1451,9 +1451,16 @@ public class BTController implements Initializable, Serializable {
                 }
             }
             userArrayList.remove(user);
+
+            combobox_userDelete.getItems().clear();
+            for (Basic_User aux : userArrayList){
+                combobox_userDelete.getItems().add(aux.nome);
+            }
         }else{
             System.err.println("Erro ao eliminar User");
         }
+
+
     }
 
     public void handleDeleteCache(ActionEvent actionEvent){
@@ -1476,6 +1483,13 @@ public class BTController implements Initializable, Serializable {
             }
 
             cacheArrayList.remove(c);
+
+            combobox_cacheDelete.getItems().clear();
+            for (Cache aux : cacheArrayList){
+                combobox_cacheDelete.getItems().add(aux.nome);
+            }
+
+
         }else{
             System.err.println("Erro ao eliminar Cache");
         }
