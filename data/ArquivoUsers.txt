@@ -12,3 +12,19 @@ Users removidos:
 
 		Este User visitou a Cache:[geocache8] Date:5/1/2021 , at : 18h.
     		Retirou objetoID -> o13.
+
+
+-----------------------------------------------------------------------------------------
+[PREMIUM] User -> Manuel, ID -> 1, Idade -> 27, Caches visitadas -> 4, Caches criadas -> 0
+	Meus Logs:
+		Este User visitou a Cache:[geocache1] Date:2/3/4 , at : 1h.
+
+		Este User visitou a Cache:[geocache2] Date:2/3/4 , at : 1h.
+
+		Este User visitou a Cache:[geocache3] Date:2/3/4 , at : 1h.
+
+		Este User visitou a Cache:[geocache10] Date:2/3/4 , at : 1h.
+
+
+
+

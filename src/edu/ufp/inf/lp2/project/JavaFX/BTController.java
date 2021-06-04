@@ -20,7 +20,6 @@ import javafx.scene.text.Text;
 import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.ResourceBundle;
 
 import static edu.ufp.inf.lp2.project.Admin_User.*;
@@ -153,10 +152,19 @@ public class BTController implements Initializable, Serializable {
     public ComboBox<String> combobox_CacheCreator;
     public ComboBox<String> combobox_typeCache;
     public ComboBox<String> combobox_DifCache;
+    public ComboBox<String> combobox_RegionCache;
     public TextField cache_nameField;
     public TextField cache_descricaoField;
-    public TextField cache_RegiaoField;
-    public TextField cache_CoordenadasField;
+    public TextField cache_RaioField;
+    public TextField cache_latitudedField;
+    public TextField cache_longitudeField;
+
+
+    //DELETE
+
+    public ComboBox<String> combobox_userDelete;
+    public ComboBox<String> combobox_cacheDelete;
+
 
 
 
@@ -177,7 +185,37 @@ public class BTController implements Initializable, Serializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         changepane(paneStart);
-        Files_rw.read_all();
+        //Files_rw.read_all();
+        try {
+            Files_rw.read_all_BIN();
+
+            for (String key : userST.keys()){
+                Basic_User user = (Basic_User)userST.get(key);
+                userArrayList.add( user);
+                if(user.myObj.size()>0){
+                    for (String o : user.myObj.keys()){
+                        Objeto objeto = user.myObj.get(o);
+                        objetosAllArrayList.add(objeto);
+                        if(objeto instanceof TravelBug){
+                            travelBugArrayList.add((TravelBug) objeto);
+                        }
+                    }
+                }
+            }
+
+            for (String key : cacheST.keys()){
+                Cache cache = cacheST.get(key);
+                cacheArrayList.add(cache);
+                if(cache.myTravelBug.size()>0){
+                    travelBugArrayList.addAll(cache.myTravelBug);
+                }
+                if(cache.objCache.size()>0){
+                    objetosAllArrayList.addAll(cache.objCache);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void changepane(Pane p) {
@@ -275,7 +313,8 @@ public class BTController implements Initializable, Serializable {
         combobox_DifCache.getItems().clear();
         combobox_typeCache.getItems().add("Basic");
         combobox_typeCache.getItems().add("Premium");
-        combobox_DifCache.getItems().add("FACIL");
+
+        combobox_DifCache.getItems().add("Facil");
         combobox_DifCache.getItems().add("Medio");
         combobox_DifCache.getItems().add("Dificil");
 
@@ -285,8 +324,22 @@ public class BTController implements Initializable, Serializable {
 
         combobox_CacheCreator.getItems().clear();
 
+        combobox_RegionCache.getItems().clear();
+
+        combobox_RegionCache.getItems().add("Norte");
+        combobox_RegionCache.getItems().add("Centro");
+        combobox_RegionCache.getItems().add("Sul");
+
+        combobox_userDelete.getItems().clear();
+        combobox_cacheDelete.getItems().clear();
+
         for (Basic_User user : userArrayList){
-            if(user instanceof Admin_User)combobox_CacheCreator.getItems().add(user.nome);
+            if(user instanceof Premium_User)combobox_CacheCreator.getItems().add(user.nome);
+            combobox_userDelete.getItems().add(user.nome);
+        }
+
+        for (Cache c : cacheArrayList) {
+            combobox_cacheDelete.getItems().add(c.nome);
         }
 
     }
@@ -1265,28 +1318,33 @@ public class BTController implements Initializable, Serializable {
 
 
             String[] lines = edgesField.getText().split("\n");
-            for (String line : lines) {
-                String[] position = line.split(";");
-                //int v = Integer.parseInt(position[0]);
-                //int adj = Integer.parseInt(position[1]);
+            try{
+                for (String line : lines) {
+                    String[] position = line.split(";");
+                    //int v = Integer.parseInt(position[0]);
+                    //int adj = Integer.parseInt(position[1]);
 
-                if (Integer.parseInt(position[0]) < 1 || Integer.parseInt(position[1]) < 1) {
-                    System.err.println("Error: Values not inserted");
-                    return;
+                    if (Integer.parseInt(position[0]) < 1 || Integer.parseInt(position[1]) < 1) {
+                        System.err.println("Error: Values not inserted");
+                        return;
+                    }
+                    int v = Integer.parseInt(position[0]) - 1;
+                    int adj = Integer.parseInt(position[1]) - 1;
+
+                    double weight = Double.parseDouble(position[2]);
+                    float time = Float.parseFloat(position[3]);
+                    Edge_Project e = new Edge_Project(v, adj, weight, time);
+                    CachesGraph.graph.addEdge(e);
+                    if (!gG.containsEdge(v, adj))
+                        gG.addEdge(e);
+
+                    //Arrow arrow = new Arrow(gG.getVertexPosX(v-1),gG.getVertexPosY(v-1),gG.getVertexPosX(adj-1),gG.getVertexPosY(adj-1),10);
+                    //graphGroup.getChildren().add(arrow);
                 }
-                int v = Integer.parseInt(position[0]) - 1;
-                int adj = Integer.parseInt(position[1]) - 1;
-
-                double weight = Double.parseDouble(position[2]);
-                float time = Float.parseFloat(position[3]);
-                Edge_Project e = new Edge_Project(v, adj, weight, time);
-                CachesGraph.graph.addEdge(e);
-                if (!gG.containsEdge(v, adj))
-                    gG.addEdge(e);
-
-                //Arrow arrow = new Arrow(gG.getVertexPosX(v-1),gG.getVertexPosY(v-1),gG.getVertexPosX(adj-1),gG.getVertexPosY(adj-1),10);
-                //graphGroup.getChildren().add(arrow);
+            }catch (Exception e){
+                System.err.println("Erro, informações incorretas\n");
             }
+
             graphMenuItemGeral(new ActionEvent());
         } catch (NumberFormatException e) {
             createGraphGroup();
@@ -1340,27 +1398,86 @@ public class BTController implements Initializable, Serializable {
         try {
             name=cache_nameField.getText();
             descricao=cache_descricaoField.getText();
-            String raioRegiao = cache_RegiaoField.getText();
-            String []words = raioRegiao.split(FILE_DELIMITTER);
-            raio=Float.parseFloat(words[0]);
-            regiao=words[1].toUpperCase();
-            if(regiao.equals("NORTE"))regiao="Norte";
-            else if(regiao.equals("CENTRO")) regiao="Centro";
-            else if(regiao.equals("SUL")) regiao="sul";
-            else{
-                System.err.println("Regiao invalida.\n");
-                return;
-            }
+            raio =Float.parseFloat(cache_RaioField.getText());
+            regiao=combobox_RegionCache.getValue();
+            latitude=Float.parseFloat(cache_latitudedField.getText());
+            longitude=Float.parseFloat(cache_longitudeField.getText());
 
-            String latLong = cache_CoordenadasField.getText();
-            String []words2 = latLong.split(FILE_DELIMITTER);
-            latitude=Float.parseFloat(words2[0]);
-            longitude=Float.parseFloat(words2[1]);
+            Tipo tipo = null;
+            if(combobox_typeCache.getValue().equals("Basic"))tipo=Tipo.BASIC;
+            else tipo=Tipo.PREMIUM;
+
+            Dificuldade dificuldade = null;
+            if(combobox_DifCache.getValue().equals("Facil"))dificuldade=Dificuldade.FACIL;
+            else if(combobox_DifCache.getValue().equals("Medio"))dificuldade=Dificuldade.MEDIO;
+            else dificuldade=Dificuldade.DIFICIL;
+
+            Coordenadas coordenadas = new Coordenadas(longitude,latitude);
+            Localizacao localizacao = new Localizacao(raio,regiao,coordenadas);
+
+            Premium_User premiumUser = null;
+            for (Basic_User user : userArrayList)if(user.nome.equals(combobox_CacheCreator.getValue()))premiumUser=(Premium_User) user;
+            Cache c=new Cache();
+            if(premiumUser!=null){
+                c = new Cache(premiumUser,name,descricao,localizacao,dificuldade,tipo);
+                cacheST.put(c.nome,c);
+                cacheArrayList.add(c);
+                cacheTable.getItems().add(c);
+                CachesGraph.st.put(c.nome,cacheST.size()-1);
+                CachesGraph.graph=new AED2_EdgeWeightedDigraph(cacheST.size());
+                gG = CachesGraph.graph;
+                Files_rw.read_GeoCacheGraphs();
+            }
 
 
         }catch (Exception e){
             System.err.println("Erro nas caracteristicas da Cache.\n");
             return;
+        }
+    }
+
+    public void handleDeleteUser(ActionEvent actionEvent){
+        Basic_User user = null;
+        for (Basic_User u : userArrayList){
+            if(u.nome.equals(combobox_userDelete.getValue()))user=u;
+        }
+        if(user!=null){
+            //System.out.println("\nUser " + user.nome + "foi removido!\n");
+            user.RemoverUtilizador();
+            if(user.myObj.size()>0){
+                for (String key : user.myObj.keys()){
+                    Objeto o = user.myObj.get(key);
+                    objetosAllArrayList.remove(o);
+                }
+            }
+            userArrayList.remove(user);
+        }else{
+            System.err.println("Erro ao eliminar User");
+        }
+    }
+
+    public void handleDeleteCache(ActionEvent actionEvent){
+        Cache c = null;
+        for (Cache cache : cacheArrayList){
+            if(cache.nome.equals(combobox_cacheDelete.getValue()))c=cache;
+        }
+        if(c!=null){
+            //System.out.println("\nCache " + c.nome + "foi removida!\n");
+            c.RemoverCache();
+            if(c.objCache.size()>0){
+                for (Objeto o : c.objCache){
+                    objetosAllArrayList.remove(o);
+                }
+            }
+            if(c.myTravelBug.size()>0){
+                for (TravelBug tb : c.myTravelBug){
+                    travelBugArrayList.remove(tb);
+                }
+            }
+
+            cacheArrayList.remove(c);
+        }else{
+            System.err.println("Erro ao eliminar Cache");
         }
     }
 

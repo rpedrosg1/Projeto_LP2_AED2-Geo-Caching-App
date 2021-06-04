@@ -587,6 +587,8 @@ public class Main {
 
         //Files_rw.read_all();
         Files_rw.read_all_BIN();
+
+
         //Files_rw.read_GeoCacheGraphs();
         //Create_graph_per_region("Centro");
         //Create_graph_per_dificuldade("Facil");
@@ -694,18 +696,22 @@ public class Main {
 
 
  */
-
+/*
         userST.get("1").VisitarCache(new Date(1,2,3,4), cacheST.get("geocache1"),new Logs("abc") );
         userST.get("1").VisitarCache(new Date(1,2,3,4), cacheST.get("geocache2"),new Logs("abc") );
         userST.get("1").VisitarCache(new Date(1,2,3,4), cacheST.get("geocache3"),new Logs("abc") );
         userST.get("1").VisitarCache(new Date(1,2,3,4), cacheST.get("geocache10"),new Logs("abc") );
         userST.get("1").VisitarCache(new Date(1,2,3,4), cacheST.get("geocache5"),new Logs("abc") );
         userST.get("1").VisitarCache(new Date(1,2,3,4), cacheST.get("geocache7"),new Logs("abc") );
+        */
+
         Create_graph_per_number_visitantes(1,4);
         //System.out.println(CachesGraph.graph.toString());
         System.out.println(new_CachesGraph.graph.toString());
         System.out.println("--------------------------------------------------------------------------------");
-       Admin_User.R18(13.42);
+        Admin_User.R18(13.42);
+
+
        // Admin_User.ShortestPath(0,6);
 
 

@@ -1,6 +1,6 @@
 package edu.ufp.inf.lp2.project;
 
-enum Dificuldade {
+public enum Dificuldade {
 
   FACIL,
 

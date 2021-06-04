@@ -798,14 +798,6 @@ public class Files_rw {
         SaveFileBinUsers();
         SaveFileBinCaches();
         saveFileBinGeoCacheGraphs();
-        save_Cache_Users_Husers_Hcaches();
-        save_TravelBugs_Logs();
-        save_Logs();
-        save_Logs_Cache();
-        save_Logs_User();
-        save_Objetos();
-        save_TravelBugs_HCaches();
-        save_TravelBugs_HUsers();
     }
 
     /**
@@ -830,16 +822,6 @@ public class Files_rw {
         readFileBinUsers();
         readFileBinCaches();
         readFileBinGeoCacheGraphs();
-        read_Objetos();
-        read_Cache_Users_Husers_Hcaches();
-        read_TravelBugs_Logs();
-        read_Logs();
-        read_Logs_Cache();
-        read_Logs_User();
-
-        read_TravelBugs_HCaches();
-        read_TravelBugs_HUsers();
-
     }
 
 
